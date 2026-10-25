@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Build, typecheck, test
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Check built packages ("use client", lazy entries)
+        run: pnpm check:dist
+      - run: pnpm typecheck
+      - run: pnpm test
+      - name: Registry builds
+        run: pnpm registry:build
+      - name: Semantic-class example compiles
+        run: pnpm css:example
+
+  changeset:
+    name: Changeset present
+    if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'changeset-release/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Warn when published packages change without a changeset
+        run: |
+          if ! pnpm changeset status --since=origin/${{ github.base_ref }} >/dev/null 2>&1; then
+            echo "::warning title=No changeset::This PR changes published packages but has no changeset. Run 'pnpm changeset' if users should see this in a release."
+          fi

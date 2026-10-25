@@ -3,10 +3,34 @@
   "version": "0.0.0",
   "description": "Junco CLI: copy components into your project and keep them updated (init, add, diff, update, list)",
   "license": "MIT",
+  "author": "Oluwatobi Olajide",
+  "homepage": "https://junco.madebytobi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobibytes/junco.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/tobibytes/junco/issues"
+  },
+  "keywords": [
+    "cli",
+    "shadcn",
+    "registry",
+    "components",
+    "copy-paste",
+    "scaffold"
+  ],
   "type": "module",
-  "bin": { "junco": "./dist/index.js" },
-  "files": ["dist"],
-  "engines": { "node": ">=18.17" },
+  "bin": {
+    "junco": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format esm --target node18 --clean",
     "dev": "tsup src/index.ts --format esm --target node18 --watch",
@@ -18,5 +42,9 @@
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

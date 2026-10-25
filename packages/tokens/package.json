@@ -3,18 +3,44 @@
   "version": "0.0.0",
   "description": "Junco design tokens: CSS variables (light and dark), a TS object and W3C design token JSON",
   "license": "MIT",
+  "author": "Oluwatobi Olajide",
+  "homepage": "https://junco.madebytobi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobibytes/junco.git",
+    "directory": "packages/tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/tobibytes/junco/issues"
+  },
+  "keywords": [
+    "design-tokens",
+    "css-variables",
+    "oklch",
+    "w3c-design-tokens",
+    "dark-mode",
+    "theme"
+  ],
   "type": "module",
-  "files": ["src/tokens.css", "dist"],
+  "files": [
+    "src/tokens.css",
+    "dist"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
     "./tokens.css": "./src/tokens.css",
     "./tokens.json": "./dist/tokens.json",
     "./package.json": "./package.json"
   },
   "style": "./src/tokens.css",
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
@@ -25,5 +51,9 @@
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

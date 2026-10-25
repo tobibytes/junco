@@ -1,0 +1,22 @@
+name: Feature request
+description: A new prop, variant, behavior or improvement.
+labels: [enhancement, triage]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do, and what's in the way?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you'd like
+      description: An API sketch helps a lot.
+      render: tsx
+  - type: textarea
+    id: elsewhere
+    attributes:
+      label: Prior art
+      description: How do shadcn/ui, HeroUI, Mantine, daisyUI or others handle this?

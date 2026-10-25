@@ -1,8 +1,30 @@
 {
   "name": "junco",
   "version": "0.0.0",
-  "description": "Junco React components",
+  "description": "Accessible React components for Tailwind v4: variants, slots, dark mode and a global motion switch.",
   "license": "MIT",
+  "author": "Oluwatobi Olajide",
+  "homepage": "https://junco.madebytobi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobibytes/junco.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/tobibytes/junco/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "design-system",
+    "tailwindcss",
+    "tailwind-v4",
+    "radix",
+    "accessible",
+    "dark-mode",
+    "shadcn"
+  ],
   "type": "module",
   "sideEffects": false,
   "files": [
@@ -80,5 +102,9 @@
     "typescript": "^5.6.0",
     "vitest": "^3",
     "zod": "^4.6.7"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

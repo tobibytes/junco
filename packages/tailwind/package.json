@@ -3,10 +3,34 @@
   "version": "0.0.0",
   "description": "Junco for Tailwind v4: theme mapping, semantic classes and motion utilities",
   "license": "MIT",
+  "author": "Oluwatobi Olajide",
+  "homepage": "https://junco.madebytobi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobibytes/junco.git",
+    "directory": "packages/tailwind"
+  },
+  "bugs": {
+    "url": "https://github.com/tobibytes/junco/issues"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwind-v4",
+    "plugin",
+    "theme",
+    "semantic-classes",
+    "daisyui",
+    "css"
+  ],
   "type": "module",
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "exports": {
-    ".": { "style": "./src/index.css", "default": "./src/index.css" },
+    ".": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
     "./package.json": "./package.json"
   },
   "style": "./src/index.css",
@@ -18,5 +42,9 @@
   },
   "scripts": {
     "build": "echo \"tailwind: nothing to build yet\""
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

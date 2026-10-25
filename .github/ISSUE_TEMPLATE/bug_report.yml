@@ -1,0 +1,51 @@
+name: Bug report
+description: Something looks or works wrong.
+labels: [bug, triage]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: Minimal steps or a StackBlitz/CodeSandbox link.
+      placeholder: |
+        1. Render <Select> inside a <Dialog>
+        2. Open the select with the keyboard
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: level
+    attributes:
+      label: How are you using Junco?
+      multiple: true
+      options:
+        - Installed package (npm i junco)
+        - Copy-in (junco add / shadcn add)
+        - Semantic classes (btn, card, ...)
+        - Tailwind utilities only
+        - Blocks / pages
+        - Motion / 3D
+        - CLI / MCP
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: junco 0.1.0, react 19.1, tailwindcss 4.1, Next.js 15
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: Safari 18 on iOS 18
+  - type: checkboxes
+    id: a11y
+    attributes:
+      label: Accessibility
+      options:
+        - label: This is an accessibility problem (keyboard, screen reader, contrast, motion)

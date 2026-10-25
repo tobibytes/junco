@@ -3,14 +3,47 @@
   "version": "0.0.0",
   "description": "Junco blocks and full pages: app shells, dashboards, settings, auth, marketing. Typed props, fake data fallbacks, slots and variants.",
   "license": "MIT",
+  "author": "Oluwatobi Olajide",
+  "homepage": "https://junco.madebytobi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobibytes/junco.git",
+    "directory": "packages/blocks"
+  },
+  "bugs": {
+    "url": "https://github.com/tobibytes/junco/issues"
+  },
+  "keywords": [
+    "react",
+    "blocks",
+    "templates",
+    "dashboard",
+    "landing-page",
+    "saas",
+    "pages"
+  ],
   "type": "module",
   "sideEffects": false,
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
-    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
-    "./app": { "types": "./dist/app/index.d.ts", "import": "./dist/app/index.js" },
-    "./marketing": { "types": "./dist/marketing/index.d.ts", "import": "./dist/marketing/index.js" },
-    "./fake": { "types": "./dist/lib/fake.d.ts", "import": "./dist/lib/fake.js" },
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./app": {
+      "types": "./dist/app/index.d.ts",
+      "import": "./dist/app/index.js"
+    },
+    "./marketing": {
+      "types": "./dist/marketing/index.d.ts",
+      "import": "./dist/marketing/index.js"
+    },
+    "./fake": {
+      "types": "./dist/lib/fake.d.ts",
+      "import": "./dist/lib/fake.js"
+    },
     "./package.json": "./package.json"
   },
   "scripts": {
@@ -40,5 +73,9 @@
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^3"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }
