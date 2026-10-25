@@ -78,14 +78,34 @@ export interface DialogContentProps
 }
 
 export const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Content>, DialogContentProps>(
-  ({ className, classNames, size, showClose = true, closeLabel = "Close", children, ...props }, ref) => {
+  (
+    { className, classNames, size, showClose = true, closeLabel = "Close", onOpenAutoFocus, onCloseAutoFocus, children, ...props },
+    ref,
+  ) => {
     const styles = dialogVariants({ size });
+    // Radix returns focus to DialogTrigger on close. Dialogs opened without one (a shortcut, a
+    // controlled `open`, CommandDialog) would drop focus on <body>, so remember what had focus
+    // when the dialog opened and go back there. With a trigger, that element is the trigger.
+    const returnFocusRef = React.useRef<HTMLElement | null>(null);
     return (
       <DialogPortal>
         <DialogOverlay className={classNames?.overlay} />
         <DialogPrimitive.Content
           ref={ref}
           className={styles.content({ className: cn(classNames?.content, className) })}
+          onOpenAutoFocus={(event) => {
+            const active = document.activeElement;
+            returnFocusRef.current = active instanceof HTMLElement && active !== document.body ? active : null;
+            onOpenAutoFocus?.(event);
+          }}
+          onCloseAutoFocus={(event) => {
+            onCloseAutoFocus?.(event);
+            const target = returnFocusRef.current;
+            returnFocusRef.current = null;
+            if (event.defaultPrevented || !target?.isConnected) return;
+            event.preventDefault();
+            target.focus();
+          }}
           {...props}
         >
           {children}

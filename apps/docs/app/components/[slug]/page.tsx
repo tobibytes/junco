@@ -27,7 +27,12 @@ export default async function ComponentPage({ params }: { params: Promise<{ slug
   const { slug } = await params;
   const entry = getComponent(slug);
   if (!entry) notFound();
-  const file = slug === "theme-provider" ? "../theme/theme-provider.tsx" : `${slug}.tsx`;
+  const file =
+    slug === "theme-provider"
+      ? "../theme/theme-provider.tsx"
+      : slug === "data-table" || slug === "form"
+        ? `../${slug}/${slug}.tsx`
+        : `${slug}.tsx`;
 
   return (
     <>

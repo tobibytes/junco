@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeProvider, TooltipProvider } from "junco";
+import { ThemeProvider, Toaster, TooltipProvider } from "junco";
 import * as React from "react";
 
 interface SearchContextValue {
@@ -21,6 +21,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider>
       <TooltipProvider>
         <SearchContext.Provider value={search}>{children}</SearchContext.Provider>
+        <Toaster />
       </TooltipProvider>
     </ThemeProvider>
   );

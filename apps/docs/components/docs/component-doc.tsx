@@ -214,7 +214,8 @@ function ControlInput({
 }
 
 function Usage({ slug, doc }: { slug: string; doc: ComponentDoc }) {
-  const importLine = `import { ${doc.imports.join(", ")} } from "junco";`;
+  const importLine = `import { ${doc.imports.join(", ")} } from "${doc.importFrom ?? "junco"}";`;
+  const install = ["npm i junco @junco/tailwind", ...(doc.installExtra ?? [])].join(" ");
   return (
     <section aria-labelledby="usage" className="grid gap-4">
       <H2 id="usage">Usage</H2>
@@ -231,7 +232,7 @@ function Usage({ slug, doc }: { slug: string; doc: ComponentDoc }) {
           </TabsList>
         </div>
         <TabsContent value="installed" className="grid gap-3">
-          <CodeBlock lang="bash" code="npm i junco @junco/tailwind" />
+          <CodeBlock lang="bash" code={install} />
           <CodeBlock code={`${importLine}\n\n${doc.usage.installed}`} />
         </TabsContent>
         <TabsContent value="copy" className="grid gap-3">
@@ -239,7 +240,7 @@ function Usage({ slug, doc }: { slug: string; doc: ComponentDoc }) {
             <Note>This one is only available installed.</Note>
           ) : (
             <>
-              <CodeBlock lang="bash" code={`npx junco add ${slug}`} />
+              <CodeBlock lang="bash" code={`npx @junco/cli add ${slug}`} />
               <p className="text-sm text-muted-foreground">Or with the shadcn CLI, straight from the Junco registry:</p>
               <CodeBlock lang="bash" code={`npx shadcn add ${site.url}/r/${slug}.json`} />
               <p className="text-sm text-muted-foreground">
