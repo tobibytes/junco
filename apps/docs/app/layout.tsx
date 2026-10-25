@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: { default: "Junco: one design system, four ways to use it", template: "%s | Junco" },
   description: site.description,
   applicationName: "Junco",
+  authors: [{ name: `${site.author.name} (${site.author.brand})`, url: site.author.url }],
+  creator: site.author.brand,
+  publisher: site.author.brand,
   openGraph: {
     type: "website",
     siteName: "Junco",
