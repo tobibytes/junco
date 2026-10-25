@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { act, render } from "@testing-library/react";
 import axe from "axe-core";
 import { describe, expect, it } from "vitest";
 import {
@@ -26,7 +26,35 @@ import {
   TabsList,
   TabsTrigger,
   Textarea,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetTitle,
+  toast,
+  Toaster,
 } from "../src";
+import { __resetToasts } from "../src/components/toast";
 
 async function violations(container: HTMLElement) {
   // Color contrast needs real layout and is covered by the token contrast test instead.
@@ -103,5 +131,108 @@ describe("accessibility (axe)", () => {
       </main>,
     );
     expect(await violations(container)).toEqual([]);
+  });
+});
+
+describe("accessibility (axe): overlays, rendered open", () => {
+  // Overlays portal into document.body, so scan the whole body. "region" is off because the
+  // test page has no landmarks around the portal content (a real app has them).
+  async function bodyViolations() {
+    const result = await axe.run(document.body, {
+      rules: { "color-contrast": { enabled: false }, region: { enabled: false } },
+    });
+    return result.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.html).join(", ")}`);
+  }
+
+  it("Dialog", async () => {
+    render(
+      <Dialog defaultOpen>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Edit profile</DialogTitle>
+            <DialogDescription>Update your name.</DialogDescription>
+          </DialogHeader>
+          <Field label="Name">
+            <Input />
+          </Field>
+        </DialogContent>
+      </Dialog>,
+    );
+    expect(await bodyViolations()).toEqual([]);
+  });
+
+  it("Sheet", async () => {
+    render(
+      <Sheet defaultOpen>
+        <SheetContent side="bottom">
+          <SheetTitle>Filters</SheetTitle>
+          <SheetDescription>Narrow the list.</SheetDescription>
+        </SheetContent>
+      </Sheet>,
+    );
+    expect(await bodyViolations()).toEqual([]);
+  });
+
+  it("Popover", async () => {
+    render(
+      <Popover defaultOpen>
+        <PopoverTrigger asChild>
+          <Button>Share</Button>
+        </PopoverTrigger>
+        <PopoverContent aria-label="Share">
+          <Field label="Link">
+            <Input />
+          </Field>
+        </PopoverContent>
+      </Popover>,
+    );
+    expect(await bodyViolations()).toEqual([]);
+  });
+
+  it("DropdownMenu", async () => {
+    render(
+      <DropdownMenu defaultOpen>
+        <DropdownMenuTrigger asChild>
+          <Button>Options</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Account</DropdownMenuLabel>
+          <DropdownMenuItem shortcut="⌘P">Profile</DropdownMenuItem>
+          <DropdownMenuCheckboxItem checked>Compact</DropdownMenuCheckboxItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem variant="danger">Delete</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>,
+    );
+    expect(await bodyViolations()).toEqual([]);
+  });
+
+  it("CommandDialog", async () => {
+    render(
+      <CommandDialog defaultOpen>
+        <CommandInput placeholder="Search" aria-label="Search commands" />
+        <CommandList>
+          <CommandEmpty>No results.</CommandEmpty>
+          <CommandGroup heading="Pages">
+            <CommandItem>Settings</CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>,
+    );
+    expect(await bodyViolations()).toEqual([]);
+  });
+
+  it("Toaster with toasts", async () => {
+    render(
+      <main>
+        <Toaster />
+      </main>,
+    );
+    act(() => {
+      toast.success("Saved", { action: { label: "Undo", onClick: () => {} } });
+      toast.error("Failed");
+    });
+    expect(await bodyViolations()).toEqual([]);
+    act(() => __resetToasts());
   });
 });

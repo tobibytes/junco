@@ -92,6 +92,15 @@
   /* Floating things (menus, popovers, tooltips) scale in from their anchor. */
   --animate-pop-in: pop-in calc(var(--duration-base) * var(--motion-scale)) var(--ease-enter) both;
   --animate-pop-out: pop-out calc(var(--duration-fast) * var(--motion-scale)) var(--ease-exit) both;
+  /* Scrims behind dialogs and sheets. */
+  --animate-overlay-in: fade calc(var(--duration-base) * var(--motion-scale)) var(--ease-standard) both;
+  --animate-overlay-out: fade-out calc(var(--duration-fast) * var(--motion-scale)) var(--ease-exit) both;
+  /* Sheets slide from the edge set by --slide-from (e.g. 100% 0 for the right side). */
+  --animate-slide-in: slide-in calc(var(--duration-slow) * var(--motion-scale)) var(--ease-enter) both;
+  --animate-slide-out: slide-out calc(var(--duration-base) * var(--motion-scale)) var(--ease-exit) both;
+  /* Toasts rise from the edge they stack on (--toast-from, e.g. 0 100%). */
+  --animate-toast-in: toast-in calc(var(--duration-slow) * var(--motion-scale)) var(--ease-spring) both;
+  --animate-toast-out: fade-out calc(var(--duration-fast) * var(--motion-scale)) var(--ease-exit) both;
   /* Loading indicators keep moving with motion off (they carry meaning), just slower. */
   --animate-spinner: junco-spin calc(0.8s / max(var(--motion-scale), 0.5)) linear infinite;
   /* The skeleton pulse flattens to a still block with motion off. */
@@ -110,6 +119,18 @@
   }
   @keyframes pop-out {
     to { opacity: 0; transform: scale(calc(1 - 0.04 * var(--motion-scale))); }
+  }
+  @keyframes fade-out {
+    to { opacity: 0; }
+  }
+  @keyframes slide-in {
+    from { translate: var(--slide-from, 0 100%); }
+  }
+  @keyframes slide-out {
+    to { translate: var(--slide-from, 0 100%); }
+  }
+  @keyframes toast-in {
+    from { opacity: 0; translate: 0 calc(var(--toast-from, 100%) * var(--motion-scale)); }
   }
   @keyframes junco-spin {
     to { transform: rotate(360deg); }
