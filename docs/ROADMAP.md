@@ -7,14 +7,14 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 - [ ] Claim the names: `junco` on npm (placeholder publish), the `@junco` npm org, a GitHub org or repo
 - [x] Make `pnpm install && pnpm build` pass across the monorepo (Turborepo, tsup, Changesets)
 - [x] Draft tokens (`packages/tokens/src/tokens.css`), Tailwind mapping + first semantic classes (`packages/tailwind/src/index.css`), reference Button (`packages/react/src/components/button.tsx`), plain HTML example that compiles (`pnpm css:example`)
-- [ ] `@junco/tokens`: finish the light and dark color tokens, type scale, spacing, radius, shadows, motion (durations, easings, stagger). Export as CSS variables, a TS object, and the W3C design token JSON
-- [ ] Contrast test: every text/background pair hits 4.5:1 in light and dark
-- [ ] `@junco/tailwind`: map tokens into Tailwind v4 `@theme` so utilities like `bg-surface`, `text-muted-foreground`, `rounded-card`, `duration-base`, `ease-enter` work
-- [ ] Semantic classes v0: `btn` (+ `btn-primary`, `btn-secondary`, `btn-ghost`, `btn-danger`, `btn-sm`, `btn-lg`), `card`, `badge`, `input`, `kbd`
-- [ ] `junco` React package: `cn()`, Button, Input, Badge, Kbd, Spinner, Skeleton
-- [ ] Theme switching: `.dark` / `data-theme`, a `ThemeProvider`, and the `data-motion` switch
-- [ ] Plain HTML example page that uses only the semantic classes
-- [ ] Vite example app that uses the installed components
+- [x] `@junco/tokens`: finish the light and dark color tokens, type scale, spacing, radius, shadows, motion (durations, easings, stagger). Export as CSS variables, a TS object, and the W3C design token JSON
+- [x] Contrast test: every text/background pair hits 4.5:1 in light and dark
+- [x] `@junco/tailwind`: map tokens into Tailwind v4 `@theme` so utilities like `bg-surface`, `text-muted-foreground`, `rounded-card`, `duration-base`, `ease-enter` work
+- [x] Semantic classes v0: `btn` (+ `btn-primary`, `btn-secondary`, `btn-ghost`, `btn-danger`, `btn-sm`, `btn-lg`, `btn-icon`), `card`, `badge` (+ status colors, `badge-dot`), `input` (+ sizes, `aria-invalid`), `kbd`, `spinner`, `skeleton`
+- [x] `junco` React package: `cn()`, Button, Input, Badge, Kbd, Spinner, Skeleton
+- [x] Theme switching: `.dark` / `data-theme`, a `ThemeProvider`, and the `data-motion` switch
+- [x] Plain HTML example page that uses only the semantic classes
+- [x] Vite example app that uses the installed components
 
 ## Phase 2: Core
 

@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import "@junco/tailwind";
+
+/* Tailwind needs to see the classes junco's components use. */
+@source "../node_modules/junco/dist";

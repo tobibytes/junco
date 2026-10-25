@@ -2,6 +2,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "../lib/cn";
+import { Spinner } from "./spinner";
 
 /**
  * Reference component. Every Junco component should follow this shape:
@@ -58,10 +59,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       >
         {isLoading && !asChild ? (
           <>
-            <span
-              aria-hidden
-              className="size-3.5 animate-spin rounded-full border-2 border-current border-r-transparent"
-            />
+            <Spinner label={null} className="size-3.5" />
             {children}
           </>
         ) : (
