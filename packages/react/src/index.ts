@@ -149,6 +149,17 @@ export {
   type StatTrend,
 } from "./components/stat";
 
+// Disclosure
+export {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  accordionVariants,
+  type AccordionProps,
+  type AccordionTriggerProps,
+} from "./components/accordion";
+
 export {
   ThemeProvider,
   useTheme,

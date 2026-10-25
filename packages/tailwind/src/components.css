@@ -402,4 +402,74 @@
   .breadcrumb a:hover { color: var(--foreground); }
   .breadcrumb a:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
   .breadcrumb [aria-current="page"] { color: var(--foreground); font-weight: var(--font-weight-medium); }
+
+  /* Accordion: <details class="accordion-item"><summary>Question</summary><div class="accordion-content">Answer</div></details>
+     Native disclosure, so it works with no JS and the browser handles keyboard and find-in-page. */
+  .accordion-item { border-bottom: 1px solid var(--border); }
+  .accordion-item:last-child { border-bottom: 0; }
+  .accordion-item > summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding-block: 1rem; list-style: none; cursor: pointer;
+    font-size: var(--text-sm); font-weight: var(--font-weight-medium); color: var(--foreground);
+  }
+  .accordion-item > summary::-webkit-details-marker { display: none; }
+  .accordion-item > summary::after {
+    content: ""; width: 0.5rem; height: 0.5rem; flex-shrink: 0; margin-right: 0.25rem;
+    border-right: 1.5px solid var(--muted-foreground); border-bottom: 1.5px solid var(--muted-foreground);
+    transform: translateY(-25%) rotate(45deg);
+    transition: transform calc(var(--duration-base) * var(--motion-scale)) var(--ease-standard);
+  }
+  .accordion-item[open] > summary::after { transform: translateY(25%) rotate(225deg); }
+  .accordion-item > summary:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .accordion-item > summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  .accordion-content { padding-bottom: 1rem; font-size: var(--text-sm); color: var(--muted-foreground); }
+
+  /* Prose: long-form text (blog posts, docs, changelogs) set in the type scale. */
+  .prose {
+    max-width: 68ch; color: var(--foreground);
+    font-size: var(--text-base); line-height: 1.75;
+  }
+  .prose > * + * { margin-top: 1.25em; }
+  .prose :where(h2) {
+    margin-top: 2.25em; margin-bottom: -0.25em; scroll-margin-top: 6rem;
+    font-size: var(--text-2xl); line-height: var(--text-2xl--line-height);
+    font-weight: var(--font-weight-semibold); letter-spacing: var(--tracking-tight);
+  }
+  .prose :where(h3) {
+    margin-top: 1.75em; margin-bottom: -0.5em; scroll-margin-top: 6rem;
+    font-size: var(--text-lg); line-height: var(--text-lg--line-height); font-weight: var(--font-weight-semibold);
+  }
+  .prose :where(p, li) { color: color-mix(in oklch, var(--foreground) 85%, var(--background)); }
+  .prose :where(strong) { color: var(--foreground); font-weight: var(--font-weight-semibold); }
+  .prose :where(a) {
+    color: var(--foreground); font-weight: var(--font-weight-medium);
+    text-decoration: underline; text-decoration-color: color-mix(in oklch, var(--primary) 60%, transparent);
+    text-underline-offset: 3px; text-decoration-thickness: 1px;
+  }
+  .prose :where(a):hover { text-decoration-color: var(--primary); }
+  .prose :where(ul, ol) { padding-left: 1.4em; }
+  .prose :where(ul) { list-style: disc; }
+  .prose :where(ol) { list-style: decimal; }
+  .prose :where(li) { padding-left: 0.25em; }
+  .prose :where(li + li) { margin-top: 0.5em; }
+  .prose :where(li)::marker { color: var(--muted-foreground); }
+  .prose :where(blockquote) {
+    padding-left: 1.25em; border-left: 2px solid var(--border-strong);
+    font-style: normal; color: var(--muted-foreground);
+  }
+  .prose :where(code):not(:where(pre code)) {
+    padding: 0.125em 0.375em; border: 1px solid var(--border); border-radius: var(--radius-xs);
+    background: var(--muted); font-family: var(--font-mono); font-size: 0.875em;
+  }
+  .prose :where(pre) {
+    overflow-x: auto; padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: var(--radius);
+    background: var(--muted); font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.7;
+  }
+  .prose :where(hr) { border: 0; border-top: 1px solid var(--border); margin-block: 2.5em; }
+  .prose :where(img, video, figure) { border-radius: var(--radius); }
+  .prose :where(figcaption) { margin-top: 0.75em; font-size: var(--text-sm); color: var(--muted-foreground); text-align: center; }
+  .prose :where(table) { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+  .prose :where(th, td) { padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+  .prose :where(th) { color: var(--muted-foreground); font-weight: var(--font-weight-medium); }
+  .prose > :first-child { margin-top: 0; }
 }

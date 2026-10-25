@@ -3,6 +3,7 @@
  * so swapping Radix for Base UI (see docs/DECISIONS.md) touches this file and the components
  * that use each namespace, not the whole package.
  */
+export * as AccordionPrimitive from "@radix-ui/react-accordion";
 export * as AvatarPrimitive from "@radix-ui/react-avatar";
 export * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 export * as DialogPrimitive from "@radix-ui/react-dialog";
