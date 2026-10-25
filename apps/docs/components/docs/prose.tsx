@@ -83,7 +83,7 @@ export function DataTable({ head, rows, caption }: { head: string[]; rows: React
       tabIndex={0}
       role="region"
       aria-label={caption ?? head.filter(Boolean).join(", ")}
-      className="overflow-x-auto rounded-card border border-border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+      className="relative overflow-x-auto rounded-card border border-border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
     >
       <table className="w-full text-left text-sm">
         {caption && <caption className="sr-only">{caption}</caption>}

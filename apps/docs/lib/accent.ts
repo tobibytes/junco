@@ -1,3 +1,4 @@
+import * as React from "react";
 import { contrastRatio, tokens } from "@junco/tokens";
 
 /**
@@ -104,3 +105,29 @@ export const presets = [
   { name: "Teal", hue: 185, chroma: 0.12 },
   { name: "Graphite", hue: 260, chroma: 0.0 },
 ] as const;
+
+/** The accent the visitor is previewing, shared by every picker on the page. */
+export interface SiteAccent {
+  hue: number;
+  chroma: number;
+  touched: boolean;
+}
+
+const DEFAULT_ACCENT: SiteAccent = { hue: 260, chroma: 0.2, touched: false };
+let siteAccent = DEFAULT_ACCENT;
+const listeners = new Set<() => void>();
+
+export function setSiteAccent(next: { hue: number; chroma: number } | null) {
+  siteAccent = next ? { ...next, touched: true } : DEFAULT_ACCENT;
+  applyAccent(next ? makeAccent(next.hue, next.chroma) : null);
+  for (const l of listeners) l();
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+}
+
+export function useSiteAccent(): SiteAccent {
+  return React.useSyncExternalStore(subscribe, () => siteAccent, () => DEFAULT_ACCENT);
+}
