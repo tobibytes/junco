@@ -12,15 +12,21 @@
     "deploy": "wrangler pages deploy out --project-name junco-docs"
   },
   "dependencies": {
+    "@junco/blocks": "workspace:*",
+    "@junco/motion": "workspace:*",
     "@junco/tailwind": "workspace:*",
+    "@junco/three": "workspace:*",
     "@junco/tokens": "workspace:*",
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
     "clsx": "^2.1.1",
     "geist": "^1.8.0",
     "junco": "workspace:*",
     "next": "^16.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwind-merge": "^3.0.0"
+    "tailwind-merge": "^3.0.0",
+    "three": "^0.186.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",

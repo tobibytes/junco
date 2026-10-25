@@ -149,6 +149,31 @@ describe("lazy ModelViewer defaults", () => {
     resolve({ default: FakeScene });
     expect(await screen.findByText("scene: slow")).toBeInTheDocument();
   });
+
+  it("shows the loading state, not 'unavailable', while waiting to scroll into view", async () => {
+    stubWebGL();
+    let trigger: ((entries: { isIntersecting: boolean }[]) => void) | undefined;
+    vi.stubGlobal(
+      "IntersectionObserver",
+      class {
+        constructor(cb: typeof trigger) {
+          trigger = cb;
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
+    const Lazy = createLazyScene<{ label: string }>(() => Promise.resolve({ default: FakeScene }), "Below", {
+      loading: <p role="status">Loading 3D model</p>,
+      fallback: <p>Unavailable</p>,
+    });
+    render(<Lazy label="below" />);
+    await new Promise((r) => setTimeout(r, 20));
+    expect(screen.getByRole("status")).toHaveTextContent("Loading 3D model");
+    expect(screen.queryByText("Unavailable")).toBeNull();
+    trigger?.([{ isIntersecting: true }]);
+    expect(await screen.findByText("scene: below")).toBeInTheDocument();
+  });
 });
 
 describe("StaticGradient", () => {

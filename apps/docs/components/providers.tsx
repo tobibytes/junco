@@ -1,7 +1,9 @@
 "use client";
 
-import { ThemeProvider, TooltipProvider } from "junco";
+import { ThemeProvider, Toaster, TooltipProvider } from "junco";
+import { usePathname } from "next/navigation";
 import * as React from "react";
+import { isFramePath } from "@/lib/frame";
 
 interface SearchContextValue {
   open: boolean;
@@ -17,6 +19,19 @@ export function useSearch() {
 export function Providers({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = React.useState(false);
   const search = React.useMemo(() => ({ open, setOpen }), [open]);
+  const pathname = usePathname();
+
+  // Preview frames get their theme from the page that embeds them (URL + postMessage), never from
+  // the saved site setting, so they skip ThemeProvider. Blocks call toast(), so frames get a Toaster.
+  if (isFramePath(pathname)) {
+    return (
+      <TooltipProvider>
+        {children}
+        <Toaster />
+      </TooltipProvider>
+    );
+  }
+
   return (
     <ThemeProvider>
       <TooltipProvider>

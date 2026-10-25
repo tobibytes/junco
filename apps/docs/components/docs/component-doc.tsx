@@ -239,7 +239,7 @@ function Usage({ slug, doc }: { slug: string; doc: ComponentDoc }) {
             <Note>This one is only available installed.</Note>
           ) : (
             <>
-              <CodeBlock lang="bash" code={`npx junco add ${slug}`} />
+              <CodeBlock lang="bash" code={`npx @junco/cli add ${slug}`} />
               <p className="text-sm text-muted-foreground">Or with the shadcn CLI, straight from the Junco registry:</p>
               <CodeBlock lang="bash" code={`npx shadcn add ${site.url}/r/${slug}.json`} />
               <p className="text-sm text-muted-foreground">

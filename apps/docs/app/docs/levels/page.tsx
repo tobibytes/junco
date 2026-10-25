@@ -63,7 +63,7 @@ export default function LevelsPage() {
           </P>
           <CodeBlock
             lang="bash"
-            code={`npx junco add select
+            code={`npx @junco/cli add select
 # or with the shadcn CLI
 npx shadcn add ${site.url}/r/select.json`}
           />

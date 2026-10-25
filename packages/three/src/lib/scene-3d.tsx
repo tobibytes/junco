@@ -146,6 +146,8 @@ export function Scene3D<P extends object>({
   const supported = client && hasWebGL() && !isLowPower();
   const blockedByMotion = reducedMotion === "fallback" && level === "off";
   const ready = supported && !blockedByMotion && (eager || inView || started);
+  // Before hydration we can't know yet, so assume it will load.
+  const willLoad = !client || (supported && !blockedByMotion);
 
   // once a scene has loaded, keep it mounted when it scrolls away (the canvas pauses itself)
   React.useEffect(() => {
@@ -176,6 +178,10 @@ export function Scene3D<P extends object>({
             <Scene {...(props as P & React.JSX.IntrinsicAttributes)} />
           </React.Suspense>
         </SceneErrorBoundary>
+      ) : willLoad ? (
+        // Not near the screen yet (or not hydrated): it will load, so show the loading state, not
+        // a "can't run here" fallback.
+        (loading ?? still)
       ) : (
         still
       )}

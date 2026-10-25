@@ -1,5 +1,6 @@
 import { Button } from "junco";
 import Link from "next/link";
+import { Beyond } from "@/components/home/beyond";
 import { InstallCommand } from "@/components/home/install-command";
 import { Levels } from "@/components/home/levels";
 import { Showcase } from "@/components/home/showcase";
@@ -121,6 +122,20 @@ export default function Home() {
           </div>
           <Showcase />
         </div>
+      </section>
+
+      {/* Beyond components */}
+      <section aria-labelledby="beyond" className="mx-auto grid max-w-screen-xl gap-8 px-4 pt-20 md:px-6">
+        <div className="grid max-w-2xl gap-3">
+          <h2 id="beyond" className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            Whole pages, motion and 3D.
+          </h2>
+          <p className="text-muted-foreground">
+            Start from a finished screen instead of a blank file. Every page is built from the same components, so it already
+            matches the rest of your app.
+          </p>
+        </div>
+        <Beyond />
       </section>
 
       {/* Features */}

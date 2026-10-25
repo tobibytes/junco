@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "junco";
 import type { Metadata } from "next";
 import { CodeBlock } from "@/components/code-block";
 import { Pager } from "@/components/docs/pager";
-import { C, DocHeader, Note, P, Section, Step, Steps } from "@/components/docs/prose";
+import { C, DataTable, DocHeader, Note, P, Section, Step, Steps } from "@/components/docs/prose";
 
 export const metadata: Metadata = {
   title: "Installation",
@@ -160,6 +160,34 @@ createRoot(document.getElementById("root")!).render(
             </Steps>
           </TabsContent>
         </Tabs>
+
+        <Section id="server" title="Server components">
+          <P>
+            <C>junco</C> is a client module, so in a React Server Component its exports are client references: you can render{" "}
+            <C>&lt;Button&gt;</C>, but you can&apos;t call <C>cn()</C> or <C>buttonVariants()</C> there. Import those helpers from{" "}
+            <C>junco/server</C> instead. It has no <C>&quot;use client&quot;</C> and is checked in CI to load under React&apos;s server
+            build.
+          </P>
+          <CodeBlock
+            code={`import { buttonVariants, cn, themeScript } from "junco/server";
+import Link from "next/link";
+
+// A link styled as a button, rendered on the server
+<Link href="/pricing" className={buttonVariants({ variant: "outline" })}>Pricing</Link>`}
+          />
+          <DataTable
+            head={["Export", ""]}
+            rows={[
+              [<C key="1">cn</C>, "Merge class names and resolve Tailwind conflicts."],
+              [<C key="2">themeScript</C>, "The no-flash inline script for <head>."],
+              [<C key="3">applyTheme</C>, "Set .dark, data-theme, data-motion and color-scheme on an element."],
+              [
+                <C key="4">buttonVariants, badgeVariants, cardVariants, spinnerVariants, emptyStateVariants</C>,
+                "Class builders for styling your own elements like Junco components.",
+              ],
+            ]}
+          />
+        </Section>
 
         <Section id="fonts" title="Fonts">
           <P>
