@@ -1,0 +1,22 @@
+{
+  "name": "@junco/tailwind",
+  "version": "0.0.0",
+  "description": "Junco for Tailwind v4: theme mapping, semantic classes and motion utilities",
+  "license": "MIT",
+  "type": "module",
+  "files": ["src"],
+  "exports": {
+    ".": { "style": "./src/index.css", "default": "./src/index.css" },
+    "./package.json": "./package.json"
+  },
+  "style": "./src/index.css",
+  "dependencies": {
+    "@junco/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.0.0"
+  },
+  "scripts": {
+    "build": "echo \"tailwind: nothing to build yet\""
+  }
+}

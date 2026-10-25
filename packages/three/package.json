@@ -1,0 +1,11 @@
+{
+  "name": "@junco/three",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Junco 3D scenes on React Three Fiber (planned for phase 3)",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "echo \"three: not started (phase 3)\""
+  }
+}

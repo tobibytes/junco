@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "@junco/tailwind";
+@source "./";
+@source "../../packages/react/src";

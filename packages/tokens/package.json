@@ -1,0 +1,16 @@
+{
+  "name": "@junco/tokens",
+  "version": "0.0.0",
+  "description": "Junco design tokens as CSS variables, light and dark",
+  "license": "MIT",
+  "type": "module",
+  "files": ["src"],
+  "exports": {
+    "./tokens.css": "./src/tokens.css",
+    "./package.json": "./package.json"
+  },
+  "style": "./src/tokens.css",
+  "scripts": {
+    "build": "echo \"tokens: nothing to build yet\""
+  }
+}

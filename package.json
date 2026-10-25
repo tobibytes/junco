@@ -1,0 +1,23 @@
+{
+  "name": "junco-monorepo",
+  "private": true,
+  "license": "MIT",
+  "packageManager": "pnpm@9.15.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "css:example": "tailwindcss -i examples/plain-html/input.css -o examples/plain-html/junco.css",
+    "changeset": "changeset",
+    "release": "turbo run build && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.0",
+    "@tailwindcss/cli": "4",
+    "tailwindcss": "4",
+    "turbo": "^2.3.0",
+    "typescript": "^5.6.0"
+  }
+}

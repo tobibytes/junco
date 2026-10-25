@@ -1,0 +1,17 @@
+{
+  "name": "@junco/cli",
+  "version": "0.0.0",
+  "description": "Junco CLI: init, add, diff, update, eject, create",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "junco": "./dist/index.js" },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --clean",
+    "dev": "tsup src/index.ts --format esm --watch"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0"
+  }
+}
