@@ -19,25 +19,34 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 ## Phase 2: Core
 
 - [x] Remaining primitives: Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Avatar, Separator, Label, Form field
-- [ ] Overlays: Dialog, Sheet (side + bottom on phones), Popover, Dropdown menu, Command palette, Toast
-- [ ] Data: Data table (TanStack Table), Pagination, Empty state, Stat
-- [ ] Forms: React Hook Form + Zod integration, field errors, help text
-- [ ] `apps/docs` v0: component pages with live preview, variants, props table, code tabs for all four levels
-- [ ] Registry: serve each component as shadcn-compatible JSON; `npx shadcn add <url>` works
-- [ ] CLI v0: `junco init`, `junco add <component>`
+- [x] Overlays: Dialog, Sheet (side + bottom on phones), Popover, Dropdown menu, Command palette, Toast
+- [x] Data: Data table (TanStack Table), Pagination, Empty state, Stat
+- [x] Forms: React Hook Form + Zod integration, field errors, help text
+- [x] `apps/docs` v0: component pages with live preview, variants, props table, code tabs for all four levels
+- [x] Registry: serve each component as shadcn-compatible JSON; `npx shadcn add <url>` works
+- [x] CLI v0: `junco init`, `junco add <component>`
 
 ## Phase 3: Patterns, pages and the kit
 
-- [ ] Blocks: Sidebar, App shell, Page header, Hero, Feature grid, Pricing table, Stat row, Settings row, Auth card
-- [ ] First 20 pages: Sign up, Log in, Forgot password, Onboarding, Analytics dashboard, Users list, User detail, Settings profile, Settings billing, Team members, API keys, Notifications, Landing, Pricing, Changelog, Blog index, Blog post, 404, 500, Empty workspace
-- [ ] Page system: typed data props, fake data fallback, `slots`, `variant`
+- [x] Blocks: Sidebar, App shell, Page header, Hero, Feature grid, Pricing table, Stat row, Settings row, Auth card
+- [x] First 20 pages: Sign up, Log in, Forgot password, Onboarding, Analytics dashboard, Users list, User detail, Settings profile, Settings billing, Team members, API keys, Notifications, Landing, Pricing, Changelog, Blog index, Blog post, 404, 500, Empty workspace
+- [x] Page system: typed data props, fake data fallback, `slots`, `variant`
 - [ ] First 2 templates: SaaS, Admin panel; `junco create my-app --template saas`
-- [ ] CLI: `junco add page <name> --variant <v>`, `junco diff`, `junco update`, `junco eject`
-- [ ] Motion layer: effects library (scroll reveal, counters, text reveal, marquee, beams, spotlight card, magnetic button), View Transitions page transitions
-- [ ] `@junco/three` v0: particle field, shader gradient, globe, tilt card, model viewer, all lazy loaded with fallbacks
-- [ ] Docs site: blocks, pages and templates galleries, motion and 3D galleries, theme builder
+- [x] CLI: `junco add` (components, blocks and pages), `junco diff`, `junco update`, `junco eject`, `junco list`
+- [ ] CLI: `junco add page <name> --variant <v>`
+- [x] Motion layer: effects library (scroll reveal, counters, text reveal, marquee, beams, spotlight card, magnetic button), View Transitions page transitions
+- [x] `@junco/three` v0: particle field, shader gradient, globe, tilt card, model viewer, all lazy loaded with fallbacks
+- [x] Docs site: blocks and pages gallery, motion and 3D galleries, theme builder (accent picker with contrast checks), icons gallery, examples showcase
+- [ ] Templates gallery (waits on templates)
 - [ ] Prototype kit: device frames, fake data helpers, playground canvas, prototype mode
-- [ ] MCP server + llms.txt + Markdown docs
+- [x] MCP server + llms.txt + Markdown docs
+
+## Done beyond the plan
+
+- [x] Icon component (any SVG set, Lucide in the docs) with `--icon-stroke` and a searchable gallery
+- [x] Junco for Swift (preview): tokens generated from tokens.css, SwiftUI button, text field, toggle, field, badge and card styles; macOS CI
+- [x] Four complete example projects with live demos: Pulse, Ledger, HackHarbor, Status page
+- [x] npm publishing with Trusted Publishing (no token) and provenance
 
 ## Phase 4: Adopt
 

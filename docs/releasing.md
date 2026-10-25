@@ -9,7 +9,7 @@ Junco publishes eight packages to npm: `@junco/react`, `@junco/tokens`, `@junco/
 | Docs site | Live at https://junco.madebytobi.com (deploys on every push to `main`) |
 | PR previews | `https://pr-<number>.junco-docs.pages.dev`, linked in a comment on each PR |
 | Registry (copy-in, shadcn compatible) | Live at https://junco.madebytobi.com/r/registry.json |
-| npm | `@junco` org created; first versions published by hand, then CI via Trusted Publishing |
+| npm | All 8 `@junco/*` packages live; the Release workflow publishes with Trusted Publishing (no token) and provenance |
 | GitHub Releases | Created automatically for each package when it publishes |
 
 ## How a release happens
