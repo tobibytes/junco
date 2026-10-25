@@ -43,9 +43,8 @@ export default function IntroPage() {
 
         <Section id="why" title="Why Junco">
           <P>
-            Most UI libraries make you pick one way of working. daisyUI gives you classes but no accessible behavior. shadcn/ui gives
-            you the source, but copied code drifts. HeroUI gives you polished components you can&apos;t easily fork. Junco gives you all
-            of those, reading <strong>the same tokens</strong>, so you can mix them in one app and move between them as a project grows.
+            Use CSS classes, utilities, copied source or an npm package. They all read <strong>the same tokens</strong>, so you can mix
+            them in one app and move between them as a project grows.
           </P>
           <ul className="grid gap-2 text-[15px] text-muted-foreground">
             {[

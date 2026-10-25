@@ -6,6 +6,7 @@ export { Button, buttonVariants, type ButtonProps } from "./components/button";
 export { Checkbox, checkboxVariants, type CheckboxProps } from "./components/checkbox";
 export { Field, useFieldControl, type FieldProps } from "./components/field";
 export { Input, inputVariants, type InputProps } from "./components/input";
+export { Icon, iconVariants, type IconProps } from "./components/icon";
 export { Kbd, type KbdProps } from "./components/kbd";
 export { Label, type LabelProps } from "./components/label";
 export { Radio, RadioGroup, radioVariants, type RadioGroupProps, type RadioProps } from "./components/radio-group";
