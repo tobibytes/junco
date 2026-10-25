@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Slot } from "../lib/primitives";
+import { Slot } from "../lib/slot";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "../lib/cn";
 import { Spinner } from "./spinner";

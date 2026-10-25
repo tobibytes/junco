@@ -32,8 +32,10 @@ const { theme, resolvedTheme, setTheme } = useTheme();
 setTheme("system"); // "light" | "dark" | "system"`}
           />
           <P>
-            To stop server-rendered pages flashing the wrong theme, add <C>themeScript()</C> as an inline script in{" "}
-            <C>&lt;head&gt;</C>. It reads the saved choice before the first paint.
+            To stop server-rendered pages flashing the wrong theme, add <C>themeScript()</C> (from{" "}
+            <C>junco/server</C>) as an inline script in <C>&lt;head&gt;</C>. It reads the saved choice before the first
+            paint. Until it has read it, <C>useTheme().isMounted</C> is false, so toggles can avoid showing a wrong
+            selected state.
           </P>
         </Section>
 

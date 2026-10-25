@@ -20,7 +20,7 @@ function declarations(body: string): TokenMap {
 }
 
 /**
- * Reads the top-level `:root` and dark-mode rules out of tokens.css.
+ * Reads the top-level `:root` (light) and dark-mode rules out of tokens.css.
  * Names come back without the leading `--`.
  */
 export function parseTokens(css: string): ParsedTokens {
@@ -31,7 +31,7 @@ export function parseTokens(css: string): ParsedTokens {
   // so rules nested in @media are skipped.
   for (const m of clean.matchAll(/(?<=^|\})\s*([^{}@]+?)\s*\{([^{}]*)\}/g)) {
     const selectors = m[1]!.split(",").map((s) => s.trim());
-    if (selectors.length === 1 && selectors[0] === ":root") Object.assign(light, declarations(m[2]!));
+    if (selectors[0] === ":root") Object.assign(light, declarations(m[2]!));
     else if (selectors.includes(".dark")) Object.assign(dark, declarations(m[2]!));
   }
   return { light, dark };

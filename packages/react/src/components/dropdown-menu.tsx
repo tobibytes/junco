@@ -2,7 +2,8 @@ import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "../lib/cn";
 import { CheckIcon, ChevronRightIcon, DotIcon } from "../lib/icons";
-import { DropdownMenuPrimitive, Slottable } from "../lib/primitives";
+import { DropdownMenuPrimitive } from "../lib/primitives";
+import { Slottable } from "../lib/slot";
 
 /**
  *   <DropdownMenu>

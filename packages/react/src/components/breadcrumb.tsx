@@ -1,7 +1,7 @@
 import * as React from "react";
 import { cn } from "../lib/cn";
 import { ChevronRightIcon, MoreHorizontalIcon } from "../lib/icons";
-import { Slot } from "../lib/primitives";
+import { Slot } from "../lib/slot";
 
 export interface BreadcrumbItemData {
   label: React.ReactNode;

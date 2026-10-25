@@ -3,11 +3,14 @@
  * This file is the source of truth. `pnpm build` turns it into a TS object (dist/index.js)
  * and W3C design token JSON (dist/tokens.json).
  * Names follow shadcn/ui so shadcn components and themes work unchanged.
- * Light lives on :root. Dark lives on .dark and [data-theme="dark"].
+ * Light lives on :root (and .light / [data-theme="light"], to force light inside a dark area).
+ * Dark lives on .dark and [data-theme="dark"].
  * The default --primary (blue) is a PLACEHOLDER until the accent is decided.
  */
 
-:root {
+:root,
+.light,
+[data-theme="light"] {
   /* surfaces */
   --background: oklch(0.985 0 0);
   --foreground: oklch(0.18 0 0);

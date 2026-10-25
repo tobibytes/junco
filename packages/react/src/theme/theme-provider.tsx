@@ -1,8 +1,8 @@
 import * as React from "react";
 
-export type Theme = "light" | "dark" | "system";
-export type ResolvedTheme = "light" | "dark";
-export type Motion = "full" | "subtle" | "off";
+import { applyTheme, DARK_QUERY, type Motion, type ResolvedTheme, type Theme } from "./theme-script";
+
+export { applyTheme, themeScript, type Motion, type ResolvedTheme, type Theme, type ThemeScriptOptions } from "./theme-script";
 
 export interface ThemeContextValue {
   /** What the user picked. */
@@ -12,11 +12,17 @@ export interface ThemeContextValue {
   setTheme: (theme: Theme) => void;
   motion: Motion;
   setMotion: (motion: Motion) => void;
+  /**
+   * False during server rendering and the first client render, where `theme` and `motion` are
+   * still the defaults. Use it to avoid showing a wrong "selected" state in theme toggles.
+   */
+  isMounted: boolean;
 }
+
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? React.useEffect : React.useLayoutEffect;
 
 const ThemeContext = React.createContext<ThemeContextValue | null>(null);
 
-const DARK_QUERY = "(prefers-color-scheme: dark)";
 const THEMES: readonly Theme[] = ["light", "dark", "system"];
 const MOTIONS: readonly Motion[] = ["full", "subtle", "off"];
 
@@ -39,14 +45,6 @@ function write(key: string, value: string) {
 
 function systemTheme(): ResolvedTheme {
   return typeof window !== "undefined" && window.matchMedia?.(DARK_QUERY).matches ? "dark" : "light";
-}
-
-/** Sets `.dark`, `data-theme`, `data-motion` and `color-scheme` on an element (the <html> element by default). */
-export function applyTheme(resolved: ResolvedTheme, motion: Motion, el: HTMLElement = document.documentElement) {
-  el.classList.toggle("dark", resolved === "dark");
-  el.dataset.theme = resolved;
-  el.dataset.motion = motion;
-  el.style.colorScheme = resolved;
 }
 
 export interface ThemeProviderProps {
@@ -79,30 +77,39 @@ export function ThemeProvider({
   const themeKey = `${storageKey}-theme`;
   const motionKey = `${storageKey}-motion`;
 
-  const [storedTheme, setStoredTheme] = React.useState<Theme>(() =>
-    typeof window === "undefined" ? defaultTheme : (read(themeKey, THEMES) ?? defaultTheme),
-  );
-  const [storedMotion, setStoredMotion] = React.useState<Motion>(() =>
-    typeof window === "undefined" ? defaultMotion : (read(motionKey, MOTIONS) ?? defaultMotion),
-  );
-  const [system, setSystem] = React.useState<ResolvedTheme>(systemTheme);
+  // Start from the defaults on both server and client so hydration matches, then read the saved
+  // choice and the OS setting in a layout effect (before paint, so there's no flash).
+  const [storedTheme, setStoredTheme] = React.useState<Theme>(defaultTheme);
+  const [storedMotion, setStoredMotion] = React.useState<Motion>(defaultMotion);
+  const [system, setSystem] = React.useState<ResolvedTheme>("light");
+  const [isMounted, setIsMounted] = React.useState(false);
 
   const theme = controlledTheme ?? storedTheme;
   const motion = controlledMotion ?? storedMotion;
   const resolvedTheme = theme === "system" ? system : theme;
 
+  useIsomorphicLayoutEffect(() => {
+    setStoredTheme(read(themeKey, THEMES) ?? defaultTheme);
+    setStoredMotion(read(motionKey, MOTIONS) ?? defaultMotion);
+    setSystem(systemTheme());
+    setIsMounted(true);
+    // Only on mount and when the storage key changes; later default changes don't override a saved choice.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [themeKey, motionKey]);
+
   React.useEffect(() => {
     const mq = window.matchMedia?.(DARK_QUERY);
     if (!mq) return;
     const onChange = () => setSystem(mq.matches ? "dark" : "light");
-    onChange();
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  React.useLayoutEffect(() => {
-    applyTheme(resolvedTheme, motion);
-  }, [resolvedTheme, motion]);
+  useIsomorphicLayoutEffect(() => {
+    // Before mount the <html> attributes come from themeScript (or nothing); don't overwrite them
+    // with the defaults for one frame.
+    if (isMounted) applyTheme(resolvedTheme, motion);
+  }, [isMounted, resolvedTheme, motion]);
 
   const setTheme = React.useCallback(
     (next: Theme) => {
@@ -127,8 +134,8 @@ export function ThemeProvider({
   );
 
   const value = React.useMemo(
-    () => ({ theme, resolvedTheme, setTheme, motion, setMotion }),
-    [theme, resolvedTheme, setTheme, motion, setMotion],
+    () => ({ theme, resolvedTheme, setTheme, motion, setMotion, isMounted }),
+    [theme, resolvedTheme, setTheme, motion, setMotion, isMounted],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
@@ -138,21 +145,4 @@ export function useTheme(): ThemeContextValue {
   const ctx = React.useContext(ThemeContext);
   if (!ctx) throw new Error("useTheme must be used inside <ThemeProvider>.");
   return ctx;
-}
-
-/**
- * An inline script for <head> that applies the saved theme before first paint, so server-rendered
- * pages don't flash light then dark. Use it with the same options you pass to ThemeProvider:
- *
- *   <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
- */
-export function themeScript({
-  defaultTheme = "system",
-  defaultMotion = "full",
-  storageKey = "junco",
-}: Pick<ThemeProviderProps, "defaultTheme" | "defaultMotion" | "storageKey"> = {}): string {
-  const args = [storageKey, defaultTheme, defaultMotion]
-    .map((v) => JSON.stringify(v).replace(/</g, "\\u003c"))
-    .join(",");
-  return `(function(k,t,m){try{var s=localStorage;t=s.getItem(k+"-theme")||t;m=s.getItem(k+"-motion")||m}catch(e){}var d=t==="dark"||(t==="system"&&matchMedia("${DARK_QUERY}").matches),r=d?"dark":"light",e=document.documentElement;e.classList.toggle("dark",d);e.dataset.theme=r;e.dataset.motion=m;e.style.colorScheme=r})(${args})`;
 }

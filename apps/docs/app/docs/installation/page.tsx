@@ -47,11 +47,14 @@ export default function InstallationPage() {
               </Step>
               <Step title="Add the theme provider">
                 <P>
-                  <C>themeScript()</C> applies the saved theme before first paint, so dark mode never flashes.
+                  <C>themeScript()</C> applies the saved theme before first paint, so dark mode never flashes. Import it
+                  from <C>junco/server</C>, which also has <C>cn()</C> and every <C>*Variants</C> helper for server
+                  components.
                 </P>
                 <CodeBlock
                   title="app/layout.tsx"
-                  code={`import { ThemeProvider, themeScript } from "junco";
+                  code={`import { ThemeProvider } from "junco";
+import { themeScript } from "junco/server";
 import "./globals.css";
 
 export default function RootLayout({ children }) {

@@ -87,11 +87,15 @@ function listFiles(dir: string, exts = [".ts", ".tsx"]): string[] {
 }
 
 /** Maps `export * as XPrimitive from "mod"` / `export { Slot } from "mod"` in lib/primitives.ts. */
+/** Behavior-seam files in packages/react/src/lib: copy-in code imports their modules directly. */
+const SEAM_FILES = ["primitives", "slot"];
+
 function readPrimitives(): Map<string, { module: string; namespace: boolean; imported?: string }> {
   const map = new Map<string, { module: string; namespace: boolean; imported?: string }>();
-  const file = join(REACT_SRC, "lib/primitives.ts");
-  if (!existsSync(file)) return map;
-  const src = readFileSync(file, "utf8");
+  const src = SEAM_FILES.map((f) => join(REACT_SRC, `lib/${f}.ts`))
+    .filter((f) => existsSync(f))
+    .map((f) => readFileSync(f, "utf8"))
+    .join("\n");
   for (const m of src.matchAll(/export\s+\*\s+as\s+(\w+)\s+from\s+["']([^"']+)["']/g)) map.set(m[1]!, { module: m[2]!, namespace: true });
   for (const m of src.matchAll(/export\s*\{([^}]+)\}\s*from\s+["']([^"']+)["']/g)) {
     for (const spec of m[1]!.split(",").map((s) => s.trim()).filter(Boolean)) {
@@ -123,7 +127,7 @@ function discoverSources(): SourceFile[] {
   }
   for (const abs of listFiles(join(REACT_SRC, "lib"))) {
     const name = basename(abs, extname(abs));
-    if (name === "primitives") continue; // inlined into each component as direct imports
+    if (SEAM_FILES.includes(name)) continue; // inlined into each component as direct imports
     if (name === "cn") {
       files.push({ abs, item: "utils", type: "registry:lib", alias: "@/lib/utils", registryPath: "registry/junco/lib/utils.ts", target: undefined });
       continue;
@@ -165,7 +169,7 @@ function transform(file: SourceFile, byAbs: Map<string, SourceFile>, primitives:
       return whole;
     }
     const target = resolveRelative(file.abs, spec);
-    if (target && basename(target, extname(target)) === "primitives" && dirname(target) === join(REACT_SRC, "lib")) {
+    if (target && SEAM_FILES.includes(basename(target, extname(target))) && dirname(target) === join(REACT_SRC, "lib")) {
       // `import { XPrimitive, Slot } from "../lib/primitives"` -> direct imports
       const names = what.replace(/[{}]/g, "").split(",").map((s) => s.trim()).filter(Boolean);
       return names
