@@ -9,7 +9,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: `${site.url}/` },
     ...searchablePages.map((p) => ({ url: `${site.url}${p.href}` })),
-    { url: `${site.url}/examples/` },
     ...getExamples().map((e) => ({ url: `${site.url}/examples/${e.slug}/` })),
   ];
 }

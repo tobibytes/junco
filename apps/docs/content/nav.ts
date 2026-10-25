@@ -30,6 +30,7 @@ export const explore: NavItem[] = [
   { title: "Blocks and pages", href: "/blocks/", keywords: "templates landing dashboard pricing auth settings sections @junco/blocks" },
   { title: "Motion", href: "/motion/", keywords: "animation reveal marquee ticker typewriter spotlight confetti view transitions @junco/motion" },
   { title: "3D", href: "/3d/", keywords: "three webgl globe particles shader gradient model viewer tilt @junco/three" },
+  { title: "Examples", href: "/examples/", keywords: "showcase demo projects pulse ledger morganhacks hackathon status page saas finance" },
 ];
 
 export const nav: NavSection[] = [
