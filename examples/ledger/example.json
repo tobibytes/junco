@@ -1,0 +1,17 @@
+{
+  "slug": "ledger",
+  "title": "Ledger",
+  "tagline": "Personal finance: budgets, savings goals and an emergency fund",
+  "description": "A mobile-first money tracker with net worth, accounts, monthly budgets, savings goals and an emergency-fund target. Transactions go in through a validated form, and every chart and budget updates instantly.",
+  "tags": ["Finance", "Mobile-first", "Forms", "Charts"],
+  "packages": ["junco", "junco/form", "junco/data-table", "@junco/blocks", "@junco/motion", "@junco/tailwind"],
+  "features": [
+    "Bottom tab bar and swipeable add sheet on phones",
+    "Add-transaction form with React Hook Form and Zod",
+    "Budgets that say over or under in words, not just color",
+    "Savings goals with progress, quick amounts and confetti",
+    "Net worth trend, spending chart and sparkline stats",
+    "Transactions table on desktop, grouped list on phones"
+  ],
+  "source": "https://github.com/tobibytes/junco/tree/main/examples/ledger"
+}

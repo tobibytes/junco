@@ -81,7 +81,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           ref={ref}
           data-invalid={hasError || undefined}
           data-disabled={isDisabled || undefined}
-          className={cn("grid gap-1.5", classNames?.root, className)}
+          className={cn("grid content-start gap-1.5", classNames?.root, className)}
           {...props}
         >
           {label && (

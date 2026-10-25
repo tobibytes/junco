@@ -207,16 +207,20 @@ export function BarChart({
     <figure className={cn("grid gap-2", className)} {...props}>
       <div className="relative pl-11" style={{ height }}>
         <YAxis max={max} formatValue={formatValue} />
-        <div aria-hidden className="relative flex h-full items-end gap-[6%]" onPointerLeave={() => setActive(null)}>
+        {/* Equal slots with the bar centered inside: a percentage gap between bars grows with the
+            bar count (6% x 29 gaps is wider than the chart), and labels assume equal slots. */}
+        <div aria-hidden className="relative flex h-full items-end" onPointerLeave={() => setActive(null)}>
           {data.map((d, i) => (
             <div
               key={`${d.label}-${i}`}
-              className="relative flex h-full flex-1 items-end"
+              data-slot="bar-slot"
+              className="relative flex h-full flex-1 items-end justify-center"
               onPointerEnter={() => setActive(i)}
             >
               <div
+                data-slot="bar"
                 className={cn(
-                  "w-full rounded-t-xs bg-primary transition-opacity duration-fast ease-standard",
+                  "w-[64%] max-w-12 rounded-t-xs bg-primary transition-opacity duration-fast ease-standard",
                   active !== null && active !== i && "opacity-40",
                 )}
                 style={{ height: `${(d.value / max) * 100}%` }}

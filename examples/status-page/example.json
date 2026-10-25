@@ -1,0 +1,16 @@
+{
+  "slug": "status-page",
+  "title": "Status page",
+  "tagline": "A full status page in plain HTML and Junco's CSS classes, no React",
+  "description": "A service status page built only with Junco's semantic classes: cards, badges, tables, tooltips, inputs and buttons. It ships as one HTML file and one CSS file, with no client JavaScript except a small theme toggle.",
+  "tags": ["Plain HTML", "Semantic classes", "Dashboard"],
+  "packages": ["@junco/tailwind"],
+  "features": [
+    "Status badges with a dot and a text label, never color alone",
+    "90-day uptime bars with hover tooltips, 30 days on phones",
+    "Incident timeline with updates",
+    "Response time table and a subscribe form",
+    "Light and dark, remembered across visits"
+  ],
+  "source": "https://github.com/tobibytes/junco/tree/main/examples/status-page"
+}

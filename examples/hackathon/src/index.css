@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "@junco/tailwind";
+
+/* Tailwind needs to see the classes Junco's packages use. */
+@source "../node_modules/junco/dist";
+@source "../node_modules/@junco/blocks/dist";
+@source "../node_modules/@junco/motion/dist";
+@source "../node_modules/@junco/three/dist";
+
+/* MorganHacks brand: Morgan State blue as the accent. One variable re-themes everything. */
+:root {
+  --primary: oklch(0.5 0.17 258);
+  --ring: oklch(0.5 0.17 258);
+  --chart-1: oklch(0.5 0.17 258);
+  --chart-2: oklch(0.72 0.15 75);
+}
+.dark,
+[data-theme="dark"] {
+  --primary: oklch(0.72 0.14 255);
+  --primary-foreground: oklch(0.16 0.03 258);
+  --ring: oklch(0.72 0.14 255);
+  --chart-1: oklch(0.72 0.14 255);
+  --chart-2: oklch(0.8 0.14 80);
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

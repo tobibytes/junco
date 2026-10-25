@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { CodeBlock } from "@/components/code-block";
-import { site } from "@/lib/site";
 import { Pager } from "@/components/docs/pager";
 import { C, DataTable, DocHeader, Note, P, Section } from "@/components/docs/prose";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "CLI",
-  description: "junco init, add, diff, update, eject and create.",
+  description: "junco init, add, diff, update and list: copy components into your project and keep them updated without losing your edits.",
 };
 
 export default function CliPage() {
@@ -15,57 +15,112 @@ export default function CliPage() {
       <DocHeader
         eyebrow="Getting started"
         title="CLI"
-        description="Copy components, blocks and pages into your project, and keep them up to date after you've changed them."
+        description="Copy components into your project, then keep them updated without losing your edits."
       />
       <div className="mt-10 grid gap-12">
-        <Note title="In progress">The commands below are the planned interface. Some are still being built; this page tracks them.</Note>
-
-        <DataTable
-          caption="Commands"
-          head={["Command", "What it does"]}
-          rows={[
-            [<C key="1">junco init</C>, "Adds the Tailwind import, tokens and a junco.config.ts to your project."],
-            [<C key="2">junco add &lt;name&gt;</C>, "Copies a component or block's source, plus anything it depends on."],
-            [<C key="3">junco add page &lt;name&gt; --variant &lt;v&gt;</C>, "Copies a full page and everything it uses."],
-            [<C key="4">junco diff &lt;name&gt;</C>, "Shows what changed upstream since you copied it."],
-            [<C key="5">junco update &lt;name&gt;</C>, "Merges upstream changes into your copy, keeping your edits."],
-            [<C key="6">junco eject &lt;name&gt;</C>, "Turns an installed component into a local copy you own."],
-            [<C key="7">junco create &lt;dir&gt; --template &lt;t&gt;</C>, "Starts a new app from a template (SaaS, admin, ...)."],
-          ]}
-        />
+        <Section id="overview" title="Overview">
+          <P>
+            The CLI is <C>@junco/cli</C>. Run it with <C>npx</C>, or install it and use the <C>junco</C> command. It needs Tailwind
+            CSS v4 already set up (an <C>@import &quot;tailwindcss&quot;;</C> in your global CSS).
+          </P>
+          <CodeBlock
+            lang="bash"
+            code={`npx @junco/cli init                 # detect Next/Vite, wire the theme into your CSS, write junco.json
+npx @junco/cli add button select    # copies select + field, label, icons, utils; installs npm deps
+npx @junco/cli diff                 # which installed components have upstream updates
+npx @junco/cli diff select          # unified diff: your copy vs upstream
+npx @junco/cli update select        # take upstream if you didn't edit it; otherwise write a side file`}
+          />
+          <DataTable
+            caption="Commands"
+            head={["Command", "What it does"]}
+            rows={[
+              [<C key="1">init</C>, "Detects your framework, CSS file and @/* alias, wires the Junco theme into your CSS, adds cn() and writes junco.json."],
+              [<C key="2">add &lt;name...&gt;</C>, "Copies components and everything they depend on, rewrites imports to your aliases, installs missing npm packages."],
+              [<C key="3">diff [name...]</C>, "With names: a unified diff of your copy against upstream. Without: lists components with updates."],
+              [<C key="4">update [name...]</C>, "Three-way update. Untouched files are replaced; edited ones get a .junco-upstream copy to merge by hand."],
+              [<C key="5">list</C>, "Everything in the registry, marked installed or update available."],
+              [<C key="6">eject</C>, "Not built yet. It will turn an installed (npm) component into a local copy."],
+            ]}
+          />
+        </Section>
 
         <Section id="init" title="init">
-          <CodeBlock lang="bash" code="npx junco init" />
-          <P>Detects your framework and Tailwind setup, then adds the imports. Safe to re-run.</P>
+          <CodeBlock lang="bash" code={`npx @junco/cli init
+npx @junco/cli init --css inline --yes`} />
+          <DataTable
+            head={["Flag", ""]}
+            rows={[
+              [<C key="1">--css package</C>, "Default. Adds @import \"@junco/tailwind\"; to your CSS and installs the package."],
+              [<C key="2">--css inline</C>, "Writes the whole theme to styles/junco.css in your project instead, so you own it."],
+              [<C key="3">--css-file &lt;path&gt;</C>, "Which stylesheet to edit, when auto-detection picks the wrong one."],
+              [<C key="4">--yes, -y</C>, "Accept the defaults without asking."],
+              [<C key="5">--force, -f</C>, "Overwrite an existing junco.json."],
+            ]}
+          />
+          <P>
+            Projects without an <C>@/*</C> alias get relative imports. Safe to re-run.
+          </P>
         </Section>
 
         <Section id="add" title="add">
-          <CodeBlock
-            lang="bash"
-            code={`npx junco add button select field
-npx junco add page dashboard --variant sidebar`}
-          />
+          <CodeBlock lang="bash" code={`npx @junco/cli add button field select
+npx @junco/cli add data-table form       # the junco/data-table and junco/form pieces`} />
           <P>
-            Files land in <C>components/ui</C> by default (change it in <C>junco.config.ts</C>). Each file records the version it came
-            from, which is what makes <C>diff</C> and <C>update</C> possible.
+            Dependencies are resolved recursively (Select brings Field, Label and the icons it uses). Each file&apos;s content hash
+            is recorded in <C>junco.json</C>, which is what makes <C>diff</C> and <C>update</C> work. Files you already changed are
+            kept unless you pass <C>--overwrite</C>.
           </P>
         </Section>
 
         <Section id="update" title="diff and update">
           <CodeBlock
             lang="bash"
-            code={`npx junco diff select     # what changed upstream
-npx junco update select   # three-way merge, your edits kept`}
+            code={`npx @junco/cli diff                 # what has updates
+npx @junco/cli diff select > select.patch   # applyable with patch
+npx @junco/cli update select
+npx @junco/cli update --all`}
           />
           <P>
-            Copied code usually drifts the moment you edit it. Junco does a three-way merge between the version you copied, your
-            edited copy, and the latest upstream, so you get fixes without losing changes. Conflicts are marked like a git merge.
+            Copied code usually drifts the moment you edit it. <C>update</C> compares three versions: what Junco wrote, your file
+            now, and the latest upstream. If you never touched a file, it&apos;s replaced. If you did, the new version lands next to
+            it as <C>select.tsx.junco-upstream</C>; merge what you want, delete the copy, and run{" "}
+            <C>update select --resolved</C>. <C>--force</C> takes upstream and drops your edits.
           </P>
         </Section>
 
+        <Section id="config" title="junco.json">
+          <CodeBlock
+            code={`{
+  "$schema": "${site.url}/schema/junco.json",
+  "registry": "${site.url}/r",
+  "framework": "next",
+  "css": { "file": "app/globals.css", "mode": "package" },
+  "aliases": { "components": "@/components", "ui": "@/components/ui", "lib": "@/lib", "utils": "@/lib/utils" },
+  "paths": { "components": "components", "ui": "components/ui", "lib": "lib" },
+  "installed": {
+    "button": { "hash": "3f1c…", "files": { "components/ui/button.tsx": "9ab2…" } }
+  }
+}`}
+          />
+          <DataTable
+            caption="Global options"
+            head={["Option", ""]}
+            rows={[
+              [<C key="1">--registry &lt;url|dir&gt;</C>, "Registry to read. Also JUNCO_REGISTRY or registry in junco.json. A local folder works too."],
+              [<C key="2">--cwd &lt;dir&gt;</C>, "Run as if from another folder."],
+              [<C key="3">--no-install</C>, "Write files but don't install npm packages."],
+            ]}
+          />
+        </Section>
+
         <Section id="shadcn" title="With the shadcn CLI">
-          <P>Every component is also served as shadcn registry JSON, so the shadcn CLI works too:</P>
-          <CodeBlock lang="bash" code={`npx shadcn add ${site.url}/r/button.json`} />
+          <P>Every component is also a shadcn registry item, so the shadcn CLI works too. It follows the dependency URLs and merges the theme into your CSS:</P>
+          <CodeBlock lang="bash" code={`npx shadcn@latest add ${site.url}/r/button.json`} />
+          <Note>
+            On Vite, shadcn needs the <C>@/*</C> alias in your root <C>tsconfig.json</C>, or it writes into a literal <C>@/</C>{" "}
+            folder. That&apos;s standard shadcn setup.
+          </Note>
         </Section>
       </div>
       <Pager href="/docs/cli/" />

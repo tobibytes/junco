@@ -2,9 +2,7 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata, Viewport } from "next";
 import { Providers } from "@/components/providers";
-import { SearchDialog } from "@/components/search";
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
+import { SiteChrome } from "@/components/site-chrome";
 import { site } from "@/lib/site";
 import { THEME_SCRIPT } from "@/lib/theme-script";
 import "./globals.css";
@@ -42,14 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-dvh">
         <Providers>
-          <div className="flex min-h-dvh flex-col">
-            <SiteHeader />
-            <main id="main" tabIndex={-1} className="flex flex-1 flex-col outline-none">
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
-          <SearchDialog />
+          <SiteChrome>{children}</SiteChrome>
         </Providers>
       </body>
     </html>

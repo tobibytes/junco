@@ -11,9 +11,13 @@ import { SearchButton } from "./search";
 import { ThemeToggle } from "./theme-controls";
 
 const links = [
-  { href: "/docs/", label: "Docs", match: (p: string) => p.startsWith("/docs") },
+  { href: "/docs/", label: "Docs", match: (p: string) => p.startsWith("/docs") && !p.startsWith("/docs/theming") },
   { href: "/components/", label: "Components", match: (p: string) => p.startsWith("/components") },
-  { href: "/docs/theming/", label: "Theming", match: (p: string) => p.startsWith("/docs/theming") },
+  { href: "/blocks/", label: "Blocks", match: (p: string) => p.startsWith("/blocks") },
+  { href: "/examples/", label: "Examples", match: (p: string) => p.startsWith("/examples") },
+  { href: "/motion/", label: "Motion", match: (p: string) => p.startsWith("/motion"), wide: true },
+  { href: "/3d/", label: "3D", match: (p: string) => p.startsWith("/3d"), wide: true },
+  { href: "/docs/theming/", label: "Theming", match: (p: string) => p.startsWith("/docs/theming"), wide: true },
 ];
 
 export function SiteHeader() {
@@ -37,7 +41,7 @@ export function SiteHeader() {
         </Link>
         <nav aria-label="Main" className="ml-4 hidden items-center gap-1 md:flex">
           {links.map((link) => {
-            const active = link.href === "/docs/" ? pathname.startsWith("/docs") && !pathname.startsWith("/docs/theming") : link.match(pathname);
+            const active = link.match(pathname);
             return (
               <Link
                 key={link.href}
@@ -47,6 +51,7 @@ export function SiteHeader() {
                   "rounded-control px-2.5 py-1.5 text-sm text-muted-foreground transition-colors duration-fast ease-standard hover:text-foreground",
                   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                   "aria-[current=page]:text-foreground",
+                  link.wide && "hidden lg:inline-block",
                 )}
               >
                 {link.label}
@@ -55,7 +60,7 @@ export function SiteHeader() {
           })}
         </nav>
         <div className="ml-auto flex items-center gap-1">
-          <SearchButton />
+          <SearchButton className="md:w-40 lg:w-56" />
           <Tooltip content="GitHub">
             <Button asChild variant="ghost" size="icon">
               <a href={site.github} aria-label="Junco on GitHub" rel="noreferrer">

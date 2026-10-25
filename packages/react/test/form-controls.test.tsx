@@ -4,6 +4,17 @@ import { describe, expect, it, vi } from "vitest";
 import { Checkbox, Field, Input, Label, Radio, RadioGroup, Separator, Switch, Textarea } from "../src";
 
 describe("Field", () => {
+  it("keeps label and control at the top when stretched by a taller neighbor in a grid row", () => {
+    // Without content-start, a stretched Field's grid spreads the extra height between its rows,
+    // so labels in the same row end up at different heights.
+    const { container } = render(
+      <Field label="Name">
+        <Input />
+      </Field>,
+    );
+    expect(container.firstElementChild).toHaveClass("grid", "content-start");
+  });
+
   it("links label, description and error to the control", () => {
     render(
       <Field label="Email" description="Work email only" error="Required" isRequired>

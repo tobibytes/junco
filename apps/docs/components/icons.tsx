@@ -147,6 +147,42 @@ export const PlusIcon = (p: IconProps) => (
     <path d="M5 12h14M12 5v14" />
   </Icon>
 );
+export const LaptopIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="3" y="4" width="18" height="12" rx="2" />
+    <path d="M2 20h20" />
+  </Icon>
+);
+export const TabletIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="4" y="2" width="16" height="20" rx="2" />
+    <path d="M12 18h.01" />
+  </Icon>
+);
+export const PhoneIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="6" y="2" width="12" height="20" rx="2" />
+    <path d="M12 18h.01" />
+  </Icon>
+);
+export const LayoutIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <path d="M3 9h18M9 21V9" />
+  </Icon>
+);
+export const SparklesIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M9.94 14.06 8 20l-1.94-5.94L0 12l6.06-1.94L8 4l1.94 6.06L16 12Z" transform="translate(2 -1) scale(.9)" />
+    <path d="M20 3v4M22 5h-4" />
+  </Icon>
+);
+export const CubeIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M21 8 12 3 3 8v8l9 5 9-5Z" />
+    <path d="m3 8 9 5 9-5M12 13v8" />
+  </Icon>
+);
 export const LogoMark = (p: IconProps) => (
   <svg viewBox="0 0 32 32" width={20} height={20} aria-hidden focusable={false} {...p}>
     <rect width="32" height="32" rx="8" fill="var(--foreground)" />

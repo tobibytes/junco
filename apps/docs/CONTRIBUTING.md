@@ -27,13 +27,20 @@ One new file and one line.
 
 That's it: the route, sidebar entry, search result, index card (its thumbnail is the playground default, or the first example), sitemap entry and prev/next links all come from that line.
 
+## Adding a block or page
+
+1. Add an entry to `blocks` in `content/blocks/catalog.ts`: slug, title, category, description, component, import path, variants (default first), and `inShell` for app pages or `height` for sections.
+2. Add its render function to `renders` in `content/blocks/render.tsx` (it gets the variant).
+
+The gallery card, detail page, preview frames (`/preview/<slug>/<variant>/`, one per variant), search entry and sitemap entry all come from that. Previews are real pages in iframes, so media queries, sticky headers and sheets behave as they do in an app. Frames skip `ThemeProvider` and take `?theme=` / `?motion=` from the URL, then messages from the page that embeds them (`lib/frame.ts`). Links inside frames that leave `/preview/` are demo links: the frame shows a toast instead of navigating.
+
 ## Adding a guide
 
 Create `app/docs/<slug>/page.tsx` using the pieces in `components/docs/prose.tsx`, then add it to `guides` in `content/nav.ts`.
 
 ## Things to know
 
-- **Server vs client.** `junco`'s bundle is marked `"use client"`, so on the server every export is a client reference. You can render its components from server files, but you can't *call* its functions there (`cn`, `themeScript`, the `*Variants` helpers). Use `lib/cn.ts` and `lib/theme-script.ts` instead.
+- **Server vs client.** `junco`'s bundle is marked `"use client"`, so on the server every export is a client reference. You can render its components from server files, but you can't *call* its functions there, or pass them function props. `lib/cn.ts` and `lib/theme-script.ts` re-export from `junco/server`, which is server-safe.
 - **Theme state and hydration.** `ThemeProvider` reads localStorage during render. Anything that shows the current theme or motion must wait for `useMounted()` (`lib/use-mounted.ts`), or the first client render won't match the server HTML.
 - **Previews** (`components/preview.tsx`) can be pinned to light or dark by re-declaring the color tokens on the frame. Portaled content like select menus and tooltips still follows the site theme.
 - **Registry and llms.txt** are generated into `public/r` and `public/llms.txt` by `pnpm registry:build` at the repo root, which `prebuild` runs when it exists.

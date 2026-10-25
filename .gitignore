@@ -13,3 +13,6 @@ apps/docs/public/r/
 apps/docs/public/llms.txt
 apps/docs/public/llms-full.txt
 apps/docs/public/schema/
+
+# copied from examples/*/dist by apps/docs prebuild
+apps/docs/public/demos/

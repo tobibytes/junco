@@ -4,3 +4,4 @@
 /* Tailwind needs to see the classes Junco's components and blocks use. */
 @source "../node_modules/junco/dist";
 @source "../node_modules/@junco/blocks/dist";
+@source "../node_modules/@junco/motion/dist";

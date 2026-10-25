@@ -37,9 +37,9 @@ const levels: { n: string; title: string; like: string; lang: Lang; code: string
     title: "Copy-in",
     like: "shadcn/ui",
     lang: "bash",
-    code: `npx junco add button
+    code: `npx @junco/cli add button
 # yours to edit, still updatable
-npx junco update button`,
+npx @junco/cli update button`,
     result: <Button>Deploy</Button>,
   },
   {

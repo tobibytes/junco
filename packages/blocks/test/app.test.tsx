@@ -401,6 +401,29 @@ describe("AppShell", () => {
     expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
   });
 
+  it("names buttons by their visible text (WCAG 2.5.3), labelling only when there's no text", () => {
+    const { rerender } = render(
+      <AppShell onSearch={() => {}} sidebar={{ user: { name: "Tobi Olajide", email: "tobi@example.com" } }}>
+        <p>Body</p>
+      </AppShell>,
+    );
+    // Search: the visible "Search…" is the name; the shortcut comes from aria-keyshortcuts.
+    const search = screen.getByRole("button", { name: "Search…" });
+    expect(search).not.toHaveAttribute("aria-label");
+    expect(search).toHaveAttribute("aria-keyshortcuts", "Meta+K Control+K");
+    // Account menu: expanded, the visible name and email are the label (no duplicate avatar name).
+    const account = screen.getAllByRole("button", { name: /tobi@example\.com/ })[0]!;
+    expect(account).not.toHaveAttribute("aria-label");
+    expect(account).toHaveAccessibleName("Tobi Olajide tobi@example.com");
+    // Collapsed: no visible text, so it gets a label.
+    rerender(
+      <AppShell isCollapsed onSearch={() => {}} sidebar={{ user: { name: "Tobi Olajide", email: "tobi@example.com" } }}>
+        <p>Body</p>
+      </AppShell>,
+    );
+    expect(screen.getAllByRole("button", { name: "Account menu for Tobi Olajide" }).length).toBeGreaterThan(0);
+  });
+
   it("collapses with the button and with Ctrl+B", async () => {
     const onCollapsedChange = vi.fn();
     render(
@@ -444,6 +467,17 @@ describe("charts", () => {
     const table = screen.getByRole("table", { name: "Signups by month" });
     expect(within(table).getByRole("rowheader", { name: "Feb" })).toBeInTheDocument();
     expect(within(table).getByText("30 people")).toBeInTheDocument();
+  });
+
+  it("BarChart keeps bars a fixed share of their slot however many there are", () => {
+    // A percentage gap between bars grew with the count (6% x 29 gaps > 100% at 30 bars), squeezing
+    // bars to slivers and misaligning the axis labels, which assume equal slots.
+    const many = Array.from({ length: 30 }, (_, i) => ({ label: `D${i}`, value: i + 1 }));
+    const { container } = render(<BarChart data={many} label="Daily" />);
+    const slots = container.querySelectorAll('[data-slot="bar-slot"]');
+    expect(slots).toHaveLength(30);
+    expect(slots[0]!.parentElement!.className).not.toMatch(/gap-\[/);
+    for (const bar of container.querySelectorAll('[data-slot="bar"]')) expect(bar.className).toContain("w-[64%]");
   });
 
   it("handles empty data", () => {
