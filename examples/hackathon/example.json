@@ -1,0 +1,16 @@
+{
+  "slug": "hackathon",
+  "title": "MorganHacks",
+  "tagline": "A hackathon site with a live countdown, 3D globe and registration",
+  "description": "A complete event website for a 36-hour student hackathon, built from Junco's marketing blocks, motion effects and 3D scenes. It has a schedule by day, tracks, prizes, judges, an FAQ, and a validated registration form that ends with a toast and confetti.",
+  "tags": ["Marketing", "Event", "Forms", "Motion", "3D"],
+  "packages": ["junco", "junco/form", "@junco/blocks", "@junco/motion", "@junco/three", "@junco/tailwind"],
+  "features": [
+    "Bold hero with a shader gradient and a live countdown",
+    "3D globe showing where hackers travel from",
+    "Schedule tabs, track cards with spotlight hover, prize and judge grids",
+    "Registration with React Hook Form + Zod, toast and confetti",
+    "Theme and motion switch, hash routing, works at 360px"
+  ],
+  "source": "https://github.com/tobibytes/junco/tree/main/examples/hackathon"
+}
