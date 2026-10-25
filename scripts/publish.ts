@@ -9,7 +9,7 @@
  *
  * Each package is packed with pnpm (which rewrites `workspace:*` ranges to real versions) and the
  * tarball is published with npm, which handles OIDC. Prints "New tag:" lines for changesets/action
- * and creates the git tags it pushes.
+ * (it creates and pushes the git tag and GitHub Release for each one).
  */
 import { spawnSync, type SpawnSyncOptions } from "node:child_process";
 import { mkdtempSync, readdirSync, readFileSync } from "node:fs";
@@ -79,8 +79,6 @@ for (const p of pending) {
   }
 }
 
-// Git tags for what went out (changesets/action pushes them and creates GitHub Releases).
-if (inCI && !dryRun) spawnSync("pnpm", ["changeset", "tag"], { stdio: "inherit", cwd: root });
 
 if (failed.length) {
   console.error(`\nFailed: ${failed.join(", ")}`);
