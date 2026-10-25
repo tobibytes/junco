@@ -74,7 +74,7 @@
   .marquee[data-static],
   :where([data-motion="off"]) .marquee { flex-wrap: wrap; justify-content: center; mask-image: none; }
   .marquee[data-static] .marquee-track,
-  :where([data-motion="off"]) .marquee-track { flex: 1 1 100%; flex-wrap: wrap; justify-content: center; animation: none; min-width: 0; }
+  :where([data-motion="off"]) .marquee-track { flex: 1 1 100%; flex-wrap: wrap; justify-content: center; row-gap: calc(var(--marquee-gap) / 2); padding-inline: var(--marquee-gap); animation: none; min-width: 0; }
   .marquee[data-static] .marquee-track[aria-hidden="true"],
   :where([data-motion="off"]) .marquee-track[aria-hidden="true"] { display: none; }
 

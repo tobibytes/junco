@@ -17,7 +17,7 @@ export default function McpPage() {
       <DocHeader
         eyebrow="Getting started"
         title="MCP and AI"
-        description="Junco is built to be used by AI agents as well as people. Point your agent at it and it builds screens from real Junco components instead of guessing."
+        description="Point your agent at Junco and it builds with real components instead of guessing."
       />
       <div className="mt-10 grid gap-12">
         <Section id="mcp" title="MCP server">

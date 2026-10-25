@@ -16,3 +16,8 @@ apps/docs/public/schema/
 
 # copied from examples/*/dist by apps/docs prebuild
 apps/docs/public/demos/
+
+# SwiftPM
+.build/
+.swiftpm/
+Package.resolved

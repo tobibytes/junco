@@ -89,6 +89,7 @@ Framework guides for Next.js, Vite and plain HTML are in the [docs](https://junc
 | [`@junco/three`](packages/three) | Lazy-loaded 3D: particle field, shader gradient, globe, model viewer, tilt card |
 | [`@junco/cli`](packages/cli) | `junco init`, `add`, `diff`, `update`, `list` |
 | [`@junco/mcp`](packages/mcp) | MCP server so Claude, Cursor and other agents can find and install Junco components |
+| [Junco for Swift](packages/swift) (preview) | The same tokens in Swift plus SwiftUI button, field, toggle, badge and card styles. SwiftPM: `https://github.com/tobibytes/junco` |
 
 ## Examples
 
@@ -105,6 +106,7 @@ Four complete projects built only with Junco, each with a live demo and source i
 - **Copied code that still updates.** `junco diff` and `junco update` do a three-way merge instead of leaving you with a stale fork.
 - **Accessible by default.** Keyboard support, visible focus, labels wired by `Field`, status never shown by color alone. Every component runs through axe in CI, and every text color pair is tested for 4.5:1 contrast in light and dark.
 - **Motion with one switch.** `data-motion="off | subtle | full"` scales every animation, and `prefers-reduced-motion` always wins.
+- **Native too.** The tokens generate Swift, so SwiftUI apps match the web.
 - **Built for AI agents.** An MCP server, `llms.txt`, and a shadcn-compatible registry.
 - **Free.** MIT, nothing behind a paywall.
 

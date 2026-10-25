@@ -20,6 +20,7 @@ export const guides: NavItem[] = [
   { title: "Theming", href: "/docs/theming/", keywords: "tokens colors accent primary contrast css variables" },
   { title: "Dark mode and motion", href: "/docs/dark-mode/", keywords: "theme provider reduced motion data-motion themeScript" },
   { title: "CLI", href: "/docs/cli/", keywords: "junco init add diff update list eject registry shadcn" },
+  { title: "SwiftUI", href: "/docs/swiftui/", keywords: "swift ios macos iphone ipad visionos apple native xcode swiftpm" },
   { title: "MCP and AI", href: "/docs/mcp/", keywords: "llms.txt model context protocol claude cursor agents" },
   { title: "Accessibility", href: "/docs/accessibility/", keywords: "a11y keyboard screen reader axe wcag" },
   { title: "Changelog", href: "/docs/changelog/", keywords: "releases versions" },

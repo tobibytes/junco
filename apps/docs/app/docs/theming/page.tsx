@@ -16,7 +16,7 @@ export default function ThemingPage() {
       <DocHeader
         eyebrow="Getting started"
         title="Theming"
-        description="Every design value is a CSS variable with a light and a dark value. Change --primary and the whole app follows. Contrast is checked for you."
+        description="Every value is a CSS variable, light and dark. Change --primary and the app follows."
       />
       <div className="mt-10 grid gap-14">
         <Section id="accent" title="Pick an accent">

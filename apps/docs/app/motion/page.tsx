@@ -29,11 +29,8 @@ export default function MotionPage() {
         <p className="text-sm font-medium text-primary">@junco/motion</p>
         <h1 className="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl">Motion</h1>
         <p className="text-base text-pretty text-muted-foreground">
-          Effects for marketing pages and product moments, with no animation library. Every one reads the{" "}
-          <code className="font-mono text-[0.9em]">--motion-scale</code> token, so the{" "}
-          <code className="font-mono text-[0.9em]">data-motion</code> switch tones all of them down at once, and{" "}
-          <code className="font-mono text-[0.9em]">prefers-reduced-motion</code> always wins. With motion off, each effect
-          shows its final state immediately. Try the switch below.
+          Effects with no animation library. One <code className="font-mono text-[0.9em]">data-motion</code> switch tones them all
+          down, and <code className="font-mono text-[0.9em]">prefers-reduced-motion</code> always wins.
         </p>
       </header>
 
