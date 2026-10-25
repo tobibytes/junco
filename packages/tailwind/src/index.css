@@ -105,6 +105,8 @@
   --animate-toast-out: fade-out calc(var(--duration-fast) * var(--motion-scale)) var(--ease-exit) both;
   /* Loading indicators keep moving with motion off (they carry meaning), just slower. */
   --animate-spinner: junco-spin calc(0.8s / max(var(--motion-scale), 0.5)) linear infinite;
+  --animate-accordion-down: accordion-down calc(var(--duration-base) * var(--motion-scale)) var(--ease-standard) both;
+  --animate-accordion-up: accordion-up calc(var(--duration-base) * var(--motion-scale)) var(--ease-standard) both;
   /* The skeleton pulse flattens to a still block with motion off. */
   --animate-skeleton: skeleton 1.6s var(--ease-standard) infinite;
 
@@ -140,6 +142,15 @@
   @keyframes skeleton {
     50% { opacity: calc(1 - 0.5 * var(--motion-scale)); }
   }
+  /* Accordion panels open to their measured height (Radix sets --radix-accordion-content-height). */
+  @keyframes accordion-down {
+    from { height: 0; opacity: 0; }
+    to { height: var(--radix-accordion-content-height); }
+  }
+  @keyframes accordion-up {
+    from { height: var(--radix-accordion-content-height); }
+    to { height: 0; opacity: 0; }
+  }
 }
 
 @utility duration-fast { transition-duration: calc(var(--duration-fast) * var(--motion-scale)); }
@@ -163,3 +174,4 @@
 
 
 @import "./components.css";
+@import "./motion.css";

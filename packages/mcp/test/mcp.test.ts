@@ -77,7 +77,7 @@ describe("tools", () => {
     const ring = await getTokens("summary", "ring");
     expect(ring).toContain("--ring:");
     expect(ring).not.toContain("--ease-spring");
-    expect(await getTokens("css")).toContain(":root {");
+    expect(await getTokens("css")).toMatch(/^:root[\s,{]/m);
     expect(JSON.parse(await getTokens("json")).color.primary.$type).toBe("color");
   });
 

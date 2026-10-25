@@ -84,6 +84,7 @@ Framework guides for Next.js, Vite and plain HTML are in the [docs](https://junc
 | [`@junco/tokens`](packages/tokens) | Every design value as CSS variables (light and dark), a TS object and W3C design token JSON |
 | [`@junco/tailwind`](packages/tailwind) | The Tailwind v4 theme, semantic classes (`btn`, `card`, `input`, `modal`, `table`, …) and motion utilities |
 | [`@junco/blocks`](packages/blocks) | App shells, dashboards, settings, auth and marketing pages with typed props, fake data, `variant`s and `slots` |
+| [`@junco/motion`](packages/motion) | Scroll reveal, number ticker, text reveal, marquee, spotlight, beams, confetti and view transitions, all following the motion switch |
 | [`@junco/three`](packages/three) | Lazy-loaded 3D: particle field, shader gradient, globe, model viewer, tilt card |
 | [`@junco/cli`](packages/cli) | `junco init`, `add`, `diff`, `update`, `list` |
 | [`@junco/mcp`](packages/mcp) | MCP server so Claude, Cursor and other agents can find and install Junco components |

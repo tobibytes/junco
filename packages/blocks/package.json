@@ -55,6 +55,7 @@
   "dependencies": {
     "@hookform/resolvers": "^6.0.0",
     "@tanstack/react-table": "^8.21.3",
+    "@junco/motion": "workspace:*",
     "junco": "workspace:*",
     "react-hook-form": "^7.91.0",
     "tailwind-variants": "^1.0.0",
