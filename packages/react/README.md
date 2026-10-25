@@ -3,18 +3,18 @@
 Accessible React components for Tailwind v4, part of the [Junco design system](https://junco.madebytobi.com).
 
 ```bash
-npm i junco @junco/tailwind
+npm i @junco/react @junco/tailwind
 ```
 
 ```css
 /* app.css */
 @import "tailwindcss";
 @import "@junco/tailwind";
-@source "../node_modules/junco/dist";
+@source "../node_modules/@junco/react/dist";
 ```
 
 ```tsx
-import { Button, Field, Input, ThemeProvider, Toaster } from "junco";
+import { Button, Field, Input, ThemeProvider, Toaster } from "@junco/react";
 
 <ThemeProvider>
   <Field label="Email" description="Work email only" error={errors.email}>
@@ -40,9 +40,9 @@ Subpath entries keep heavy dependencies out of the core bundle:
 
 | Import | What | Peer deps |
 | --- | --- | --- |
-| `junco/data-table` | Sortable, selectable, filterable data table | `@tanstack/react-table` |
-| `junco/form` | React Hook Form + Zod wiring for every control | `react-hook-form`, `zod`, `@hookform/resolvers` |
-| `junco/server` | `cn`, `themeScript` and variant helpers for React Server Components | none |
+| `@junco/react/data-table` | Sortable, selectable, filterable data table | `@tanstack/react-table` |
+| `@junco/react/form` | React Hook Form + Zod wiring for every control | `react-hook-form`, `zod`, `@hookform/resolvers` |
+| `@junco/react/server` | `cn`, `themeScript` and variant helpers for React Server Components | none |
 
 Every component takes `className`, multi-part ones take `classNames` slots, variants come from `tailwind-variants` (`variant`, `size`, `color`, `isLoading`, `isInvalid`), and everything respects `data-motion` and `prefers-reduced-motion`.
 

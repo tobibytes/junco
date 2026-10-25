@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "junco";
+import { Button } from "@junco/react";
 import { Highlighted } from "../code-block";
 import type { Lang } from "@/lib/highlight";
 
@@ -43,7 +43,7 @@ npx @junco/cli update button`,
     n: "04",
     title: "Installed",
     lang: "tsx",
-    code: `import { Button } from "junco";
+    code: `import { Button } from "@junco/react";
 
 <Button isLoading>Deploy</Button>`,
     result: <Button isLoading>Deploy</Button>,

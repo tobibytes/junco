@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import { Reveal, SpotlightCard } from "@junco/motion";
 import { defaultFeatures, defaultSpotlight, type Feature, type SpotlightItem } from "./content";
 import { CheckIcon } from "./icons";

@@ -1,4 +1,4 @@
 @import "tailwindcss";
 @import "@junco/tailwind";
 
-@source "../node_modules/junco/dist";
+@source "../node_modules/@junco/react/dist";

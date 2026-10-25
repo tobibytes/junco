@@ -15,7 +15,7 @@ import {
   SheetContent,
   SheetTitle,
   Tooltip,
-} from "junco";
+} from "@junco/react";
 import { tv } from "tailwind-variants";
 import { renderSlot, type Slots } from "../lib/slots";
 import {

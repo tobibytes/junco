@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Tabs, TabsContent, TabsList, TabsTrigger } from "junco";
+import { Badge, Tabs, TabsContent, TabsList, TabsTrigger } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 function Panel({ children }: { children: React.ReactNode }) {

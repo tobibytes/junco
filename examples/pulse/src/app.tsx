@@ -19,7 +19,7 @@ import {
   useTheme,
   type Motion,
   type Theme,
-} from "junco";
+} from "@junco/react";
 import { AppShell, type NavGroup } from "@junco/blocks/app";
 import { users } from "./data";
 import {

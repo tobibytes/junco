@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import { useMergedRef } from "./lib/utils";
 
 export interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {

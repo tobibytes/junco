@@ -1,7 +1,7 @@
 "use client";
 
 import { Globe, ModelViewer, ParticleField, ShaderGradient, TiltCard } from "@junco/three";
-import { Button } from "junco";
+import { Button } from "@junco/react";
 import { cn } from "@/lib/cn";
 
 /** The live scenes for /3d. Each one is lazy: three.js downloads when the first scene nears the screen. */

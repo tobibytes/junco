@@ -1,6 +1,6 @@
 "use client";
 
-import { ThemeProvider, Toaster, TooltipProvider } from "junco";
+import { ThemeProvider, Toaster, TooltipProvider } from "@junco/react";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 import { isFramePath } from "@/lib/frame";

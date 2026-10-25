@@ -15,7 +15,7 @@ import {
   UsersPage,
 } from "@junco/blocks/app";
 import { BellIcon } from "@junco/blocks/app";
-import { Button, toast, Tooltip } from "junco";
+import { Button, toast, Tooltip } from "@junco/react";
 import type * as React from "react";
 import type { PreviewRoute } from "./routes";
 

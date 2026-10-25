@@ -35,6 +35,9 @@ importers:
       '@junco/motion':
         specifier: workspace:*
         version: link:../../packages/motion
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
@@ -59,9 +62,6 @@ importers:
       geist:
         specifier: ^1.8.0
         version: 1.8.2(next@16.4.3(@types/node@22.20.5)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
-      junco:
-        specifier: workspace:*
-        version: link:../../packages/react
       lucide-react:
         specifier: ^0.546.0
         version: 0.546.0(react@19.3.1)
@@ -129,12 +129,12 @@ importers:
       '@junco/motion':
         specifier: workspace:*
         version: link:../../packages/motion
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
-      junco:
-        specifier: workspace:*
-        version: link:../../packages/react
       react:
         specifier: ^19.0.0
         version: 19.3.1
@@ -175,6 +175,9 @@ importers:
       '@junco/motion':
         specifier: workspace:*
         version: link:../../packages/motion
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
@@ -187,9 +190,6 @@ importers:
       '@react-three/fiber':
         specifier: ^9.8.2
         version: 9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.186.1)
-      junco:
-        specifier: workspace:*
-        version: link:../../packages/react
       react:
         specifier: ^19.0.0
         version: 19.3.1
@@ -242,15 +242,15 @@ importers:
       '@junco/motion':
         specifier: workspace:*
         version: link:../../packages/motion
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      junco:
-        specifier: workspace:*
-        version: link:../../packages/react
       react:
         specifier: ^19.0.0
         version: 19.3.1
@@ -291,15 +291,15 @@ importers:
       '@junco/blocks':
         specifier: workspace:*
         version: link:../../packages/blocks
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      junco:
-        specifier: workspace:*
-        version: link:../../packages/react
       react:
         specifier: ^19.0.0
         version: 19.3.1
@@ -347,6 +347,9 @@ importers:
 
   examples/three-preview:
     dependencies:
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
@@ -359,9 +362,6 @@ importers:
       '@react-three/fiber':
         specifier: ^9.8.2
         version: 9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.186.1)
-      junco:
-        specifier: workspace:*
-        version: link:../../packages/react
       react:
         specifier: ^19.0.0
         version: 19.3.1
@@ -399,15 +399,15 @@ importers:
 
   examples/vite-react:
     dependencies:
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      junco:
-        specifier: workspace:*
-        version: link:../../packages/react
       react:
         specifier: ^19.0.0
         version: 19.3.1
@@ -445,12 +445,12 @@ importers:
       '@junco/motion':
         specifier: workspace:*
         version: link:../motion
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../react
       '@tanstack/react-table':
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-      junco:
-        specifier: workspace:*
-        version: link:../react
       react-hook-form:
         specifier: ^7.91.0
         version: 7.91.0(@types/react@19.3.0)(react@19.3.1)
@@ -540,7 +540,7 @@ importers:
 
   packages/motion:
     dependencies:
-      junco:
+      '@junco/react':
         specifier: workspace:*
         version: link:../react
     devDependencies:
@@ -693,6 +693,9 @@ importers:
         specifier: workspace:*
         version: link:../tokens
     devDependencies:
+      '@junco/react':
+        specifier: workspace:*
+        version: link:../react
       '@react-three/drei':
         specifier: ^10.7.9
         version: 10.7.9(@react-three/fiber@9.8.2(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.186.1))(@types/react@19.3.0)(@types/three@0.186.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(three@0.186.1)
@@ -717,9 +720,6 @@ importers:
       jsdom:
         specifier: ^30.1.3
         version: 30.1.3
-      junco:
-        specifier: workspace:*
-        version: link:../react
       react:
         specifier: ^19
         version: 19.3.1

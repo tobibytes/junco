@@ -1,6 +1,6 @@
 # Releasing
 
-Junco publishes eight packages to npm: `junco`, `@junco/tokens`, `@junco/tailwind`, `@junco/blocks`, `@junco/motion`, `@junco/three`, `@junco/cli`, `@junco/mcp`. Everything under `apps/` and `examples/` is private and never published.
+Junco publishes eight packages to npm: `@junco/react`, `@junco/tokens`, `@junco/tailwind`, `@junco/blocks`, `@junco/motion`, `@junco/three`, `@junco/cli`, `@junco/mcp`. Everything under `apps/` and `examples/` is private and never published.
 
 ## Status
 
@@ -22,7 +22,7 @@ Junco publishes eight packages to npm: `junco`, `@junco/tokens`, `@junco/tailwin
 
 ## One-time setup
 
-1. **npm org:** create the `junco` organization on npmjs.com (gives the `@junco/*` scope). Claim the unscoped `junco` name too: it was unpublished in 2022 and has no versions.
+1. **npm org:** create the `junco` organization on npmjs.com (gives the `@junco/*` scope). (The unscoped `junco` name is blocked by npm as too similar to `juice`, so the React package is `@junco/react`.)
 2. **First publish, by hand (once):** a trusted publisher can only be added to a package that exists. From a clone, logged in with `npm login`: `pnpm install && pnpm build && pnpm release`. npm asks for your 2FA code for each package.
 3. **Trusted publisher, per package:** on npmjs.com open each of the eight packages → Settings → Trusted Publisher → GitHub Actions: owner `tobibytes`, repository `junco`, workflow `release.yml`. Then, under Publishing access, choose *Require two-factor authentication and disallow tokens*. No `NPM_TOKEN` secret is needed.
 4. **Let Actions open PRs:** GitHub → Settings → Actions → General → *Allow GitHub Actions to create and approve pull requests*. Without it the version PR can't be opened.

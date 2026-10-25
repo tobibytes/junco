@@ -13,7 +13,7 @@ import {
   Field,
   Input,
   toast,
-} from "junco";
+} from "@junco/react";
 import * as React from "react";
 import type { ComponentDoc } from "./types";
 

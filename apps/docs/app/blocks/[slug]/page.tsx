@@ -1,4 +1,4 @@
-import { Badge, Breadcrumb } from "junco";
+import { Badge, Breadcrumb } from "@junco/react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";

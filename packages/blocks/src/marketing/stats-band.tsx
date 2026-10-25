@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import { AnimatedBeam, NumberTicker, Reveal } from "@junco/motion";
 import { defaultIntegrations, defaultStats } from "./content";
 import { BrandMark, Container, Section, SectionHeading } from "./layout";

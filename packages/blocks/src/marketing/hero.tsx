@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, cn } from "junco";
+import { Button, cn } from "@junco/react";
 import { BorderBeam, MagneticButton, Reveal, TextReveal, Typewriter } from "@junco/motion";
 import { defaultPrimaryAction, defaultSecondaryAction } from "./content";
 import { ArrowRightIcon } from "./icons";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Spinner, useTheme } from "junco";
+import { Button, Spinner, useTheme } from "@junco/react";
 import * as React from "react";
 import { MotionSegmented } from "../theme-controls";
 

@@ -150,7 +150,7 @@ function headerText(column: { columnDef: { header?: unknown }; id: string }) {
  * A full data table on TanStack Table: sorting, selection, search, column visibility, pagination,
  * loading and empty states. Pass `manual` for server-side data.
  *
- *   import { DataTable, type ColumnDef } from "junco/data-table";
+ *   import { DataTable, type ColumnDef } from "@junco/react/data-table";
  */
 export function DataTable<TData>({
   columns,

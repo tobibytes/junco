@@ -1,7 +1,7 @@
 "use client";
 
-import { Badge, Button, toast } from "junco";
-import { DataTable, type ColumnDef, type Table } from "junco/data-table";
+import { Badge, Button, toast } from "@junco/react";
+import { DataTable, type ColumnDef, type Table } from "@junco/react/data-table";
 import * as React from "react";
 import type { ComponentDoc } from "./types";
 
@@ -71,7 +71,7 @@ function BulkActions() {
 
 export const doc: ComponentDoc = {
   imports: ["DataTable", "type ColumnDef"],
-  importFrom: "junco/data-table",
+  importFrom: "@junco/react/data-table",
   installExtra: ["@tanstack/react-table"],
   playground: {
     controls: [

@@ -1,4 +1,4 @@
-import { Badge, Button, useTheme, type Motion, type Theme } from "junco";
+import { Badge, Button, useTheme, type Motion, type Theme } from "@junco/react";
 import { Globe, ModelViewer, ParticleField, ShaderGradient, TiltCard } from "@junco/three";
 
 const themes: Theme[] = ["light", "dark"];

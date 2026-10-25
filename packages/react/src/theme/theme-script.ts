@@ -1,6 +1,6 @@
 /**
  * Theme helpers with no React and no "use client", so they work in server components
- * (import them from "junco/server" there).
+ * (import them from "@junco/react/server" there).
  */
 
 export type Theme = "light" | "dark" | "system";

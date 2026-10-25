@@ -1,5 +1,13 @@
 # @junco/blocks
 
+## 0.1.2
+
+### Patch Changes
+
+- The React package is now `@junco/react` (npm blocks the unscoped `junco` name). Depend on `@junco/react` instead of `junco`.
+- Updated dependencies
+  - @junco/motion@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

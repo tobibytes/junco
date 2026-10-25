@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Tooltip } from "junco";
+import { Button, Tooltip } from "@junco/react";
 import { cn } from "@/lib/cn";
 import * as React from "react";
 import { tokenize, type Lang } from "@/lib/highlight";

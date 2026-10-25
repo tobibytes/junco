@@ -9,7 +9,7 @@ npm i @junco/blocks junco @junco/tailwind
 ```css
 @import "tailwindcss";
 @import "@junco/tailwind";
-@source "../node_modules/junco/dist";
+@source "../node_modules/@junco/react/dist";
 @source "../node_modules/@junco/blocks/dist";
 @source "../node_modules/@junco/motion/dist";
 ```

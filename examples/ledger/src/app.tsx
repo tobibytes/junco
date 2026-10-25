@@ -13,7 +13,7 @@ import {
   useTheme,
   type Motion,
   type Theme,
-} from "junco";
+} from "@junco/react";
 import { AddTransactionSheet } from "./add-transaction";
 import { ActivityIcon, HomeIcon, MonitorIcon, MoonIcon, PieIcon, PlusIcon, SunIcon, TargetIcon, WalletIcon, type Icon } from "./icons";
 import { ActivityPage } from "./pages/activity";

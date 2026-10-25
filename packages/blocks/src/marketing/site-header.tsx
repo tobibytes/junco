@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, cn, Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "junco";
+import { Button, cn, Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@junco/react";
 import { defaultBrand, defaultNav, defaultPrimaryAction } from "./content";
 import { MenuIcon } from "./icons";
 import { BrandMark, Container, type Action, type Brand, type NavLink } from "./layout";

@@ -44,7 +44,6 @@
     "build": "echo \"tailwind: nothing to build yet\""
   },
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   }
 }

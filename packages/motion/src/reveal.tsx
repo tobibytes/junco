@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import { useInView, type InViewOptions } from "./lib/use-in-view";
 import { useMergedRef, type CSSVars } from "./lib/utils";
 

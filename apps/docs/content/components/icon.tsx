@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon } from "junco";
+import { Button, Icon } from "@junco/react";
 import { Bell, Check, Search, Settings, Trash2 } from "lucide-react";
 import type { ComponentDoc } from "./types";
 

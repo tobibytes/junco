@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Button, cn } from "junco";
+import { Avatar, Button, cn } from "@junco/react";
 import { Reveal } from "@junco/motion";
 import { renderSlot, type Slots } from "../lib/slots";
 import { defaultPostBody, defaultPosts, defaultPostToc, type BlogPost } from "./content";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Separator } from "junco";
+import { Separator } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 export const doc: ComponentDoc = {

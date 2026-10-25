@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, cn } from "junco";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger, cn } from "@junco/react";
 import { Reveal } from "@junco/motion";
 import { defaultFaq, type FaqItem } from "./content";
 import { Container, Section, SectionHeading } from "./layout";

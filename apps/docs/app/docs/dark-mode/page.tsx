@@ -26,7 +26,7 @@ export default function DarkModePage() {
             handles light, dark and system, remembers the choice, and follows the OS when set to system.
           </P>
           <CodeBlock
-            code={`import { useTheme } from "junco";
+            code={`import { useTheme } from "@junco/react";
 
 const { theme, resolvedTheme, setTheme } = useTheme();
 setTheme("system"); // "light" | "dark" | "system"`}

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import type { CSSVars } from "./lib/utils";
 
 export interface BorderBeamProps extends React.HTMLAttributes<HTMLSpanElement> {

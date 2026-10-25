@@ -1,6 +1,6 @@
 "use client";
 
-import { Label, Radio, RadioGroup } from "junco";
+import { Label, Radio, RadioGroup } from "@junco/react";
 import { cn } from "@/lib/cn";
 import type { ComponentDoc } from "./types";
 

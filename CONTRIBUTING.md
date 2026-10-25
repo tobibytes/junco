@@ -29,7 +29,7 @@ Useful extras:
 | --- | --- |
 | `packages/tokens` | `src/tokens.css` is the source of truth for every design value |
 | `packages/tailwind` | Tailwind v4 mapping (`index.css`) and semantic classes (`components.css`) |
-| `packages/react` | The `junco` package. One file per component in `src/components` |
+| `packages/react` | The `@junco/react` package. One file per component in `src/components` |
 | `packages/blocks` | Blocks and pages, plus the page system (`lib/slots.ts`) and fake data (`lib/fake.ts`) |
 | `packages/three` | 3D scenes |
 | `packages/cli`, `packages/mcp` | The CLI and MCP server. Both read the registry |

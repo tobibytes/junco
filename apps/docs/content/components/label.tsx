@@ -1,6 +1,6 @@
 "use client";
 
-import { Input, Label } from "junco";
+import { Input, Label } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 export const doc: ComponentDoc = {

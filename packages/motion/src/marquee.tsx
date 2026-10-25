@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import { useMotionScale } from "./lib/use-motion-scale";
 import { useMergedRef, type CSSVars } from "./lib/utils";
 

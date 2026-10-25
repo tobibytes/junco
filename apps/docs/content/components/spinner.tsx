@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Spinner } from "junco";
+import { Button, Spinner } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 export const doc: ComponentDoc = {

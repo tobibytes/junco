@@ -16,7 +16,7 @@ CI deploys `main` with `.github/workflows/deploy-docs.yml`. It needs the `CLOUDF
 One new file and one line.
 
 1. Create `content/components/<slug>.tsx`. Start with `"use client"` and export `doc: ComponentDoc` (see `types.ts`):
-   - `imports`: names imported from `junco`, for the install snippet
+   - `imports`: names imported from `@junco/react`, for the install snippet
    - `playground` (optional): `controls`, plus `render(values)` and `code(values)` that stay in sync
    - `usage`: code for each level. `installed` is required; leave out `semantic` or `utilities` when that level doesn't apply and the page says so
    - `examples`: each has a `Preview` component and the matching `code` string
@@ -40,7 +40,7 @@ Create `app/docs/<slug>/page.tsx` using the pieces in `components/docs/prose.tsx
 
 ## Things to know
 
-- **Server vs client.** `junco`'s bundle is marked `"use client"`, so on the server every export is a client reference. You can render its components from server files, but you can't *call* its functions there, or pass them function props. `lib/cn.ts` and `lib/theme-script.ts` re-export from `junco/server`, which is server-safe.
+- **Server vs client.** `@junco/react`'s bundle is marked `"use client"`, so on the server every export is a client reference. You can render its components from server files, but you can't *call* its functions there, or pass them function props. `lib/cn.ts` and `lib/theme-script.ts` re-export from `@junco/react/server`, which is server-safe.
 - **Theme state and hydration.** `ThemeProvider` reads localStorage during render. Anything that shows the current theme or motion must wait for `useMounted()` (`lib/use-mounted.ts`), or the first client render won't match the server HTML.
 - **Previews** (`components/preview.tsx`) can be pinned to light or dark by re-declaring the color tokens on the frame. Portaled content like select menus and tooltips still follows the site theme.
 - **Registry and llms.txt** are generated into `public/r` and `public/llms.txt` by `pnpm registry:build` at the repo root, which `prebuild` runs when it exists.

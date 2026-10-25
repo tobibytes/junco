@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
   Textarea,
-} from "junco";
+} from "@junco/react";
 import * as React from "react";
 import type { ComponentDoc } from "./types";
 

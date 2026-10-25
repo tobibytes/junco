@@ -9,7 +9,7 @@ import {
   CommandList,
   CommandShortcut,
   Kbd,
-} from "junco";
+} from "@junco/react";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { blockPages, componentPages, explore, guides, type NavItem } from "@/content/nav";

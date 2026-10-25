@@ -15,7 +15,7 @@ import {
   Typewriter,
   useViewTransition,
 } from "@junco/motion";
-import { Badge, Button, Tabs, TabsContent, TabsList, TabsTrigger, useTheme } from "junco";
+import { Badge, Button, Tabs, TabsContent, TabsList, TabsTrigger, useTheme } from "@junco/react";
 import * as React from "react";
 import { cn } from "@/lib/cn";
 import { CodeBlock } from "../code-block";

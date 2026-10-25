@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import { useInView } from "./lib/use-in-view";
 import { readMotionScale } from "./lib/use-motion-scale";
 import { useMergedRef, visuallyHidden } from "./lib/utils";

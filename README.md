@@ -39,7 +39,7 @@ npx @junco/cli update dialog       # merge it, keeping your edits
 
 ```tsx
 // 4. Installed, like HeroUI: import and go
-import { Button, Field, Input } from "junco";
+import { Button, Field, Input } from "@junco/react";
 
 <Field label="Email" error={errors.email}>
   <Input type="email" />
@@ -50,18 +50,18 @@ import { Button, Field, Input } from "junco";
 ## Quick start
 
 ```bash
-npm i junco @junco/tailwind
+npm i @junco/react @junco/tailwind
 ```
 
 ```css
 /* app.css */
 @import "tailwindcss";
 @import "@junco/tailwind";
-@source "../node_modules/junco/dist"; /* let Tailwind see the component classes */
+@source "../node_modules/@junco/react/dist"; /* let Tailwind see the component classes */
 ```
 
 ```tsx
-import { ThemeProvider, Toaster, TooltipProvider } from "junco";
+import { ThemeProvider, Toaster, TooltipProvider } from "@junco/react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
@@ -81,7 +81,7 @@ Framework guides for Next.js, Vite and plain HTML are in the [docs](https://junc
 
 | Package | What it is |
 | --- | --- |
-| [`junco`](packages/react) | React components: Button, Input, Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Avatar, Badge, Field, Dialog, Sheet, Popover, Dropdown menu, Command palette, Toast, Card, Stat, Pagination, Breadcrumb, plus `junco/data-table` (TanStack) and `junco/form` (React Hook Form + Zod) |
+| [`@junco/react`](packages/react) | React components: Button, Input, Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Avatar, Badge, Field, Dialog, Sheet, Popover, Dropdown menu, Command palette, Toast, Card, Stat, Pagination, Breadcrumb, plus `@junco/react/data-table` (TanStack) and `@junco/react/form` (React Hook Form + Zod) |
 | [`@junco/tokens`](packages/tokens) | Every design value as CSS variables (light and dark), a TS object and W3C design token JSON |
 | [`@junco/tailwind`](packages/tailwind) | The Tailwind v4 theme, semantic classes (`btn`, `card`, `input`, `modal`, `table`, …) and motion utilities |
 | [`@junco/blocks`](packages/blocks) | App shells, dashboards, settings, auth and marketing pages with typed props, fake data, `variant`s and `slots` |

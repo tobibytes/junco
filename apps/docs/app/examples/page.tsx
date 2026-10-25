@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Badge, Button } from "junco";
+import { Badge, Button } from "@junco/react";
 import Link from "next/link";
 import { ArrowRightIcon, GithubIcon } from "@/components/icons";
 import { BrowserShot } from "@/components/examples/shot";

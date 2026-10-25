@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, cn, type ButtonProps } from "junco";
+import { Button, cn, type ButtonProps } from "@junco/react";
 import { readMotionScale } from "./lib/use-motion-scale";
 import { useMergedRef } from "./lib/utils";
 

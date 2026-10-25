@@ -1,6 +1,6 @@
 "use client";
 
-import { Field, Input } from "junco";
+import { Field, Input } from "@junco/react";
 import * as React from "react";
 import type { ComponentDoc } from "./types";
 

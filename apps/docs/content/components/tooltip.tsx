@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Tooltip } from "junco";
+import { Button, Tooltip } from "@junco/react";
 import { CopyIcon, PlusIcon, SearchIcon } from "@/components/icons";
 import type { ComponentDoc } from "./types";
 

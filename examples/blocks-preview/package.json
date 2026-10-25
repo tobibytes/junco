@@ -11,7 +11,7 @@
   "dependencies": {
     "@junco/blocks": "workspace:*",
     "@junco/tailwind": "workspace:*",
-    "junco": "workspace:*",
+    "@junco/react": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "@junco/motion": "workspace:*"

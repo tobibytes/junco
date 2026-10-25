@@ -15,8 +15,8 @@ import {
   Switch,
   Textarea,
   toast,
-} from "junco";
-import { Form, FormField, FormRootError, FormSubmit, useForm } from "junco/form";
+} from "@junco/react";
+import { Form, FormField, FormRootError, FormSubmit, useForm } from "@junco/react/form";
 import { z } from "zod";
 import type { ComponentDoc } from "./types";
 
@@ -95,12 +95,12 @@ function SignupForm() {
 
 export const doc: ComponentDoc = {
   imports: ["Form", "FormField", "FormSubmit", "FormRootError", "useForm"],
-  importFrom: "junco/form",
+  importFrom: "@junco/react/form",
   installExtra: ["react-hook-form", "zod", "@hookform/resolvers"],
   usage: {
     installed: `import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Input } from "junco";
+import { Input } from "@junco/react";
 
 const schema = z.object({ email: z.email("Enter a valid email") });
 

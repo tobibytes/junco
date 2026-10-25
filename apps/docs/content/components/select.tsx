@@ -10,7 +10,7 @@ import {
   SelectSeparator,
   SelectTrigger,
   SelectValue,
-} from "junco";
+} from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 const timezones = (

@@ -1,5 +1,5 @@
 {
-  "name": "junco",
+  "name": "@junco/react",
   "version": "0.2.0",
   "description": "Accessible React components for Tailwind v4: variants, slots, dark mode and a global motion switch.",
   "license": "MIT",
@@ -109,7 +109,6 @@
     "zod": "^4.6.7"
   },
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   }
 }

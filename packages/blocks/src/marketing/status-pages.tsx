@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Button, cn, Field, Input, Kbd } from "junco";
+import { Avatar, Button, cn, Field, Input, Kbd } from "@junco/react";
 import { confetti, NumberTicker, Reveal, TextReveal } from "@junco/motion";
 import { fakePeople } from "../lib/fake";
 import { renderSlot, type Slots } from "../lib/slots";

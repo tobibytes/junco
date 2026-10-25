@@ -8,7 +8,7 @@ import {
   useTheme,
   type Motion,
   type Theme,
-} from "junco";
+} from "@junco/react";
 import * as React from "react";
 import { footerColumns, nav } from "./data";
 import { LogoMark, SlidersIcon } from "./icons";

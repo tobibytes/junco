@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Breadcrumb, Card, cn, Separator, Sparkline, Stat, StatGroup, type BreadcrumbProps } from "junco";
+import { Avatar, Breadcrumb, Card, cn, Separator, Sparkline, Stat, StatGroup, type BreadcrumbProps } from "@junco/react";
 import { tv } from "tailwind-variants";
 import { FAKE_NOW, timeAgo } from "../lib/fake";
 import type { ActivityItem, DashboardStat } from "./fake-data";

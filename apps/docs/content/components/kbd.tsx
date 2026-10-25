@@ -1,6 +1,6 @@
 "use client";
 
-import { Kbd } from "junco";
+import { Kbd } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 export const doc: ComponentDoc = {

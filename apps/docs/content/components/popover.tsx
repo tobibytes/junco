@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Field, Input, Popover, PopoverClose, PopoverContent, PopoverTrigger, toast } from "junco";
+import { Button, Field, Input, Popover, PopoverClose, PopoverContent, PopoverTrigger, toast } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 export const doc: ComponentDoc = {

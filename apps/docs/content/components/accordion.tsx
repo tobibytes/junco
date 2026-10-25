@@ -1,6 +1,6 @@
 "use client";
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "junco";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 const faq = [

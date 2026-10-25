@@ -27,7 +27,7 @@ import {
   TabsList,
   TabsTrigger,
   toast,
-} from "junco";
+} from "@junco/react";
 import { PageContainer, PageHeader } from "@junco/blocks/app";
 import type { PageProps } from "../app";
 import { EVENT_TYPES, funnels as initialFunnels, type Funnel } from "../data";

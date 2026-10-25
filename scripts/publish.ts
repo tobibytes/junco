@@ -62,7 +62,16 @@ for (const p of pending) {
       console.log(`(dry run) would publish ${tarball}`);
       continue;
     }
-    run("npm", ["publish", join(out, tarball), "--access", "public", ...(inCI ? ["--provenance"] : [])]);
+    const args = ["publish", join(out, tarball), "--access", "public", ...(inCI ? ["--provenance"] : [])];
+    const r = spawnSync("npm", args, { stdio: ["inherit", "inherit", "pipe"], encoding: "utf8" });
+    process.stderr.write(r.stderr ?? "");
+    // `npm view` lags a few minutes behind a fresh publish, so a rerun can retry a version that
+    // already went out. npm refuses those; that's success, not failure.
+    if (r.status !== 0 && /cannot publish over (the )?previously (published|staged) version/i.test(r.stderr ?? "")) {
+      console.log(`${p.name}@${p.version} is already on npm.`);
+      continue;
+    }
+    if (r.status !== 0) throw new Error(`npm ${args.join(" ")} failed (exit ${r.status})`);
     console.log(`New tag: ${p.name}@${p.version}`);
   } catch (error) {
     console.error(`::error title=Publish failed::${p.name}@${p.version}: ${(error as Error).message}`);

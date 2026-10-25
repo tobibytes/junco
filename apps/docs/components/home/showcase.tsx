@@ -23,7 +23,7 @@ import {
   TabsList,
   TabsTrigger,
   Tooltip,
-} from "junco";
+} from "@junco/react";
 import * as React from "react";
 import { AccentPicker } from "../accent-picker";
 import { CopyIcon, PlusIcon, SearchIcon } from "../icons";

@@ -7,6 +7,6 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   splitting: true,
-  external: ["react", "react-dom", "junco", "@junco/motion"],
+  external: ["react", "react-dom", "@junco/react", "@junco/motion"],
   banner: { js: '"use client";' },
 });

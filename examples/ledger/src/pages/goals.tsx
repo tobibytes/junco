@@ -17,7 +17,7 @@ import {
   Field,
   Input,
   toast,
-} from "junco";
+} from "@junco/react";
 import { confetti, Reveal } from "@junco/motion";
 import { ACCOUNTS, monthLabel, usd, type Goal } from "../data";
 import { goalIcon, PlusIcon, SparkleIcon } from "../icons";

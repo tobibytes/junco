@@ -2,4 +2,4 @@
 @import "@junco/tailwind";
 
 /* Tailwind needs to see the classes junco's components use. */
-@source "../node_modules/junco/dist";
+@source "../node_modules/@junco/react/dist";

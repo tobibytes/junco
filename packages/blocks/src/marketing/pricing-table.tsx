@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Badge, Button, cn, Tabs, TabsContent, TabsList, TabsTrigger } from "junco";
+import { Badge, Button, cn, Tabs, TabsContent, TabsList, TabsTrigger } from "@junco/react";
 import { BorderBeam, Reveal } from "@junco/motion";
 import { defaultComparison, defaultPlans, type ComparisonGroup, type PricingPlan } from "./content";
 import { CheckIcon, MinusIcon } from "./icons";

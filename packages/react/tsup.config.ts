@@ -13,8 +13,8 @@ export default defineConfig([
     format: ["esm"],
     dts: true,
     sourcemap: true,
-    // Shared code (Field context, Checkbox, ...) goes into common chunks, so `junco` and
-    // `junco/form` use the same React contexts instead of duplicated copies.
+    // Shared code (Field context, Checkbox, ...) goes into common chunks, so `@junco/react` and
+    // `@junco/react/form` use the same React contexts instead of duplicated copies.
     splitting: true,
     external,
     banner: { js: '"use client";' },

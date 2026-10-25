@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "junco";
+import { Badge } from "@junco/react";
 import Link from "next/link";
 import * as React from "react";
 import { cn } from "@/lib/cn";

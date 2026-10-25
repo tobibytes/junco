@@ -1,6 +1,6 @@
 "use client";
 
-import { Field, Textarea } from "junco";
+import { Field, Textarea } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 export const doc: ComponentDoc = {

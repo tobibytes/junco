@@ -1,6 +1,6 @@
 "use client";
 
-import { Pagination } from "junco";
+import { Pagination } from "@junco/react";
 import * as React from "react";
 import type { ComponentDoc } from "./types";
 

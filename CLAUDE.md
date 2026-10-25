@@ -4,8 +4,8 @@ Junco is a free, open source (MIT) design system and UI library for React + Tail
 
 1. **Semantic classes** like daisyUI: `class="btn btn-primary"`. Pure CSS, no JS, works in any framework or plain HTML.
 2. **Utilities** like Tailwind: `bg-surface text-muted rounded-card`.
-3. **Copy-in components** like shadcn/ui: `npx junco add dialog` copies the source into the user's repo. It can still be updated with `junco diff` / `junco update`.
-4. **Installed components** like HeroUI/NextUI: `npm i junco`, then `import { Button } from "junco"`.
+3. **Copy-in components** like shadcn/ui: `npx @junco/cli add dialog` copies the source into the user's repo. It can still be updated with `junco diff` / `junco update`.
+4. **Installed components** like HeroUI/NextUI: `npm i @junco/react`, then `import { Button } from "@junco/react"`.
 
 All four levels read the same tokens, so they mix in one app.
 
@@ -28,8 +28,8 @@ The full product plan is in `docs/PLAN.md`. The phase checklists are in `docs/RO
 | --- | --- | --- |
 | `packages/tokens` | `@junco/tokens` | every design value as CSS variables, light and dark |
 | `packages/tailwind` | `@junco/tailwind` | Tailwind v4 theme mapping + semantic classes (`btn`, `card`, ...) + motion utilities |
-| `packages/react` | `junco` | installed React components |
-| `packages/cli` | `junco` bin (or `create-junco` / `@junco/cli`, see decisions) | `junco add`, `junco diff`, `junco update`, `junco eject`, `junco create` |
+| `packages/react` | `@junco/react` | installed React components |
+| `packages/cli` | `@junco/cli` (bin: `junco`) | `junco add`, `junco diff`, `junco update`, `junco eject`, `junco create` |
 | `packages/three` | `@junco/three` | 3D scenes on React Three Fiber + drei, lazy loaded |
 | `packages/collab` (later) | `@junco/collab` | collaboration UI (cursors, presence, comments, history, sharing) + adapter interfaces. No sync engine in this repo |
 | `packages/editor` (later) | `@junco/editor` | TipTap rich text editor block |
@@ -80,8 +80,8 @@ pnpm changeset    # record a version bump
 - **Status text tokens**: `--success-text`, `--warning-text`, `--destructive-text` are Junco additions for status-colored text on the page (`text-destructive-text` for field errors). Solid status fills use the `-foreground` pair instead.
 - **Contrast test**: `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` at 4.5:1 in both modes. Add a pair there whenever a component puts a text token on a new background.
 - **`@junco/tailwind`**: `src/index.css` maps every token into `@theme` (`bg-surface`, `text-muted-foreground`, `rounded-card`, `rounded-control`, `shadow-float`, `duration-fast`, `ease-enter`, `z-overlay`, `animate-rise`, `animate-spinner`, `animate-skeleton`). Semantic classes live in `src/components.css`. Animations multiply by `--motion-scale`; spinners keep turning (slower) with motion off since they carry meaning.
-- **`junco`**: `cn()`, Button, Input, Badge, Kbd, Spinner, Skeleton, ThemeProvider + `useTheme` + `themeScript()` (no-flash inline script) + `applyTheme`. Tests in `packages/react/test` (Vitest + Testing Library, jsdom).
-- **Examples**: `examples/plain-html` (semantic classes only, `pnpm css:example`) and `examples/vite-react` (installed components, theme + motion switcher). Apps using `junco` need `@source "../node_modules/junco/dist";` in their CSS so Tailwind sees the component classes.
+- **`@junco/react`**: `cn()`, Button, Input, Badge, Kbd, Spinner, Skeleton, ThemeProvider + `useTheme` + `themeScript()` (no-flash inline script) + `applyTheme`. Tests in `packages/react/test` (Vitest + Testing Library, jsdom).
+- **Examples**: `examples/plain-html` (semantic classes only, `pnpm css:example`) and `examples/vite-react` (installed components, theme + motion switcher). Apps using `@junco/react` need `@source "../node_modules/@junco/react/dist";` in their CSS so Tailwind sees the component classes.
 - CLI, three, registry and docs app are stubs.
 
 ## Where to start

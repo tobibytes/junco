@@ -24,9 +24,9 @@ export interface PropDef {
 }
 
 export interface ComponentDoc {
-  /** Names imported from "junco" (or `importFrom`), shown in the install snippet. */
+  /** Names imported from "@junco/react" (or `importFrom`), shown in the install snippet. */
   imports: string[];
-  /** Module the imports come from. Default "junco"; e.g. "junco/data-table". */
+  /** Module the imports come from. Default "@junco/react"; e.g. "@junco/react/data-table". */
   importFrom?: string;
   /** Extra npm packages to install alongside junco (optional peers of subpath entries). */
   installExtra?: string[];

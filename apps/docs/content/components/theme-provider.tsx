@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Button, useTheme } from "junco";
+import { Badge, Button, useTheme } from "@junco/react";
 import { MotionSegmented, ThemeSegmented } from "@/components/theme-controls";
 import { useMounted } from "@/lib/use-mounted";
 import type { ComponentDoc } from "./types";

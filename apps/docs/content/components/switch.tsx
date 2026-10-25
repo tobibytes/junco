@@ -1,6 +1,6 @@
 "use client";
 
-import { Label, Separator, Switch } from "junco";
+import { Label, Separator, Switch } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 const settings = [

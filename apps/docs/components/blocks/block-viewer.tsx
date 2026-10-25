@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Spinner, Tooltip, useTheme } from "junco";
+import { Button, Spinner, Tooltip, useTheme } from "@junco/react";
 import * as React from "react";
 import { cn } from "@/lib/cn";
 import { frameUrl, postToFrame, type FrameTheme } from "@/lib/frame";

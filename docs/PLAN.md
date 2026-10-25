@@ -35,8 +35,8 @@ Clean and minimal, in light and dark. Think Linear or Vercel: lots of space, qui
 | --- | --- | --- | --- |
 | Semantic classes | daisyUI | `btn btn-primary`, `card`, `badge` in pure CSS, no JS, any framework or plain HTML | `@plugin "@junco/tailwind"`, then `class="btn"` |
 | Utilities | Tailwind | tokens as Tailwind classes (`bg-surface`, `text-muted-foreground`, `rounded-card`), plus extras like `animate-rise` | same import, write plain markup |
-| Copy-in components | shadcn/ui | source dropped into your repo, yours to edit, still updatable | `npx junco add dialog` |
-| Installed components | NextUI / HeroUI | prebuilt components with `variant`, `size`, `color`, `isLoading` and more | `npm i junco`, `import { Button } from "junco"` |
+| Copy-in components | shadcn/ui | source dropped into your repo, yours to edit, still updatable | `npx @junco/cli add dialog` |
+| Installed components | NextUI / HeroUI | prebuilt components with `variant`, `size`, `color`, `isLoading` and more | `npm i @junco/react`, `import { Button } from "@junco/react"` |
 
 Also borrowed: a variants system (Tailwind Variants), `className` and slot overrides on every part, built-in themes you switch with one attribute.
 
@@ -49,11 +49,11 @@ Also borrowed: a variants system (Tailwind Variants), `className` and slot overr
 <div className="bg-surface border border-border rounded-card p-4 text-muted-foreground">...</div>
 
 // installed components
-import { Button, Sheet } from "junco";
+import { Button, Sheet } from "@junco/react";
 <Button variant="solid" size="sm" isLoading>Save</Button>
 
 // copy one in (terminal)
-// npx junco add sheet
+// npx @junco/cli add sheet
 ```
 
 ## Layers
@@ -64,8 +64,8 @@ import { Button, Sheet } from "junco";
 | Primitives | one control | Button, Input, Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Badge, Avatar, Kbd, Spinner, Skeleton |
 | Overlays | one floating thing | Dialog, Sheet, Popover, Dropdown menu, Command palette, Toast |
 | Blocks | a section of a page | Card, Stat row, Data table, Empty state, Form, Pricing table, Hero, Feature grid, Sidebar, Page header |
-| Pages | a full screen | `npx junco add page dashboard` adds the page and everything it uses |
-| Templates | a whole app | pages wired together with routing, auth and fake data: `npx junco create my-app --template saas` |
+| Pages | a full screen | `npx @junco/cli add page dashboard` adds the page and everything it uses |
+| Templates | a whole app | pages wired together with routing, auth and fake data: `npx @junco/cli create my-app --template saas` |
 
 Every page comes in light and dark, works on phones, takes the accent color, and ships with realistic fake data.
 
@@ -107,9 +107,9 @@ Build order: about 20 core pages first (see ROADMAP.md), then add pages when a r
 
 1. **Config:** `junco.config.ts` sets app name, logo, accent, nav items and routes once.
 2. **Props:** typed data and options, like `<DashboardPage stats={...} range="30d" showActivity={false} />`. No data means realistic fake data.
-3. **Variants:** `npx junco add page sign-up --variant split`, or switch later with one prop.
+3. **Variants:** `npx @junco/cli add page sign-up --variant split`, or switch later with one prop.
 4. **Slots:** `<DashboardPage slots={{ header: MyHeader, sidebar: null }} />`.
-5. **Copy it:** `npx junco add page dashboard --source` drops the full source in, made of normal Junco blocks.
+5. **Copy it:** `npx @junco/cli add page dashboard --source` drops the full source in, made of normal Junco blocks.
 6. **Stay updatable:** copied pages still work with `junco diff` and `junco update`.
 
 ## Works with other libraries
@@ -172,7 +172,7 @@ Junco ships the collaboration UI. The real-time sync engine is NOT part of Junco
 - Every piece takes plain data (users, cursors, threads, versions) plus callbacks, and shows fake data by default
 - Adapters for Yjs, Liveblocks and Cloudflare Durable Objects map a real backend onto the same UI
 - Motion out of the box: cursors glide, avatars fade in on join, new comments rise in, saving shows a quiet pulse, all following the global motion switch
-- Keep heavy deps (TipTap, Yjs) out of the core `junco` package: ship them as `@junco/collab` (UI + adapter interfaces) and `@junco/editor`, loaded only where used
+- Keep heavy deps (TipTap, Yjs) out of the core `@junco/react` package: ship them as `@junco/collab` (UI + adapter interfaces) and `@junco/editor`, loaded only where used
 
 ## The website (`apps/docs`)
 

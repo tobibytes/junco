@@ -29,7 +29,7 @@ import {
   useTheme,
   type Motion,
   type Theme,
-} from "junco";
+} from "@junco/react";
 
 const themes: Theme[] = ["light", "dark", "system"];
 const motions: Motion[] = ["full", "subtle", "off"];

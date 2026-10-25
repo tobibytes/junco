@@ -16,7 +16,7 @@
     "@junco/three": "workspace:*",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
-    "junco": "workspace:*",
+    "@junco/react": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.91.0",

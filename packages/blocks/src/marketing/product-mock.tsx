@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Badge, cn, Sparkline } from "junco";
+import { Avatar, Badge, cn, Sparkline } from "@junco/react";
 import { fakeSeries } from "../lib/fake";
 import { ChartIcon, GitBranchIcon, InboxIcon, LayersIcon, SearchIcon, UsersIcon } from "./icons";
 import { BrandMark } from "./layout";

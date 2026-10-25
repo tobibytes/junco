@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge } from "junco";
+import { Badge } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 const colors = ["neutral", "primary", "success", "warning", "danger"] as const;

@@ -26,7 +26,7 @@ body:
       label: How are you using Junco?
       multiple: true
       options:
-        - Installed package (npm i junco)
+        - Installed package (npm i @junco/react)
         - Copy-in (junco add / shadcn add)
         - Semantic classes (btn, card, ...)
         - Tailwind utilities only

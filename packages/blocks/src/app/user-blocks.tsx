@@ -16,8 +16,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "junco";
-import { Form, FormField, FormRootError, FormSubmit, useForm } from "junco/form";
+} from "@junco/react";
+import { Form, FormField, FormRootError, FormSubmit, useForm } from "@junco/react/form";
 import { z } from "zod";
 import { userRoles, type UserRole, type UserStatus } from "./users-data";
 

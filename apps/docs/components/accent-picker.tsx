@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Button } from "junco";
+import { Badge, Button } from "@junco/react";
 import { cn } from "@/lib/cn";
 import * as React from "react";
 import { accentCss, makeAccent, presets, setSiteAccent, useSiteAccent } from "@/lib/accent";

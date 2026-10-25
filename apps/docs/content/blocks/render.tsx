@@ -54,7 +54,7 @@ import {
   Testimonials,
   WaitlistPage,
 } from "@junco/blocks/marketing";
-import { Button, Checkbox, Field, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch, toast, Tooltip } from "junco";
+import { Button, Checkbox, Field, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Switch, toast, Tooltip } from "@junco/react";
 import type * as React from "react";
 
 type Render = (variant: string) => React.ReactNode;
