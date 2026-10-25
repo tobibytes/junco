@@ -83,6 +83,14 @@
     font-family: var(--font-mono); font-size: 0.6875rem; line-height: 1; color: var(--muted-foreground);
   }
 
+  /* Icon ----------------------------------------------------------------- */
+  /* Any inline SVG: <svg class="icon" aria-hidden="true">. Sized to the text, stroke from the token. */
+  .icon { display: inline-block; flex-shrink: 0; width: 1rem; height: 1rem; vertical-align: -0.125em; stroke-width: var(--icon-stroke); }
+  .icon-xs { width: 0.75rem; height: 0.75rem; }
+  .icon-sm { width: 0.875rem; height: 0.875rem; }
+  .icon-lg { width: 1.25rem; height: 1.25rem; }
+  .icon-xl { width: 1.5rem; height: 1.5rem; }
+
   /* Spinner -------------------------------------------------------------- */
   .spinner {
     display: inline-block; flex-shrink: 0; width: 1rem; height: 1rem;

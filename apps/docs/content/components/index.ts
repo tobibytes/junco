@@ -30,6 +30,7 @@ export const components: ComponentEntry[] = [
   { slug: "tooltip", title: "Tooltip", description: "A short hint on hover and keyboard focus, with an optional shortcut.", category: "Feedback", load: () => import("./tooltip") },
   { slug: "badge", title: "Badge", description: "A short label for status or counts. Never color alone.", category: "Display", load: () => import("./badge") },
   { slug: "avatar", title: "Avatar", description: "A person's picture with initials as the fallback.", category: "Display", load: () => import("./avatar") },
+  { slug: "icon", title: "Icon", description: "Any SVG icon at a type-scale size and one stroke weight. Decorative unless labelled.", category: "Display", load: () => import("./icon") },
   { slug: "kbd", title: "Kbd", description: "Shows a keyboard key or shortcut.", category: "Display", load: () => import("./kbd") },
   { slug: "separator", title: "Separator", description: "A thin line between content, horizontal or vertical.", category: "Display", load: () => import("./separator") },
   { slug: "spinner", title: "Spinner", description: "An accessible loading indicator.", category: "Feedback", load: () => import("./spinner") },

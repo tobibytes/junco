@@ -46,10 +46,23 @@ export interface ButtonProps
   isLoading?: boolean;
 }
 
+// Bundlers replace process.env.NODE_ENV at build time; declared here so the package needs no Node types.
+declare const process: { env: { NODE_ENV?: string } } | undefined;
+const isDev = typeof process !== "undefined" && process.env.NODE_ENV !== "production";
+
+/** Icon-only buttons have no visible text, so without a label screen readers announce just "button". */
+function useIconButtonLabelWarning(isIconOnly: boolean, props: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+  const unlabeled = isIconOnly && !props["aria-label"] && !props["aria-labelledby"] && !props.title;
+  React.useEffect(() => {
+    if (isDev && unlabeled) console.warn('Junco Button: size="icon" needs an aria-label (or aria-labelledby / title) so screen readers can name it.');
+  }, [unlabeled]);
+}
+
 /** Triggers an action. Variants solid, outline, soft, ghost and danger; isLoading shows a spinner and sets aria-busy. */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, isLoading = false, disabled, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
+    useIconButtonLabelWarning(size === "icon" && !asChild, props);
     return (
       <Comp
         ref={ref}

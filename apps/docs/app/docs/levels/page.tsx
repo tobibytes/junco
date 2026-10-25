@@ -20,12 +20,12 @@ export default function LevelsPage() {
       <div className="mt-10 grid gap-12">
         <DataTable
           caption="The four levels compared"
-          head={["Level", "Feels like", "Good for"]}
+          head={["Level", "Good for"]}
           rows={[
-            ["Semantic classes", "daisyUI", "Any framework, plain HTML, emails, server templates"],
-            ["Utilities", "Tailwind", "One-off layouts and full control over markup"],
-            ["Copy-in", "shadcn/ui", "Owning and editing the source, while still getting updates"],
-            ["Installed", "HeroUI / NextUI", "Getting going fast with variant props and no source to maintain"],
+            ["Semantic classes", "Any framework, plain HTML, emails, server templates"],
+            ["Utilities", "One-off layouts and full control over markup"],
+            ["Copy-in", "Owning and editing the source, while still getting updates"],
+            ["Installed", "Getting going fast with variant props and no source to maintain"],
           ]}
         />
 

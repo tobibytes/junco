@@ -1,14 +1,13 @@
 "use client";
 
-import { Badge, Button } from "junco";
+import { Button } from "junco";
 import { Highlighted } from "../code-block";
 import type { Lang } from "@/lib/highlight";
 
-const levels: { n: string; title: string; like: string; lang: Lang; code: string; result: React.ReactNode }[] = [
+const levels: { n: string; title: string; lang: Lang; code: string; result: React.ReactNode }[] = [
   {
     n: "01",
     title: "Semantic classes",
-    like: "daisyUI",
     lang: "html",
     code: `<button class="btn btn-primary">
   Deploy
@@ -18,7 +17,6 @@ const levels: { n: string; title: string; like: string; lang: Lang; code: string
   {
     n: "02",
     title: "Utilities",
-    like: "Tailwind",
     lang: "tsx",
     code: `<button className="
   h-9 rounded-control px-3.5
@@ -35,7 +33,6 @@ const levels: { n: string; title: string; like: string; lang: Lang; code: string
   {
     n: "03",
     title: "Copy-in",
-    like: "shadcn/ui",
     lang: "bash",
     code: `npx @junco/cli add button
 # yours to edit, still updatable
@@ -45,7 +42,6 @@ npx @junco/cli update button`,
   {
     n: "04",
     title: "Installed",
-    like: "HeroUI",
     lang: "tsx",
     code: `import { Button } from "junco";
 
@@ -64,9 +60,6 @@ export function Levels() {
               <span className="font-mono text-xs text-muted-foreground">{level.n}</span>
               <span className="text-sm font-medium">{level.title}</span>
             </span>
-            <Badge variant="outline" className="h-5 px-1.5 text-[11px]">
-              like {level.like}
-            </Badge>
           </div>
           <pre tabIndex={0} aria-label={`${level.title} code`} className="mx-4 mt-3 flex-1 overflow-x-auto rounded-control focus-visible:outline-2 focus-visible:outline-ring bg-(--code-bg) p-3 font-mono text-[12px] leading-5">
             <code>
