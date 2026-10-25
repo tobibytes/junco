@@ -1,0 +1,17 @@
+{
+  "slug": "pulse",
+  "title": "Pulse",
+  "tagline": "Product analytics: dashboards, an events explorer, funnels and users",
+  "description": "A product analytics app for a docs product, with live stats, charts, an events explorer, conversion funnels and a users table. Built from the Junco app shell, blocks and data table, with a ⌘K command palette and light and dark themes.",
+  "tags": ["SaaS", "Dashboard", "Analytics", "Data table"],
+  "packages": ["junco", "junco/data-table", "@junco/blocks", "@junco/tailwind"],
+  "features": [
+    "AppShell with collapsible sidebar and phone sheet nav",
+    "⌘K command palette for pages, actions and people",
+    "Sortable, filterable events table with a details sheet",
+    "Conversion funnels with drop-off per step",
+    "Users table with row menus, selection and profiles",
+    "Settings with switches, selects and a danger zone"
+  ],
+  "source": "https://github.com/tobibytes/junco/tree/main/examples/pulse"
+}

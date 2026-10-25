@@ -330,7 +330,9 @@ export function Sidebar({
             <DropdownMenuTrigger asChild>
               <button
                 type="button"
-                aria-label={`Account menu for ${user.name}`}
+                // Expanded, the visible name and email are the label (voice control users say what
+                // they see); collapsed there's no text, so name it.
+                aria-label={isCollapsed ? `Account menu for ${user.name}` : undefined}
                 className={cn(
                   "flex h-11 w-full items-center gap-2 rounded-control px-2 text-left",
                   "transition-colors duration-fast ease-standard hover:bg-accent",
@@ -338,11 +340,13 @@ export function Sidebar({
                   isCollapsed && "justify-center px-0",
                 )}
               >
-                <Avatar name={user.name} src={user.avatarUrl} size="sm" className="size-7" />
+                <span aria-hidden className="contents">
+                  <Avatar name={user.name} src={user.avatarUrl} size="sm" className="size-7" />
+                </span>
                 {!isCollapsed && (
                   <>
                     <span className="grid min-w-0 flex-1 leading-tight">
-                      <span className="truncate font-medium text-foreground">{user.name}</span>
+                      <span className="truncate font-medium text-foreground">{user.name}</span>{" "}
                       {user.email && <span className="truncate text-xs text-muted-foreground">{user.email}</span>}
                     </span>
                     <ChevronsUpDownIcon className="size-4 shrink-0 text-muted-foreground" />
@@ -427,13 +431,16 @@ export function Topbar({ onOpenMobileNav, onToggleCollapsed, isCollapsed, onSear
         <Button
           variant="outline"
           onClick={onSearch}
-          aria-label="Search"
           aria-keyshortcuts="Meta+K Control+K"
           className="h-8 gap-2 px-2.5 text-muted-foreground sm:w-56 sm:justify-start"
         >
           <SearchIcon className="size-4" />
-          <span className="max-sm:hidden">Search…</span>
-          <Kbd className="ml-auto max-sm:hidden">⌘K</Kbd>
+          {/* The visible text is the accessible name (no aria-label that differs from it); on phones it
+              stays for screen readers. The shortcut is announced via aria-keyshortcuts. */}
+          <span className="max-sm:sr-only">Search…</span>
+          <Kbd aria-hidden className="ml-auto max-sm:hidden">
+            ⌘K
+          </Kbd>
         </Button>
       )}
       {actions}
