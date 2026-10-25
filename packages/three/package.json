@@ -1,11 +1,86 @@
 {
   "name": "@junco/three",
   "version": "0.0.0",
-  "private": true,
-  "description": "Junco 3D scenes on React Three Fiber (planned for phase 3)",
+  "description": "Junco 3D scenes on React Three Fiber: lazy loaded, theme aware, motion aware, with fallbacks",
   "license": "MIT",
   "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./particle-field": {
+      "types": "./dist/particle-field.d.ts",
+      "import": "./dist/particle-field.js"
+    },
+    "./shader-gradient": {
+      "types": "./dist/shader-gradient.d.ts",
+      "import": "./dist/shader-gradient.js"
+    },
+    "./globe": {
+      "types": "./dist/globe.d.ts",
+      "import": "./dist/globe.js"
+    },
+    "./model-viewer": {
+      "types": "./dist/model-viewer.d.ts",
+      "import": "./dist/model-viewer.js"
+    },
+    "./tilt-card": {
+      "types": "./dist/tilt-card.d.ts",
+      "import": "./dist/tilt-card.js"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
-    "build": "echo \"three: not started (phase 3)\""
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@junco/tokens": "workspace:*"
+  },
+  "peerDependencies": {
+    "@react-three/drei": ">=10.0.0",
+    "@react-three/fiber": ">=9.0.0",
+    "junco": "workspace:^",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "three": ">=0.160.0"
+  },
+  "peerDependenciesMeta": {
+    "@react-three/drei": {
+      "optional": true
+    },
+    "@react-three/fiber": {
+      "optional": true
+    },
+    "three": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
+    "jsdom": "^30.1.3",
+    "junco": "workspace:^",
+    "react": "^19",
+    "react-dom": "^19",
+    "three": "^0.186.1",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3"
   }
 }
