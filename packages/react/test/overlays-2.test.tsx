@@ -85,6 +85,29 @@ describe("Dialog", () => {
     expect(trigger).toHaveFocus();
   });
 
+  it("Sheet also returns focus to the opener when controlled without a trigger", async () => {
+    function Controlled() {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={() => setOpen(true)}>Open filters</Button>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetContent>
+              <SheetTitle>Filters</SheetTitle>
+            </SheetContent>
+          </Sheet>
+        </>
+      );
+    }
+    render(<Controlled />);
+    const opener = screen.getByRole("button", { name: "Open filters" });
+    await userEvent.click(opener);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(opener).toHaveFocus();
+  });
+
   it("returns focus to the opener when controlled without a DialogTrigger", async () => {
     function Controlled() {
       const [open, setOpen] = useState(false);
