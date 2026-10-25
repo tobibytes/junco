@@ -1,5 +1,16 @@
 # @junco/tailwind
 
+## 0.2.0
+
+### Minor Changes
+
+- ddf1ab3: Add `Icon`: renders any SVG icon (Lucide, Heroicons, your own) at a type-scale size with one stroke weight from the new `--icon-stroke` token. Decorative by default, `label` makes it an image. `.icon` semantic classes for plain HTML. `Button size="icon"` now warns in development when it has no accessible name.
+
+### Patch Changes
+
+- Updated dependencies [ddf1ab3]
+  - @junco/tokens@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes

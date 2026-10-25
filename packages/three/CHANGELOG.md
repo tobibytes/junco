@@ -1,5 +1,12 @@
 # @junco/three
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [ddf1ab3]
+  - @junco/tokens@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes

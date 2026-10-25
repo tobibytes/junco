@@ -1,6 +1,6 @@
 {
   "name": "@junco/tokens",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Junco design tokens: CSS variables (light and dark), a TS object and W3C design token JSON",
   "license": "MIT",
   "author": "Oluwatobi Olajide",
