@@ -29,6 +29,83 @@ export { Tabs, TabsContent, TabsList, TabsTrigger, tabsVariants, type TabsProps 
 export { Textarea, textareaVariants, type TextareaProps } from "./components/textarea";
 export { Tooltip, TooltipProvider, type TooltipProps } from "./components/tooltip";
 
+// Overlays
+export {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandLoading,
+  CommandSeparator,
+  CommandShortcut,
+  type CommandDialogProps,
+} from "./components/command";
+export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  dialogVariants,
+  type DialogContentProps,
+  type DialogTitleProps,
+} from "./components/dialog";
+export {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+  menuItemVariants,
+  type DropdownMenuItemProps,
+} from "./components/dropdown-menu";
+export { Popover, PopoverAnchor, PopoverClose, PopoverContent, PopoverTrigger } from "./components/popover";
+export {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  sheetVariants,
+  type SheetContentProps,
+  type SheetProps,
+  type SheetTitleProps,
+} from "./components/sheet";
+export {
+  toast,
+  Toaster,
+  toastVariants,
+  useToasts,
+  type ToastAction,
+  type ToastData,
+  type ToasterPosition,
+  type ToasterProps,
+  type ToastId,
+  type ToastOptions,
+  type ToastPromiseOptions,
+  type ToastType,
+} from "./components/toast";
+
 export {
   ThemeProvider,
   useTheme,
