@@ -86,15 +86,16 @@ pnpm changeset    # record a version bump
 - **Tokens**: `packages/tokens/src/tokens.css` is the source of truth. It also feeds the TS object, W3C JSON, and the Swift files (`pnpm swift:tokens`; CI fails if they drift). `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` (4.5:1 text, 3:1 controls) in both modes. The blue `--primary` is still a placeholder.
 - **Components** (`packages/react`, 30+): primitives, forms (RHF + Zod), overlays, data table, toast, command, Icon. Radix sits behind `lib/primitives.ts`. Every component has a test, a docs page in `apps/docs/content/components/<slug>.tsx` (+ one line in `index.ts`), and is auto-discovered by the registry build. `@junco/react/server` holds the server-safe exports (`pnpm check:dist` guards it).
 - **Blocks and pages**: 40 entries in `apps/docs/content/blocks/catalog.ts`, 21 full pages, all with typed data, fake-data fallbacks, `slots` and `variant`s.
-- **Registry + CLI + MCP**: `pnpm registry:build` writes shadcn-compatible JSON and llms.txt to `apps/docs/public`. `@junco/cli` has init, add, list, diff, update, eject. `@junco/mcp` reads the public registry.
+- **Registry + CLI + MCP**: `pnpm registry:build` writes shadcn-compatible JSON and llms.txt to `apps/docs/public`, plus `r/templates/` for app templates. `@junco/cli` has create, init, add, list, diff, update, eject. `@junco/mcp` reads the public registry.
+- **Templates** (`templates/saas`, `templates/admin`): Vite + React Router apps built only from blocks and pages, with fake auth (`src/lib/auth.tsx`) and lazy-loaded routes. Workspace packages, so CI builds and type-checks them; the registry build turns `workspace:*` into published versions for `junco create`. Each needs a `template.json`.
 - **Swift**: SwiftUI code only compiles on Apple platforms; `.github/workflows/swift.yml` builds and tests it on macOS. Previews in `packages/swift/Sources/JuncoUI/Previews.swift`.
 - Commits are authored as `Oluwatobi Olajide <olola73@morgan.edu>`; no AI trailers.
 
 ## Where to start
 
 The open work is in `docs/ROADMAP.md`. In order:
-1. Templates (SaaS, Admin) and `junco create my-app --template saas`.
-2. Phase 4: move one real project onto Junco, fix what gets in the way, tag v1.0.
-3. Phase 3b: `@junco/collab` and `@junco/editor`.
+1. Phase 4: move one real project onto Junco, fix what gets in the way, tag v1.0.
+2. Phase 3b: `@junco/collab` and `@junco/editor`.
+3. More templates (CRM, Store, ...) when a real project needs them.
 4. SwiftUI: check the previews on a Mac, then add sheet, tabs and list rows.
 Check the accent and fonts with Tobi before locking them in.

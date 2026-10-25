@@ -27,6 +27,19 @@ export interface RegistryIndex {
   items: RegistryItem[];
 }
 
+/** An app template for `junco create`, from <registry>/templates/<name>.json. */
+export interface TemplateSummary {
+  name: string;
+  title?: string;
+  description?: string;
+  pages?: string[];
+}
+
+export interface Template extends TemplateSummary {
+  files: { path: string; content: string }[];
+  meta?: { hash?: string; [key: string]: unknown };
+}
+
 const isUrl = (s: string) => /^https?:\/\//.test(s);
 
 /** A registry is a base URL (https://junco.madebytobi.com/r) or a local folder holding <name>.json files. */
@@ -64,6 +77,18 @@ export class Registry {
 
   index(): Promise<RegistryIndex> {
     return this.readJson<RegistryIndex>(this.ref("registry"));
+  }
+
+  async templates(): Promise<TemplateSummary[]> {
+    return (await this.readJson<{ templates: TemplateSummary[] }>(this.ref("templates/index"))).templates;
+  }
+
+  template(name: string): Promise<Template> {
+    if (!/^[a-z0-9][a-z0-9-]*$/.test(name)) throw new Error(`"${name}" isn't a template name. Run \`junco create --list\` to see them.`);
+    return this.readJson<Template>(this.ref(`templates/${name}`)).catch((err: Error) => {
+      if (err.message.startsWith("Not found")) throw new Error(`Unknown template "${name}". Run \`junco create --list\` to see them.`);
+      throw err;
+    });
   }
 
   /** Fetch by name, or by full URL for items from another registry. */

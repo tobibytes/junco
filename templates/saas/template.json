@@ -1,0 +1,6 @@
+{
+  "name": "saas",
+  "title": "SaaS",
+  "description": "A SaaS app: landing, pricing, changelog and blog, sign-up and onboarding, then a dashboard, customers and settings behind a sign-in.",
+  "pages": ["Landing", "Pricing", "Changelog", "Blog", "Blog post", "Log in", "Sign up", "Forgot password", "Onboarding", "Dashboard", "Customers", "Profile", "Billing", "Team", "API keys", "Notifications", "404", "500"]
+}

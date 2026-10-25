@@ -5,7 +5,8 @@
  *   node scripts/build-registry.ts [--out apps/docs/public] [--base-url https://junco.madebytobi.com/r]
  *
  * Components are discovered from packages/react/src/{components,theme}, blocks and pages from
- * registry/{blocks,pages}/<name>/. Nothing is listed by hand.
+ * registry/{blocks,pages}/<name>/, app templates from templates/<name>/ (for `junco create`).
+ * Nothing is listed by hand.
  */
 import { createHash } from "node:crypto";
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
@@ -325,6 +326,75 @@ function discoverCollections(byAbs: Map<string, SourceFile>): SourceFile[][] {
   return groups;
 }
 
+/* Templates ---------------------------------------------------------------------- */
+
+/**
+ * A whole app for `junco create`. Not a shadcn item, so templates live in r/templates/ and stay
+ * out of registry.json.
+ */
+export interface TemplateItem {
+  name: string;
+  title: string;
+  description: string;
+  pages: string[];
+  files: { path: string; content: string }[];
+  meta: { hash: string; source: string };
+}
+
+const TEMPLATE_SKIP = new Set(["node_modules", "dist", ".turbo", "template.json"]);
+
+function listTemplateFiles(dir: string, base = dir): string[] {
+  return readdirSync(dir, { withFileTypes: true })
+    .filter((e) => !TEMPLATE_SKIP.has(e.name) && e.name !== ".DS_Store")
+    .flatMap((e) => (e.isDirectory() ? listTemplateFiles(join(dir, e.name), base) : [relative(base, join(dir, e.name)).split("\\").join("/")]))
+    .sort();
+}
+
+/** Versions of the workspace packages, for turning `workspace:*` into what's on npm. */
+function workspaceVersions(): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const dir of readdirSync(join(ROOT, "packages"))) {
+    const file = join(ROOT, "packages", dir, "package.json");
+    if (!existsSync(file)) continue;
+    const pkg = JSON.parse(readFileSync(file, "utf8"));
+    if (!pkg.private) out[pkg.name] = pkg.version;
+  }
+  return out;
+}
+
+function templatePackageJson(raw: string, versions: Record<string, string>, source: string): string {
+  const pkg = JSON.parse(raw);
+  pkg.name = "my-app"; // `junco create` renames it after the folder
+  for (const field of ["dependencies", "devDependencies", "peerDependencies"]) {
+    for (const [dep, range] of Object.entries<string>(pkg[field] ?? {})) {
+      if (!range.startsWith("workspace:")) continue;
+      if (!versions[dep]) throw new Error(`${source}: ${dep} is a workspace package that isn't published`);
+      pkg[field][dep] = `^${versions[dep]}`;
+    }
+  }
+  return JSON.stringify(pkg, null, 2) + "\n";
+}
+
+export function buildTemplates(): TemplateItem[] {
+  const root = join(ROOT, "templates");
+  if (!existsSync(root)) return [];
+  const versions = workspaceVersions();
+  return readdirSync(root)
+    .filter((dir) => existsSync(join(root, dir, "template.json")))
+    .sort()
+    .map((dir) => {
+      const abs = join(root, dir);
+      const meta = JSON.parse(readFileSync(join(abs, "template.json"), "utf8")) as Omit<TemplateItem, "files" | "meta">;
+      const source = relative(ROOT, abs);
+      const files = listTemplateFiles(abs).map((path) => {
+        const content = readFileSync(join(abs, path), "utf8");
+        return { path, content: path === "package.json" ? templatePackageJson(content, versions, source) : content };
+      });
+      const hash = createHash("sha256").update(JSON.stringify(files)).digest("hex").slice(0, 16);
+      return { ...meta, files, meta: { hash, source } };
+    });
+}
+
 /* Build ---------------------------------------------------------------------------- */
 
 export interface BuildOptions {
@@ -422,6 +492,15 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
     })),
   };
   writeFileSync(join(rDir, "registry.json"), JSON.stringify(index, null, 2) + "\n");
+
+  const templates = buildTemplates();
+  if (templates.length) {
+    const tDir = join(rDir, "templates");
+    mkdirSync(tDir, { recursive: true });
+    for (const t of templates) writeFileSync(join(tDir, `${t.name}.json`), JSON.stringify(t, null, 2) + "\n");
+    const list = templates.map(({ files: _f, ...rest }) => rest);
+    writeFileSync(join(tDir, "index.json"), JSON.stringify({ name: "junco-templates", homepage: SITE, templates: list }, null, 2) + "\n");
+  }
   const schemaSrc = join(ROOT, "registry/schema/junco.json");
   if (existsSync(schemaSrc)) {
     mkdirSync(join(outDir, "schema"), { recursive: true });
@@ -432,7 +511,7 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
 
   if (!quiet) {
     const counts = items.reduce<Record<string, number>>((acc, i) => ((acc[i.type] = (acc[i.type] ?? 0) + 1), acc), {});
-    console.log(`registry: ${items.length} items (${Object.entries(counts).map(([t, n]) => `${n} ${t.replace("registry:", "")}`).join(", ")}) -> ${relative(process.cwd(), rDir) || rDir}`);
+    console.log(`registry: ${items.length} items (${Object.entries(counts).map(([t, n]) => `${n} ${t.replace("registry:", "")}`).join(", ")}), ${templates.length} templates -> ${relative(process.cwd(), rDir) || rDir}`);
   }
   return { items, outDir };
 }
