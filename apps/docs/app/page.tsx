@@ -1,6 +1,8 @@
 import { Button } from "junco";
 import Link from "next/link";
 import { Beyond } from "@/components/home/beyond";
+import { Compare } from "@/components/home/compare";
+import { HeroAccent } from "@/components/home/hero-accent";
 import { InstallCommand } from "@/components/home/install-command";
 import { Levels } from "@/components/home/levels";
 import { Showcase } from "@/components/home/showcase";
@@ -88,6 +90,9 @@ export default function Home() {
           </div>
           <div className="animate-rise max-w-full overflow-x-auto">
             <InstallCommand command="npm i junco @junco/tailwind" />
+          </div>
+          <div className="animate-rise pt-2">
+            <HeroAccent />
           </div>
         </div>
       </section>
@@ -195,6 +200,17 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Compare */}
+      <section aria-labelledby="compare" className="mx-auto grid max-w-screen-xl grid-cols-[minmax(0,1fr)] gap-8 px-4 pb-20 md:px-6">
+        <div className="grid max-w-2xl gap-3">
+          <h2 id="compare" className="text-2xl font-semibold tracking-tight sm:text-3xl">
+            How it compares.
+          </h2>
+          <p className="text-muted-foreground">Same clean look. More ways to use it.</p>
+        </div>
+        <Compare />
       </section>
 
       {/* CTA */}

@@ -3,63 +3,54 @@
 import { Badge, Button } from "junco";
 import { cn } from "@/lib/cn";
 import * as React from "react";
-import { accentCss, applyAccent, makeAccent, presets } from "@/lib/accent";
+import { accentCss, makeAccent, presets, setSiteAccent, useSiteAccent } from "@/lib/accent";
 import { CheckIcon, RefreshIcon } from "./icons";
 import { CodeBlock, CopyButton } from "./code-block";
 
+/** The preset colors as a radio group. Picking one re-themes the whole site. */
+export function AccentSwatches({ className, size = "md" }: { className?: string; size?: "sm" | "md" }) {
+  const { hue, chroma, touched } = useSiteAccent();
+  return (
+    <div role="radiogroup" aria-label="Accent color" className={cn("flex flex-wrap gap-2", className)}>
+      {presets.map((p) => {
+        const checked = touched ? p.hue === hue && p.chroma === chroma : p.name === "Blue";
+        return (
+          <button
+            key={p.name}
+            type="button"
+            role="radio"
+            aria-checked={checked}
+            aria-label={p.name}
+            title={p.name}
+            onClick={() => setSiteAccent({ hue: p.hue, chroma: p.chroma })}
+            className={cn(
+              "grid place-items-center rounded-pill border border-border transition-transform duration-fast ease-standard hover:scale-105",
+              size === "sm" ? "size-7" : "size-8",
+              "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+              "aria-checked:ring-2 aria-checked:ring-foreground aria-checked:ring-offset-2 aria-checked:ring-offset-background",
+            )}
+            style={{ background: makeAccent(p.hue, p.chroma).light.primary }}
+          >
+            {checked && <CheckIcon width={14} height={14} className="text-white" strokeWidth={2.5} />}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 /** Pick a hue, see the whole site re-theme, and get the CSS. */
 export function AccentPicker({ compact = false }: { compact?: boolean }) {
-  const [hue, setHue] = React.useState(260);
-  const [chroma, setChroma] = React.useState(0.2);
-  const [touched, setTouched] = React.useState(false);
+  const { hue, chroma, touched } = useSiteAccent();
   const accent = React.useMemo(() => makeAccent(hue, chroma), [hue, chroma]);
-
-  React.useEffect(() => {
-    if (touched) applyAccent(accent);
-  }, [accent, touched]);
-
-  const pick = (h: number, c: number) => {
-    setHue(h);
-    setChroma(c);
-    setTouched(true);
-  };
-
-  const reset = () => {
-    setHue(260);
-    setChroma(0.2);
-    setTouched(false);
-    applyAccent(null);
-  };
+  const pick = (h: number, c: number) => setSiteAccent({ hue: h, chroma: c });
+  const reset = () => setSiteAccent(null);
 
   const allPass = accent.checks.every((c) => c.ratio >= 4.5);
-  const swatchFill = (h: number, c: number) => makeAccent(h, c).light.primary;
 
   return (
     <div className="grid gap-5">
-      <div role="radiogroup" aria-label="Accent presets" className="flex flex-wrap gap-2">
-        {presets.map((p) => {
-          const checked = touched ? p.hue === hue && p.chroma === chroma : p.name === "Blue";
-          return (
-            <button
-              key={p.name}
-              type="button"
-              role="radio"
-              aria-checked={checked}
-              aria-label={p.name}
-              title={p.name}
-              onClick={() => pick(p.hue, p.chroma)}
-              className={cn(
-                "grid size-8 place-items-center rounded-pill border border-border transition-transform duration-fast ease-standard hover:scale-105",
-                "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                "aria-checked:ring-2 aria-checked:ring-foreground aria-checked:ring-offset-2 aria-checked:ring-offset-background",
-              )}
-              style={{ background: swatchFill(p.hue, p.chroma) }}
-            >
-              {checked && <CheckIcon width={14} height={14} className="text-white" strokeWidth={2.5} />}
-            </button>
-          );
-        })}
-      </div>
+      <AccentSwatches />
 
       <div className={cn("grid gap-4", !compact && "sm:grid-cols-2")}>
         <label className="grid gap-2 text-sm">
