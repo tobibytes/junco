@@ -9,23 +9,24 @@ Junco publishes eight packages to npm: `junco`, `@junco/tokens`, `@junco/tailwin
 | Docs site | Live at https://junco.madebytobi.com (deploys on every push to `main`) |
 | PR previews | `https://pr-<number>.junco-docs.pages.dev`, linked in a comment on each PR |
 | Registry (copy-in, shadcn compatible) | Live at https://junco.madebytobi.com/r/registry.json |
-| npm | Ready to publish v0.1.0; waiting on the `@junco` npm org and an `NPM_TOKEN` secret |
+| npm | `@junco` org created; first versions published by hand, then CI via Trusted Publishing |
 | GitHub Releases | Created automatically for each package when it publishes |
 
 ## How a release happens
 
 1. Each PR that changes a published package adds a changeset: `pnpm changeset`, pick the packages and the bump, and write one line users will read. CI warns when one is missing.
 2. When PRs land on `main`, the **Release** workflow opens or updates a **chore: version packages** PR with the new versions and changelogs (and syncs `packages/mcp/server.json`).
-3. Merging that PR publishes to npm with [provenance](https://docs.npmjs.com/generating-provenance-statements) and creates a GitHub Release per package (`junco@0.1.0`, `@junco/cli@0.1.0`, ...).
+3. Merging that PR runs `pnpm release` (`scripts/publish.ts`): every package version not yet on npm is packed and published with [Trusted Publishing](https://docs.npmjs.com/trusted-publishers/) (GitHub OIDC, no token) and [provenance](https://docs.npmjs.com/generating-provenance-statements). A GitHub Release is created per package.
 
-Without an `NPM_TOKEN`, step 3 skips publishing with a warning instead of failing, so `main` stays green before npm is set up.
+`node scripts/publish.ts --dry-run` packs everything and lists what would publish.
 
 ## One-time setup
 
 1. **npm org:** create the `junco` organization on npmjs.com (gives the `@junco/*` scope). Claim the unscoped `junco` name too: it was unpublished in 2022 and has no versions.
-2. **Token:** npmjs.com → Access Tokens → Generate → *Automation* (or a granular token with publish rights on `junco` and `@junco/*`). Add it as the `NPM_TOKEN` repository secret.
-3. **Let Actions open PRs:** GitHub → Settings → Actions → General → *Allow GitHub Actions to create and approve pull requests*. Without it the version PR can't be opened.
-4. **Default branch:** Settings → General → set to `main`.
+2. **First publish, by hand (once):** a trusted publisher can only be added to a package that exists. From a clone, logged in with `npm login`: `pnpm install && pnpm build && pnpm release`. npm asks for your 2FA code for each package.
+3. **Trusted publisher, per package:** on npmjs.com open each of the eight packages → Settings → Trusted Publisher → GitHub Actions: owner `tobibytes`, repository `junco`, workflow `release.yml`. Then, under Publishing access, choose *Require two-factor authentication and disallow tokens*. No `NPM_TOKEN` secret is needed.
+4. **Let Actions open PRs:** GitHub → Settings → Actions → General → *Allow GitHub Actions to create and approve pull requests*. Without it the version PR can't be opened.
+5. **Default branch:** Settings → General → set to `main`.
 
 ## Versioning
 

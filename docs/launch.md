@@ -13,7 +13,7 @@ Where Junco should be listed, what each one needs, and the order to do it in. Mo
 
 | Where | Why | How | Ready? |
 | --- | --- | --- | --- |
-| **npm** (`junco`, `@junco/*`) | The installed level and the CLI | Release workflow (needs `NPM_TOKEN` and the `@junco` npm org) | ✅ workflow ready |
+| **npm** (`junco`, `@junco/*`) | The installed level and the CLI | Release workflow (Trusted Publishing; first version published by hand) | ✅ workflow ready |
 | **shadcn registry** (own URL) | `npx shadcn add https://junco.madebytobi.com/r/<name>.json` works for every shadcn user | Live now | ✅ live |
 | **shadcn registry directory** (namespaced `@junco/<name>` installs) | Shows up inside shadcn's own docs and CLI search | PR to shadcn-ui/ui adding Junco to the registry directory | ✅ ready to submit |
 | **jsDelivr / unpkg** | CDN links for the plain-HTML level (`junco.css`) | Automatic for every npm package | ✅ after npm |
