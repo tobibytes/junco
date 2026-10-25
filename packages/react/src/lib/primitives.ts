@@ -13,5 +13,5 @@ export * as SelectPrimitive from "@radix-ui/react-select";
 export * as SwitchPrimitive from "@radix-ui/react-switch";
 export * as TabsPrimitive from "@radix-ui/react-tabs";
 export * as TooltipPrimitive from "@radix-ui/react-tooltip";
-export { Slot } from "@radix-ui/react-slot";
+export { Slot, Slottable } from "@radix-ui/react-slot";
 export { Command as CommandPrimitive } from "cmdk";

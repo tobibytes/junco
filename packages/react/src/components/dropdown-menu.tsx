@@ -2,7 +2,7 @@ import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "../lib/cn";
 import { CheckIcon, ChevronRightIcon, DotIcon } from "../lib/icons";
-import { DropdownMenuPrimitive } from "../lib/primitives";
+import { DropdownMenuPrimitive, Slottable } from "../lib/primitives";
 
 /**
  *   <DropdownMenu>
@@ -86,7 +86,8 @@ export interface DropdownMenuItemProps
 export const DropdownMenuItem = React.forwardRef<React.ElementRef<typeof DropdownMenuPrimitive.Item>, DropdownMenuItemProps>(
   ({ className, variant, inset, shortcut, children, ...props }, ref) => (
     <DropdownMenuPrimitive.Item ref={ref} className={cn("group", menuItemVariants({ variant, inset }), className)} {...props}>
-      {children}
+      {/* With asChild the Slot needs one marked element; Slottable marks it and keeps the shortcut inside it. */}
+      {props.asChild ? <Slottable>{children}</Slottable> : children}
       {shortcut && <DropdownMenuShortcut>{shortcut}</DropdownMenuShortcut>}
     </DropdownMenuPrimitive.Item>
   ),
