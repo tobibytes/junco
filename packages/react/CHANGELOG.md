@@ -1,5 +1,11 @@
 # junco
 
+## 0.2.1
+
+### Patch Changes
+
+- 888d2d8: Published from GitHub Actions with npm Trusted Publishing, so every version now carries a provenance statement linking it to the commit and workflow that built it.
+
 ## 0.2.0
 
 ### Minor Changes

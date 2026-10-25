@@ -1,6 +1,6 @@
 {
   "name": "@junco/mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "MCP server for Junco: lets AI agents find, read and install Junco components, blocks and tokens",
   "mcpName": "io.github.tobibytes/junco",
   "license": "MIT",
