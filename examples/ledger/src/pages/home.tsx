@@ -2,7 +2,7 @@ import * as React from "react";
 import { Badge, Button, Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "junco";
 import { AreaChart, BarChart, StatRow } from "@junco/blocks/app";
 import { NumberTicker, Reveal } from "@junco/motion";
-import { CURRENT_MONTH, dayLabel, lastMonths, monthLabel, usd } from "../data";
+import { CURRENT_MONTH, dayLabel, lastMonths, monthLabel, TODAY, usd } from "../data";
 import { accountIcon, ArrowRightIcon, LifebuoyIcon, TrendUpIcon } from "../icons";
 import { monthlyEssentials, monthTotals, useLedger } from "../store";
 import { Amount, CategoryIcon, categoryLabel, Meter, SectionTitle } from "../ui";
@@ -36,14 +36,17 @@ export function HomePage() {
   const essentials = monthlyEssentials(transactions);
   const monthsCovered = emergency.saved / essentials;
 
-  const hour = 15; // the demo's "now" is mid-afternoon
+  // The demo's clock is fixed (TODAY), so greeting and date stay stable across loads and screenshots.
+  const now = new Date(TODAY);
+  const hour = now.getUTCHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+  const dateLabel = now.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", timeZone: "UTC" });
 
   return (
     <div className="grid gap-6 md:gap-8">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-sm text-muted-foreground">Sunday, October 25</p>
+          <p className="text-sm text-muted-foreground">{dateLabel}</p>
           <h1 className="text-2xl font-semibold tracking-tight">{greeting}, Tobi</h1>
         </div>
         <Button variant="outline" size="sm" onClick={openAdd} className="max-md:hidden">
