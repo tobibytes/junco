@@ -14,6 +14,7 @@ const links = [
   { href: "/docs/", label: "Docs", match: (p: string) => p.startsWith("/docs") },
   { href: "/components/", label: "Components", match: (p: string) => p.startsWith("/components") },
   { href: "/docs/theming/", label: "Theming", match: (p: string) => p.startsWith("/docs/theming") },
+  { href: "/examples/", label: "Examples", match: (p: string) => p.startsWith("/examples") },
 ];
 
 export function SiteHeader() {

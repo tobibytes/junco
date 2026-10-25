@@ -5,7 +5,7 @@
 **A free, open source design system for React and Tailwind v4.**
 Tokens, accessible components, blocks, full pages, motion and 3D. Use it four ways, all from the same tokens.
 
-[Docs](https://junco.madebytobi.com) · [Components](https://junco.madebytobi.com/components) · [Getting started](https://junco.madebytobi.com/docs/getting-started) · [MCP for AI agents](packages/mcp)
+[Docs](https://junco.madebytobi.com) · [Components](https://junco.madebytobi.com/components) · [Examples](https://junco.madebytobi.com/examples) · [Getting started](https://junco.madebytobi.com/docs/getting-started) · [MCP for AI agents](packages/mcp)
 
 [![CI](https://github.com/tobibytes/junco/actions/workflows/ci.yml/badge.svg)](https://github.com/tobibytes/junco/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/junco?label=junco&color=blue)](https://www.npmjs.com/package/junco)
@@ -89,6 +89,15 @@ Framework guides for Next.js, Vite and plain HTML are in the [docs](https://junc
 | [`@junco/three`](packages/three) | Lazy-loaded 3D: particle field, shader gradient, globe, model viewer, tilt card |
 | [`@junco/cli`](packages/cli) | `junco init`, `add`, `diff`, `update`, `list` |
 | [`@junco/mcp`](packages/mcp) | MCP server so Claude, Cursor and other agents can find and install Junco components |
+
+## Examples
+
+Four complete projects built only with Junco, each with a live demo and source in [`examples/`](examples):
+
+| | |
+| --- | --- |
+| [**Pulse**](https://junco.madebytobi.com/examples/pulse/): product analytics SaaS (app shell, data table, ⌘K) | [**Ledger**](https://junco.madebytobi.com/examples/ledger/): personal finance and savings goals, mobile-first |
+| [**MorganHacks**](https://junco.madebytobi.com/examples/hackathon/): hackathon site with 3D, motion and registration | [**Status page**](https://junco.madebytobi.com/examples/status-page/): plain HTML using only the CSS classes |
 
 ## Why Junco
 

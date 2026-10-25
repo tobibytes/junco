@@ -66,6 +66,18 @@ importers:
         specifier: ^4.6.7
         version: 4.6.7
     devDependencies:
+      '@junco/example-hackathon':
+        specifier: workspace:*
+        version: link:../../examples/hackathon
+      '@junco/example-ledger':
+        specifier: workspace:*
+        version: link:../../examples/ledger
+      '@junco/example-pulse':
+        specifier: workspace:*
+        version: link:../../examples/pulse
+      '@junco/example-status-page':
+        specifier: workspace:*
+        version: link:../../examples/status-page
       '@tailwindcss/postcss':
         specifier: ^4.0.0
         version: 4.3.3

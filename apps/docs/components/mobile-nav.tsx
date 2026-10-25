@@ -46,6 +46,13 @@ export function MobileNav() {
             </Button>
           </div>
           <div className="flex-1 overflow-y-auto px-2 py-4">
+            <Link
+              href="/examples/"
+              onClick={close}
+              className="mb-3 flex h-9 items-center rounded-control px-3 text-sm font-medium hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring"
+            >
+              Examples
+            </Link>
             <SidebarNav onNavigate={close} />
           </div>
           <div className="flex shrink-0 items-center justify-between gap-2 border-t border-border p-3">
