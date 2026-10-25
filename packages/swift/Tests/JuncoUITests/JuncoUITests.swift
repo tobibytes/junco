@@ -1,0 +1,58 @@
+#if canImport(SwiftUI)
+import SwiftUI
+import XCTest
+@testable import JuncoUI
+
+final class JuncoUITests: XCTestCase {
+  func testMotionOffAndReduceMotionDisableAnimation() {
+    XCTAssertNil(JuncoMotion.animation(level: .off))
+    XCTAssertNil(JuncoMotion.animation(level: .full, reduceMotion: true))
+    XCTAssertNotNil(JuncoMotion.animation(level: .full))
+    XCTAssertNotNil(JuncoMotion.animation(level: .subtle))
+  }
+
+  func testMotionScaleMatchesTokens() {
+    XCTAssertEqual(JuncoMotionLevel.full.scale, 1)
+    XCTAssertEqual(JuncoMotionLevel.subtle.scale, JuncoTokens.MotionScale.subtle)
+    XCTAssertEqual(JuncoMotionLevel.off.scale, 0)
+  }
+
+  func testButtonSizesMeetTapTargets() {
+    // 44pt is Apple's minimum; md and lg meet it with padding, sm is for dense toolbars.
+    XCTAssertGreaterThanOrEqual(JuncoButtonStyle.Size.md.height, 40)
+    XCTAssertGreaterThanOrEqual(JuncoButtonStyle.Size.lg.height, 44)
+  }
+
+  func testStylesBuild() {
+    // Building the bodies catches broken view code that only fails at runtime.
+    _ = Button("Save") {}.buttonStyle(.junco)
+    _ = Button("Delete") {}.buttonStyle(.junco(.destructive, size: .sm, fullWidth: true))
+    _ = TextField("Email", text: .constant("")).textFieldStyle(.junco)
+    _ = Toggle("On", isOn: .constant(true)).toggleStyle(.junco)
+    _ = JuncoField("Email", error: "Required") { TextField("Email", text: .constant("")) }.body
+    _ = JuncoBadge("Paid", variant: .success, systemImage: "checkmark").body
+    _ = JuncoCard { Text("Hi") }.body
+  }
+
+  #if os(macOS)
+  func testColorsFollowAppearance() throws {
+    func components(_ color: Color, _ name: NSAppearance.Name) throws -> (Double, Double, Double) {
+      var rgb = (0.0, 0.0, 0.0)
+      let appearance = try XCTUnwrap(NSAppearance(named: name))
+      appearance.performAsCurrentDrawingAppearance {
+        if let c = NSColor(color).usingColorSpace(.sRGB) {
+          rgb = (c.redComponent, c.greenComponent, c.blueComponent)
+        }
+      }
+      return rgb
+    }
+    let token = JuncoTokens.Colors.background
+    let light = try components(Color.junco.background, .aqua)
+    let dark = try components(Color.junco.background, .darkAqua)
+    XCTAssertEqual(light.0, token.light.red, accuracy: 0.01)
+    XCTAssertEqual(dark.0, token.dark.red, accuracy: 0.01)
+    XCTAssertNotEqual(light.0, dark.0, accuracy: 0.1)
+  }
+  #endif
+}
+#endif

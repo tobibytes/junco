@@ -1,0 +1,45 @@
+name: Swift
+
+on:
+  pull_request:
+    paths: ["Package.swift", "packages/swift/**", "packages/tokens/src/**", "scripts/build-swift-tokens.ts", ".github/workflows/swift.yml"]
+  push:
+    branches: [main]
+    paths: ["Package.swift", "packages/swift/**", "packages/tokens/src/**", "scripts/build-swift-tokens.ts", ".github/workflows/swift.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: swift-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  tokens:
+    name: Swift tokens up to date + Linux build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Generated Swift matches tokens.css
+        run: node scripts/build-swift-tokens.ts --check
+      - name: Build and test JuncoTokens (SwiftUI parts compile out on Linux)
+        run: |
+          swift build
+          swift test
+
+  apple:
+    name: SwiftUI on macOS
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: swift --version
+      - run: swift build
+      - run: swift test
+      - name: Build for iOS Simulator
+        run: xcodebuild build -scheme Junco-Package -destination 'generic/platform=iOS Simulator' -quiet
