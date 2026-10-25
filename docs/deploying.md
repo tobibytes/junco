@@ -4,6 +4,8 @@ The docs site (`apps/docs`) is a static Next.js export deployed to **Cloudflare 
 
 ## How a deploy happens
 
+**Pull requests** get a preview at `https://pr-<number>.junco-docs.pages.dev`; the workflow comments the link on the PR and updates it on every push.
+
 1. A push to `main` runs the **Deploy docs** workflow (or run it by hand from the Actions tab).
 2. It builds the registry and `llms.txt` into `apps/docs/public`, then builds the site to `apps/docs/out`.
 3. It creates the Pages project if it doesn't exist, deploys, and attaches the custom domain.

@@ -29,6 +29,8 @@ function viaCanvas(css: string): [number, number, number] | null {
   }
   if (!probe) return null;
   probe.clearRect(0, 0, 1, 1);
+  // Not a dead store: canvas ignores invalid colors and keeps the previous fillStyle, so reset it
+  // first or an unparseable token would come back as whatever color was read last.
   probe.fillStyle = "#000";
   probe.fillStyle = css;
   probe.fillRect(0, 0, 1, 1);

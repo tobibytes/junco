@@ -36,3 +36,24 @@ describe("tokens", () => {
     });
   }
 });
+
+describe("parsers on hostile input", () => {
+  it("parseOklch stays fast and strict", async () => {
+    const { parseOklch } = await import("../src/color.ts");
+    const t = performance.now();
+    expect(parseOklch("oklch(0.5 0.1 200" + " ".repeat(50_000))).toBeNull();
+    expect(parseOklch("oklch(0.5" + " ".repeat(50_000) + "x)")).toBeNull();
+    expect(performance.now() - t).toBeLessThan(50);
+    expect(parseOklch("oklch(0.55 0.2 260)")).toEqual({ l: 0.55, c: 0.2, h: 260, alpha: 1 });
+    expect(parseOklch("oklch(55% 0.2 260deg / 50%)")).toEqual({ l: 0.55, c: 0.2, h: 260, alpha: 0.5 });
+    expect(parseOklch("oklch(0.5 0.1)")).toBeNull();
+    expect(parseOklch("oklch(0.5 0.1 200 / 1 / 2)")).toBeNull();
+  });
+
+  it("parseTokens strips comments in linear time, including unclosed ones", () => {
+    const t = performance.now();
+    parseTokens("/*" + "a/*".repeat(100_000));
+    expect(performance.now() - t).toBeLessThan(100);
+    expect(parseTokens(":root { /* a */ --x: 1; /* b */ }").light).toEqual({ x: "1" });
+  });
+});

@@ -13,16 +13,29 @@ export interface Oklch {
 /** Linear-light sRGB channels, each 0..1. */
 export type LinearRgb = [number, number, number];
 
-const OKLCH_RE = /^oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+([\d.]+)(?:deg)?\s*(?:\/\s*([\d.]+%?))?\s*\)$/i;
+const NUMBER = /^\d*\.?\d+%?$/;
+const HUE = /^\d*\.?\d+(?:deg)?$/;
 
 function num(value: string): number {
   return value.endsWith("%") ? parseFloat(value) / 100 : parseFloat(value);
 }
 
+/**
+ * Parses `oklch(L C H)` or `oklch(L C H / A)`. Done by splitting rather than one big regex, which
+ * backtracks quadratically on long runs of spaces (and this takes user input, e.g. accent pickers).
+ */
 export function parseOklch(value: string): Oklch | null {
-  const m = OKLCH_RE.exec(value.trim());
-  if (!m) return null;
-  return { l: num(m[1]!), c: num(m[2]!), h: num(m[3]!), alpha: m[4] ? num(m[4]) : 1 };
+  const s = value.trim();
+  if (s.length > 200 || !/^oklch\(/i.test(s) || !s.endsWith(")")) return null;
+  const [main, alpha, extra] = s.slice(6, -1).split("/");
+  if (extra !== undefined || main === undefined) return null;
+  const parts = main.trim().split(/\s+/);
+  if (parts.length !== 3) return null;
+  const [l, c, h] = parts as [string, string, string];
+  if (!NUMBER.test(l) || !NUMBER.test(c) || c.endsWith("%") || !HUE.test(h)) return null;
+  const a = alpha?.trim();
+  if (a !== undefined && !NUMBER.test(a)) return null;
+  return { l: num(l), c: num(c), h: parseFloat(h), alpha: a !== undefined ? num(a) : 1 };
 }
 
 export function oklchToLinearRgb({ l, c, h }: Oklch): LinearRgb {

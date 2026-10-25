@@ -7,8 +7,19 @@ export interface ParsedTokens {
   dark: TokenMap;
 }
 
+/** Removes /* comments *\/ in one linear pass (a lazy regex goes quadratic on unclosed comments). */
 function stripComments(css: string) {
-  return css.replace(/\/\*[\s\S]*?\*\//g, "");
+  let out = "";
+  let i = 0;
+  while (i < css.length) {
+    const start = css.indexOf("/*", i);
+    if (start === -1) return out + css.slice(i);
+    out += css.slice(i, start);
+    const end = css.indexOf("*/", start + 2);
+    if (end === -1) return out; // unclosed comment runs to the end, as in CSS
+    i = end + 2;
+  }
+  return out;
 }
 
 function declarations(body: string): TokenMap {
