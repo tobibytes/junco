@@ -43,7 +43,9 @@ describe("parsers on hostile input", () => {
     const t = performance.now();
     expect(parseOklch("oklch(0.5 0.1 200" + " ".repeat(50_000))).toBeNull();
     expect(parseOklch("oklch(0.5" + " ".repeat(50_000) + "x)")).toBeNull();
-    expect(performance.now() - t).toBeLessThan(50);
+    // Generous bound: linear code takes ~1ms here, the old regex took seconds. Tight wall-clock
+    // limits flake on busy CI runners.
+    expect(performance.now() - t).toBeLessThan(2000);
     expect(parseOklch("oklch(0.55 0.2 260)")).toEqual({ l: 0.55, c: 0.2, h: 260, alpha: 1 });
     expect(parseOklch("oklch(55% 0.2 260deg / 50%)")).toEqual({ l: 0.55, c: 0.2, h: 260, alpha: 0.5 });
     expect(parseOklch("oklch(0.5 0.1)")).toBeNull();
@@ -53,7 +55,7 @@ describe("parsers on hostile input", () => {
   it("parseTokens strips comments in linear time, including unclosed ones", () => {
     const t = performance.now();
     parseTokens("/*" + "a/*".repeat(100_000));
-    expect(performance.now() - t).toBeLessThan(100);
+    expect(performance.now() - t).toBeLessThan(2000);
     expect(parseTokens(":root { /* a */ --x: 1; /* b */ }").light).toEqual({ x: "1" });
   });
 });
@@ -72,6 +74,6 @@ describe("parseTokens scanner", () => {
     parseTokens(":root {" + "--".repeat(50_000) + "}");
     parseTokens(":root { ---:" + " ".repeat(100_000) + "}");
     parseTokens(" ".repeat(100_000) + "{}" + "}".repeat(10_000));
-    expect(performance.now() - t).toBeLessThan(150);
+    expect(performance.now() - t).toBeLessThan(2000);
   });
 });

@@ -77,15 +77,48 @@ export interface DialogContentProps
   classNames?: { overlay?: string; content?: string; close?: string };
 }
 
+/**
+ * Radix returns focus to a DialogTrigger on close. Dialogs and sheets opened without one (a
+ * shortcut, a controlled `open`, CommandDialog) would drop focus on <body>, so remember what had
+ * focus when they opened and go back there. With a trigger, that element is the trigger.
+ * Shared by DialogContent and SheetContent.
+ */
+export function useReturnFocus(
+  onOpenAutoFocus?: (event: Event) => void,
+  onCloseAutoFocus?: (event: Event) => void,
+) {
+  const returnFocusRef = React.useRef<HTMLElement | null>(null);
+  return {
+    onOpenAutoFocus: (event: Event) => {
+      const active = document.activeElement;
+      returnFocusRef.current = active instanceof HTMLElement && active !== document.body ? active : null;
+      onOpenAutoFocus?.(event);
+    },
+    onCloseAutoFocus: (event: Event) => {
+      onCloseAutoFocus?.(event);
+      const target = returnFocusRef.current;
+      returnFocusRef.current = null;
+      if (event.defaultPrevented || !target?.isConnected) return;
+      event.preventDefault();
+      target.focus();
+    },
+  };
+}
+
 export const DialogContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Content>, DialogContentProps>(
-  ({ className, classNames, size, showClose = true, closeLabel = "Close", children, ...props }, ref) => {
+  (
+    { className, classNames, size, showClose = true, closeLabel = "Close", onOpenAutoFocus, onCloseAutoFocus, children, ...props },
+    ref,
+  ) => {
     const styles = dialogVariants({ size });
+    const focus = useReturnFocus(onOpenAutoFocus, onCloseAutoFocus);
     return (
       <DialogPortal>
         <DialogOverlay className={classNames?.overlay} />
         <DialogPrimitive.Content
           ref={ref}
           className={styles.content({ className: cn(classNames?.content, className) })}
+          {...focus}
           {...props}
         >
           {children}

@@ -3,7 +3,7 @@ import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "../lib/cn";
 import { XIcon } from "../lib/icons";
 import { DialogPrimitive } from "../lib/primitives";
-import { DialogOverlay } from "./dialog";
+import { DialogOverlay, useReturnFocus } from "./dialog";
 
 interface SheetContextValue {
   setOpen: (open: boolean) => void;
@@ -102,7 +102,18 @@ export interface SheetContentProps
 
 export const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimitive.Content>, SheetContentProps>(
   (
-    { className, classNames, side = "right", mobileSide = "bottom", showClose = true, closeLabel = "Close", children, ...props },
+    {
+      className,
+      classNames,
+      side = "right",
+      mobileSide = "bottom",
+      showClose = true,
+      closeLabel = "Close",
+      onOpenAutoFocus,
+      onCloseAutoFocus,
+      children,
+      ...props
+    },
     ref,
   ) => {
     const ctx = React.useContext(SheetContext);
@@ -147,6 +158,8 @@ export const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimi
       else if (ref) ref.current = node;
     };
 
+    const focus = useReturnFocus(onOpenAutoFocus, onCloseAutoFocus);
+
     return (
       <DialogPrimitive.Portal>
         <DialogOverlay className={classNames?.overlay} />
@@ -154,6 +167,7 @@ export const SheetContent = React.forwardRef<React.ElementRef<typeof DialogPrimi
           ref={setRefs}
           data-side={side}
           className={styles.content({ className: cn(classNames?.content, className) })}
+          {...focus}
           {...props}
         >
           <div

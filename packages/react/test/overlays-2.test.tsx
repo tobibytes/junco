@@ -85,6 +85,52 @@ describe("Dialog", () => {
     expect(trigger).toHaveFocus();
   });
 
+  it("Sheet also returns focus to the opener when controlled without a trigger", async () => {
+    function Controlled() {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={() => setOpen(true)}>Open filters</Button>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetContent>
+              <SheetTitle>Filters</SheetTitle>
+            </SheetContent>
+          </Sheet>
+        </>
+      );
+    }
+    render(<Controlled />);
+    const opener = screen.getByRole("button", { name: "Open filters" });
+    await userEvent.click(opener);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(opener).toHaveFocus();
+  });
+
+  it("returns focus to the opener when controlled without a DialogTrigger", async () => {
+    function Controlled() {
+      const [open, setOpen] = useState(false);
+      return (
+        <>
+          <Button onClick={() => setOpen(true)}>Open settings</Button>
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogContent>
+              <DialogTitle>Settings</DialogTitle>
+            </DialogContent>
+          </Dialog>
+        </>
+      );
+    }
+    render(<Controlled />);
+    const opener = screen.getByRole("button", { name: "Open settings" });
+    await userEvent.click(opener);
+    expect(screen.getByRole("dialog")).toBeInTheDocument();
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(opener).toHaveFocus();
+  });
+
   it("traps Tab inside the dialog", async () => {
     render(<Example />);
     await userEvent.click(screen.getByRole("button", { name: "Edit profile" }));
@@ -316,6 +362,22 @@ describe("CommandDialog", () => {
     expect(screen.getByPlaceholderText("Search")).toHaveFocus();
     await userEvent.keyboard("{Meta>}k{/Meta}");
     await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+  });
+
+  it("returns focus to where you were when it closes (it has no trigger)", async () => {
+    render(
+      <>
+        <input aria-label="Notes" />
+        <Example />
+      </>,
+    );
+    const notes = screen.getByRole("textbox", { name: "Notes" });
+    notes.focus();
+    await userEvent.keyboard("{Control>}k{/Control}");
+    expect(screen.getByPlaceholderText("Search")).toHaveFocus();
+    await userEvent.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).toBeNull());
+    expect(notes).toHaveFocus();
   });
 
   it("filters and runs the chosen item with Enter", async () => {

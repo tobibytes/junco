@@ -24,8 +24,12 @@ export interface PropDef {
 }
 
 export interface ComponentDoc {
-  /** Names imported from "junco", shown in the install snippet. */
+  /** Names imported from "junco" (or `importFrom`), shown in the install snippet. */
   imports: string[];
+  /** Module the imports come from. Default "junco"; e.g. "junco/data-table". */
+  importFrom?: string;
+  /** Extra npm packages to install alongside junco (optional peers of subpath entries). */
+  installExtra?: string[];
   playground?: {
     controls: ControlDef[];
     render: (values: ControlValues) => React.ReactNode;

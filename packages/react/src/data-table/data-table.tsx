@@ -201,6 +201,8 @@ export function DataTable<TData>({
     pageIndex: 0,
     pageSize: paged ? pageSize : Number.MAX_SAFE_INTEGER,
   });
+  // The current size is always a choice, so a pageSize outside the options never shows a blank select.
+  const sizeOptions = paged ? [...new Set([...pageSizeOptions, pagination.pageSize])].sort((a, b) => a - b) : pageSizeOptions;
 
   const allColumns = React.useMemo<ColumnDef<TData, any>[]>(() => {
     if (!enableRowSelection) return columns;
@@ -428,7 +430,7 @@ export function DataTable<TData>({
               : `${filteredCount} ${filteredCount === 1 ? "row" : "rows"}`}
           </p>
           <div className="flex flex-wrap items-center gap-3">
-            {pageSizeOptions.length > 1 && (
+            {sizeOptions.length > 1 && (
               <div className="flex items-center gap-2">
                 <span id={pageSizeLabelId} className="whitespace-nowrap">
                   Rows per page
@@ -441,7 +443,7 @@ export function DataTable<TData>({
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    {pageSizeOptions.map((n) => (
+                    {sizeOptions.map((n) => (
                       <SelectItem key={n} value={String(n)}>
                         {n}
                       </SelectItem>

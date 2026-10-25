@@ -4,8 +4,8 @@ Where Junco should be listed, what each one needs, and the order to do it in. Mo
 
 ## Order
 
-1. **Site live** at junco.madebytobi.com (see [deploying](deploying.md)).
-2. **First npm release** (see [releasing](releasing.md)). Every install command in every listing depends on it.
+1. ✅ **Site live** at https://junco.madebytobi.com (see [deploying](deploying.md)).
+2. ⏳ **First npm release** (see [releasing](releasing.md)). Every install command in every listing depends on it.
 3. **Registries** below. Some are automatic, the rest are a form or a PR.
 4. **Launch day**: Product Hunt, Show HN, social posts, all on the same day.
 
@@ -14,8 +14,8 @@ Where Junco should be listed, what each one needs, and the order to do it in. Mo
 | Where | Why | How | Ready? |
 | --- | --- | --- | --- |
 | **npm** (`junco`, `@junco/*`) | The installed level and the CLI | Release workflow (needs `NPM_TOKEN` and the `@junco` npm org) | ✅ workflow ready |
-| **shadcn registry** (own URL) | `npx shadcn add https://junco.madebytobi.com/r/<name>.json` works for every shadcn user | Automatic once the site is live | ✅ |
-| **shadcn registry directory** (namespaced `@junco/<name>` installs) | Shows up inside shadcn's own docs and CLI search | PR to shadcn-ui/ui adding Junco to the registry directory, after the site is live | ⏳ after deploy |
+| **shadcn registry** (own URL) | `npx shadcn add https://junco.madebytobi.com/r/<name>.json` works for every shadcn user | Live now | ✅ live |
+| **shadcn registry directory** (namespaced `@junco/<name>` installs) | Shows up inside shadcn's own docs and CLI search | PR to shadcn-ui/ui adding Junco to the registry directory | ✅ ready to submit |
 | **jsDelivr / unpkg** | CDN links for the plain-HTML level (`junco.css`) | Automatic for every npm package | ✅ after npm |
 
 ## AI and MCP directories
@@ -28,7 +28,7 @@ Where Junco should be listed, what each one needs, and the order to do it in. Mo
 | **Glama** (glama.ai/mcp) | Indexes GitHub repos with MCP servers; claim the listing | ⏳ after npm |
 | **mcp.so** | Submit form | ⏳ after npm |
 | **awesome-mcp-servers** | PR with a one-line entry | ⏳ after npm |
-| **llms.txt directories** | Submit `https://junco.madebytobi.com/llms.txt` | ⏳ after deploy |
+| **llms.txt directories** | Submit `https://junco.madebytobi.com/llms.txt` | ✅ ready to submit |
 
 ## Curated lists (one-line PRs)
 

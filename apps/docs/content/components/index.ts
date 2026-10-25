@@ -13,7 +13,7 @@ export interface ComponentEntry {
   load: () => Promise<{ doc: ComponentDoc }>;
 }
 
-export const categories = ["Actions", "Forms", "Display", "Feedback", "Navigation", "Theming"] as const;
+export const categories = ["Actions", "Forms", "Overlays", "Data", "Layout", "Display", "Feedback", "Navigation", "Theming"] as const;
 export type Category = (typeof categories)[number];
 
 export const components: ComponentEntry[] = [
@@ -34,6 +34,20 @@ export const components: ComponentEntry[] = [
   { slug: "separator", title: "Separator", description: "A thin line between content, horizontal or vertical.", category: "Display", load: () => import("./separator") },
   { slug: "spinner", title: "Spinner", description: "An accessible loading indicator.", category: "Feedback", load: () => import("./spinner") },
   { slug: "skeleton", title: "Skeleton", description: "A placeholder shape while content loads.", category: "Feedback", load: () => import("./skeleton") },
+  { slug: "form", title: "Form", description: "React Hook Form + Zod, with labels, help text and errors wired for you.", category: "Forms", load: () => import("./form") },
+  { slug: "dialog", title: "Dialog", description: "A modal window for focused tasks, with focus trapping and Esc to close.", category: "Overlays", load: () => import("./dialog") },
+  { slug: "sheet", title: "Sheet", description: "A panel that slides in from an edge. A swipeable bottom sheet on phones.", category: "Overlays", load: () => import("./sheet") },
+  { slug: "popover", title: "Popover", description: "Rich content anchored to a trigger, for small bits of extra UI.", category: "Overlays", load: () => import("./popover") },
+  { slug: "dropdown-menu", title: "Dropdown menu", description: "A list of actions with checkbox, radio and nested items.", category: "Overlays", load: () => import("./dropdown-menu") },
+  { slug: "command", title: "Command", description: "A searchable command palette, opened with ⌘K.", category: "Overlays", load: () => import("./command") },
+  { slug: "toast", title: "Toast", description: "Brief notifications from anywhere with toast(), including promises and actions.", category: "Feedback", load: () => import("./toast") },
+  { slug: "data-table", title: "Data table", description: "Sorting, selection, search, column visibility and paging on TanStack Table.", category: "Data", load: () => import("./data-table") },
+  { slug: "stat", title: "Stat", description: "A key number with its change and a sparkline. Direction never by color alone.", category: "Data", load: () => import("./stat") },
+  { slug: "empty-state", title: "Empty state", description: "Say why there's nothing here, and offer the next step.", category: "Data", load: () => import("./empty-state") },
+  { slug: "card", title: "Card", description: "A bordered container with header, action, content and footer parts.", category: "Layout", load: () => import("./card") },
+  { slug: "accordion", title: "Accordion", description: "Stacked sections that expand and collapse. Good for FAQs.", category: "Layout", load: () => import("./accordion") },
+  { slug: "pagination", title: "Pagination", description: "Move between pages of results, with a fixed width and real links.", category: "Navigation", load: () => import("./pagination") },
+  { slug: "breadcrumb", title: "Breadcrumb", description: "Where a page sits in the hierarchy, with links back up.", category: "Navigation", load: () => import("./breadcrumb") },
   { slug: "theme-provider", title: "ThemeProvider", description: "Light, dark and system themes plus the global motion switch.", category: "Theming", load: () => import("./theme-provider") },
 ];
 

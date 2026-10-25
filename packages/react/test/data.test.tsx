@@ -264,6 +264,16 @@ describe("DataTable", () => {
     expect(screen.getByRole("columnheader", { name: /Name/ })).toBeInTheDocument();
   });
 
+  it("shows the current page size even when it isn't one of the options", async () => {
+    render(<DataTable columns={columns} data={people} pageSize={5} />);
+    expect(bodyRows()).toHaveLength(5);
+    const sizeSelect = screen.getByRole("combobox", { name: "Rows per page" });
+    expect(sizeSelect).toHaveTextContent("5");
+    await userEvent.click(sizeSelect);
+    const options = (await screen.findAllByRole("option")).map((o) => o.textContent);
+    expect(options).toEqual(["5", "10", "20", "50"]);
+  });
+
   it("shows skeleton rows and aria-busy while loading", () => {
     render(<DataTable columns={columns} data={[]} isLoading loadingRows={4} />);
     expect(screen.getByRole("table")).toHaveAttribute("aria-busy", "true");
