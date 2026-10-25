@@ -1,0 +1,6 @@
+# Cloudflare Pages project for the Junco website.
+# Deploy: pnpm --filter docs build && pnpm --filter docs deploy
+# Custom domain: junco.madebytobi.com (attached by .github/workflows/deploy-docs.yml)
+name = "junco-docs"
+pages_build_output_dir = "out"
+compatibility_date = "2026-10-01"

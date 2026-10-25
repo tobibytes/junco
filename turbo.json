@@ -8,7 +8,8 @@
       "outputs": [
         "dist/**",
         ".next/**",
-        "!.next/cache/**"
+        "!.next/cache/**",
+        "out/**"
       ]
     },
     "@junco/tailwind#build": {
@@ -81,6 +82,17 @@
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/scripts/**"
+      ]
+    },
+    "docs#build": {
+      "dependsOn": [
+        "^build",
+        "//#registry:build"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "out/**"
       ]
     }
   }

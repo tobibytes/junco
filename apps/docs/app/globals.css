@@ -1,0 +1,76 @@
+@import "tailwindcss";
+@import "@junco/tailwind";
+
+/* Tailwind needs to see the classes junco's components use. */
+@source "../node_modules/junco/dist";
+
+/* next/font hosts Geist under a generated family name; point the tokens at it. */
+:root {
+  --font-sans: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+
+  /* Syntax colors for code blocks (site only, not part of the design system). */
+  --code-bg: oklch(0.975 0 0);
+  --syntax-comment: oklch(0.52 0 0);
+  --syntax-string: oklch(0.47 0.12 150);
+  --syntax-keyword: oklch(0.5 0.2 320);
+  --syntax-tag: oklch(0.5 0.17 255);
+  --syntax-attr: oklch(0.5 0.12 60);
+  --syntax-type: oklch(0.5 0.13 200);
+  --syntax-number: oklch(0.52 0.15 30);
+}
+
+.dark,
+[data-theme="dark"] {
+  --code-bg: oklch(0.165 0 0);
+  --syntax-comment: oklch(0.65 0 0);
+  --syntax-string: oklch(0.8 0.13 150);
+  --syntax-keyword: oklch(0.78 0.14 320);
+  --syntax-tag: oklch(0.78 0.12 255);
+  --syntax-attr: oklch(0.83 0.12 75);
+  --syntax-type: oklch(0.8 0.1 200);
+  --syntax-number: oklch(0.78 0.13 30);
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 25%, transparent);
+  }
+}
+
+.tok-comment { color: var(--syntax-comment); font-style: italic; }
+.tok-string { color: var(--syntax-string); }
+.tok-keyword, .tok-command { color: var(--syntax-keyword); }
+.tok-tag { color: var(--syntax-tag); }
+.tok-attr, .tok-prop { color: var(--syntax-attr); }
+.tok-type { color: var(--syntax-type); }
+.tok-number { color: var(--syntax-number); }
+
+/* The quiet dot grid behind component previews. */
+.preview-canvas {
+  background-color: var(--background);
+  background-image: radial-gradient(color-mix(in oklch, var(--foreground) 9%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Hero glow: a soft wash of the accent, so it re-tints when the accent changes. */
+.hero-glow {
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in oklch, var(--primary) 16%, transparent), transparent 70%);
+}
+
+dialog::backdrop {
+  background: oklch(0 0 0 / 0.4);
+  backdrop-filter: blur(2px);
+}
+
+@keyframes drawer-in {
+  from { transform: translateX(calc(-100% * var(--motion-scale))); }
+}
+.drawer[open] {
+  animation: drawer-in calc(var(--duration-slow) * var(--motion-scale)) var(--ease-enter);
+}
