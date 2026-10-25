@@ -1,5 +1,5 @@
 import { contrastRatio, MIN_TEXT_CONTRAST, textPairs, tokens } from "@junco/tokens";
-import { Badge } from "junco";
+import { Badge } from "@junco/react";
 import { DataTable } from "./prose";
 
 const light = tokens.light;

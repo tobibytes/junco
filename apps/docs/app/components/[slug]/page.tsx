@@ -1,4 +1,4 @@
-import { Badge } from "junco";
+import { Badge } from "@junco/react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ComponentDocView } from "@/components/docs/component-doc";

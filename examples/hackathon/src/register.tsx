@@ -21,8 +21,8 @@ import {
   Separator,
   Switch,
   toast,
-} from "junco";
-import { Form, FormField, FormRootError, FormSubmit, useForm } from "junco/form";
+} from "@junco/react";
+import { Form, FormField, FormRootError, FormSubmit, useForm } from "@junco/react/form";
 import * as React from "react";
 import { z } from "zod";
 import { levels, tracks } from "./data";

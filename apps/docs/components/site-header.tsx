@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Button, Tooltip } from "junco";
+import { Badge, Button, Tooltip } from "@junco/react";
 import { cn } from "@/lib/cn";
 import Link from "next/link";
 import { usePathname } from "next/navigation";

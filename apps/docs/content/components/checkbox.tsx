@@ -1,6 +1,6 @@
 "use client";
 
-import { Checkbox, Label } from "junco";
+import { Checkbox, Label } from "@junco/react";
 import * as React from "react";
 import type { ComponentDoc } from "./types";
 

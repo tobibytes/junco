@@ -19,7 +19,7 @@ export default function IconsPage() {
         <CodeBlock lang="bash" title="Install" code="npm i lucide-react" />
         <CodeBlock
           title="Use"
-          code={`import { Icon } from "junco";
+          code={`import { Icon } from "@junco/react";
 import { Search } from "lucide-react";
 
 <Icon as={Search} />`}

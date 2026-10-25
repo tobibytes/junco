@@ -8,8 +8,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "junco";
-import { DataTable, type ColumnDef } from "junco/data-table";
+} from "@junco/react";
+import { DataTable, type ColumnDef } from "@junco/react/data-table";
 import { useMediaQuery } from "@junco/blocks/app";
 import { ACCOUNTS, CATEGORIES, dayLabel, usd, type Transaction } from "../data";
 import { PlusIcon, SearchIcon } from "../icons";

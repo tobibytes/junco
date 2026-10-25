@@ -1,4 +1,4 @@
-import { Button } from "junco";
+import { Button } from "@junco/react";
 import Link from "next/link";
 import { Beyond } from "@/components/home/beyond";
 import { HeroAccent } from "@/components/home/hero-accent";
@@ -88,7 +88,7 @@ export default function Home() {
             </Button>
           </div>
           <div className="animate-rise max-w-full overflow-x-auto">
-            <InstallCommand command="npm i junco @junco/tailwind" />
+            <InstallCommand command="npm i @junco/react @junco/tailwind" />
           </div>
           <div className="animate-rise pt-2">
             <HeroAccent />

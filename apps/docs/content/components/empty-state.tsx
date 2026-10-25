@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, EmptyState } from "junco";
+import { Button, EmptyState } from "@junco/react";
 import { FileIcon, PlusIcon, SearchIcon } from "@/components/icons";
 import type { ComponentDoc } from "./types";
 

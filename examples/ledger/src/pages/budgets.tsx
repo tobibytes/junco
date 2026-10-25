@@ -1,4 +1,4 @@
-import { Badge, Card, CardContent, CardDescription, CardHeader, CardTitle } from "junco";
+import { Badge, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@junco/react";
 import { Reveal } from "@junco/motion";
 import { CURRENT_MONTH, monthLabel, TODAY, usd } from "../data";
 import { spentByCategory, useLedger } from "../store";

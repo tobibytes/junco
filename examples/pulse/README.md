@@ -18,7 +18,7 @@ Build it with `pnpm --filter @junco/example-pulse build`. The build uses `base: 
 | Junco piece | Where |
 | --- | --- |
 | `AppShell`, `PageHeader`, `PageContainer`, `StatRow`, `AreaChart`, `BarChart`, `SettingsSection`, `SettingsRow` from `@junco/blocks/app` | Layout, stats, charts, settings |
-| `DataTable` from `junco/data-table` | Events and users, with search, filters, sorting, selection and paging |
+| `DataTable` from `@junco/react/data-table` | Events and users, with search, filters, sorting, selection and paging |
 | `CommandDialog` | ⌘K / Ctrl+K palette for pages, actions and people |
 | `Sheet` | Event details and user profiles (a bottom sheet on phones) |
 | `Dialog`, `Field`, `Input`, `Select` | New funnel and delete-project flows |

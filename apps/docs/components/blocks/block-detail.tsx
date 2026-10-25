@@ -1,6 +1,6 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "junco";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@junco/react";
 import * as React from "react";
 import { getBlock, installCommand, setupCss, usageCode } from "@/content/blocks/catalog";
 import { CodeBlock } from "../code-block";

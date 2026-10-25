@@ -1,6 +1,6 @@
 "use client";
 
-import { applyTheme, toast } from "junco";
+import { applyTheme, toast } from "@junco/react";
 import * as React from "react";
 import { renderBlock } from "@/content/blocks/render";
 import { FRAME_PREFIX, type FrameMessage } from "@/lib/frame";

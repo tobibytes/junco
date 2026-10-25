@@ -1,6 +1,6 @@
 "use client";
 
-import { Skeleton } from "junco";
+import { Skeleton } from "@junco/react";
 import Link from "next/link";
 import * as React from "react";
 import { categories, components, type ComponentEntry } from "@/content/components";

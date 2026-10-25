@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 
 export interface ShimmerTextProps extends React.HTMLAttributes<HTMLElement> {
   as?: React.ElementType;

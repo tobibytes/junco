@@ -12,7 +12,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "junco";
+} from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 const filters = ["Open", "In progress", "Done"];

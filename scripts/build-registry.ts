@@ -444,7 +444,7 @@ const OVERVIEW = `Junco is a free, open source (MIT) design system for React and
 1. Semantic classes (like daisyUI): class="btn btn-primary". Pure CSS. Setup: @import "tailwindcss"; @import "@junco/tailwind";
 2. Utilities (like Tailwind): bg-surface text-muted-foreground rounded-card. Same setup.
 3. Copy-in components (like shadcn/ui): npx @junco/cli add button (or npx shadcn@latest add ${SITE}/r/button.json).
-4. Installed components (like HeroUI): npm i junco, then import { Button } from "junco". Add @source "../node_modules/junco/dist"; to your CSS.
+4. Installed components (like HeroUI): npm i @junco/react, then import { Button } from "@junco/react". Add @source "../node_modules/@junco/react/dist"; to your CSS.
 
 Tokens follow shadcn/ui names (--background, --foreground, --primary, --muted-foreground, --border, --ring, ...) plus Junco additions (--surface, --success, --warning, --success-text, --warning-text, --destructive-text, motion tokens). Dark mode: .dark or [data-theme="dark"] on <html>. Motion: data-motion="full|subtle|off", and prefers-reduced-motion always turns motion off.`;
 

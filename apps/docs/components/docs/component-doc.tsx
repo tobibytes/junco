@@ -13,7 +13,7 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "junco";
+} from "@junco/react";
 import * as React from "react";
 import { components } from "@/content/components";
 import type { ComponentDoc, ControlDef, ControlValues, Example } from "@/content/components/types";
@@ -214,8 +214,8 @@ function ControlInput({
 }
 
 function Usage({ slug, doc }: { slug: string; doc: ComponentDoc }) {
-  const importLine = `import { ${doc.imports.join(", ")} } from "${doc.importFrom ?? "junco"}";`;
-  const install = ["npm i junco @junco/tailwind", ...(doc.installExtra ?? [])].join(" ");
+  const importLine = `import { ${doc.imports.join(", ")} } from "${doc.importFrom ?? "@junco/react"}";`;
+  const install = ["npm i @junco/react @junco/tailwind", ...(doc.installExtra ?? [])].join(" ");
   return (
     <section aria-labelledby="usage" className="grid gap-4">
       <H2 id="usage">Usage</H2>

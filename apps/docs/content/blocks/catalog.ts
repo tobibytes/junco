@@ -505,8 +505,8 @@ export const setupCss = `/* app.css */
 @import "@junco/tailwind";
 
 /* Let Tailwind see the classes the packages use. */
-@source "../node_modules/junco/dist";
+@source "../node_modules/@junco/react/dist";
 @source "../node_modules/@junco/blocks/dist";
 @source "../node_modules/@junco/motion/dist";`;
 
-export const installCommand = "npm i junco @junco/tailwind @junco/blocks @junco/motion";
+export const installCommand = "npm i @junco/react @junco/tailwind @junco/blocks @junco/motion";

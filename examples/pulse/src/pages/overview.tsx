@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
   toast,
-} from "junco";
+} from "@junco/react";
 import { AreaChart, BarChart, PageContainer, PageHeader, StatRow } from "@junco/blocks/app";
 import { timeAgo } from "@junco/blocks/fake";
 import type { PageProps } from "../app";

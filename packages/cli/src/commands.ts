@@ -363,6 +363,6 @@ export async function list(io: Io, options: { installed?: boolean } = {}) {
 
 export function eject(io: Io) {
   io.out(
-    "junco eject isn't built yet. For now, `junco add <name>` gives you the same source as the installed package; switch the import from \"junco\" to your local copy.",
+    "junco eject isn't built yet. For now, `junco add <name>` gives you the same source as the installed package; switch the import from \"@junco/react\" to your local copy.",
   );
 }

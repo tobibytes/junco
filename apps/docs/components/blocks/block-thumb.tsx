@@ -1,6 +1,6 @@
 "use client";
 
-import { useTheme } from "junco";
+import { useTheme } from "@junco/react";
 import * as React from "react";
 import { frameUrl, postToFrame } from "@/lib/frame";
 import { useElementWidth } from "./use-element-width";

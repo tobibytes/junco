@@ -13,8 +13,8 @@ import {
   SheetHeader,
   SheetTitle,
   toast,
-} from "junco";
-import { DataTable, type ColumnDef } from "junco/data-table";
+} from "@junco/react";
+import { DataTable, type ColumnDef } from "@junco/react/data-table";
 import { PageContainer, PageHeader } from "@junco/blocks/app";
 import { timeAgo } from "@junco/blocks/fake";
 import type { PageProps } from "../app";

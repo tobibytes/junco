@@ -19,9 +19,9 @@ Keyboard: press <kbd>N</kbd> anywhere to add a transaction.
 
 | Junco piece | Where |
 | --- | --- |
-| `Form`, `FormField`, `FormSubmit` from `junco/form` with a Zod schema | The add-transaction form (labels, errors and aria wired automatically) |
+| `Form`, `FormField`, `FormSubmit` from `@junco/react/form` with a Zod schema | The add-transaction form (labels, errors and aria wired automatically) |
 | `Sheet` | The add form: a side panel on desktop, a swipeable bottom sheet on phones |
-| `DataTable` from `junco/data-table` | Transactions on desktop |
+| `DataTable` from `@junco/react/data-table` | Transactions on desktop |
 | `StatRow`, `AreaChart`, `BarChart`, `useMediaQuery` from `@junco/blocks/app` | Stats, net worth and spending charts, layout switching |
 | `NumberTicker`, `Reveal`, `confetti()` from `@junco/motion` | Net worth count-up, card reveals, a funded goal |
 | `Dialog`, `Field`, `Input`, `RadioGroup`, `Select`, `Tabs`, `Card`, `Badge`, `EmptyState`, `DropdownMenu`, `toast()` | Everywhere |

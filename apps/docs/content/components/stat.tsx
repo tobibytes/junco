@@ -1,6 +1,6 @@
 "use client";
 
-import { Sparkline, Stat, StatGroup } from "junco";
+import { Sparkline, Stat, StatGroup } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 const revenue = [12, 14, 13, 17, 16, 19, 22, 21, 25, 28];

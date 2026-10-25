@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Tooltip, useTheme, type Motion, type Theme } from "junco";
+import { Button, Tooltip, useTheme, type Motion, type Theme } from "@junco/react";
 import { useMounted } from "@/lib/use-mounted";
 import { MonitorIcon, MoonIcon, SunIcon } from "./icons";
 import { Segmented } from "./segmented";

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Avatar, Badge, cn } from "junco";
+import { Avatar, Badge, cn } from "@junco/react";
 import { Reveal } from "@junco/motion";
 import type { BlogPost, ChangelogItem } from "./content";
 import { CoverArt } from "./cover-art";

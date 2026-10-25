@@ -1,7 +1,7 @@
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, Checkbox, cn, Input, toast, type InputProps } from "junco";
-import { Form, FormField, FormRootError, FormSubmit, useForm } from "junco/form";
+import { Button, Checkbox, cn, Input, toast, type InputProps } from "@junco/react";
+import { Form, FormField, FormRootError, FormSubmit, useForm } from "@junco/react/form";
 import { z } from "zod";
 import { renderSlot, type Slots } from "../../lib/slots";
 import { AuthCard, LogoMark, type AuthProvider } from "../blocks";

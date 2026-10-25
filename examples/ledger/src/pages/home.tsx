@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Badge, Button, Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "junco";
+import { Badge, Button, Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@junco/react";
 import { AreaChart, BarChart, StatRow } from "@junco/blocks/app";
 import { NumberTicker, Reveal } from "@junco/motion";
 import { CURRENT_MONTH, dayLabel, lastMonths, monthLabel, TODAY, usd } from "../data";

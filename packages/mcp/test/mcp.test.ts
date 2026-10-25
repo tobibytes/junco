@@ -50,7 +50,7 @@ describe("tools", () => {
     expect(doc).toContain("# Button");
     expect(doc).toMatch(/classes: \.btn /);
     expect(doc).toContain("npx @junco/cli add button");
-    expect(doc).toContain('import { Button } from "junco"');
+    expect(doc).toContain('import { Button } from "@junco/react"');
     expect(doc).toMatch(/- variant: solid \| outline \| soft \| ghost \| danger \(default: solid\)/);
     expect(doc).toContain("`isLoading?: boolean`");
     expect(doc).toContain("## Source: button.tsx");

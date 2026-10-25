@@ -1,4 +1,4 @@
-import { ThemeProvider, Toaster, TooltipProvider } from "junco";
+import { ThemeProvider, Toaster, TooltipProvider } from "@junco/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { HomePage } from "./home";

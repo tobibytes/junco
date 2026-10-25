@@ -18,8 +18,8 @@ import {
   SheetHeader,
   SheetTitle,
   toast,
-} from "junco";
-import { Form, FormField, FormSubmit, useForm, useWatch } from "junco/form";
+} from "@junco/react";
+import { Form, FormField, FormSubmit, useForm, useWatch } from "@junco/react/form";
 import { z } from "zod";
 import { CATEGORIES, todayIso, usd, type CategoryId } from "./data";
 import { useLedger } from "./store";

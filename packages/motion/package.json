@@ -1,6 +1,6 @@
 {
   "name": "@junco/motion",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Junco motion effects: reveal, number ticker, text reveal, marquee, beams, spotlight, magnetic, confetti, view transitions. Token-driven and motion-switch aware.",
   "license": "MIT",
   "author": "Oluwatobi Olajide",
@@ -43,7 +43,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "junco": "workspace:*"
+    "@junco/react": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.3.0 || ^19.0.0",
@@ -63,7 +63,6 @@
     "vitest": "^3"
   },
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   }
 }

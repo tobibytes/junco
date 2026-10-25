@@ -76,7 +76,7 @@ npx shadcn add ${site.url}/r/select.json`}
             ones take <C>classNames</C> to style each slot.
           </P>
           <CodeBlock
-            code={`import { Button, Field, Input } from "junco";
+            code={`import { Button, Field, Input } from "@junco/react";
 
 <Field label="Email" error={errors.email}>
   <Input type="email" />

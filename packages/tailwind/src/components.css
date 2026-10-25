@@ -1,6 +1,6 @@
 /*
  * Semantic classes (daisyUI-style). Pure CSS, no JS, tokens only.
- * Each class mirrors a React component in `junco` and should look identical to it.
+ * Each class mirrors a React component in `@junco/react` and should look identical to it.
  */
 @layer components {
   /* Button --------------------------------------------------------------- */

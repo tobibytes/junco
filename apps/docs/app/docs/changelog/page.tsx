@@ -1,4 +1,4 @@
-import { Badge } from "junco";
+import { Badge } from "@junco/react";
 import type { Metadata } from "next";
 import { Pager } from "@/components/docs/pager";
 import { DocHeader } from "@/components/docs/prose";

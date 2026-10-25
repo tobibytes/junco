@@ -42,8 +42,8 @@ import {
   Stat,
   StatGroup,
   toast,
-} from "junco";
-import { DataTable, type ColumnDef } from "junco/data-table";
+} from "@junco/react";
+import { DataTable, type ColumnDef } from "@junco/react/data-table";
 import { useState } from "react";
 
 export function OverlaysDemo() {

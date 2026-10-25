@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Bounds, Center, ContactShadows, Environment, Html, Lightformer, OrbitControls, useGLTF } from "@react-three/drei";
-import { Spinner } from "junco";
+import { Spinner } from "@junco/react";
 import { JuncoCanvas, useSceneMotion, type SceneFrameProps } from "../lib/canvas";
 
 export interface ModelHotspot {

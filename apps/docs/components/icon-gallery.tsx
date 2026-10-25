@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Icon, Input, toast } from "junco";
+import { Button, Icon, Input, toast } from "@junco/react";
 import { icons } from "lucide-react";
 import * as React from "react";
 import { cn } from "@/lib/cn";

@@ -1,10 +1,10 @@
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button, cn, Input, Label, Radio, RadioGroup, Textarea, toast } from "junco";
-import { Form, FormField, FormRootError, useForm } from "junco/form";
+import { Button, cn, Input, Label, Radio, RadioGroup, Textarea, toast } from "@junco/react";
+import { Form, FormField, FormRootError, useForm } from "@junco/react/form";
 import { z } from "zod";
 import { renderSlot, type Slots } from "../../lib/slots";
-import { EmptyState } from "junco";
+import { EmptyState } from "@junco/react";
 import { LogoMark, PageContainer } from "../blocks";
 import {
   ArrowLeftIcon,

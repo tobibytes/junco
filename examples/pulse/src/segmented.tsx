@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 
 /**
  * A segmented control for choosing one option that changes the view (date range, a filter).

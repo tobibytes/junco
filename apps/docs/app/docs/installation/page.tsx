@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "junco";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@junco/react";
 import type { Metadata } from "next";
 import { CodeBlock } from "@/components/code-block";
 import { Pager } from "@/components/docs/pager";
@@ -13,7 +13,7 @@ const css = `@import "tailwindcss";
 @import "@junco/tailwind";
 
 /* Let Tailwind see the classes junco's components use */
-@source "../node_modules/junco/dist";`;
+@source "../node_modules/@junco/react/dist";`;
 
 export default function InstallationPage() {
   return (
@@ -37,7 +37,7 @@ export default function InstallationPage() {
                 <CodeBlock lang="bash" code="npx create-next-app@latest my-app --tailwind --app" />
               </Step>
               <Step level={2} title="Install Junco">
-                <CodeBlock lang="bash" code="npm i junco @junco/tailwind" />
+                <CodeBlock lang="bash" code="npm i @junco/react @junco/tailwind" />
               </Step>
               <Step level={2} title="Import the styles">
                 <P>
@@ -53,8 +53,8 @@ export default function InstallationPage() {
                 </P>
                 <CodeBlock
                   title="app/layout.tsx"
-                  code={`import { ThemeProvider } from "junco";
-import { themeScript } from "junco/server";
+                  code={`import { ThemeProvider } from "@junco/react";
+import { themeScript } from "@junco/react/server";
 import "./globals.css";
 
 export default function RootLayout({ children }) {
@@ -74,7 +74,7 @@ export default function RootLayout({ children }) {
               <Step level={2} title="Use a component">
                 <CodeBlock
                   title="app/page.tsx"
-                  code={`import { Button } from "junco";
+                  code={`import { Button } from "@junco/react";
 
 export default function Page() {
   return <Button>Ship it</Button>;
@@ -91,7 +91,7 @@ export default function Page() {
 cd my-app`} />
               </Step>
               <Step level={2} title="Install Tailwind and Junco">
-                <CodeBlock lang="bash" code="npm i junco @junco/tailwind tailwindcss @tailwindcss/vite" />
+                <CodeBlock lang="bash" code="npm i @junco/react @junco/tailwind tailwindcss @tailwindcss/vite" />
               </Step>
               <Step level={2} title="Add the Tailwind plugin">
                 <CodeBlock
@@ -109,7 +109,7 @@ export default defineConfig({ plugins: [react(), tailwindcss()] });`}
               <Step level={2} title="Wrap the app">
                 <CodeBlock
                   title="src/main.tsx"
-                  code={`import { ThemeProvider } from "junco";
+                  code={`import { ThemeProvider } from "@junco/react";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -169,7 +169,7 @@ createRoot(document.getElementById("root")!).render(
             build.
           </P>
           <CodeBlock
-            code={`import { buttonVariants, cn, themeScript } from "junco/server";
+            code={`import { buttonVariants, cn, themeScript } from "@junco/react/server";
 import Link from "next/link";
 
 // A link styled as a button, rendered on the server

@@ -1,9 +1,9 @@
 /**
- * `junco/server`: helpers that are safe in React Server Components. The main `junco` entry is a
+ * `@junco/react/server`: helpers that are safe in React Server Components. The main `@junco/react` entry is a
  * client module, so on the server its exports are client references and can't be called. Import
  * these from here instead:
  *
- *   import { cn, buttonVariants, themeScript } from "junco/server";
+ *   import { cn, buttonVariants, themeScript } from "@junco/react/server";
  *   <script dangerouslySetInnerHTML={{ __html: themeScript() }} />
  *   <Link className={buttonVariants({ variant: "outline" })} href="/docs">Docs</Link>
  */

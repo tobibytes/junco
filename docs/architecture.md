@@ -20,7 +20,7 @@ junco              React components (one file each) ──┬─► npm package 
 
 **Behavior behind a seam.** Components never import Radix directly. `src/lib/primitives.ts` re-exports every headless primitive, so a move to Base UI touches one file plus the components using each namespace. The registry inlines those as direct imports so copied code only depends on what it uses.
 
-**Heavy things stay out of the core.** TanStack Table and React Hook Form live behind `junco/data-table` and `junco/form` as optional peers. three.js lives in `@junco/three`, whose root entry never imports it (checked by `pnpm check:dist`).
+**Heavy things stay out of the core.** TanStack Table and React Hook Form live behind `@junco/react/data-table` and `@junco/react/form` as optional peers. three.js lives in `@junco/three`, whose root entry never imports it (checked by `pnpm check:dist`).
 
 **Pages are data-driven.** Every page in `@junco/blocks` takes typed data, falls back to seeded fake data (same output on server and client), offers layout `variant`s, and exposes `slots` so any region can be replaced or hidden.
 

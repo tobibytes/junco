@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "junco";
+import { Button } from "@junco/react";
 import * as React from "react";
 import { PlusIcon } from "@/components/icons";
 import type { ComponentDoc } from "./types";

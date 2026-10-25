@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "junco";
+import { Button } from "@junco/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";

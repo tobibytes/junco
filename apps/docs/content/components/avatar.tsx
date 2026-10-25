@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar } from "junco";
+import { Avatar } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 // Inline SVG so the docs work offline and in static export.

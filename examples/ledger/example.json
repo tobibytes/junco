@@ -4,7 +4,7 @@
   "tagline": "Personal finance: budgets, savings goals and an emergency fund",
   "description": "A mobile-first money tracker with net worth, accounts, monthly budgets, savings goals and an emergency-fund target. Transactions go in through a validated form, and every chart and budget updates instantly.",
   "tags": ["Finance", "Mobile-first", "Forms", "Charts"],
-  "packages": ["junco", "junco/form", "junco/data-table", "@junco/blocks", "@junco/motion", "@junco/tailwind"],
+  "packages": ["@junco/react", "@junco/react/form", "@junco/react/data-table", "@junco/blocks", "@junco/motion", "@junco/tailwind"],
   "features": [
     "Bottom tab bar and swipeable add sheet on phones",
     "Add-transaction form with React Hook Form and Zod",

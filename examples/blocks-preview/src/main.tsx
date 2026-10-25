@@ -1,4 +1,4 @@
-import { ThemeProvider, Toaster, TooltipProvider, useTheme } from "junco";
+import { ThemeProvider, Toaster, TooltipProvider, useTheme } from "@junco/react";
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { appRoutes } from "./app-routes";

@@ -23,7 +23,7 @@
     "@tanstack/react-table": "^8.21.3",
     "clsx": "^2.1.1",
     "geist": "^1.8.0",
-    "junco": "workspace:*",
+    "@junco/react": "workspace:*",
     "lucide-react": "^0.546.0",
     "next": "^16.0.0",
     "react": "^19.0.0",

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "junco";
+import { cn } from "@junco/react";
 import { createRandom } from "../lib/fake";
 
 function hash(text: string) {

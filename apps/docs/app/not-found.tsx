@@ -1,4 +1,4 @@
-import { Button } from "junco";
+import { Button } from "@junco/react";
 import Link from "next/link";
 
 export default function NotFound() {

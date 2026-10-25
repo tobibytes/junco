@@ -19,7 +19,7 @@ import {
   SelectValue,
   Switch,
   toast,
-} from "junco";
+} from "@junco/react";
 import { PageContainer, PageHeader, SettingsRow, SettingsSection } from "@junco/blocks/app";
 import type { PageProps } from "../app";
 import { CopyIcon } from "../icons";

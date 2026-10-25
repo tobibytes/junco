@@ -6,6 +6,6 @@ export default defineConfig({
   dts: true,
   clean: true,
   sourcemap: true,
-  external: ["react", "react-dom", "junco"],
+  external: ["react", "react-dom", "@junco/react"],
   banner: { js: '"use client";' },
 });

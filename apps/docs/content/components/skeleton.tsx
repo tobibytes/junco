@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, Button, Skeleton } from "junco";
+import { Avatar, Button, Skeleton } from "@junco/react";
 import * as React from "react";
 import type { ComponentDoc } from "./types";
 

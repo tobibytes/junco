@@ -12,7 +12,7 @@ import {
   TabsTrigger,
   cn,
   type BadgeProps,
-} from "junco";
+} from "@junco/react";
 import * as React from "react";
 import {
   EVENT_START,

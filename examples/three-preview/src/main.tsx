@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { ThemeProvider } from "junco";
+import { ThemeProvider } from "@junco/react";
 import { App } from "./app";
 import "./index.css";
 

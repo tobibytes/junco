@@ -26,8 +26,8 @@ import {
   SelectTrigger,
   SelectValue,
   toast,
-} from "junco";
-import { DataTable, type ColumnDef } from "junco/data-table";
+} from "@junco/react";
+import { DataTable, type ColumnDef } from "@junco/react/data-table";
 import { renderSlot, type Slots } from "../../lib/slots";
 import { ActivityFeed, NowProvider, PageContainer, PageHeader, TimeAgo, useMediaQuery, usePageNow } from "../blocks";
 import { fakeActivity, type ActivityItem } from "../fake-data";

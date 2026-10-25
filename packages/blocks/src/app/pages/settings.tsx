@@ -24,9 +24,9 @@ import {
   Switch,
   Textarea,
   toast,
-} from "junco";
-import { DataTable, type ColumnDef } from "junco/data-table";
-import { Form, FormField, FormRootError, FormSubmit, useForm } from "junco/form";
+} from "@junco/react";
+import { DataTable, type ColumnDef } from "@junco/react/data-table";
+import { Form, FormField, FormRootError, FormSubmit, useForm } from "@junco/react/form";
 import { z } from "zod";
 import { money } from "../../lib/fake";
 import { renderSlot, type Slots } from "../../lib/slots";

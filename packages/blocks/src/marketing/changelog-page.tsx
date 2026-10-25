@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Badge, Button, cn, Field, Input, toast } from "junco";
+import { Badge, Button, cn, Field, Input, toast } from "@junco/react";
 import { Reveal } from "@junco/motion";
 import { renderSlot, type Slots } from "../lib/slots";
 import { defaultChangelog, type ChangelogItem } from "./content";

@@ -23,8 +23,8 @@ pnpm --filter @junco/example-hackathon dev
 | `@junco/blocks/marketing` | `SiteHeader`, `Hero` (bold), `StatsBand`, `FeatureGrid`, `Faq`, `CtaSection`, `SiteFooter`, `Container`, `Section`, `SectionHeading` |
 | `@junco/motion` | `Reveal`, `NumberTicker`, `Marquee` (sponsors), `SpotlightCard` (tracks), `GradientBorder` (grand prize), `BorderBeam`, `confetti()` |
 | `@junco/three` | `ShaderGradient` behind the hero, `Globe` with points and arcs (lazy loaded, with a fallback) |
-| `junco` | `Tabs` (schedule), `Badge`, `Avatar`, `Card`, `Popover` + `Tooltip` (display settings), `Toaster` / `toast()` |
-| `junco/form` | `Form`, `FormField`, `FormSubmit`, `FormRootError` with a Zod schema: inputs, two selects, a radio group, a switch and a required checkbox |
+| `@junco/react` | `Tabs` (schedule), `Badge`, `Avatar`, `Card`, `Popover` + `Tooltip` (display settings), `Toaster` / `toast()` |
+| `@junco/react/form` | `Form`, `FormField`, `FormSubmit`, `FormRootError` with a Zod schema: inputs, two selects, a radio group, a switch and a required checkbox |
 
 The accent is Harbor violet, set once in `src/index.css` by overriding `--primary`. Theme and motion (full, subtle, off) live in the sliders popover in the header.
 

@@ -14,6 +14,6 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   splitting: true,
-  external: ["react", "react-dom", "three", /^three\//, "@react-three/fiber", "@react-three/drei", "junco", "@junco/tokens"],
+  external: ["react", "react-dom", "three", /^three\//, "@react-three/fiber", "@react-three/drei", "@junco/react", "@junco/tokens"],
   banner: { js: '"use client";' },
 });

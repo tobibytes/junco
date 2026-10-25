@@ -126,7 +126,7 @@ export async function getComponent(registry: Registry, name: string, options: { 
     "",
   );
   if (item.type === "registry:ui" && exports.length) {
-    out.push("4. Installed package:", "", "```tsx", `import { ${exports.join(", ")} } from "junco";`, "```", "");
+    out.push("4. Installed package:", "", "```tsx", `import { ${exports.join(", ")} } from "@junco/react";`, "```", "");
   }
 
   if (meta.variants && Object.keys(meta.variants.variants).length) {
@@ -212,9 +212,9 @@ export function getInstallInstructions(framework: Framework = "vite"): string {
     "3. Components, pick one or mix:",
     "",
     "   a. Copy-in (you own the source): npx @junco/cli init, then npx @junco/cli add button dialog",
-    `   b. Installed package: npm i junco, add @source "../node_modules/junco/dist"; to ${cssFile} (path relative to the CSS file), then import { Button } from "junco".`,
+    `   b. Installed package: npm i @junco/react, add @source "../node_modules/@junco/react/dist"; to ${cssFile} (path relative to the CSS file), then import { Button } from "@junco/react".`,
     "",
-    "4. Dark mode and motion: wrap the app in <ThemeProvider> from junco (or the copied theme-provider). It sets .dark, data-theme and data-motion on <html>.",
+    "4. Dark mode and motion: wrap the app in <ThemeProvider> from @junco/react (or the copied theme-provider). It sets .dark, data-theme and data-motion on <html>.",
   );
   if (framework === "next") {
     out.push(

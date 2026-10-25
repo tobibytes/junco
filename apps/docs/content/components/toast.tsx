@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, toast } from "junco";
+import { Button, toast } from "@junco/react";
 import type { ComponentDoc } from "./types";
 
 const wait = (ms: number, fail = false) =>

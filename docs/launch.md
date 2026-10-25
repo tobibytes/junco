@@ -13,7 +13,7 @@ Where Junco should be listed, what each one needs, and the order to do it in. Mo
 
 | Where | Why | How | Ready? |
 | --- | --- | --- | --- |
-| **npm** (`junco`, `@junco/*`) | The installed level and the CLI | Release workflow (Trusted Publishing; first version published by hand) | ✅ workflow ready |
+| **npm** (`@junco/*`) | The installed level and the CLI | Release workflow (Trusted Publishing; first version published by hand) | ✅ workflow ready |
 | **shadcn registry** (own URL) | `npx shadcn add https://junco.madebytobi.com/r/<name>.json` works for every shadcn user | Live now | ✅ live |
 | **shadcn registry directory** (namespaced `@junco/<name>` installs) | Shows up inside shadcn's own docs and CLI search | PR to shadcn-ui/ui adding Junco to the registry directory | ✅ ready to submit |
 | **jsDelivr / unpkg** | CDN links for the plain-HTML level (`junco.css`) | Automatic for every npm package | ✅ after npm |
@@ -70,7 +70,7 @@ Suggested line: `[Junco](https://junco.madebytobi.com) - Free design system for 
 > • `class="btn btn-primary"` in plain HTML
 > • `bg-surface rounded-card` utilities
 > • `npx @junco/cli add dialog` copy-in, and `junco update` merges upstream fixes into your edited copy
-> • `import { Button } from "junco"`
+> • `import { Button } from "@junco/react"`
 >
 > Every component is keyboard accessible, tested with axe, and every color pair is checked for contrast in light and dark. One attribute (`data-motion="off"`) turns animation down across the whole app. There's also an MCP server so Claude or Cursor can find and install components for you.
 >
