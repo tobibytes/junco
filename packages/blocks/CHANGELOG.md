@@ -1,5 +1,13 @@
 # @junco/blocks
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [ddf1ab3]
+  - junco@0.2.0
+  - @junco/motion@0.1.1
+
 ## 0.1.0
 
 ### Minor Changes
