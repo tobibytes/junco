@@ -29,6 +29,8 @@ export interface FormProps<TValues extends FieldValues>
 }
 
 /**
+ * React Hook Form + Zod integration: FormField wires labels, help text and errors to any Junco control.
+ *
  *   const form = useForm<Values>({ resolver: zodResolver(schema), defaultValues });
  *   <Form form={form} onSubmit={save}>
  *     <FormField name="email" label="Email"><Input type="email" /></FormField>

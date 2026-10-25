@@ -43,6 +43,7 @@ export interface AvatarProps
   classNames?: { root?: string; image?: string; fallback?: string };
 }
 
+/** A person or workspace picture that falls back to initials while loading or when the image fails. */
 export const Avatar = React.forwardRef<React.ElementRef<typeof AvatarPrimitive.Root>, AvatarProps>(
   ({ className, classNames, size, shape, src, name, fallback, ...props }, ref) => {
     const styles = avatarVariants({ size, shape });

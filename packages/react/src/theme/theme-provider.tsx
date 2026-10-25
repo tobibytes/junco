@@ -65,6 +65,7 @@ export interface ThemeProviderProps {
   storageKey?: string;
 }
 
+/** Light, dark and system themes plus the data-motion switch, saved to localStorage, with a no-flash themeScript for SSR. */
 export function ThemeProvider({
   children,
   defaultTheme = "system",

@@ -25,6 +25,8 @@ const linkClass =
   "rounded-xs text-muted-foreground transition-colors duration-fast ease-standard hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 
 /**
+ * Shows where a page sits in the hierarchy, with links back up. Collapses long trails with maxItems.
+ *
  *   <Breadcrumb items={[{ label: "Projects", href: "/projects" }, { label: "Junco" }]} />
  */
 export const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(

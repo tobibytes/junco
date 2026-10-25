@@ -98,6 +98,8 @@ function resolveMessage<T>(message: PromiseMessage<T>, value: T): React.ReactNod
 }
 
 /**
+ * Brief notifications from anywhere with toast(): success, error, warning, info, loading and promise, with actions and swipe to dismiss.
+ *
  *   toast("Saved")
  *   toast.success("Invoice sent", { description: "Northwind will get it in a minute." })
  *   toast.error("Couldn't save", { action: { label: "Retry", onClick: save } })
@@ -234,7 +236,8 @@ function plainText(node: React.ReactNode): string {
   return typeof node === "string" || typeof node === "number" ? String(node) : "";
 }
 
-/** Put one <Toaster /> near the root of your app, then call `toast()` anywhere. */
+/**
+ * Put one <Toaster /> near the root of your app, then call `toast()` anywhere. */
 export function Toaster({
   position = "bottom-right",
   visibleToasts = 3,

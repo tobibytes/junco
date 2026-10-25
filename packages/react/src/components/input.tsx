@@ -30,6 +30,7 @@ export interface InputProps
   isInvalid?: boolean;
 }
 
+/** A single-line text field. Sizes sm, md and lg; isInvalid sets aria-invalid; picks up its label and errors from a Field. */
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, size, type = "text", isInvalid, ...rest }, ref) => {
     const props = useFieldControl({ ...rest, "aria-invalid": isInvalid || rest["aria-invalid"] || undefined });

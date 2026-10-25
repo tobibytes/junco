@@ -29,6 +29,8 @@ export const cardVariants = tv({
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants> {}
 
 /**
+ * A bordered container for grouping related content, with header, title, description, action, content and footer parts.
+ *
  *   <Card>
  *     <CardHeader><CardTitle>Usage</CardTitle><CardDescription>Last 30 days</CardDescription></CardHeader>
  *     <CardContent>...</CardContent>

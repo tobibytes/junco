@@ -33,6 +33,7 @@ export interface TextareaProps
   isInvalid?: boolean;
 }
 
+/** A multi-line text field that can grow with its content (autoResize). */
 export const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, size, autoResize, isInvalid, ...rest }, ref) => {
     const props = useFieldControl({ ...rest, "aria-invalid": isInvalid || rest["aria-invalid"] || undefined });

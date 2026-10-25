@@ -43,6 +43,8 @@ export interface TabsProps
     VariantProps<typeof tabsVariants> {}
 
 /**
+ * Switches between views in the same space. Variants line (page sections) and segmented (small view switchers).
+ *
  *   <Tabs defaultValue="overview">
  *     <TabsList><TabsTrigger value="overview">Overview</TabsTrigger>...</TabsList>
  *     <TabsContent value="overview">...</TabsContent>

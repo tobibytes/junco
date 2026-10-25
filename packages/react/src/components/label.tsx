@@ -6,6 +6,7 @@ export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> 
   isRequired?: boolean;
 }
 
+/** A form label with an optional required marker. */
 export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   ({ className, isRequired, children, ...props }, ref) => (
     <label

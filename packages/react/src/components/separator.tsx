@@ -7,6 +7,7 @@ export interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
   decorative?: boolean;
 }
 
+/** A thin horizontal or vertical divider. Decorative by default. */
 export const Separator = React.forwardRef<HTMLDivElement, SeparatorProps>(
   ({ className, orientation = "horizontal", decorative = true, ...props }, ref) => (
     <div

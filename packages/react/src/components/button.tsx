@@ -46,6 +46,7 @@ export interface ButtonProps
   isLoading?: boolean;
 }
 
+/** Triggers an action. Variants solid, outline, soft, ghost and danger; isLoading shows a spinner and sets aria-busy. */
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, isLoading = false, disabled, children, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";

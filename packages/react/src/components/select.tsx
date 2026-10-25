@@ -6,6 +6,8 @@ import { SelectPrimitive } from "../lib/primitives";
 import { useFieldControl } from "./field";
 
 /**
+ * A dropdown for picking one option from a list, with keyboard type-ahead and a check on the chosen item.
+ *
  *   <Select defaultValue="weekly">
  *     <SelectTrigger aria-label="Frequency"><SelectValue placeholder="Pick one" /></SelectTrigger>
  *     <SelectContent>
