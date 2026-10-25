@@ -93,6 +93,9 @@ importers:
       '@junco/blocks':
         specifier: workspace:*
         version: link:../../packages/blocks
+      '@junco/motion':
+        specifier: workspace:*
+        version: link:../../packages/motion
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind

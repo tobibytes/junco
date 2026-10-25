@@ -13,7 +13,8 @@
     "@junco/tailwind": "workspace:*",
     "junco": "workspace:*",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "@junco/motion": "workspace:*"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.0",
