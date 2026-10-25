@@ -17,5 +17,5 @@
 - [ ] Fonts: Geist (current default), Inter, or something with more character
 - [ ] Docs domain (junco.dev is a placeholder)
 - [ ] Which project adopts Junco first (Talvra v2 currently uses Arc UI)
-- [ ] Behavior layer: Radix, or Base UI (shadcn's default since July 2026)
+- [ ] Behavior layer: Radix, or Base UI (shadcn's default since July 2026). **Building on Radix for now** (per the stack in CLAUDE.md). Every Radix import goes through `packages/react/src/lib/primitives.ts`, so a switch is contained
 - [ ] CLI package name: `junco` has to be the React package, so the CLI could be `create-junco` + `@junco/cli`, with `npx junco` handled by a `bin` in the main package

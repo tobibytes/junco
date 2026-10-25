@@ -12,6 +12,8 @@ export const textPairs: ReadonlyArray<readonly [text: string, background: string
   ["muted-foreground", "background"],
   ["muted-foreground", "surface"],
   ["muted-foreground", "muted"],
+  ["muted-foreground", "card"],
+  ["muted-foreground", "popover"],
   ["primary-foreground", "primary"],
   ["primary", "background"],
   ["primary", "surface"],

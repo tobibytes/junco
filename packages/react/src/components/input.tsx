@@ -1,6 +1,7 @@
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
 import { cn } from "../lib/cn";
+import { useFieldControl } from "./field";
 
 export const inputVariants = tv({
   base: [
@@ -30,14 +31,9 @@ export interface InputProps
 }
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, size, type = "text", isInvalid, "aria-invalid": ariaInvalid, ...props }, ref) => (
-    <input
-      ref={ref}
-      type={type}
-      aria-invalid={isInvalid || ariaInvalid || undefined}
-      className={cn(inputVariants({ size }), className)}
-      {...props}
-    />
-  ),
+  ({ className, size, type = "text", isInvalid, ...rest }, ref) => {
+    const props = useFieldControl({ ...rest, "aria-invalid": isInvalid || rest["aria-invalid"] || undefined });
+    return <input ref={ref} type={type} className={cn(inputVariants({ size }), className)} {...props} />;
+  },
 );
 Input.displayName = "Input";

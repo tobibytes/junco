@@ -18,7 +18,7 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 
 ## Phase 2: Core
 
-- [ ] Remaining primitives: Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Avatar, Separator, Label, Form field
+- [x] Remaining primitives: Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Avatar, Separator, Label, Form field
 - [ ] Overlays: Dialog, Sheet (side + bottom on phones), Popover, Dropdown menu, Command palette, Toast
 - [ ] Data: Data table (TanStack Table), Pagination, Empty state, Stat
 - [ ] Forms: React Hook Form + Zod integration, field errors, help text

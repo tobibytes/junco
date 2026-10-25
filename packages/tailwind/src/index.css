@@ -89,6 +89,9 @@
   /* Entrance animations scale to zero with the motion switch. */
   --animate-rise: rise calc(var(--duration-slow) * var(--motion-scale)) var(--ease-enter) both;
   --animate-fade: fade calc(var(--duration-base) * var(--motion-scale)) var(--ease-standard) both;
+  /* Floating things (menus, popovers, tooltips) scale in from their anchor. */
+  --animate-pop-in: pop-in calc(var(--duration-base) * var(--motion-scale)) var(--ease-enter) both;
+  --animate-pop-out: pop-out calc(var(--duration-fast) * var(--motion-scale)) var(--ease-exit) both;
   /* Loading indicators keep moving with motion off (they carry meaning), just slower. */
   --animate-spinner: junco-spin calc(0.8s / max(var(--motion-scale), 0.5)) linear infinite;
   /* The skeleton pulse flattens to a still block with motion off. */
@@ -101,6 +104,12 @@
   @keyframes fade {
     from { opacity: 0; }
     to { opacity: 1; }
+  }
+  @keyframes pop-in {
+    from { opacity: 0; transform: scale(calc(1 - 0.04 * var(--motion-scale))); }
+  }
+  @keyframes pop-out {
+    to { opacity: 0; transform: scale(calc(1 - 0.04 * var(--motion-scale))); }
   }
   @keyframes junco-spin {
     to { transform: rotate(360deg); }
