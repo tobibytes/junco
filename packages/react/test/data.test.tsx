@@ -203,6 +203,12 @@ describe("DataTable", () => {
     expect(bodyRows()).toHaveLength(5);
   });
 
+  it("shows a page size that isn't one of the options instead of a blank select", () => {
+    render(<DataTable columns={columns} data={people} pageSize={12} caption="People" />);
+    expect(bodyRows()).toHaveLength(12);
+    expect(screen.getByRole("combobox", { name: "Rows per page" })).toHaveTextContent("12");
+  });
+
   it("sorts with aria-sort on the header", async () => {
     render(<DataTable columns={columns} data={people} pageSize={false} />);
     const ageHeader = screen.getByRole("columnheader", { name: /Age/ });
