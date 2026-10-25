@@ -4,14 +4,15 @@
   "license": "MIT",
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=docs...",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "css:example": "tailwindcss -i examples/plain-html/input.css -o examples/plain-html/junco.css",
     "changeset": "changeset",
-    "release": "turbo run build && changeset publish"
+    "release": "turbo run build && changeset publish",
+    "dev:all": "turbo run dev"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
