@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join, relative } from "node:path";
+import { dirname, isAbsolute, join, posix, relative, resolve, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 import {
   CONFIG_FILE,
@@ -80,16 +80,35 @@ interface PlannedFile {
   content: string;
 }
 
+/**
+ * Registry content is untrusted: a tampered or buggy registry must never make us write outside the
+ * project (`../../.ssh/authorized_keys`, `/etc/...`). Checked on the planned path and again on write.
+ */
+function assertInsideProject(item: string, dest: string) {
+  const norm = posix.normalize(dest.replaceAll("\\", "/"));
+  if (isAbsolute(dest) || posix.isAbsolute(norm) || norm === ".." || norm.startsWith("../")) {
+    throw new CliError(`Registry item "${item}" wants to write ${dest}, which is outside the project. Nothing was written.`);
+  }
+}
+
 function plan(item: RegistryItem, config: JuncoConfig): PlannedFile[] {
   return (item.files ?? []).map((file) => {
     if (file.content === undefined) throw new CliError(`Registry item "${item.name}" has no content for ${file.path}`);
+    for (const raw of [file.path, file.target]) {
+      if (raw && (isAbsolute(raw) || posix.isAbsolute(raw.replaceAll("\\", "/")))) {
+        throw new CliError(`Registry item "${item.name}" wants to write ${raw}, which is outside the project. Nothing was written.`);
+      }
+    }
     const dest = destination(file, config);
+    assertInsideProject(item.name, dest);
     return { dest, content: rewriteImports(file.content, dest, config) };
   });
 }
 
 function writeFile(io: Io, rel: string, content: string) {
-  const abs = join(io.cwd, rel);
+  const root = resolve(io.cwd);
+  const abs = resolve(root, rel);
+  if (abs !== root && !abs.startsWith(root + sep)) throw new CliError(`Refusing to write ${rel}: it's outside the project.`);
   mkdirSync(dirname(abs), { recursive: true });
   writeFileSync(abs, content);
 }
@@ -111,10 +130,12 @@ export async function add(io: Io, names: string[], options: AddOptions = {}) {
   const deps: string[] = [];
   const written: string[] = [];
   const skipped: string[] = [];
-  for (const item of items) {
+  // Plan everything first, so a bad item fails the whole add before anything is written.
+  const planned = items.map((item) => ({ item, files: plan(item, config) }));
+  for (const { item, files: plannedFiles } of planned) {
     const record = config.installed[item.name];
     const files: Record<string, string> = { ...record?.files };
-    for (const { dest, content } of plan(item, config)) {
+    for (const { dest, content } of plannedFiles) {
       const local = readLocal(io, dest);
       const untouched = local !== undefined && record?.files[dest] === sha(local);
       if (local !== undefined && local !== content && !untouched && !options.overwrite) {
