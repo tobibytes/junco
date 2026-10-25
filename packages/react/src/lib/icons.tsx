@@ -45,3 +45,74 @@ export const ChevronUpIcon = (props: IconProps) => (
     <path d="m18 15-6-6-6 6" />
   </Icon>
 );
+
+export const ChevronLeftIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="m15 18-6-6 6-6" />
+  </Icon>
+);
+
+export const ChevronRightIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="m9 18 6-6-6-6" />
+  </Icon>
+);
+
+export const MoreHorizontalIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <circle cx="12" cy="12" r="1" />
+    <circle cx="19" cy="12" r="1" />
+    <circle cx="5" cy="12" r="1" />
+  </Icon>
+);
+
+export const ArrowUpIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="m5 12 7-7 7 7" />
+    <path d="M12 19V5" />
+  </Icon>
+);
+
+export const ArrowDownIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M12 5v14" />
+    <path d="m19 12-7 7-7-7" />
+  </Icon>
+);
+
+export const ArrowUpDownIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="m21 16-4 4-4-4" />
+    <path d="M17 20V4" />
+    <path d="m3 8 4-4 4 4" />
+    <path d="M7 4v16" />
+  </Icon>
+);
+
+export const TrendingUpIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M16 7h6v6" />
+    <path d="m22 7-8.5 8.5-5-5L2 17" />
+  </Icon>
+);
+
+export const TrendingDownIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <path d="M16 17h6v-6" />
+    <path d="m22 17-8.5-8.5-5 5L2 7" />
+  </Icon>
+);
+
+export const InboxIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+    <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+  </Icon>
+);
+
+export const SearchIcon = (props: IconProps) => (
+  <Icon {...props}>
+    <circle cx="11" cy="11" r="8" />
+    <path d="m21 21-4.3-4.3" />
+  </Icon>
+);

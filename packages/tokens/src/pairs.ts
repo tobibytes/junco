@@ -14,6 +14,9 @@ export const textPairs: ReadonlyArray<readonly [text: string, background: string
   ["muted-foreground", "muted"],
   ["muted-foreground", "card"],
   ["muted-foreground", "popover"],
+  ["muted-foreground", "accent"], // secondary text in a selected table row
+  ["success-text", "card"], // Stat deltas inside cards
+  ["destructive-text", "card"],
   ["primary-foreground", "primary"],
   ["primary", "background"],
   ["primary", "surface"],

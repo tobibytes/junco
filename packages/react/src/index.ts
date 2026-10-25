@@ -29,6 +29,50 @@ export { Tabs, TabsContent, TabsList, TabsTrigger, tabsVariants, type TabsProps 
 export { Textarea, textareaVariants, type TextareaProps } from "./components/textarea";
 export { Tooltip, TooltipProvider, type TooltipProps } from "./components/tooltip";
 
+// Data and layout
+export {
+  Breadcrumb,
+  BreadcrumbEllipsis,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+  type BreadcrumbItemData,
+  type BreadcrumbLinkProps,
+  type BreadcrumbProps,
+} from "./components/breadcrumb";
+export {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  cardVariants,
+  type CardProps,
+  type CardTitleProps,
+} from "./components/card";
+export { EmptyState, emptyStateVariants, type EmptyStateProps } from "./components/empty-state";
+export {
+  Pagination,
+  getPaginationItems,
+  usePagination,
+  type PaginationItem,
+  type PaginationProps,
+  type UsePaginationOptions,
+} from "./components/pagination";
+export {
+  Sparkline,
+  Stat,
+  StatGroup,
+  statVariants,
+  type SparklineProps,
+  type StatProps,
+  type StatTrend,
+} from "./components/stat";
+
 export {
   ThemeProvider,
   useTheme,

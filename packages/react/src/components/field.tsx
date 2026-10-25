@@ -85,7 +85,7 @@ export const Field = React.forwardRef<HTMLDivElement, FieldProps>(
           {...props}
         >
           {label && (
-            <Label htmlFor={controlId} isRequired={isRequired} className={cn(isDisabled && "opacity-50", classNames?.label)}>
+            <Label id={`${controlId}-label`} htmlFor={controlId} isRequired={isRequired} className={cn(isDisabled && "opacity-50", classNames?.label)}>
               {label}
             </Label>
           )}
