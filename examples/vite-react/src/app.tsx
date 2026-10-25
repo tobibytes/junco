@@ -1,11 +1,30 @@
 import { useEffect, useState } from "react";
 import {
+  Avatar,
   Badge,
   Button,
+  Checkbox,
+  Field,
   Input,
   Kbd,
+  Label,
+  Radio,
+  RadioGroup,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Separator,
   Skeleton,
   Spinner,
+  Switch,
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+  Textarea,
+  Tooltip,
   useTheme,
   type Motion,
   type Theme,
@@ -98,9 +117,6 @@ export function App() {
           <Button variant="soft">Soft</Button>
           <Button variant="ghost">Ghost</Button>
           <Button variant="danger">Delete</Button>
-          <Button variant="outline" size="icon" aria-label="Add item">
-            +
-          </Button>
           <Button asChild variant="ghost" size="sm">
             <a href="https://github.com">A link</a>
           </Button>
@@ -109,29 +125,110 @@ export function App() {
 
       <Section title="Form">
         <div className="grid gap-4">
-          <div className="grid gap-1.5">
-            <label htmlFor="email" className="text-sm font-medium">
-              Email
-            </label>
-            <Input id="email" type="email" placeholder="you@example.com" />
+          <Field label="Email" description="We only use this for receipts." isRequired>
+            <Input type="email" placeholder="you@example.com" />
+          </Field>
+          <Field label="Handle" error={handleTaken ? "That handle is taken. Try another." : undefined}>
+            <Input value={handle} onChange={(e) => setHandle(e.target.value)} />
+          </Field>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Field label="Role">
+              <Select defaultValue="engineer">
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="engineer">Engineer</SelectItem>
+                  <SelectItem value="designer">Designer</SelectItem>
+                  <SelectItem value="pm">Product manager</SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
+            <Field label="Team size">
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Pick a size" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">Just me</SelectItem>
+                  <SelectItem value="10">2 to 10</SelectItem>
+                  <SelectItem value="50">11 to 50</SelectItem>
+                </SelectContent>
+              </Select>
+            </Field>
           </div>
-          <div className="grid gap-1.5">
-            <label htmlFor="handle" className="text-sm font-medium">
-              Handle
-            </label>
-            <Input
-              id="handle"
-              value={handle}
-              onChange={(e) => setHandle(e.target.value)}
-              isInvalid={handleTaken}
-              aria-describedby={handleTaken ? "handle-error" : undefined}
-            />
-            {handleTaken && (
-              <p id="handle-error" className="text-xs text-destructive-text">
-                That handle is taken. Try another.
-              </p>
-            )}
+          <Field label="Bio" description="Grows as you type.">
+            <Textarea autoResize placeholder="A sentence or two about you" />
+          </Field>
+          <Separator />
+          <RadioGroup aria-label="Billing" defaultValue="monthly" orientation="horizontal">
+            {["monthly", "yearly"].map((v) => (
+              <div key={v} className="flex items-center gap-2">
+                <Radio value={v} id={`billing-${v}`} />
+                <Label htmlFor={`billing-${v}`} className="capitalize">
+                  {v}
+                </Label>
+              </div>
+            ))}
+          </RadioGroup>
+          <div className="flex flex-wrap items-center gap-6">
+            <div className="flex items-center gap-2">
+              <Checkbox id="terms" defaultChecked />
+              <Label htmlFor="terms">Accept terms</Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Switch id="notify" defaultChecked />
+              <Label htmlFor="notify">Email notifications</Label>
+            </div>
           </div>
+        </div>
+      </Section>
+
+      <Section title="Tabs and tooltips">
+        <Tabs defaultValue="overview">
+          <TabsList aria-label="Project">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="activity">Activity</TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview">
+            <div className="flex items-center gap-3">
+              <div className="flex -space-x-1.5">
+                <Avatar name="Ada Lovelace" size="sm" className="ring-2 ring-card" />
+                <Avatar name="Grace Hopper" size="sm" className="ring-2 ring-card" />
+                <Avatar name="Alan Turing" size="sm" className="ring-2 ring-card" />
+              </div>
+              <p className="text-sm text-muted-foreground">3 people are working on this.</p>
+            </div>
+          </TabsContent>
+          <TabsContent value="activity">
+            <p className="text-sm text-muted-foreground">No activity yet.</p>
+          </TabsContent>
+          <TabsContent value="settings">
+            <Tabs defaultValue="general" variant="segmented">
+              <TabsList aria-label="Settings">
+                <TabsTrigger value="general">General</TabsTrigger>
+                <TabsTrigger value="members">Members</TabsTrigger>
+              </TabsList>
+              <TabsContent value="general">
+                <p className="text-sm text-muted-foreground">General settings.</p>
+              </TabsContent>
+              <TabsContent value="members">
+                <p className="text-sm text-muted-foreground">Members settings.</p>
+              </TabsContent>
+            </Tabs>
+          </TabsContent>
+        </Tabs>
+        <Separator className="my-4" />
+        <div className="flex gap-2">
+          <Tooltip content="Add item" shortcut="A">
+            <Button variant="outline" size="icon" aria-label="Add item">
+              +
+            </Button>
+          </Tooltip>
+          <Tooltip content="Copy link">
+            <Button variant="outline">Share</Button>
+          </Tooltip>
         </div>
       </Section>
 
