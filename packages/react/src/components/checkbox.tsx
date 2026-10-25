@@ -7,7 +7,7 @@ import { useFieldControl } from "./field";
 
 export const checkboxVariants = tv({
   base: [
-    "peer inline-grid shrink-0 place-items-center rounded-xs border border-input bg-surface text-primary-foreground",
+    "peer inline-grid shrink-0 place-items-center rounded-xs border border-border-strong bg-surface text-primary-foreground",
     "transition-colors duration-fast ease-standard",
     "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "disabled:cursor-not-allowed disabled:opacity-50",

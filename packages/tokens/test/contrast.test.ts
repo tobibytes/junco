@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { contrastRatio } from "../src/color.ts";
-import { MIN_TEXT_CONTRAST, textPairs } from "../src/pairs.ts";
+import { controlPairs, MIN_CONTROL_CONTRAST, MIN_TEXT_CONTRAST, textPairs } from "../src/pairs.ts";
 import { parseTokens } from "../src/parse.ts";
 
 const css = readFileSync(new URL("../src/tokens.css", import.meta.url), "utf8");
@@ -28,6 +28,10 @@ describe("tokens", () => {
       it.each(textPairs.map(([fg, bg]) => [fg, bg]))(`%s on %s hits ${MIN_TEXT_CONTRAST}:1`, (fg, bg) => {
         const ratio = contrastRatio(values[fg]!, values[bg]!);
         expect(ratio, `${fg} on ${bg} is ${ratio.toFixed(2)}:1`).toBeGreaterThanOrEqual(MIN_TEXT_CONTRAST);
+      });
+      it.each(controlPairs.map(([part, bg]) => [part, bg]))(`%s on %s hits ${MIN_CONTROL_CONTRAST}:1`, (part, bg) => {
+        const ratio = contrastRatio(values[part]!, values[bg]!);
+        expect(ratio, `${part} on ${bg} is ${ratio.toFixed(2)}:1`).toBeGreaterThanOrEqual(MIN_CONTROL_CONTRAST);
       });
     });
   }

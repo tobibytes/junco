@@ -26,6 +26,8 @@
   --accent-foreground: oklch(0.22 0 0);
   --border: oklch(0.91 0 0);
   --input: oklch(0.88 0 0);
+  --border-strong: oklch(0.62 0 0); /* controls with no text (checkbox, radio, switch): 3:1 on surface */
+  --overlay: oklch(0.18 0 0 / 0.4); /* scrim behind dialogs and sheets */
 
   /* brand */
   --primary: oklch(0.55 0.2 260);
@@ -129,6 +131,8 @@
   --accent-foreground: oklch(0.96 0 0);
   --border: oklch(0.27 0 0);
   --input: oklch(0.32 0 0);
+  --border-strong: oklch(0.52 0 0);
+  --overlay: oklch(0 0 0 / 0.6);
 
   --primary: oklch(0.68 0.17 260);
   --primary-foreground: oklch(0.15 0.02 260);

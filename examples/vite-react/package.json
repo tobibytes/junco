@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@junco/tailwind": "workspace:*",
+    "@tanstack/react-table": "^8.21.3",
     "junco": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

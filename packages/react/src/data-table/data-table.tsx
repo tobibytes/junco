@@ -15,7 +15,15 @@ import {
   type VisibilityState,
 } from "@tanstack/react-table";
 import { tv } from "tailwind-variants";
+import { Button } from "../components/button";
 import { Checkbox } from "../components/checkbox";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../components/dropdown-menu";
 import { EmptyState } from "../components/empty-state";
 import { Input } from "../components/input";
 import { Pagination } from "../components/pagination";
@@ -285,36 +293,25 @@ export function DataTable<TData>({
           <div className="ml-auto flex items-center gap-2">
             {toolbar}
             {enableColumnVisibility && hideableColumns.length > 0 && (
-              <details className="group relative">
-                <summary
-                  className={cn(
-                    "inline-flex h-9 cursor-pointer list-none items-center gap-2 rounded-control border border-border bg-surface px-3.5 text-sm font-medium",
-                    "transition-colors duration-fast ease-standard hover:bg-accent [&::-webkit-details-marker]:hidden",
-                    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-                  )}
-                >
-                  Columns
-                </summary>
-                <div className="absolute right-0 z-dropdown mt-1 grid min-w-44 gap-0.5 rounded-card border border-border bg-popover p-1 text-popover-foreground shadow-float">
-                  {hideableColumns.map((column) => {
-                    const id = `col-${column.id}`;
-                    return (
-                      <label
-                        key={column.id}
-                        htmlFor={id}
-                        className="flex h-8 cursor-pointer items-center gap-2 rounded-control px-2 text-sm hover:bg-accent"
-                      >
-                        <Checkbox
-                          id={id}
-                          checked={column.getIsVisible()}
-                          onCheckedChange={(v) => column.toggleVisibility(v === true)}
-                        />
-                        {headerText(column)}
-                      </label>
-                    );
-                  })}
-                </div>
-              </details>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline">Columns</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="min-w-44">
+                  <DropdownMenuLabel>Show columns</DropdownMenuLabel>
+                  {hideableColumns.map((column) => (
+                    <DropdownMenuCheckboxItem
+                      key={column.id}
+                      checked={column.getIsVisible()}
+                      onCheckedChange={(v) => column.toggleVisibility(v === true)}
+                      // keep the menu open so several columns can be toggled in a row
+                      onSelect={(e) => e.preventDefault()}
+                    >
+                      {headerText(column)}
+                    </DropdownMenuCheckboxItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             )}
           </div>
         </div>

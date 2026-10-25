@@ -10,4 +10,4 @@ export const tokens: ParsedTokens = __JUNCO_TOKENS__;
 
 export { contrastRatio, luminance, parseOklch, toLinearRgb, type Oklch } from "./color.ts";
 export { parseTokens, type ParsedTokens, type TokenMap } from "./parse.ts";
-export { textPairs, MIN_TEXT_CONTRAST } from "./pairs.ts";
+export { controlPairs, MIN_CONTROL_CONTRAST, MIN_TEXT_CONTRAST, textPairs } from "./pairs.ts";

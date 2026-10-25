@@ -132,7 +132,7 @@
   /* Checkbox and radio (native inputs) ------------------------------------ */
   .checkbox, .radio {
     appearance: none; display: inline-grid; place-content: center; flex-shrink: 0; margin: 0;
-    width: 1rem; height: 1rem; border: 1px solid var(--input); background: var(--surface);
+    width: 1rem; height: 1rem; border: 1px solid var(--border-strong); background: var(--surface);
     cursor: pointer;
     transition: background-color calc(var(--duration-fast) * var(--motion-scale)) var(--ease-standard),
       border-color calc(var(--duration-fast) * var(--motion-scale)) var(--ease-standard);
@@ -156,7 +156,7 @@
   /* Switch: <input type="checkbox" role="switch" class="switch"> ---------- */
   .switch {
     appearance: none; position: relative; flex-shrink: 0; margin: 0;
-    width: 2.25rem; height: 1.25rem; border-radius: var(--radius-pill); background: var(--input);
+    width: 2.25rem; height: 1.25rem; border-radius: var(--radius-pill); background: var(--border-strong);
     cursor: pointer; transition: background-color calc(var(--duration-base) * var(--motion-scale)) var(--ease-standard);
   }
   .switch::before {
@@ -234,7 +234,7 @@
     .modal[open] { opacity: 0; transform: scale(calc(1 - 0.04 * var(--motion-scale))); }
   }
   .modal::backdrop {
-    background: color-mix(in oklch, var(--background) 75%, transparent);
+    background: var(--overlay);
     opacity: 0;
     transition-property: opacity, overlay, display;
     transition-duration: calc(var(--duration-base) * var(--motion-scale));

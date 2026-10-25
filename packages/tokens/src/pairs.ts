@@ -29,7 +29,27 @@ export const textPairs: ReadonlyArray<readonly [text: string, background: string
   ["warning-text", "surface"],
   ["destructive-text", "background"],
   ["destructive-text", "surface"],
+  ["success-text", "popover"],
+  ["warning-text", "popover"],
+  ["destructive-text", "popover"],
+  ["primary", "popover"],
 ];
 
 /** WCAG AA for body text. */
 export const MIN_TEXT_CONTRAST = 4.5;
+
+/**
+ * Parts of controls that carry no text but must be seen to be used (checkbox and radio
+ * outlines, switch tracks). WCAG 1.4.11 asks for 3:1 against what they sit on.
+ */
+export const controlPairs: ReadonlyArray<readonly [part: string, background: string]> = [
+  ["border-strong", "surface"],
+  ["border-strong", "background"],
+  ["border-strong", "card"],
+  ["border-strong", "popover"],
+  ["ring", "background"],
+  ["ring", "surface"],
+];
+
+/** WCAG AA for UI components and graphics. */
+export const MIN_CONTROL_CONTRAST = 3;

@@ -252,9 +252,16 @@ describe("DataTable", () => {
   it("hides columns from the Columns menu", async () => {
     render(<DataTable columns={columns} data={people} enableColumnVisibility />);
     expect(screen.getByRole("columnheader", { name: /Role/ })).toBeInTheDocument();
-    await userEvent.click(screen.getByText("Columns"));
-    await userEvent.click(screen.getByRole("checkbox", { name: "Role" }));
+    await userEvent.click(screen.getByRole("button", { name: "Columns" }));
+    const item = await screen.findByRole("menuitemcheckbox", { name: "Role" });
+    expect(item).toHaveAttribute("aria-checked", "true");
+    await userEvent.click(item);
+    // the menu stays open so several columns can be toggled in a row
+    expect(screen.getByRole("menuitemcheckbox", { name: "Role" })).toHaveAttribute("aria-checked", "false");
+    await userEvent.keyboard("{Escape}");
+    expect(screen.queryByRole("menu")).toBeNull();
     expect(screen.queryByRole("columnheader", { name: /Role/ })).toBeNull();
+    expect(screen.getByRole("columnheader", { name: /Name/ })).toBeInTheDocument();
   });
 
   it("shows skeleton rows and aria-busy while loading", () => {

@@ -29,6 +29,9 @@ importers:
       '@junco/tailwind':
         specifier: workspace:*
         version: link:../../packages/tailwind
+      '@tanstack/react-table':
+        specifier: ^8.21.3
+        version: 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       junco:
         specifier: workspace:*
         version: link:../../packages/react

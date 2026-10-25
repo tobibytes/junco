@@ -7,7 +7,7 @@ import { useFieldControl } from "./field";
 export const switchVariants = tv({
   slots: {
     root: [
-      "peer inline-flex shrink-0 cursor-pointer items-center rounded-pill border border-transparent bg-input p-px",
+      "peer inline-flex shrink-0 cursor-pointer items-center rounded-pill border border-transparent bg-border-strong p-px",
       "transition-colors duration-base ease-standard",
       "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
       "disabled:cursor-not-allowed disabled:opacity-50",

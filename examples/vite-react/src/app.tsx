@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { DataDemo, OverlaysDemo } from "./more";
 import {
   Avatar,
   Badge,
@@ -231,6 +232,12 @@ export function App() {
           </Tooltip>
         </div>
       </Section>
+
+      <Section title="Overlays">
+        <OverlaysDemo />
+      </Section>
+
+      <DataDemo />
 
       <Section title="Invoices">
         <ul className="divide-y divide-border">
