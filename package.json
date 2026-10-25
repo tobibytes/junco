@@ -18,7 +18,7 @@
     "css:example": "tailwindcss -i examples/plain-html/input.css -o examples/plain-html/junco.css",
     "registry:build": "node scripts/build-registry.ts",
     "changeset": "changeset",
-    "release": "turbo run build && changeset publish",
+    "release": "node scripts/publish.ts",
     "check:dist": "node scripts/check-dist.ts",
     "version-packages": "changeset version && node scripts/sync-versions.ts && pnpm install --lockfile-only",
     "dev:all": "turbo run dev"

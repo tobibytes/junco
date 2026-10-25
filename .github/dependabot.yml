@@ -6,6 +6,11 @@ updates:
       interval: weekly
       day: monday
     open-pull-requests-limit: 5
+    # Majors are upgraded by hand with the full test suite (see docs/releasing.md); security
+    # updates still come through regardless of this rule.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       radix:
         patterns: ["@radix-ui/*"]

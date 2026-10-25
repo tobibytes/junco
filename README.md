@@ -10,6 +10,7 @@ Tokens, accessible components, blocks, full pages, motion and 3D. Use it four wa
 [![CI](https://github.com/tobibytes/junco/actions/workflows/ci.yml/badge.svg)](https://github.com/tobibytes/junco/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/junco?label=junco&color=blue)](https://www.npmjs.com/package/junco)
 [![License: MIT](https://img.shields.io/badge/license-MIT-black.svg)](LICENSE)
+[![Docs](https://img.shields.io/badge/docs-junco.madebytobi.com-blue)](https://junco.madebytobi.com)
 
 </div>
 
