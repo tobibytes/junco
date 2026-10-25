@@ -1,6 +1,6 @@
 {
   "name": "@junco/three",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Junco 3D scenes on React Three Fiber: lazy loaded, theme aware, motion aware, with fallbacks",
   "license": "MIT",
   "author": "Oluwatobi Olajide",
