@@ -22,7 +22,7 @@ export default function IntroPage() {
       <DocHeader
         eyebrow="Getting started"
         title="Introduction"
-        description="Junco is a free, open source design system for React and Tailwind v4: tokens, components, blocks, pages, motion and 3D, built so every project looks like one family from day one."
+        description="A free, open source design system for React, Tailwind v4 and SwiftUI. Tokens, components, pages, motion and 3D."
       />
       <div className="mt-10 grid gap-12">
         <div className="grid gap-3 sm:grid-cols-2">

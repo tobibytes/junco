@@ -16,10 +16,8 @@ export default function BlocksPage() {
         <p className="text-sm font-medium text-primary">@junco/blocks</p>
         <h1 className="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl">Blocks and pages</h1>
         <p className="text-base text-pretty text-muted-foreground">
-          {pages} full pages and {blocks.length - pages} sections, built only from Junco components. Every page takes typed
-          data and falls back to realistic fake data, has layout <code className="font-mono text-[0.9em]">variant</code>s, and
-          lets you replace or hide any region with <code className="font-mono text-[0.9em]">slots</code>. They follow your
-          accent, dark mode and the motion switch.
+          {pages} pages and {blocks.length - pages} sections. Typed data with fake defaults,{" "}
+          <code className="font-mono text-[0.9em]">variant</code>s and <code className="font-mono text-[0.9em]">slots</code>.
         </p>
       </header>
 

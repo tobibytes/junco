@@ -23,7 +23,7 @@ export default function AccessibilityPage() {
       <DocHeader
         eyebrow="Getting started"
         title="Accessibility"
-        description="Accessible by default, so the easy path is the right one. Here is what Junco handles and what's still on you."
+        description="What Junco handles for you, and what's still on you."
       />
       <div className="mt-10 grid gap-12">
         <Section id="built-in" title="Built in">

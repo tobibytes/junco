@@ -15,7 +15,7 @@ export default function SwiftUIPage() {
       <DocHeader
         eyebrow="Getting started"
         title="SwiftUI"
-        description="The same tokens that drive the web components, generated into Swift. Your iOS and Mac apps match your website without copying hex codes around. Early preview."
+        description="The web tokens, generated into Swift, plus SwiftUI styles. Early preview."
       />
       <div className="mt-10 grid gap-12">
         <Section id="install" title="Install">

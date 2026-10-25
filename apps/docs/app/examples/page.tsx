@@ -24,8 +24,7 @@ export default function ExamplesPage() {
             Built with Junco
           </h1>
           <p className="animate-rise max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Complete projects made only from Junco tokens, components, blocks, motion and 3D. Open a live demo, switch it to
-            dark mode, then read how it's put together.
+            Complete projects made only from Junco. Open a demo, then see how it's built.
           </p>
         </div>
       </section>
@@ -37,7 +36,8 @@ export default function ExamplesPage() {
               <Link
                 href={`/examples/${ex.slug}/`}
                 className="block rounded-card transition-transform duration-base ease-standard focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring group-hover:-translate-y-0.5"
-                aria-label={`${ex.title}: details`}
+                aria-hidden
+                tabIndex={-1}
               >
                 <BrowserShot light={ex.shots.light} dark={ex.shots.dark} alt={`${ex.title} screenshot`} url={ex.demo ? `${new URL(site.url).host}${ex.demo}` : undefined} priority={i < 2} className="transition-shadow duration-base group-hover:shadow-float" />
               </Link>

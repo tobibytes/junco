@@ -5,11 +5,11 @@ import { InstallCommand } from "@/components/home/install-command";
 import { Levels } from "@/components/home/levels";
 import { Showcase } from "@/components/home/showcase";
 import {
-  ActivityIcon,
   ArrowRightIcon,
   BotIcon,
   HalfCircleIcon,
   HeartIcon,
+  PhoneIcon,
   RefreshIcon,
   ShieldIcon,
 } from "@/components/icons";
@@ -18,36 +18,37 @@ import { BrowserShot } from "@/components/examples/shot";
 import { getExamples } from "@/lib/examples";
 import { site } from "@/lib/site";
 
-const features = [
+const features: { icon: (p: React.SVGProps<SVGSVGElement>) => React.ReactNode; title: string; body: string; href?: string }[] = [
   {
     icon: ShieldIcon,
     title: "Accessible by default",
-    body: "Keyboard patterns from WAI-ARIA, focus rings that only show for keyboards, axe in the test suite, and 4.5:1 contrast enforced on every token pair.",
+    body: "WAI-ARIA keyboard patterns, axe in CI, 4.5:1 contrast tested on every token pair.",
   },
   {
     icon: RefreshIcon,
     title: "Copied code that updates",
-    body: "Own the source like shadcn, then pull upstream fixes with junco update. A three-way merge keeps your edits.",
+    body: "Own the source, then pull fixes with junco update. Your edits survive.",
   },
   {
     icon: HalfCircleIcon,
     title: "One variable themes it",
-    body: "Change --primary and everything follows, in light and dark. The theme builder picks lightness that stays readable.",
+    body: "Change --primary and everything follows, light and dark.",
   },
   {
-    icon: ActivityIcon,
-    title: "Motion with one switch",
-    body: "Durations and easings are tokens. data-motion turns all of it down, and reduced-motion always wins.",
+    icon: PhoneIcon,
+    title: "Native SwiftUI",
+    body: "The same tokens in Swift, with SwiftUI styles. iOS and Mac apps match the web.",
+    href: "/docs/swiftui/",
   },
   {
     icon: BotIcon,
     title: "Built for agents",
-    body: "An MCP server, llms.txt and shadcn-compatible registry JSON, so AI tools build with real components.",
+    body: "MCP server, llms.txt and a shadcn-compatible registry.",
   },
   {
     icon: HeartIcon,
     title: "Free. All of it.",
-    body: "MIT licensed. Components, blocks, pages and templates. No pro tier, no license keys.",
+    body: "MIT. No pro tier, no license keys.",
   },
 ];
 
@@ -72,8 +73,8 @@ export default function Home() {
             <span className="text-muted-foreground">Four ways to use it.</span>
           </h1>
           <p className="animate-rise max-w-2xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Tokens, components, blocks and pages for React and Tailwind v4. Use plain CSS classes, utilities, copy-in source or an
-            installed package. They all read the same tokens, so they mix in one app.
+            Tokens, components and pages for React, Tailwind v4 and SwiftUI. CSS classes, utilities, copy-in or npm, all on
+            the same tokens.
           </p>
           <div className="animate-rise flex flex-wrap justify-center gap-3">
             <Button asChild size="lg">
@@ -83,9 +84,6 @@ export default function Home() {
             </Button>
             <Button asChild size="lg" variant="outline">
               <Link href="/examples/">See examples</Link>
-            </Button>
-            <Button asChild size="lg" variant="ghost">
-              <Link href="/components/">Browse components</Link>
             </Button>
           </div>
           <div className="animate-rise max-w-full overflow-x-auto">
@@ -102,8 +100,7 @@ export default function Home() {
               Built with Junco.
             </h2>
             <p className="text-muted-foreground">
-              Four complete projects made only from Junco: a SaaS app, a finance tracker, an event site and a plain-HTML status
-              page. Open any of them live.
+              Four complete projects, live.
             </p>
           </div>
           <Button asChild variant="outline">
@@ -135,8 +132,7 @@ export default function Home() {
             Start simple. Go deeper when you need to.
           </h2>
           <p className="text-muted-foreground">
-            The same button, four ways. Every level reads the same tokens, so a semantic <code className="font-mono text-sm">.btn</code>{" "}
-            and an installed <code className="font-mono text-sm">&lt;Button&gt;</code> always match.
+            The same button, four ways. Same tokens, so they always match.
           </p>
         </div>
         <Levels />
@@ -151,8 +147,7 @@ export default function Home() {
                 Real components, not screenshots.
               </h2>
               <p className="text-muted-foreground">
-                Everything below is live. Type in the form, tab through it, open the select, flip to dark mode. Then pick a new accent
-                and watch the whole site follow.
+                All live. Try the form, then pick an accent and watch the site follow.
               </p>
             </div>
             <Link href="/components/" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline underline-offset-4">
@@ -170,8 +165,7 @@ export default function Home() {
             Whole pages, motion and 3D.
           </h2>
           <p className="text-muted-foreground">
-            Start from a finished screen instead of a blank file. Every page is built from the same components, so it already
-            matches the rest of your app.
+            Start from a finished screen, not a blank file.
           </p>
         </div>
         <Beyond />
@@ -183,12 +177,20 @@ export default function Home() {
           The parts other libraries leave out.
         </h2>
         <div className="grid gap-px overflow-hidden rounded-card border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {features.map(({ icon: Icon, title, body }) => (
-            <div key={title} className="grid content-start gap-3 bg-card p-6">
+          {features.map(({ icon: Icon, title, body, href }) => (
+            <div key={title} className="relative grid content-start gap-3 bg-card p-6">
               <span className="grid size-9 place-items-center rounded-control border border-border bg-surface text-foreground">
                 <Icon />
               </span>
-              <h3 className="text-sm font-medium">{title}</h3>
+              <h3 className="text-sm font-medium">
+                {href ? (
+                  <Link href={href} className="rounded-xs after:absolute after:inset-0 hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+                    {title}
+                  </Link>
+                ) : (
+                  title
+                )}
+              </h3>
               <p className="text-sm text-muted-foreground">{body}</p>
             </div>
           ))}
@@ -199,7 +201,7 @@ export default function Home() {
       <section className="border-t border-border">
         <div className="mx-auto grid max-w-3xl justify-items-center gap-5 px-4 py-20 text-center">
           <h2 className="text-2xl font-semibold tracking-tight text-balance sm:text-4xl">Your next project, already designed.</h2>
-          <p className="max-w-xl text-muted-foreground">Install it in two minutes. Change one variable to make it yours.</p>
+          <p className="max-w-xl text-muted-foreground">Two minutes to install. One variable to make it yours.</p>
           <div className="flex flex-wrap justify-center gap-3">
             <Button asChild size="lg">
               <Link href="/docs/installation/">Get started</Link>

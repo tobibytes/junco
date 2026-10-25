@@ -42,9 +42,9 @@ function Demo({
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="grid scroll-mt-32 grid-cols-[minmax(0,1fr)] content-start gap-3">
       <div className="grid gap-1">
-        <h3 id={`${id}-title`} className="text-base font-semibold tracking-tight">
+        <h2 id={`${id}-title`} className="text-base font-semibold tracking-tight">
           {title}
-        </h3>
+        </h2>
         <p className="text-sm text-muted-foreground">{description}</p>
       </div>
       <Tabs defaultValue="preview">

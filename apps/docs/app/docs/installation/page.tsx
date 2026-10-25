@@ -33,19 +33,19 @@ export default function InstallationPage() {
 
           <TabsContent value="next" className="mt-8">
             <Steps>
-              <Step title="Create an app with Tailwind">
+              <Step level={2} title="Create an app with Tailwind">
                 <CodeBlock lang="bash" code="npx create-next-app@latest my-app --tailwind --app" />
               </Step>
-              <Step title="Install Junco">
+              <Step level={2} title="Install Junco">
                 <CodeBlock lang="bash" code="npm i junco @junco/tailwind" />
               </Step>
-              <Step title="Import the styles">
+              <Step level={2} title="Import the styles">
                 <P>
                   Replace the contents of <C>app/globals.css</C>:
                 </P>
                 <CodeBlock lang="css" title="app/globals.css" code={css} />
               </Step>
-              <Step title="Add the theme provider">
+              <Step level={2} title="Add the theme provider">
                 <P>
                   <C>themeScript()</C> applies the saved theme before first paint, so dark mode never flashes. Import it
                   from <C>junco/server</C>, which also has <C>cn()</C> and every <C>*Variants</C> helper for server
@@ -71,7 +71,7 @@ export default function RootLayout({ children }) {
 }`}
                 />
               </Step>
-              <Step title="Use a component">
+              <Step level={2} title="Use a component">
                 <CodeBlock
                   title="app/page.tsx"
                   code={`import { Button } from "junco";
@@ -86,14 +86,14 @@ export default function Page() {
 
           <TabsContent value="vite" className="mt-8">
             <Steps>
-              <Step title="Create an app">
+              <Step level={2} title="Create an app">
                 <CodeBlock lang="bash" code={`npm create vite@latest my-app -- --template react-ts
 cd my-app`} />
               </Step>
-              <Step title="Install Tailwind and Junco">
+              <Step level={2} title="Install Tailwind and Junco">
                 <CodeBlock lang="bash" code="npm i junco @junco/tailwind tailwindcss @tailwindcss/vite" />
               </Step>
-              <Step title="Add the Tailwind plugin">
+              <Step level={2} title="Add the Tailwind plugin">
                 <CodeBlock
                   title="vite.config.ts"
                   code={`import tailwindcss from "@tailwindcss/vite";
@@ -103,10 +103,10 @@ import { defineConfig } from "vite";
 export default defineConfig({ plugins: [react(), tailwindcss()] });`}
                 />
               </Step>
-              <Step title="Import the styles">
+              <Step level={2} title="Import the styles">
                 <CodeBlock lang="css" title="src/index.css" code={css} />
               </Step>
-              <Step title="Wrap the app">
+              <Step level={2} title="Wrap the app">
                 <CodeBlock
                   title="src/main.tsx"
                   code={`import { ThemeProvider } from "junco";
@@ -128,10 +128,10 @@ createRoot(document.getElementById("root")!).render(
 
           <TabsContent value="html" className="mt-8">
             <Steps>
-              <Step title="Install the Tailwind CLI and Junco's CSS">
+              <Step level={2} title="Install the Tailwind CLI and Junco's CSS">
                 <CodeBlock lang="bash" code="npm i -D tailwindcss @tailwindcss/cli @junco/tailwind" />
               </Step>
-              <Step title="Create an input file">
+              <Step level={2} title="Create an input file">
                 <CodeBlock
                   lang="css"
                   title="input.css"
@@ -140,10 +140,10 @@ createRoot(document.getElementById("root")!).render(
 @source "./";`}
                 />
               </Step>
-              <Step title="Build it">
+              <Step level={2} title="Build it">
                 <CodeBlock lang="bash" code="npx @tailwindcss/cli -i input.css -o junco.css --watch" />
               </Step>
-              <Step title="Use the classes">
+              <Step level={2} title="Use the classes">
                 <CodeBlock
                   lang="html"
                   code={`<link rel="stylesheet" href="junco.css" />

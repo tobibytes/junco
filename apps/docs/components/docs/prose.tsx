@@ -79,14 +79,19 @@ export function Section({ id, title, children }: { id: string; title: string; ch
 
 export function DataTable({ head, rows, caption }: { head: string[]; rows: React.ReactNode[][]; caption?: string }) {
   return (
-    <div className="overflow-x-auto rounded-card border border-border">
+    <div
+      tabIndex={0}
+      role="region"
+      aria-label={caption ?? head.filter(Boolean).join(", ")}
+      className="overflow-x-auto rounded-card border border-border focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+    >
       <table className="w-full text-left text-sm">
         {caption && <caption className="sr-only">{caption}</caption>}
         <thead className="border-b border-border bg-surface text-xs text-muted-foreground">
           <tr>
-            {head.map((h) => (
-              <th key={h} scope="col" className="px-4 py-2.5 font-medium whitespace-nowrap">
-                {h}
+            {head.map((h, i) => (
+              <th key={i} scope="col" className="px-4 py-2.5 font-medium whitespace-nowrap">
+                {h || <span className="sr-only">Description</span>}
               </th>
             ))}
           </tr>
@@ -111,10 +116,11 @@ export function Steps({ children }: { children: React.ReactNode }) {
   return <ol className="grid gap-8 [counter-reset:step]">{children}</ol>;
 }
 
-export function Step({ title, children }: { title: string; children: React.ReactNode }) {
+export function Step({ title, level = 3, children }: { title: string; level?: 2 | 3; children: React.ReactNode }) {
+  const Heading = level === 2 ? "h2" : "h3";
   return (
     <li className="relative grid gap-3 pl-10 [counter-increment:step] before:absolute before:top-0 before:left-0 before:grid before:size-7 before:place-items-center before:rounded-pill before:border before:border-border before:bg-surface before:font-mono before:text-xs before:text-muted-foreground before:content-[counter(step)]">
-      <h3 className="pt-0.5 text-base font-semibold">{title}</h3>
+      <Heading className="pt-0.5 text-base font-semibold">{title}</Heading>
       {children}
     </li>
   );

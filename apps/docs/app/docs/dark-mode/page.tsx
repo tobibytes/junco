@@ -16,7 +16,7 @@ export default function DarkModePage() {
       <DocHeader
         eyebrow="Getting started"
         title="Dark mode and motion"
-        description="Light and dark ship together. Motion runs on tokens with one global switch, and prefers-reduced-motion always wins."
+        description="Light and dark ship together. One switch for motion; reduced motion always wins."
       />
       <div className="mt-10 grid gap-12">
         <Section id="dark" title="Dark mode">

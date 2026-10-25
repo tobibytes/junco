@@ -54,9 +54,7 @@ export default function ThreePage() {
         <p className="text-sm font-medium text-primary">@junco/three</p>
         <h1 className="text-3xl leading-tight font-semibold tracking-tight text-balance sm:text-4xl">3D</h1>
         <p className="text-base text-pretty text-muted-foreground">
-          Scenes on React Three Fiber that read your theme tokens at runtime and relight when you switch modes. Each one loads
-          lazily, pauses when it scrolls away, follows the motion switch, and falls back to a still gradient or poster
-          without WebGL.
+          Theme-aware scenes on React Three Fiber. Lazy loaded, paused off screen, with a still fallback.
         </p>
       </header>
 

@@ -15,7 +15,7 @@ export default function LevelsPage() {
       <DocHeader
         eyebrow="Getting started"
         title="The four levels"
-        description="Use Junco as plain CSS classes, as Tailwind utilities, as source you own, or as an npm package. They all read the same tokens, so they mix in one app."
+        description="CSS classes, utilities, copy-in source or npm. Same tokens, so they mix."
       />
       <div className="mt-10 grid gap-12">
         <DataTable
