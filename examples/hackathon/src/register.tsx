@@ -77,7 +77,7 @@ function Success({ name, onReset }: { name: string; onReset: () => void }) {
       <Separator />
       <CardContent className="flex flex-wrap gap-3 p-6 sm:px-8">
         <Button asChild>
-          <a href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:MorganHacks 2027%0ADTSTART:20270409T200000Z%0ADTEND:20270411T190000Z%0ALOCATION:Morgan State University, Baltimore MD%0AEND:VEVENT%0AEND:VCALENDAR" download="morganhacks-2027.ics">
+          <a href="data:text/calendar;charset=utf-8,BEGIN:VCALENDAR%0AVERSION:2.0%0ABEGIN:VEVENT%0ASUMMARY:HackHarbor 2027%0ADTSTART:20270409T200000Z%0ADTEND:20270411T190000Z%0ALOCATION:Harborview University, Seattle MD%0AEND:VEVENT%0AEND:VCALENDAR" download="hackharbor-2027.ics">
             <CalendarIcon className="size-4" />
             Add to calendar
           </a>
@@ -108,7 +108,7 @@ export function RegisterPage() {
       form.setError("root", { message: "That email is already registered. Check your inbox for the confirmation." });
       return;
     }
-    toast.success("You're registered for MorganHacks", { description: "See you in Baltimore on April 9." });
+    toast.success("You're registered for HackHarbor", { description: "See you in Seattle on April 9." });
     void confetti({ from: document.querySelector("form[aria-label=Registration] button[type=submit]") });
     setDone(values.name);
   }
@@ -123,12 +123,12 @@ export function RegisterPage() {
         <Reveal className="grid content-start gap-6">
           <a href="#/" className="inline-flex w-fit items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
             <ArrowLeftIcon className="size-4" />
-            Back to MorganHacks
+            Back to HackHarbor
           </a>
           <div className="grid gap-3">
-            <h1 className="text-4xl font-semibold tracking-tighter text-balance sm:text-5xl">Register for MorganHacks 2027</h1>
+            <h1 className="text-4xl font-semibold tracking-tighter text-balance sm:text-5xl">Register for HackHarbor 2027</h1>
             <p className="text-lg text-pretty text-muted-foreground">
-              April 9 to 11 in Baltimore. Free for every student, and you don't need a team or an idea yet.
+              April 9 to 11 in Seattle. Free for every student, and you don't need a team or an idea yet.
             </p>
           </div>
           <ul className="grid gap-3">
@@ -223,7 +223,7 @@ export function RegisterPage() {
                   <FormField name="firstHackathon" label="This is my first hackathon">
                     <Switch />
                   </FormField>
-                  <FormField name="conduct" label="I agree to the MorganHacks code of conduct and photo policy" isRequired>
+                  <FormField name="conduct" label="I agree to the HackHarbor code of conduct and photo policy" isRequired>
                     <Checkbox />
                   </FormField>
                   <FormRootError />

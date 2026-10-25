@@ -117,7 +117,7 @@ export function DisplaySettings() {
 }
 
 const brand = {
-  name: "MorganHacks",
+  name: "HackHarbor",
   href: "#/",
   logo: <LogoMark className="size-7" />,
 };
@@ -138,12 +138,12 @@ export function Footer() {
   return (
     <SiteFooter
       brand={brand}
-      tagline="A 36-hour student hackathon in Baltimore. Free, beginner friendly, open to every major."
+      tagline="A 36-hour student hackathon in Seattle. Free, beginner friendly, open to every major."
       columns={footerColumns}
       status={null}
       legal={
         <>
-          © 2027 MorganHacks. An example site built with{" "}
+          © 2027 HackHarbor. An example site built with{" "}
           <a href="https://junco.madebytobi.com" className="underline underline-offset-4 hover:text-foreground">
             Junco
           </a>

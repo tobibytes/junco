@@ -103,8 +103,8 @@ function EventTicket() {
           <p className="flex items-center gap-2.5">
             <MapPinIcon className="size-4 text-muted-foreground" />
             <span>
-              <strong className="font-medium">Morgan State University</strong>
-              <span className="text-muted-foreground"> · Baltimore, MD</span>
+              <strong className="font-medium">Harborview University</strong>
+              <span className="text-muted-foreground"> · Seattle, WA</span>
             </span>
           </p>
           <p className="flex items-center gap-2.5">
@@ -159,7 +159,7 @@ function HeroSection() {
         announcement={{ label: "Registration for Spring 2027 is open", href: "#/register", tag: "Apr 9–11" }}
         title="36 hours to build something real"
         rotatingWords={["first-timers", "designers", "engineers", "dreamers"]}
-        description="MorganHacks brings 500+ students to Baltimore for a weekend of building, learning and free food. Bring an idea, or find one here."
+        description="HackHarbor brings 500+ students to Seattle for a weekend of building, learning and free food. Bring an idea, or find one here."
         primaryAction={{ label: "Register now", href: "#/register" }}
         secondaryAction={{ label: "See the schedule", href: "#schedule" }}
         note={null}
@@ -255,7 +255,7 @@ function About() {
       id="about"
       eyebrow="Why come"
       title="Everything you need to ship, nothing you need to bring"
-      description="MorganHacks is run by students, for students. First hackathon? You're in good company: 40% of last year's hackers were too."
+      description="HackHarbor is run by students, for students. First hackathon? You're in good company: 40% of last year's hackers were too."
       variant="lines"
       columns={3}
       features={[
@@ -271,7 +271,7 @@ function About() {
 }
 
 function Reach() {
-  const arcs = origins.slice(1).map((o) => ({ from: { lat: o.lat, lng: o.lng }, to: { lat: origins[0]!.lat, lng: origins[0]!.lng }, label: `${o.label} to Baltimore` }));
+  const arcs = origins.slice(1).map((o) => ({ from: { lat: o.lat, lng: o.lng }, to: { lat: origins[0]!.lat, lng: origins[0]!.lng }, label: `${o.label} to Seattle` }));
   return (
     <Section className="overflow-hidden">
       <Container className="grid items-center gap-10 lg:grid-cols-2">
@@ -303,7 +303,7 @@ function Reach() {
             className="absolute inset-0"
             points={origins}
             arcs={arcs}
-            label="Globe showing where last year's hackers traveled from to Baltimore"
+            label="Globe showing where last year's hackers traveled from to Seattle"
             fallback={<GlobeFallback />}
           />
         </div>
@@ -469,13 +469,13 @@ export function HomePage() {
         eyebrow="FAQ"
         title="Questions, answered"
         items={faq}
-        contact={{ label: "Email the organizers", href: "mailto:team@morganhacks.example" }}
+        contact={{ label: "Email the organizers", href: "mailto:team@hackharbor.example" }}
       />
       <Separator className="mx-auto max-w-6xl" />
       <CtaSection
         title="Your seat is waiting"
         description="Registration closes March 26 or when we hit 500 hackers, whichever comes first."
-        primaryAction={{ label: "Register for MorganHacks", href: "#/register" }}
+        primaryAction={{ label: "Register for HackHarbor", href: "#/register" }}
         secondaryAction={{ label: "Read the FAQ", href: "#faq" }}
       />
     </>

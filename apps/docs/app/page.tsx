@@ -14,6 +14,8 @@ import {
   ShieldIcon,
 } from "@/components/icons";
 import { components } from "@/content/components";
+import { BrowserShot } from "@/components/examples/shot";
+import { getExamples } from "@/lib/examples";
 import { site } from "@/lib/site";
 
 const features = [
@@ -80,6 +82,9 @@ export default function Home() {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
+              <Link href="/examples/">See examples</Link>
+            </Button>
+            <Button asChild size="lg" variant="ghost">
               <Link href="/components/">Browse components</Link>
             </Button>
           </div>
@@ -87,6 +92,40 @@ export default function Home() {
             <InstallCommand command="npm i junco @junco/tailwind" />
           </div>
         </div>
+      </section>
+
+      {/* Built with Junco */}
+      <section aria-labelledby="built-with" className="mx-auto grid max-w-screen-xl gap-8 px-4 pt-20 md:px-6">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="grid max-w-2xl gap-3">
+            <h2 id="built-with" className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              Built with Junco.
+            </h2>
+            <p className="text-muted-foreground">
+              Four complete projects made only from Junco: a SaaS app, a finance tracker, an event site and a plain-HTML status
+              page. Open any of them live.
+            </p>
+          </div>
+          <Button asChild variant="outline">
+            <Link href="/examples/">
+              All examples <ArrowRightIcon />
+            </Link>
+          </Button>
+        </div>
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {getExamples().map((ex) => (
+            <li key={ex.slug}>
+              <Link
+                href={`/examples/${ex.slug}/`}
+                className="group grid gap-3 rounded-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+              >
+                <BrowserShot light={ex.shots.light} dark={ex.shots.dark} alt={`${ex.title} screenshot`} className="transition-shadow duration-base group-hover:shadow-float" />
+                <span className="font-medium">{ex.title}</span>
+                <span className="-mt-2 text-sm text-pretty text-muted-foreground">{ex.tagline}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* Four levels */}

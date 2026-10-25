@@ -60,6 +60,13 @@ export function SiteHeader() {
           })}
         </nav>
         <div className="ml-auto flex items-center gap-1">
+          <Link
+            href="/examples/"
+            aria-current={pathname.startsWith("/examples") ? "page" : undefined}
+            className="rounded-control px-2 py-1.5 text-sm text-muted-foreground hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring aria-[current=page]:text-foreground md:hidden"
+          >
+            Examples
+          </Link>
           <SearchButton className="md:w-40 lg:w-56" />
           <Tooltip content="GitHub">
             <Button asChild variant="ghost" size="icon">

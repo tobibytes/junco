@@ -107,13 +107,13 @@ export const GraduationIcon = make(
   </>,
 );
 
-/** The MorganHacks mark: a bear-ish "M" monogram in a rounded square. */
+/** The HackHarbor mark: an "H" monogram in a rounded square. */
 export function LogoMark(props: IconProps) {
   return (
     <svg viewBox="0 0 32 32" aria-hidden focusable={false} {...props}>
       <rect width="32" height="32" rx="8" fill="var(--primary)" />
       <path
-        d="M8 22V11.5c0-.6.7-.9 1.1-.5L16 17l6.9-6c.4-.4 1.1-.1 1.1.5V22"
+        d="M11 9.5v13M21 9.5v13M11 16h10"
         fill="none"
         stroke="var(--primary-foreground)"
         strokeWidth="2.6"
