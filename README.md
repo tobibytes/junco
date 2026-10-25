@@ -122,4 +122,4 @@ pnpm build && pnpm test && pnpm typecheck
 
 [MIT](LICENSE) © 2026 Oluwatobi Olajide.
 
-Junco™ is designed and built by [**Tobibytes**](https://github.com/tobibytes).
+Junco™ is designed and built by [**Tobibytes**](https://madebytobi.com).

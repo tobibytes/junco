@@ -6,7 +6,7 @@ export const site = {
     "A free, open source design system for React and Tailwind v4. Tokens, components, blocks and pages you can use as plain CSS classes, utilities, copy-in source or installed components.",
   github: "https://github.com/tobibytes/junco",
   /** Who makes Junco. Shown in the footer and in page metadata. */
-  author: { brand: "Tobibytes", name: "Oluwatobi Olajide", url: "https://github.com/tobibytes" },
+  author: { brand: "Tobibytes", name: "Oluwatobi Olajide", url: "https://madebytobi.com" },
   /** Where component source lives on GitHub, for "View source" links. */
   sourceBase: "https://github.com/tobibytes/junco/blob/main/packages/react/src/components",
 } as const;
