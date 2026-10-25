@@ -57,3 +57,21 @@ describe("parsers on hostile input", () => {
     expect(parseTokens(":root { /* a */ --x: 1; /* b */ }").light).toEqual({ x: "1" });
   });
 });
+
+describe("parseTokens scanner", () => {
+  it("parses the real file the same as before", () => {
+    expect(Object.keys(light).length).toBeGreaterThan(70);
+    expect(light["primary"]).toMatch(/^oklch\(/);
+    expect(dark["primary"]).toMatch(/^oklch\(/);
+    expect(light["font-sans"]).toBe('"Geist", ui-sans-serif, system-ui, sans-serif');
+    expect(light["motion-scale"]).toBe("1"); // the @media override must not leak in
+  });
+
+  it("stays linear on hostile declarations and selectors", () => {
+    const t = performance.now();
+    parseTokens(":root {" + "--".repeat(50_000) + "}");
+    parseTokens(":root { ---:" + " ".repeat(100_000) + "}");
+    parseTokens(" ".repeat(100_000) + "{}" + "}".repeat(10_000));
+    expect(performance.now() - t).toBeLessThan(150);
+  });
+});
