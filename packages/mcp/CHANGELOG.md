@@ -1,5 +1,13 @@
 # @junco/mcp
 
+## 0.1.2
+
+### Patch Changes
+
+- 888d2d8: Published from GitHub Actions with npm Trusted Publishing, so every version now carries a provenance statement linking it to the commit and workflow that built it.
+- Updated dependencies [888d2d8]
+  - @junco/tokens@0.2.1
+
 ## 0.1.1
 
 ### Patch Changes
