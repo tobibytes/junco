@@ -32,7 +32,7 @@ function App() {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ThemeProvider storageKey="morganhacks">
+    <ThemeProvider storageKey="hackharbor">
       <TooltipProvider>
         <App />
       </TooltipProvider>

@@ -97,7 +97,7 @@ Four complete projects built only with Junco, each with a live demo and source i
 | | |
 | --- | --- |
 | [**Pulse**](https://junco.madebytobi.com/examples/pulse/): product analytics SaaS (app shell, data table, ⌘K) | [**Ledger**](https://junco.madebytobi.com/examples/ledger/): personal finance and savings goals, mobile-first |
-| [**MorganHacks**](https://junco.madebytobi.com/examples/hackathon/): hackathon site with 3D, motion and registration | [**Status page**](https://junco.madebytobi.com/examples/status-page/): plain HTML using only the CSS classes |
+| [**HackHarbor**](https://junco.madebytobi.com/examples/hackathon/): hackathon site with 3D, motion and registration | [**Status page**](https://junco.madebytobi.com/examples/status-page/): plain HTML using only the CSS classes |
 
 ## Why Junco
 

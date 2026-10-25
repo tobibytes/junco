@@ -39,7 +39,7 @@ export const tracks: { id: TrackId; name: string; description: string; prize: st
   { id: "ai", name: "AI for good", description: "Use models responsibly to solve a real problem for a real community.", prize: "$3,000", sponsor: "Harbor AI" },
   { id: "fintech", name: "Fintech", description: "Help people save, budget, invest or send money with less friction.", prize: "$3,000", sponsor: "Quanta Bank" },
   { id: "health", name: "Health and wellness", description: "Tools for patients, caregivers and anyone trying to feel better.", prize: "$2,500", sponsor: "Lumen Health" },
-  { id: "civic", name: "Civic tech", description: "Make Baltimore easier to live in: transit, housing, voting, schools.", prize: "$2,500", sponsor: "Northwind" },
+  { id: "civic", name: "Civic tech", description: "Make Seattle easier to live in: transit, housing, voting, schools.", prize: "$2,500", sponsor: "Northwind" },
   { id: "climate", name: "Climate and energy", description: "Measure, reduce or adapt. Bonus points for using open data.", prize: "$2,500", sponsor: "Keystone Energy" },
   { id: "beginner", name: "First hack", description: "Never built at a hackathon? Ship anything. Mentors will pair with you.", prize: "$1,500", sponsor: "Brightline" },
 ];
@@ -109,12 +109,12 @@ export const faq = [
   { question: "Do I need a team?", answer: "No. Teams are 1 to 4 people, and the mixer on Friday night is built for finding one. You can also register as a team." },
   { question: "What should I bring?", answer: "A laptop, charger, ID, toiletries and a sleeping bag if you plan to stay overnight. We'll have a hardware lab with Arduinos, sensors and a 3D printer." },
   { question: "Can I start my project early?", answer: "You can brainstorm and learn ahead of time, but all code and design work must start after hacking begins on Friday at 8 PM." },
-  { question: "Is there a code of conduct?", answer: "Yes. We want MorganHacks to be welcoming for everyone, and every participant, mentor, sponsor and judge agrees to it at registration." },
+  { question: "Is there a code of conduct?", answer: "Yes. We want HackHarbor to be welcoming for everyone, and every participant, mentor, sponsor and judge agrees to it at registration." },
 ];
 
 /** Where last year's hackers came from, for the globe. */
 export const origins = [
-  { label: "Baltimore", lat: 39.29, lng: -76.61, size: 2.2 },
+  { label: "Seattle", lat: 47.61, lng: -122.33, size: 2.2 },
   { label: "Washington, DC", lat: 38.9, lng: -77.04 },
   { label: "Philadelphia", lat: 39.95, lng: -75.17 },
   { label: "New York", lat: 40.71, lng: -74.0 },
@@ -125,6 +125,7 @@ export const origins = [
   { label: "Chicago", lat: 41.88, lng: -87.63 },
   { label: "Toronto", lat: 43.65, lng: -79.38 },
   { label: "San Francisco", lat: 37.77, lng: -122.42 },
+  { label: "Portland", lat: 45.52, lng: -122.68 },
   { label: "London", lat: 51.5, lng: -0.12 },
   { label: "Accra", lat: 5.6, lng: -0.19 },
   { label: "Lagos", lat: 6.52, lng: 3.38 },
