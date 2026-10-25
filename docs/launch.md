@@ -5,7 +5,7 @@ Where Junco should be listed, what each one needs, and the order to do it in. Mo
 ## Order
 
 1. ✅ **Site live** at https://junco.madebytobi.com (see [deploying](deploying.md)).
-2. ⏳ **First npm release** (see [releasing](releasing.md)). Every install command in every listing depends on it.
+2. ✅ **First npm release** (see [releasing](releasing.md)). Every install command in every listing depends on it.
 3. **Registries** below. Some are automatic, the rest are a form or a PR.
 4. **Launch day**: Product Hunt, Show HN, social posts, all on the same day.
 
@@ -13,7 +13,7 @@ Where Junco should be listed, what each one needs, and the order to do it in. Mo
 
 | Where | Why | How | Ready? |
 | --- | --- | --- | --- |
-| **npm** (`@junco/*`) | The installed level and the CLI | Release workflow (Trusted Publishing; first version published by hand) | ✅ workflow ready |
+| **npm** (`@junco/*`) | The installed level and the CLI | Release workflow (Trusted Publishing) | ✅ live |
 | **shadcn registry** (own URL) | `npx shadcn add https://junco.madebytobi.com/r/<name>.json` works for every shadcn user | Live now | ✅ live |
 | **shadcn registry directory** (namespaced `@junco/<name>` installs) | Shows up inside shadcn's own docs and CLI search | PR to shadcn-ui/ui adding Junco to the registry directory | ✅ ready to submit |
 | **jsDelivr / unpkg** | CDN links for the plain-HTML level (`junco.css`) | Automatic for every npm package | ✅ after npm |
