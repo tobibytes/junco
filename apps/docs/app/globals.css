@@ -1,8 +1,11 @@
 @import "tailwindcss";
 @import "@junco/tailwind";
 
-/* Tailwind needs to see the classes junco's components use. */
+/* Tailwind needs to see the classes the Junco packages use. */
 @source "../node_modules/junco/dist";
+@source "../node_modules/@junco/blocks/dist";
+@source "../node_modules/@junco/motion/dist";
+@source "../node_modules/@junco/three/dist";
 
 /* next/font hosts Geist under a generated family name; point the tokens at it. */
 :root {
