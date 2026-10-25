@@ -10,6 +10,7 @@
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "css:example": "tailwindcss -i examples/plain-html/input.css -o examples/plain-html/junco.css",
+    "registry:build": "node scripts/build-registry.ts",
     "changeset": "changeset",
     "release": "turbo run build && changeset publish"
   },

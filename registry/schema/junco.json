@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://junco.dev/schema/junco.json",
+  "title": "junco.json",
+  "description": "Project config written by `junco init` and updated by `junco add` / `junco update`.",
+  "type": "object",
+  "required": ["registry", "framework", "css", "aliases", "paths"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "registry": {
+      "type": "string",
+      "description": "Registry base URL (https://junco.dev/r) or a local folder of <name>.json files."
+    },
+    "framework": { "enum": ["next", "vite", "react"] },
+    "css": {
+      "type": "object",
+      "required": ["file", "mode"],
+      "properties": {
+        "file": { "type": "string", "description": "The app's global stylesheet." },
+        "mode": {
+          "enum": ["package", "inline"],
+          "description": "package: @import \"@junco/tailwind\". inline: a generated junco.css copied into the project."
+        }
+      }
+    },
+    "aliases": {
+      "description": "Import aliases written into copied files. null writes relative imports.",
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "required": ["components", "ui", "lib", "utils"],
+          "properties": {
+            "components": { "type": "string" },
+            "ui": { "type": "string" },
+            "lib": { "type": "string" },
+            "utils": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "paths": {
+      "type": "object",
+      "description": "Project-relative folders the aliases point at.",
+      "required": ["components", "ui", "lib"],
+      "properties": {
+        "components": { "type": "string" },
+        "ui": { "type": "string" },
+        "lib": { "type": "string" }
+      }
+    },
+    "installed": {
+      "type": "object",
+      "description": "What `junco add` wrote, so `junco diff` and `junco update` can tell your edits from upstream changes.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["hash", "files"],
+        "properties": {
+          "hash": { "type": "string", "description": "Registry item hash at install or last update." },
+          "files": {
+            "type": "object",
+            "description": "Project-relative path -> hash of the content Junco wrote.",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
