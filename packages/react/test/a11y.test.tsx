@@ -53,8 +53,47 @@ import {
   SheetTitle,
   toast,
   Toaster,
+  Breadcrumb,
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+  EmptyState,
+  Pagination,
+  Sparkline,
+  Stat,
+  StatGroup,
 } from "../src";
 import { __resetToasts } from "../src/components/toast";
+import { DataTable, type ColumnDef } from "../src/data-table";
+import { Form, FormField, FormSubmit, useForm } from "../src/form";
+
+type Row = { name: string; amount: number };
+const rows: Row[] = [
+  { name: "Northwind", amount: 1280 },
+  { name: "Acme", amount: 640 },
+];
+const rowColumns: ColumnDef<Row>[] = [
+  { accessorKey: "name", header: "Customer" },
+  { accessorKey: "amount", header: "Amount", meta: { align: "right" } },
+];
+
+function ExampleForm() {
+  const form = useForm({ defaultValues: { email: "", agree: false } });
+  return (
+    <Form form={form} onSubmit={() => {}}>
+      <FormField name="email" label="Email" description="Work email">
+        <Input />
+      </FormField>
+      <FormField name="agree" label="I agree">
+        <Checkbox />
+      </FormField>
+      <FormSubmit>Save</FormSubmit>
+    </Form>
+  );
+}
 
 async function violations(container: HTMLElement) {
   // Color contrast needs real layout and is covered by the token contrast test instead.
@@ -128,6 +167,43 @@ describe("accessibility (axe)", () => {
           <TabsContent value="a">First</TabsContent>
           <TabsContent value="b">Second</TabsContent>
         </Tabs>
+      </main>,
+    );
+    expect(await violations(container)).toEqual([]);
+  });
+
+  it("has no violations across data, layout and form components", async () => {
+    const { container } = render(
+      <main>
+        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Reports", href: "/r" }, { label: "Q3" }]} />
+        <Card>
+          <CardHeader>
+            <CardTitle>Revenue</CardTitle>
+            <CardDescription>Last 30 days</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <StatGroup>
+              <Stat label="MRR" value="$48.2k" delta={4.1} chart={<Sparkline data={[1, 3, 2, 5, 4]} />} />
+              <Stat label="Churn" value="2.1%" delta={-0.3} isInverse />
+            </StatGroup>
+          </CardContent>
+          <CardFooter>
+            <Button>View report</Button>
+          </CardFooter>
+        </Card>
+        <Stat label="Visitors" value="12,031" delta="+3" trend="up" />
+        <EmptyState title="No invoices" description="Invoices show up here." actions={<Button>New invoice</Button>} />
+        <Pagination page={3} pageCount={12} onPageChange={() => {}} />
+        <DataTable
+          columns={rowColumns}
+          data={rows}
+          caption="Invoices"
+          enableRowSelection
+          enableGlobalFilter
+          enableColumnVisibility
+        />
+        <DataTable columns={rowColumns} data={[]} caption="Empty invoices" />
+        <ExampleForm />
       </main>,
     );
     expect(await violations(container)).toEqual([]);
