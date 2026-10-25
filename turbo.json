@@ -1,9 +1,19 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": { "dependsOn": ["^build"], "outputs": ["dist/**", ".next/**", "!.next/cache/**"] },
-    "@junco/tailwind#build": { "outputs": [] },
-    "@junco/three#build": { "outputs": [] },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**"
+      ]
+    },
+    "@junco/tailwind#build": {
+      "outputs": []
+    },
     "//#registry:build": {
       "inputs": [
         "scripts/**",
@@ -13,22 +23,65 @@
         "packages/tailwind/src/**",
         "registry/**"
       ],
-      "outputs": ["apps/docs/public/r/**", "apps/docs/public/schema/**", "apps/docs/public/llms.txt", "apps/docs/public/llms-full.txt"]
+      "outputs": [
+        "apps/docs/public/r/**",
+        "apps/docs/public/schema/**",
+        "apps/docs/public/llms.txt",
+        "apps/docs/public/llms-full.txt"
+      ]
     },
-    "dev": { "cache": false, "persistent": true },
-    "test": { "dependsOn": ["^build"], "outputs": [] },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": []
+    },
     "@junco/cli#test": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/**", "$TURBO_ROOT$/packages/react/src/**", "$TURBO_ROOT$/packages/tokens/src/**", "$TURBO_ROOT$/packages/tailwind/src/**", "$TURBO_ROOT$/registry/**"],
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**",
+        "$TURBO_ROOT$/packages/react/src/**",
+        "$TURBO_ROOT$/packages/tokens/src/**",
+        "$TURBO_ROOT$/packages/tailwind/src/**",
+        "$TURBO_ROOT$/registry/**"
+      ],
       "outputs": []
     },
     "@junco/mcp#test": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/**", "$TURBO_ROOT$/packages/react/src/**", "$TURBO_ROOT$/packages/tokens/src/**", "$TURBO_ROOT$/packages/tailwind/src/**", "$TURBO_ROOT$/registry/**"],
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**",
+        "$TURBO_ROOT$/packages/react/src/**",
+        "$TURBO_ROOT$/packages/tokens/src/**",
+        "$TURBO_ROOT$/packages/tailwind/src/**",
+        "$TURBO_ROOT$/registry/**"
+      ],
       "outputs": []
     },
     "lint": {},
-    "typecheck": { "dependsOn": ["^build"] },
-    "@junco/cli#typecheck": { "dependsOn": ["^build"], "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/scripts/**"] }
+    "typecheck": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "@junco/cli#typecheck": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**"
+      ]
+    }
   }
 }

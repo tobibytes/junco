@@ -12,7 +12,8 @@
     "css:example": "tailwindcss -i examples/plain-html/input.css -o examples/plain-html/junco.css",
     "registry:build": "node scripts/build-registry.ts",
     "changeset": "changeset",
-    "release": "turbo run build && changeset publish"
+    "release": "turbo run build && changeset publish",
+    "check:dist": "node scripts/check-dist.ts"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
