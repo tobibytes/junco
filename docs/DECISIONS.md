@@ -3,6 +3,7 @@
 ## Decided
 
 - Name: **Junco**
+- Docs domain: **junco.madebytobi.com** (Cloudflare Pages). Registry at `https://junco.madebytobi.com/r`
 - License: free and open source, MIT. Nothing behind a paywall
 - Look: clean minimal (Linear / Vercel feel), light and dark from day one
 - Styling: Tailwind v4 based
@@ -15,7 +16,6 @@
 
 - [ ] Default accent color. `tokens.css` uses a placeholder blue for now
 - [ ] Fonts: Geist (current default), Inter, or something with more character
-- [ ] Docs domain (junco.dev is a placeholder)
 - [ ] Which project adopts Junco first (Talvra v2 currently uses Arc UI)
 - [ ] Behavior layer: Radix, or Base UI (shadcn's default since July 2026). **Building on Radix for now** (per the stack in CLAUDE.md). Every Radix import goes through `packages/react/src/lib/primitives.ts`, so a switch is contained
 - [ ] CLI package name: `junco` has to be the React package, so the CLI could be `create-junco` + `@junco/cli`, with `npx junco` handled by a `bin` in the main package

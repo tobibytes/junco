@@ -19,7 +19,7 @@ async function safely(fn: () => Promise<ReturnType<typeof text>>) {
   }
 }
 
-/** Builds the Junco MCP server. `registry` is a URL (default https://junco.dev/r) or a local folder. */
+/** Builds the Junco MCP server. `registry` is a URL (default https://junco.madebytobi.com/r) or a local folder. */
 export function createServer(registry: Registry | string = DEFAULT_REGISTRY): McpServer {
   const reg = typeof registry === "string" ? new Registry(registry) : registry;
   const server = new McpServer(

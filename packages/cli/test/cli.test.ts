@@ -24,7 +24,7 @@ describe("registry build", () => {
     for (const { name } of ui) {
       const item = load(name);
       expect(item.meta.hash, name).toMatch(/^[0-9a-f]{16}$/);
-      expect(item.registryDependencies, name).toContain("https://junco.dev/r/junco-theme.json");
+      expect(item.registryDependencies, name).toContain("https://junco.madebytobi.com/r/junco-theme.json");
       for (const file of item.files) {
         expect(file.content, `${name} ${file.path}`).not.toMatch(/from\s+["']\.\.?\//);
         expect(file.content, `${name} ${file.path}`).not.toMatch(/lib\/primitives/);

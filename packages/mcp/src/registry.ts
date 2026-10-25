@@ -1,8 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { isAbsolute, join, resolve } from "node:path";
 
-export const DEFAULT_REGISTRY = "https://junco.dev/r";
-export const SITE = "https://junco.dev";
+export const DEFAULT_REGISTRY = "https://junco.madebytobi.com/r";
+export const SITE = "https://junco.madebytobi.com";
 
 export interface PropDoc {
   name: string;

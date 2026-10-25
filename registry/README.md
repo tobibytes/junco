@@ -1,12 +1,12 @@
 # Registry
 
-Source for copy-in installs (`npx @junco/cli add`) and shadcn compatibility (`npx shadcn@latest add https://junco.dev/r/<name>.json`).
+Source for copy-in installs (`npx @junco/cli add`) and shadcn compatibility (`npx shadcn@latest add https://junco.madebytobi.com/r/<name>.json`).
 
 ## Build
 
 ```bash
 pnpm registry:build                     # -> apps/docs/public/{r/, schema/, llms.txt, llms-full.txt}
-node scripts/build-registry.ts --out <dir> --base-url https://junco.dev/r
+node scripts/build-registry.ts --out <dir> --base-url https://junco.madebytobi.com/r
 ```
 
 The output is generated and gitignored. The docs site serves `apps/docs/public` as-is, so `apps/docs#build` should depend on `//#registry:build` (a Turbo root task).
@@ -32,7 +32,7 @@ Nothing is listed by hand.
 
 - **Imports** are rewritten to shadcn-style aliases (`@/lib/utils`, `@/components/ui/<name>`, `@/lib/junco/<file>`). The Junco CLI then maps those to the project's own aliases from `junco.json`, or to relative paths when the project has none.
 - **dependencies**: npm packages from bare imports, pinned to the ranges in `packages/react/package.json`.
-- **registryDependencies**: full URLs (`https://junco.dev/r/field.json`) so plain shadcn can follow them. Every UI item depends on `junco-theme`.
+- **registryDependencies**: full URLs (`https://junco.madebytobi.com/r/field.json`) so plain shadcn can follow them. Every UI item depends on `junco-theme`.
 - **meta.hash**: content hash used by `junco diff` / `junco update`.
 - **meta.exports / props / variants / usage**: read from the source (JSDoc, `*Props` interfaces, `tv({ variants })`). The description is the JSDoc on the main export (`Button` in `button.tsx`), falling back to the title. Write good JSDoc and it shows up in the CLI, MCP server and llms.txt.
 - **docs**: shown by shadcn after install.

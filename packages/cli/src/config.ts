@@ -110,7 +110,7 @@ export function defaultConfig(cwd: string, options: { registry?: string; cssFile
   const srcRoot = aliasRoot ?? (existsSync(join(cwd, "src")) ? "src" : ".");
   const at = (p: string) => toPosix(normalize(join(srcRoot, p)));
   return {
-    $schema: "https://junco.dev/schema/junco.json",
+    $schema: "https://junco.madebytobi.com/schema/junco.json",
     registry: options.registry ?? DEFAULT_REGISTRY,
     framework: detectFramework(cwd),
     css: { file: options.cssFile, mode: options.cssMode },

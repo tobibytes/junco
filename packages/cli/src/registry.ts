@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { basename, isAbsolute, join, resolve } from "node:path";
 
-export const DEFAULT_REGISTRY = "https://junco.dev/r";
+export const DEFAULT_REGISTRY = "https://junco.madebytobi.com/r";
 
 export interface RegistryFile {
   path: string;
@@ -29,7 +29,7 @@ export interface RegistryIndex {
 
 const isUrl = (s: string) => /^https?:\/\//.test(s);
 
-/** A registry is a base URL (https://junco.dev/r) or a local folder holding <name>.json files. */
+/** A registry is a base URL (https://junco.madebytobi.com/r) or a local folder holding <name>.json files. */
 export class Registry {
   readonly base: string;
   private cache = new Map<string, Promise<RegistryItem>>();
@@ -89,7 +89,7 @@ export class Registry {
    */
   depRef(dep: string): string {
     if (!isUrl(dep)) return dep;
-    if (/^https?:\/\/(www\.)?junco\.dev\/r\//.test(dep) || (isUrl(this.base) && dep.startsWith(`${this.base}/`))) {
+    if (dep.startsWith(`${DEFAULT_REGISTRY}/`) || (isUrl(this.base) && dep.startsWith(`${this.base}/`))) {
       return basename(dep, ".json");
     }
     return dep;

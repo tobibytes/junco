@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://junco.dev/schema/junco.json",
+  "$id": "https://junco.madebytobi.com/schema/junco.json",
   "title": "junco.json",
   "description": "Project config written by `junco init` and updated by `junco add` / `junco update`.",
   "type": "object",
@@ -9,7 +9,7 @@
     "$schema": { "type": "string" },
     "registry": {
       "type": "string",
-      "description": "Registry base URL (https://junco.dev/r) or a local folder of <name>.json files."
+      "description": "Registry base URL (https://junco.madebytobi.com/r) or a local folder of <name>.json files."
     },
     "framework": { "enum": ["next", "vite", "react"] },
     "css": {

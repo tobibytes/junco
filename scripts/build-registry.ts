@@ -2,7 +2,7 @@
  * Builds the Junco registry: shadcn-compatible JSON for every component, lib file and the theme,
  * plus llms.txt / llms-full.txt.
  *
- *   node scripts/build-registry.ts [--out apps/docs/public] [--base-url https://junco.dev/r]
+ *   node scripts/build-registry.ts [--out apps/docs/public] [--base-url https://junco.madebytobi.com/r]
  *
  * Components are discovered from packages/react/src/{components,theme}, blocks and pages from
  * registry/{blocks,pages}/<name>/. Nothing is listed by hand.
@@ -26,7 +26,7 @@ import {
 
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const REACT_SRC = join(ROOT, "packages/react/src");
-const SITE = "https://junco.dev";
+const SITE = "https://junco.madebytobi.com";
 const THEME_ITEM = "junco-theme";
 const CSS_ITEM = "junco-css";
 

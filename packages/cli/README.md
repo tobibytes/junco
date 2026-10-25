@@ -27,4 +27,4 @@ Global options: `--registry <url|dir>` (or `JUNCO_REGISTRY`, or `registry` in `j
 
 ## Works with shadcn
 
-Every item is also a shadcn registry item: `npx shadcn@latest add https://junco.dev/r/button.json`.
+Every item is also a shadcn registry item: `npx shadcn@latest add https://junco.madebytobi.com/r/button.json`.

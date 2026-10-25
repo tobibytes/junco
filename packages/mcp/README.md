@@ -1,6 +1,6 @@
 # @junco/mcp
 
-An MCP server that lets AI agents (Claude Code, Claude Desktop, Cursor, ...) find, read and install Junco components, blocks and tokens. It reads the public registry at `https://junco.dev/r`, or a local folder.
+An MCP server that lets AI agents (Claude Code, Claude Desktop, Cursor, ...) find, read and install Junco components, blocks and tokens. It reads the public registry at `https://junco.madebytobi.com/r`, or a local folder.
 
 ## Tools
 
@@ -47,5 +47,5 @@ Use a local registry (for working on Junco itself) with `--registry ./apps/docs/
 
 ```ts
 import { createServer } from "@junco/mcp";
-const server = createServer("https://junco.dev/r"); // McpServer, connect any transport
+const server = createServer("https://junco.madebytobi.com/r"); // McpServer, connect any transport
 ```
