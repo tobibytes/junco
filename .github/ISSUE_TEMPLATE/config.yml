@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Docs
+    url: https://junco.madebytobi.com
+    about: Guides, component docs and the theme builder.
+  - name: Questions and ideas
+    url: https://github.com/tobibytes/junco/discussions
+    about: Ask a question or share an idea before opening an issue.

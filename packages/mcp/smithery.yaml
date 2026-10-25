@@ -1,0 +1,14 @@
+# Smithery (https://smithery.ai) listing for the Junco MCP server. Runs over stdio via npx.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      registry:
+        type: string
+        description: Registry URL or local folder. Defaults to https://junco.madebytobi.com/r
+  commandFunction: |-
+    (config) => ({
+      command: "npx",
+      args: ["-y", "@junco/mcp", ...(config.registry ? ["--registry", config.registry] : [])],
+    })

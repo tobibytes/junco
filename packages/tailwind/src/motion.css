@@ -1,0 +1,260 @@
+/*
+ * Motion effects. Pure CSS, shared by the semantic classes and the @junco/motion React components.
+ * Every effect scales with --motion-scale (1 full, 0.6 subtle, 0 off) so data-motion and
+ * prefers-reduced-motion turn it down or off. With motion off, each effect shows its final state.
+ */
+
+@property --beam-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@layer components {
+  /* Reveal --------------------------------------------------------------------
+     Fades and rises content in. Two ways to use it:
+     - CSS only: add `reveal`. Browsers with scroll-driven animations reveal it as it scrolls
+       into view; others just show it.
+     - JS: set data-state="hidden" | "visible" (the React <Reveal> does this).
+     Hidden opacity is `1 - motion-scale`, so with motion off "hidden" content is fully visible. */
+  .reveal,
+  .reveal-item {
+    transition-property: opacity, transform, filter;
+    transition-duration: calc(var(--duration-slow) * 1.8 * var(--motion-scale));
+    transition-timing-function: var(--ease-enter);
+    transition-delay: calc((var(--reveal-index, 0) * var(--stagger) + var(--reveal-delay, 0ms)) * var(--motion-scale));
+  }
+  .reveal[data-state="hidden"]:not([data-stagger]),
+  .reveal[data-state="hidden"] > .reveal-item {
+    opacity: calc(1 - var(--motion-scale));
+    transform: translateY(calc(var(--reveal-distance, 16px) * var(--motion-scale)));
+    filter: blur(calc(4px * var(--motion-scale)));
+  }
+
+  /* Text reveal: words rise in one after another. */
+  .text-reveal-word {
+    display: inline-block;
+    transition-property: opacity, transform, filter;
+    transition-duration: calc(var(--duration-slow) * 1.6 * var(--motion-scale));
+    transition-timing-function: var(--ease-enter);
+    transition-delay: calc((var(--i, 0) * var(--stagger) + var(--reveal-delay, 0ms)) * var(--motion-scale));
+  }
+  .text-reveal[data-state="hidden"] .text-reveal-word {
+    opacity: calc(1 - var(--motion-scale));
+    transform: translateY(calc(0.35em * var(--motion-scale)));
+    filter: blur(calc(6px * var(--motion-scale)));
+  }
+
+  /* Marquee -------------------------------------------------------------------
+     <div class="marquee"><div class="marquee-track">...</div><div class="marquee-track" aria-hidden="true">...</div></div>
+     Pauses on hover and while anything inside has focus. */
+  .marquee {
+    --marquee-duration: calc(var(--duration-slow) * 110);
+    --marquee-gap: 3rem;
+    display: flex;
+    gap: var(--marquee-gap);
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  }
+  .marquee-track {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--marquee-gap);
+    min-width: 100%;
+    animation: marquee-x calc(var(--marquee-duration) / max(var(--motion-scale), 0.001)) linear infinite;
+  }
+  .marquee-reverse .marquee-track { animation-direction: reverse; }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track { animation-play-state: paused; }
+  .marquee-vertical { flex-direction: column; mask-image: linear-gradient(transparent, #000 10%, #000 90%, transparent); }
+  .marquee-vertical .marquee-track { flex-direction: column; min-width: 0; min-height: 100%; animation-name: marquee-y; }
+  /* Motion off: one still, wrapped row. */
+  .marquee[data-static],
+  :where([data-motion="off"]) .marquee { flex-wrap: wrap; justify-content: center; mask-image: none; }
+  .marquee[data-static] .marquee-track,
+  :where([data-motion="off"]) .marquee-track { flex: 1 1 100%; flex-wrap: wrap; justify-content: center; animation: none; min-width: 0; }
+  .marquee[data-static] .marquee-track[aria-hidden="true"],
+  :where([data-motion="off"]) .marquee-track[aria-hidden="true"] { display: none; }
+
+  /* Shimmer text: a light sweep across text, e.g. "Thinking…". Plain text with motion off. */
+  .shimmer {
+    background: linear-gradient(
+        100deg,
+        var(--muted-foreground) 40%,
+        var(--foreground) 50%,
+        var(--muted-foreground) 60%
+      )
+      0 0 / 300% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shimmer calc(var(--duration-slow) * 7 / max(var(--motion-scale), 0.001)) linear infinite;
+  }
+  :where([data-motion="off"]) .shimmer { animation: none; background: none; color: var(--foreground); }
+
+  /* Spotlight: a soft light that follows the pointer (set --spotlight-x/y from JS).
+     The glow sits behind the content; a brighter ring lights the border near the pointer. */
+  .spotlight {
+    --spotlight-size: 22rem;
+    position: relative;
+    isolation: isolate;
+  }
+  .spotlight::before,
+  .spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity calc(var(--duration-slow) * var(--motion-scale)) var(--ease-standard);
+  }
+  .spotlight::before {
+    z-index: -1;
+    background: radial-gradient(
+      var(--spotlight-size) circle at var(--spotlight-x, 50%) var(--spotlight-y, 0%),
+      color-mix(in oklch, var(--primary) 10%, transparent),
+      transparent 70%
+    );
+  }
+  .spotlight::after {
+    padding: 1px;
+    background: radial-gradient(
+      calc(var(--spotlight-size) * 0.7) circle at var(--spotlight-x, 50%) var(--spotlight-y, 0%),
+      color-mix(in oklch, var(--primary) 70%, transparent),
+      transparent 70%
+    );
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+  }
+  .spotlight:hover::before,
+  .spotlight:hover::after,
+  .spotlight[data-active]::before,
+  .spotlight[data-active]::after { opacity: 1; }
+
+  /* Border beam: a short light that runs around the border of a rounded box.
+     Put <span class="border-beam"></span> inside a position: relative element. */
+  .border-beam {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    padding: var(--beam-width, 1px);
+    background: conic-gradient(
+      from var(--beam-angle),
+      transparent 0%,
+      transparent 72%,
+      color-mix(in oklch, var(--primary) 50%, transparent) 88%,
+      var(--primary) 96%,
+      transparent 100%
+    );
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: xor;
+    animation: beam-spin calc(var(--duration-slow) * 17 / max(var(--motion-scale), 0.001)) linear infinite;
+  }
+  :where([data-motion="off"]) .border-beam { display: none; }
+
+  /* Gradient border: a multi-color border in the chart palette that slowly turns. */
+  .gradient-border {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--gradient-fill, var(--card)), var(--gradient-fill, var(--card))) padding-box,
+      conic-gradient(
+          from var(--beam-angle),
+          var(--chart-1),
+          var(--chart-2),
+          var(--chart-4),
+          var(--chart-5),
+          var(--chart-1)
+        )
+        border-box;
+    animation: beam-spin calc(var(--duration-slow) * 28 / max(var(--motion-scale), 0.001)) linear infinite;
+  }
+  :where([data-motion="off"]) .gradient-border { animation: none; }
+
+  /* Animated beam (SVG): the moving light on a path between two elements. */
+  .beam-path {
+    stroke-dasharray: 0.18 1.4;
+    animation: beam-travel calc(var(--beam-duration, calc(var(--duration-slow) * 9)) / max(var(--motion-scale), 0.001)) var(--ease-standard) infinite;
+    animation-delay: var(--beam-delay, 0ms);
+  }
+  :where([data-motion="off"]) .beam-path { display: none; }
+
+  /* Typewriter caret */
+  .typewriter-caret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.1em;
+    background: currentColor;
+    animation: caret-blink calc(var(--duration-slow) * 3) steps(1) infinite;
+  }
+  :where([data-motion="off"]) .typewriter-caret { animation: none; }
+}
+
+/* CSS-only reveal on scroll, where supported. Skipped with motion off. */
+@supports (animation-timeline: view()) {
+  @layer components {
+    :where(:root:not([data-motion="off"])) .reveal:not([data-state]) {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+/* Page transitions (View Transitions API), shortened or skipped with the motion switch. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: calc(var(--duration-slow) * var(--motion-scale));
+  animation-timing-function: var(--ease-standard);
+}
+::view-transition-new(root) { animation-name: vt-in; }
+::view-transition-old(root) { animation-name: vt-out; }
+
+/* Reduced motion always wins. --motion-scale is already 0 there; these drop the effects that
+   would still move at an infinitely slow speed or would need JS. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee { flex-wrap: wrap; justify-content: center; mask-image: none; }
+  .marquee-track { flex: 1 1 100%; flex-wrap: wrap; justify-content: center; animation: none; min-width: 0; }
+  .marquee-track[aria-hidden="true"] { display: none; }
+  .shimmer { animation: none; background: none; color: var(--foreground); }
+  .border-beam, .beam-path { display: none; }
+  .gradient-border, .typewriter-caret { animation: none; }
+  .reveal:not([data-state]) { animation: none; }
+}
+
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(calc(var(--reveal-distance, 16px) * var(--motion-scale))); }
+}
+@keyframes marquee-x {
+  to { transform: translateX(calc(-100% - var(--marquee-gap))); }
+}
+@keyframes marquee-y {
+  to { transform: translateY(calc(-100% - var(--marquee-gap))); }
+}
+@keyframes shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: 0% 0; }
+}
+@keyframes beam-spin {
+  to { --beam-angle: 360deg; }
+}
+@keyframes beam-travel {
+  from { stroke-dashoffset: 0.18; }
+  to { stroke-dashoffset: -1; }
+}
+@keyframes caret-blink {
+  50% { opacity: 0; }
+}
+@keyframes vt-in {
+  from { opacity: 0; transform: translateY(calc(6px * var(--motion-scale))); }
+}
+@keyframes vt-out {
+  to { opacity: 0; }
+}

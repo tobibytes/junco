@@ -1,0 +1,32 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.tobibytes/junco",
+  "title": "Junco design system",
+  "description": "Find, read and install Junco React + Tailwind v4 components, blocks and design tokens.",
+  "websiteUrl": "https://junco.madebytobi.com",
+  "repository": {
+    "url": "https://github.com/tobibytes/junco",
+    "source": "github",
+    "subfolder": "packages/mcp"
+  },
+  "version": "0.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "registryBaseUrl": "https://registry.npmjs.org",
+      "identifier": "@junco/mcp",
+      "version": "0.0.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "JUNCO_REGISTRY",
+          "description": "Registry URL or local folder. Defaults to https://junco.madebytobi.com/r",
+          "isRequired": false,
+          "isSecret": false
+        }
+      ]
+    }
+  ]
+}

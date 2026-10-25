@@ -4,23 +4,109 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Junco semantic classes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono&display=swap" rel="stylesheet" />
     <!-- Rebuild junco.css from the repo root: pnpm css:example -->
     <link rel="stylesheet" href="./junco.css" />
+    <style>
+      body { margin: 0; padding: 48px 24px; }
+      main { max-width: 640px; margin: 0 auto; display: grid; gap: 24px; }
+      .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+      .stack { display: grid; gap: 12px; }
+      h1 { margin: 0; font-size: var(--text-2xl); line-height: var(--text-2xl--line-height); font-weight: 600; letter-spacing: var(--tracking-tight); }
+      h2 { margin: 0 0 12px; font-size: var(--text-sm); font-weight: 500; }
+      p { margin: 0; color: var(--muted-foreground); font-size: var(--text-sm); }
+      label { font-size: var(--text-sm); font-weight: 500; }
+      .error { color: var(--destructive-text); font-size: var(--text-xs); }
+    </style>
   </head>
-  <body style="padding: 40px; display: grid; gap: 16px; max-width: 560px">
-    <div class="card">
-      <h2 style="margin: 0 0 4px; font-size: 16px">Semantic classes</h2>
-      <p style="margin: 0 0 16px; color: var(--muted-foreground)">Plain HTML, no JavaScript.</p>
-      <input class="input" placeholder="you@example.com" />
-      <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px">
-        <button class="btn btn-primary">Save</button>
-        <button class="btn">Cancel</button>
-        <button class="btn btn-ghost">More</button>
-        <span class="badge">Beta</span>
-      </div>
-    </div>
-    <button class="btn btn-sm" onclick="document.documentElement.classList.toggle('dark')">
-      Toggle dark <span class="kbd">D</span>
-    </button>
+  <body>
+    <main>
+      <header class="row" style="justify-content: space-between">
+        <div class="stack" style="gap: 4px">
+          <h1>Semantic classes</h1>
+          <p>Plain HTML and CSS. No JavaScript except the theme toggle.</p>
+        </div>
+        <button class="btn btn-sm" id="toggle" aria-pressed="false">
+          Dark mode <span class="kbd">D</span>
+        </button>
+      </header>
+
+      <section class="card">
+        <h2>Buttons</h2>
+        <div class="stack">
+          <div class="row">
+            <button class="btn btn-primary">Save</button>
+            <button class="btn">Cancel</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-ghost">Ghost</button>
+            <button class="btn btn-danger">Delete</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary btn-sm">Small</button>
+            <button class="btn btn-primary">Medium</button>
+            <button class="btn btn-primary btn-lg">Large</button>
+            <button class="btn btn-icon" aria-label="Add">+</button>
+            <button class="btn btn-primary" aria-busy="true"><span class="spinner spinner-sm" aria-hidden="true"></span>Saving</button>
+            <button class="btn" disabled>Disabled</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Inputs</h2>
+        <div class="stack">
+          <label for="email">Email</label>
+          <input id="email" class="input" type="email" placeholder="you@example.com" />
+          <label for="handle">Handle</label>
+          <input id="handle" class="input" aria-invalid="true" aria-describedby="handle-error" value="taken" />
+          <span id="handle-error" class="error">That handle is taken.</span>
+          <div class="row">
+            <input class="input input-sm" placeholder="Small" aria-label="Small" style="width: auto" />
+            <input class="input input-lg" placeholder="Large" aria-label="Large" style="width: auto" />
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Badges</h2>
+        <div class="row">
+          <span class="badge">Beta</span>
+          <span class="badge badge-primary">New</span>
+          <span class="badge badge-success badge-dot">Paid</span>
+          <span class="badge badge-warning badge-dot">Pending</span>
+          <span class="badge badge-danger badge-dot">Failed</span>
+          <span class="badge badge-outline">Outline</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Loading</h2>
+        <div class="row" style="margin-bottom: 16px">
+          <span class="spinner spinner-sm" role="status" aria-label="Loading"></span>
+          <span class="spinner" role="status" aria-label="Loading"></span>
+          <span class="spinner spinner-lg" role="status" aria-label="Loading"></span>
+          <p>Press <span class="kbd">⌘</span> <span class="kbd">K</span> to search</p>
+        </div>
+        <div class="stack" aria-hidden="true">
+          <span class="skeleton" style="height: 16px; width: 40%"></span>
+          <span class="skeleton" style="height: 12px; width: 90%"></span>
+          <span class="skeleton" style="height: 12px; width: 75%"></span>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const toggle = document.getElementById("toggle");
+      const flip = () => {
+        const dark = document.documentElement.classList.toggle("dark");
+        toggle.setAttribute("aria-pressed", String(dark));
+      };
+      toggle.addEventListener("click", flip);
+      document.addEventListener("keydown", (e) => {
+        if (e.key.toLowerCase() === "d" && !(e.target instanceof HTMLInputElement)) flip();
+      });
+    </script>
   </body>
 </html>

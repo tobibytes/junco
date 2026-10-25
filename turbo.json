@@ -1,10 +1,99 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": { "dependsOn": ["^build"], "outputs": ["dist/**", ".next/**", "!.next/cache/**"] },
-    "dev": { "cache": false, "persistent": true },
-    "test": { "dependsOn": ["^build"] },
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "dist/**",
+        ".next/**",
+        "!.next/cache/**",
+        "out/**"
+      ]
+    },
+    "@junco/tailwind#build": {
+      "outputs": []
+    },
+    "//#registry:build": {
+      "inputs": [
+        "scripts/**",
+        "packages/react/src/**",
+        "packages/react/package.json",
+        "packages/tokens/src/**",
+        "packages/tailwind/src/**",
+        "registry/**"
+      ],
+      "outputs": [
+        "apps/docs/public/r/**",
+        "apps/docs/public/schema/**",
+        "apps/docs/public/llms.txt",
+        "apps/docs/public/llms-full.txt"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": []
+    },
+    "@junco/cli#test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**",
+        "$TURBO_ROOT$/packages/react/src/**",
+        "$TURBO_ROOT$/packages/tokens/src/**",
+        "$TURBO_ROOT$/packages/tailwind/src/**",
+        "$TURBO_ROOT$/registry/**"
+      ],
+      "outputs": []
+    },
+    "@junco/mcp#test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**",
+        "$TURBO_ROOT$/packages/react/src/**",
+        "$TURBO_ROOT$/packages/tokens/src/**",
+        "$TURBO_ROOT$/packages/tailwind/src/**",
+        "$TURBO_ROOT$/registry/**"
+      ],
+      "outputs": []
+    },
     "lint": {},
-    "typecheck": { "dependsOn": ["^build"] }
+    "typecheck": {
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "@junco/cli#typecheck": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**"
+      ]
+    },
+    "docs#build": {
+      "dependsOn": [
+        "^build",
+        "//#registry:build"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "out/**"
+      ]
+    }
   }
 }

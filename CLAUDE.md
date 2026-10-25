@@ -75,13 +75,15 @@ pnpm changeset    # record a version bump
 
 ## Current state
 
-- `pnpm install && pnpm build` passes.
-- Tokens are drafted. The light and dark values in `packages/tokens/src/tokens.css` are a first pass, and the blue `--primary` is a placeholder.
-- `@junco/tailwind` maps the tokens into Tailwind v4 and ships draft semantic classes: `btn` (+ variants and sizes), `card`, `badge`, `input`, `kbd`.
-- `junco` exports `cn()` and a reference `Button`. Copy its pattern for every other component.
-- `examples/plain-html` compiles with `pnpm css:example` and renders correctly in light and dark.
+- `pnpm install && pnpm build && pnpm test && pnpm typecheck` all pass.
+- **Tokens** (`packages/tokens`): `src/tokens.css` is the source of truth: colors (light + dark), type scale, weights, tracking, 4px spacing, radius, shadows, z-index, motion. `pnpm build` also emits a TS object (`import { tokens } from "@junco/tokens"`) and W3C DTCG JSON (`@junco/tokens/tokens.json`, dark values under `$extensions["dev.junco"].modes.dark`). The blue `--primary` is still a placeholder.
+- **Status text tokens**: `--success-text`, `--warning-text`, `--destructive-text` are Junco additions for status-colored text on the page (`text-destructive-text` for field errors). Solid status fills use the `-foreground` pair instead.
+- **Contrast test**: `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` at 4.5:1 in both modes. Add a pair there whenever a component puts a text token on a new background.
+- **`@junco/tailwind`**: `src/index.css` maps every token into `@theme` (`bg-surface`, `text-muted-foreground`, `rounded-card`, `rounded-control`, `shadow-float`, `duration-fast`, `ease-enter`, `z-overlay`, `animate-rise`, `animate-spinner`, `animate-skeleton`). Semantic classes live in `src/components.css`. Animations multiply by `--motion-scale`; spinners keep turning (slower) with motion off since they carry meaning.
+- **`junco`**: `cn()`, Button, Input, Badge, Kbd, Spinner, Skeleton, ThemeProvider + `useTheme` + `themeScript()` (no-flash inline script) + `applyTheme`. Tests in `packages/react/test` (Vitest + Testing Library, jsdom).
+- **Examples**: `examples/plain-html` (semantic classes only, `pnpm css:example`) and `examples/vite-react` (installed components, theme + motion switcher). Apps using `junco` need `@source "../node_modules/junco/dist";` in their CSS so Tailwind sees the component classes.
 - CLI, three, registry and docs app are stubs.
 
 ## Where to start
 
-Continue Phase 1 in `docs/ROADMAP.md`: finish the tokens (type scale, spacing) and add the contrast test, then Input, Badge, Kbd, Spinner, Skeleton, then the ThemeProvider and a Vite example app. Check open items in `docs/DECISIONS.md` with Tobi before locking in the accent, fonts or behavior layer.
+Phase 1 is done except claiming the npm names. Next is Phase 2 in `docs/ROADMAP.md`: the remaining primitives (Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Avatar, Separator, Label, Form field). Settle the behavior layer (Radix vs Base UI) in `docs/DECISIONS.md` with Tobi before building anything that needs it (Select, Tabs, Tooltip, overlays). Still check the accent and fonts with Tobi before locking them in.

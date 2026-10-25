@@ -1,17 +1,27 @@
 {
   "name": "junco-monorepo",
   "private": true,
+  "description": "Junco: a free, open source design system for React and Tailwind v4. Tokens, components, blocks, pages, motion and 3D.",
   "license": "MIT",
+  "homepage": "https://junco.madebytobi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobibytes/junco.git"
+  },
   "packageManager": "pnpm@9.15.0",
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "turbo run dev --filter=docs...",
     "build": "turbo run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "css:example": "tailwindcss -i examples/plain-html/input.css -o examples/plain-html/junco.css",
+    "registry:build": "node scripts/build-registry.ts",
     "changeset": "changeset",
-    "release": "turbo run build && changeset publish"
+    "release": "turbo run build && changeset publish",
+    "check:dist": "node scripts/check-dist.ts",
+    "version-packages": "changeset version && node scripts/sync-versions.ts && pnpm install --lockfile-only",
+    "dev:all": "turbo run dev"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
@@ -19,5 +29,8 @@
     "tailwindcss": "4",
     "turbo": "^2.3.0",
     "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=22.18"
   }
 }

@@ -1,0 +1,112 @@
+import { readFile } from "node:fs/promises";
+import { basename, isAbsolute, join, resolve } from "node:path";
+
+export const DEFAULT_REGISTRY = "https://junco.madebytobi.com/r";
+
+export interface RegistryFile {
+  path: string;
+  type: string;
+  content?: string;
+  target?: string;
+}
+
+export interface RegistryItem {
+  name: string;
+  type: string;
+  title?: string;
+  description?: string;
+  dependencies?: string[];
+  registryDependencies?: string[];
+  files?: RegistryFile[];
+  meta?: { hash?: string; [key: string]: unknown };
+}
+
+export interface RegistryIndex {
+  name: string;
+  homepage?: string;
+  items: RegistryItem[];
+}
+
+const isUrl = (s: string) => /^https?:\/\//.test(s);
+
+/** A registry is a base URL (https://junco.madebytobi.com/r) or a local folder holding <name>.json files. */
+export class Registry {
+  readonly base: string;
+  private cache = new Map<string, Promise<RegistryItem>>();
+
+  constructor(base: string, cwd = process.cwd()) {
+    this.base = isUrl(base) ? base.replace(/\/$/, "") : isAbsolute(base) ? base : resolve(cwd, base);
+  }
+
+  private async readJson<T>(ref: string): Promise<T> {
+    if (isUrl(ref)) {
+      let res: Response;
+      try {
+        res = await fetch(ref);
+      } catch (err) {
+        throw new Error(`Could not reach ${ref}: ${(err as Error).message}`);
+      }
+      if (res.status === 404) throw new Error(`Not found in registry: ${ref}`);
+      if (!res.ok) throw new Error(`${ref}: ${res.status} ${res.statusText}`);
+      return (await res.json()) as T;
+    }
+    try {
+      return JSON.parse(await readFile(ref, "utf8")) as T;
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code === "ENOENT") throw new Error(`Not found in registry: ${ref}`);
+      throw err;
+    }
+  }
+
+  private ref(name: string) {
+    return isUrl(this.base) ? `${this.base}/${name}.json` : join(this.base, `${name}.json`);
+  }
+
+  index(): Promise<RegistryIndex> {
+    return this.readJson<RegistryIndex>(this.ref("registry"));
+  }
+
+  /** Fetch by name, or by full URL for items from another registry. */
+  item(nameOrUrl: string): Promise<RegistryItem> {
+    let pending = this.cache.get(nameOrUrl);
+    if (!pending) {
+      const ref = isUrl(nameOrUrl) ? nameOrUrl : this.ref(nameOrUrl);
+      pending = this.readJson<RegistryItem>(ref).catch((err: Error) => {
+        this.cache.delete(nameOrUrl);
+        if (err.message.startsWith("Not found")) {
+          throw new Error(`Unknown component "${nameOrUrl}". Run \`junco list\` to see what's available.`);
+        }
+        throw err;
+      });
+      this.cache.set(nameOrUrl, pending);
+    }
+    return pending;
+  }
+
+  /**
+   * A dependency as written in registryDependencies. Junco's own items are full URLs (so plain
+   * shadcn can follow them); map those back to names in whatever registry we're reading.
+   */
+  depRef(dep: string): string {
+    if (!isUrl(dep)) return dep;
+    if (dep.startsWith(`${DEFAULT_REGISTRY}/`) || (isUrl(this.base) && dep.startsWith(`${this.base}/`))) {
+      return basename(dep, ".json");
+    }
+    return dep;
+  }
+
+  /** The items plus every registry dependency, dependencies first. */
+  async resolveTree(names: string[]): Promise<RegistryItem[]> {
+    const ordered: RegistryItem[] = [];
+    const seen = new Set<string>();
+    const visit = async (ref: string) => {
+      if (seen.has(ref)) return;
+      seen.add(ref);
+      const item = await this.item(ref);
+      for (const dep of item.registryDependencies ?? []) await visit(this.depRef(dep));
+      ordered.push(item);
+    };
+    for (const name of names) await visit(name);
+    return ordered;
+  }
+}
