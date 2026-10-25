@@ -31,10 +31,15 @@ The full product plan is in `docs/PLAN.md`. The phase checklists are in `docs/RO
 | `packages/react` | `@junco/react` | installed React components |
 | `packages/cli` | `@junco/cli` (bin: `junco`) | `junco add`, `junco diff`, `junco update`, `junco eject`, `junco create` |
 | `packages/three` | `@junco/three` | 3D scenes on React Three Fiber + drei, lazy loaded |
+| `packages/blocks` | `@junco/blocks` | blocks and full pages (app shell, dashboards, settings, auth, marketing) |
+| `packages/motion` | `@junco/motion` | motion effects (reveal, ticker, marquee, beams, view transitions) |
+| `packages/mcp` | `@junco/mcp` | MCP server for AI agents, reads the public registry |
+| `packages/swift` + root `Package.swift` | SwiftPM `JuncoTokens`, `JuncoUI` | generated Swift tokens + SwiftUI styles (preview) |
 | `packages/collab` (later) | `@junco/collab` | collaboration UI (cursors, presence, comments, history, sharing) + adapter interfaces. No sync engine in this repo |
 | `packages/editor` (later) | `@junco/editor` | TipTap rich text editor block |
 | `registry` | served by the docs site | component, block and page source files for copy-in, shadcn registry JSON compatible |
-| `apps/docs` | private | website: docs, galleries, theme builder, playground, prototype mode |
+| `apps/docs` | private | website: docs, galleries, theme builder, icons, examples (junco.madebytobi.com) |
+| `examples/*` | private | full example projects (pulse, ledger, hackathon, status-page) shown on /examples |
 
 ## Rules
 
@@ -75,15 +80,21 @@ pnpm changeset    # record a version bump
 
 ## Current state
 
-- `pnpm install && pnpm build && pnpm test && pnpm typecheck` all pass.
-- **Tokens** (`packages/tokens`): `src/tokens.css` is the source of truth: colors (light + dark), type scale, weights, tracking, 4px spacing, radius, shadows, z-index, motion. `pnpm build` also emits a TS object (`import { tokens } from "@junco/tokens"`) and W3C DTCG JSON (`@junco/tokens/tokens.json`, dark values under `$extensions["dev.junco"].modes.dark`). The blue `--primary` is still a placeholder.
-- **Status text tokens**: `--success-text`, `--warning-text`, `--destructive-text` are Junco additions for status-colored text on the page (`text-destructive-text` for field errors). Solid status fills use the `-foreground` pair instead.
-- **Contrast test**: `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` at 4.5:1 in both modes. Add a pair there whenever a component puts a text token on a new background.
-- **`@junco/tailwind`**: `src/index.css` maps every token into `@theme` (`bg-surface`, `text-muted-foreground`, `rounded-card`, `rounded-control`, `shadow-float`, `duration-fast`, `ease-enter`, `z-overlay`, `animate-rise`, `animate-spinner`, `animate-skeleton`). Semantic classes live in `src/components.css`. Animations multiply by `--motion-scale`; spinners keep turning (slower) with motion off since they carry meaning.
-- **`@junco/react`**: `cn()`, Button, Input, Badge, Kbd, Spinner, Skeleton, ThemeProvider + `useTheme` + `themeScript()` (no-flash inline script) + `applyTheme`. Tests in `packages/react/test` (Vitest + Testing Library, jsdom).
-- **Examples**: `examples/plain-html` (semantic classes only, `pnpm css:example`) and `examples/vite-react` (installed components, theme + motion switcher). Apps using `@junco/react` need `@source "../node_modules/@junco/react/dist";` in their CSS so Tailwind sees the component classes.
-- CLI, three, registry and docs app are stubs.
+- Live at https://junco.madebytobi.com (Cloudflare Pages, deploys on every push to `main`; PRs get `pr-<n>.junco-docs.pages.dev` previews).
+- All 8 packages are on npm under `@junco/*` (the unscoped `junco` name is blocked by npm). Releases: add a changeset, merge to `main`, then merge the "chore: version packages" PR; the Release workflow publishes with npm Trusted Publishing (no token) and provenance. See `docs/releasing.md`.
+- `pnpm install && pnpm build && pnpm test && pnpm typecheck` pass. Node 24 in CI.
+- **Tokens**: `packages/tokens/src/tokens.css` is the source of truth. It also feeds the TS object, W3C JSON, and the Swift files (`pnpm swift:tokens`; CI fails if they drift). `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` (4.5:1 text, 3:1 controls) in both modes. The blue `--primary` is still a placeholder.
+- **Components** (`packages/react`, 30+): primitives, forms (RHF + Zod), overlays, data table, toast, command, Icon. Radix sits behind `lib/primitives.ts`. Every component has a test, a docs page in `apps/docs/content/components/<slug>.tsx` (+ one line in `index.ts`), and is auto-discovered by the registry build. `@junco/react/server` holds the server-safe exports (`pnpm check:dist` guards it).
+- **Blocks and pages**: 40 entries in `apps/docs/content/blocks/catalog.ts`, 21 full pages, all with typed data, fake-data fallbacks, `slots` and `variant`s.
+- **Registry + CLI + MCP**: `pnpm registry:build` writes shadcn-compatible JSON and llms.txt to `apps/docs/public`. `@junco/cli` has init, add, list, diff, update, eject. `@junco/mcp` reads the public registry.
+- **Swift**: SwiftUI code only compiles on Apple platforms; `.github/workflows/swift.yml` builds and tests it on macOS. Previews in `packages/swift/Sources/JuncoUI/Previews.swift`.
+- Commits are authored as `Oluwatobi Olajide <olola73@morgan.edu>`; no AI trailers.
 
 ## Where to start
 
-Phase 1 is done except claiming the npm names. Next is Phase 2 in `docs/ROADMAP.md`: the remaining primitives (Textarea, Select, Checkbox, Switch, Radio, Tabs, Tooltip, Avatar, Separator, Label, Form field). Settle the behavior layer (Radix vs Base UI) in `docs/DECISIONS.md` with Tobi before building anything that needs it (Select, Tabs, Tooltip, overlays). Still check the accent and fonts with Tobi before locking them in.
+The open work is in `docs/ROADMAP.md`. In order:
+1. Templates (SaaS, Admin) and `junco create my-app --template saas`.
+2. Phase 4: move one real project onto Junco, fix what gets in the way, tag v1.0.
+3. Phase 3b: `@junco/collab` and `@junco/editor`.
+4. SwiftUI: check the previews on a Mac, then add sheet, tabs and list rows.
+Check the accent and fonts with Tobi before locking them in.

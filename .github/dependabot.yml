@@ -27,6 +27,10 @@ updates:
     directory: /
     schedule:
       interval: monthly
+    # changesets/action publishes to npm; upgrade its major by hand and watch a real release.
+    ignore:
+      - dependency-name: changesets/action
+        update-types: ["version-update:semver-major"]
     groups:
       actions:
         patterns: ["*"]
