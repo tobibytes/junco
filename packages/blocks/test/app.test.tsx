@@ -94,6 +94,22 @@ describe("custom data", () => {
     expect(screen.queryByText("Revenue", { selector: "dt" })).toBeNull();
   });
 
+  it("DashboardPage points View all at customersHref, or hides it with null", () => {
+    const { unmount } = render(<DashboardPage customersHref="/app/customers" />);
+    expect(screen.getByRole("link", { name: "View all" })).toHaveAttribute("href", "/app/customers");
+    unmount();
+    render(<DashboardPage customersHref={null} />);
+    expect(screen.queryByRole("link", { name: "View all" })).toBeNull();
+  });
+
+  it("LogInPage hides Sign up with signUpHref={null}", () => {
+    const { unmount } = render(<LogInPage signUpHref="/signup" />);
+    expect(screen.getByRole("link", { name: "Sign up" })).toHaveAttribute("href", "/signup");
+    unmount();
+    render(<LogInPage signUpHref={null} />);
+    expect(screen.queryByRole("link", { name: "Sign up" })).toBeNull();
+  });
+
   it("UsersPage lists the users it is given", () => {
     const users: AppUser[] = [
       { id: "u1", name: "Tobi Olajide", email: "tobi@junco.dev", role: "Owner", status: "active" },

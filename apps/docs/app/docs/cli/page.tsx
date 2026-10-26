@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "CLI",
-  description: "junco init, add, diff, update and list: copy components into your project and keep them updated without losing your edits.",
+  description: "junco create, init, add, diff, update and list: start an app from a template, copy components into your project and keep them updated without losing your edits.",
 };
 
 export default function CliPage() {
@@ -15,17 +15,19 @@ export default function CliPage() {
       <DocHeader
         eyebrow="Getting started"
         title="CLI"
-        description="Copy components into your project, then keep them updated without losing your edits."
+        description="Start an app from a template, copy components into your project, then keep them updated without losing your edits."
       />
       <div className="mt-10 grid gap-12">
         <Section id="overview" title="Overview">
           <P>
-            The CLI is <C>@junco/cli</C>. Run it with <C>npx</C>, or install it and use the <C>junco</C> command. It needs Tailwind
-            CSS v4 already set up (an <C>@import &quot;tailwindcss&quot;;</C> in your global CSS).
+            The CLI is <C>@junco/cli</C>. Run it with <C>npx</C>, or install it and use the <C>junco</C> command. <C>create</C>{" "}
+            starts a new app; the other commands work in an existing project with Tailwind CSS v4 set up (an{" "}
+            <C>@import &quot;tailwindcss&quot;;</C> in your global CSS).
           </P>
           <CodeBlock
             lang="bash"
-            code={`npx @junco/cli init                 # detect Next/Vite, wire the theme into your CSS, write junco.json
+            code={`npx @junco/cli create my-app --template saas   # a whole app: routes, auth, pages, fake data
+npx @junco/cli init                 # detect Next/Vite, wire the theme into your CSS, write junco.json
 npx @junco/cli add button select    # copies select + field, label, icons, utils; installs npm deps
 npx @junco/cli diff                 # which installed components have upstream updates
 npx @junco/cli diff select          # unified diff: your copy vs upstream
@@ -35,6 +37,7 @@ npx @junco/cli update select        # take upstream if you didn't edit it; other
             caption="Commands"
             head={["Command", "What it does"]}
             rows={[
+              [<C key="0">create &lt;folder&gt;</C>, "Starts a new app from a template (saas, admin) and installs its packages."],
               [<C key="1">init</C>, "Detects your framework, CSS file and @/* alias, wires the Junco theme into your CSS, adds cn() and writes junco.json."],
               [<C key="2">add &lt;name...&gt;</C>, "Copies components and everything they depend on, rewrites imports to your aliases, installs missing npm packages."],
               [<C key="3">diff [name...]</C>, "With names: a unified diff of your copy against upstream. Without: lists components with updates."],
@@ -43,6 +46,38 @@ npx @junco/cli update select        # take upstream if you didn't edit it; other
               [<C key="6">eject</C>, "Not built yet. It will turn an installed (npm) component into a local copy."],
             ]}
           />
+        </Section>
+
+        <Section id="create" title="create">
+          <CodeBlock lang="bash" code={`npx @junco/cli create my-app --template saas
+cd my-app
+npm run dev`} />
+          <P>
+            Writes a complete Vite + React Router app into a new folder, built only from Junco blocks and pages, then installs it
+            with the package manager you ran the command with. Every page runs on realistic fake data, and auth is a stub in{" "}
+            <C>src/lib/auth.tsx</C> you swap for your provider. Each template&apos;s README lists its routes and where to change
+            things.
+          </P>
+          <DataTable
+            caption="Templates"
+            head={["Template", "What you get"]}
+            rows={[
+              [<C key="s">saas</C>, "Landing, pricing, changelog and blog; sign-up, log in and onboarding; then a dashboard, customers and settings (profile, billing, team, API keys, notifications) behind a sign-in."],
+              [<C key="a">admin</C>, "An internal panel: sign-in (no sign-up), an overview dashboard, users with detail pages, settings, and a ⌘K command palette."],
+            ]}
+          />
+          <DataTable
+            head={["Flag", ""]}
+            rows={[
+              [<C key="1">--template, -t &lt;name&gt;</C>, "Which template. Without it you're asked (or, in CI, told the options)."],
+              [<C key="2">--list</C>, "Print the templates and exit."],
+              [<C key="3">--no-install</C>, "Skip installing; print the command instead."],
+            ]}
+          />
+          <Note>
+            The folder must be new or empty. The template&apos;s files come from the registry like components do, and every
+            path is checked before anything is written.
+          </Note>
         </Section>
 
         <Section id="init" title="init">

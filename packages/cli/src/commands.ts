@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, isAbsolute, join, posix, relative, resolve, sep } from "node:path";
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { basename, dirname, isAbsolute, join, posix, relative, resolve, sep } from "node:path";
 import { createInterface } from "node:readline/promises";
 import {
   CONFIG_FILE,
@@ -345,6 +345,91 @@ export async function update(io: Io, names: string[], options: UpdateOptions = {
     );
     throw new CliError("Update finished with conflicts.");
   }
+}
+
+/* create ------------------------------------------------------------------------------- */
+
+export interface CreateOptions {
+  template?: string;
+  /** Print the templates instead of creating anything. */
+  list?: boolean;
+}
+
+/** Files that don't count when checking that the target folder is empty. */
+const IGNORABLE = new Set([".git", ".DS_Store", "Thumbs.db"]);
+
+/** The package manager that ran us (npx, pnpm dlx, yarn dlx, bunx), else npm. */
+export function invokingPackageManager(userAgent = process.env.npm_config_user_agent ?? ""): PackageManager {
+  const name = userAgent.split("/")[0];
+  return name === "pnpm" || name === "yarn" || name === "bun" ? name : "npm";
+}
+
+/** A valid npm package name from a folder name: "My App" -> "my-app". */
+export function packageNameFor(dir: string): string {
+  const name = basename(resolve(dir))
+    .toLowerCase()
+    .replace(/[^a-z0-9._~-]+/g, "-")
+    .replace(/^[._-]+|-+$/g, "");
+  return name || "my-app";
+}
+
+/** Copies an app template (SaaS, Admin, ...) from the registry into a new folder. */
+export async function create(io: Io, dir: string | undefined, options: CreateOptions = {}) {
+  const registry = registryFor(io);
+  if (options.list) {
+    const templates = await registry.templates();
+    const width = Math.max(...templates.map((t) => t.name.length));
+    for (const t of templates) io.out(`${t.name.padEnd(width)}  ${t.description ?? t.title ?? ""}`);
+    return;
+  }
+  if (!dir) throw new CliError("Name the folder to create: junco create my-app --template saas");
+
+  let name = options.template;
+  if (!name) {
+    const templates = await registry.templates();
+    const names = templates.map((t) => t.name);
+    if (!io.interactive) throw new CliError(`Pick a template with --template: ${names.join(", ")}`);
+    name = await ask(io, "Which template?", names, names.includes("saas") ? "saas" : names[0]!);
+  }
+
+  const target = resolve(io.cwd, dir);
+  if (existsSync(target) && readdirSync(target).some((f) => !IGNORABLE.has(f))) {
+    throw new CliError(`${dir} already exists and isn't empty. Pick a new folder name.`);
+  }
+
+  const template = await registry.template(name);
+  // Check every path before writing anything, so a bad template leaves nothing half-written.
+  for (const file of template.files) assertInsideProject(`templates/${name}`, file.path);
+
+  const into: Io = { ...io, cwd: target };
+  mkdirSync(target, { recursive: true });
+  for (const file of template.files) {
+    let content = file.content;
+    if (file.path === "package.json") {
+      const pkg = JSON.parse(content);
+      pkg.name = packageNameFor(dir);
+      content = JSON.stringify(pkg, null, 2) + "\n";
+    }
+    writeFile(into, file.path, content);
+  }
+  io.out(`Created ${dir} from the ${template.title ?? name} template (${template.files.length} files).`);
+
+  const pm = invokingPackageManager();
+  const installCmd = [pm, "install"];
+  let installed = false;
+  if (io.install) {
+    io.out(`Installing dependencies with ${pm}`);
+    const res = spawnSync(installCmd[0]!, installCmd.slice(1), { cwd: target, stdio: "inherit", shell: process.platform === "win32" });
+    installed = res.status === 0;
+    if (!installed) io.err(`${installCmd.join(" ")} failed. Run it yourself in ${dir}.`);
+  }
+  const run = pm === "npm" ? "npm run" : pm;
+  io.out("");
+  io.out("Next:");
+  const folder = relative(io.cwd, target) || ".";
+  io.out(`  cd ${/[\s"'$`\\]/.test(folder) ? JSON.stringify(folder) : folder}`);
+  if (!installed) io.out(`  ${installCmd.join(" ")}`);
+  io.out(`  ${run} dev`);
 }
 
 /* list / eject ------------------------------------------------------------------------- */

@@ -1,0 +1,6 @@
+{
+  "name": "admin",
+  "title": "Admin panel",
+  "description": "An internal admin panel: sign-in, an overview dashboard, users with detail pages, team and API key settings, and a ⌘K command palette.",
+  "pages": ["Log in", "Forgot password", "Overview", "Users", "User detail", "Profile", "Team", "API keys", "Notifications", "404", "500"]
+}

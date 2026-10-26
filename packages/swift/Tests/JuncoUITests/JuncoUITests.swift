@@ -32,6 +32,27 @@ final class JuncoUITests: XCTestCase {
     _ = JuncoField("Email", error: "Required") { TextField("Email", text: .constant("")) }.body
     _ = JuncoBadge("Paid", variant: .success, systemImage: "checkmark").body
     _ = JuncoCard { Text("Hi") }.body
+    _ = JuncoTabs(selection: .constant(1), items: [.init("One", value: 1), .init("Two", value: 2, systemImage: "star")]).body
+    _ = JuncoListRow("Notifications", subtitle: "Email", systemImage: "bell", value: "On") {}.body
+    _ = JuncoListRow("Version", value: "1.0").body
+    _ = JuncoListRow("Dark mode") { Toggle("Dark mode", isOn: .constant(true)).labelsHidden() }.body
+    _ = JuncoSheetPanel(title: "Edit", description: "Details") { Text("Hi") }.body
+    _ = Text("Hi").juncoSheet(isPresented: .constant(false), title: "Edit") { Text("Hi") }
+    _ = Text("Hi").juncoFocusRing(true, cornerRadius: JuncoTokens.Radius.card)
+  }
+
+  func testSwitchThumbStandsOutFromBothTracks() {
+    // Non-text control parts need 3:1. The thumb is `surface` in both modes, like the web.
+    let colors = JuncoTokens.Colors.self
+    for isDark in [false, true] {
+      let thumb = colors.surface.value(isDark: isDark)
+      for track in [colors.primary, colors.borderStrong] {
+        XCTAssertGreaterThanOrEqual(
+          thumb.contrastRatio(with: track.value(isDark: isDark)), JuncoTokens.ContrastPairs.minimumControl,
+          "thumb on \(track.name), \(isDark ? "dark" : "light")"
+        )
+      }
+    }
   }
 
   #if os(macOS)

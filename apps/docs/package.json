@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "npx serve@14 out",
     "typecheck": "next typegen && tsc --noEmit",
+    "test": "vitest run",
     "deploy": "wrangler pages deploy out --project-name junco-docs"
   },
   "dependencies": {
@@ -44,6 +45,7 @@
     "@types/react-dom": "^19.0.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.6.0",
+    "vitest": "^3",
     "wrangler": "^4.0.0"
   }
 }
