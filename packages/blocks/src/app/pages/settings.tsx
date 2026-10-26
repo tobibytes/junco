@@ -44,7 +44,7 @@ import {
 import { fakeApiKeys, fakeInvoices, fakeUsage, type ApiKey, type Invoice, type UsageMeter } from "../fake-data";
 import { CheckIcon, CopyIcon, DownloadIcon, KeyIcon, PlusIcon, UploadIcon } from "../icons";
 import { ConfirmDialog, InviteDialog, type InviteValues } from "../user-blocks";
-import { useUserColumns } from "./users";
+import { useUserColumns, useUserList } from "./users";
 import { fakeUsers, type AppUser, type UserRole } from "../users-data";
 
 /* ------------------------------------------------------------------ layout */
@@ -584,28 +584,25 @@ export function TeamMembersPage({
   tabs,
   className,
 }: TeamMembersPageProps) {
-  const [inner, setInner] = React.useState<AppUser[]>(() => members ?? fakeUsers(8, 9));
-  const list = members ?? inner;
-  const listRef = React.useRef(list);
-  listRef.current = list;
-  const setList = (next: AppUser[]) => {
-    if (members === undefined) setInner(next);
-    onMembersChange?.(next);
-  };
+  const [list, setList, currentList] = useUserList(members, onMembersChange, () => fakeUsers(8, 9));
   const [inviteOpen, setInviteOpen] = React.useState(false);
   const seatInfo = seats ?? { used: list.length, limit: 10 };
 
-  const onRoleChange = React.useCallback((u: AppUser, role: UserRole) => {
-    setList(listRef.current.map((m) => (m.id === u.id ? { ...m, role } : m)));
-    toast.success(`${u.name} is now ${role === "Admin" ? "an" : "a"} ${role}`);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  const onRemove = React.useCallback((u: AppUser) => {
-    const before = listRef.current;
-    setList(before.filter((m) => m.id !== u.id));
-    toast(`${u.name} removed`, { action: { label: "Undo", onClick: () => setList(before) } });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const onRoleChange = React.useCallback(
+    (u: AppUser, role: UserRole) => {
+      setList(currentList().map((m) => (m.id === u.id ? { ...m, role } : m)));
+      toast.success(`${u.name} is now ${role === "Admin" ? "an" : "a"} ${role}`);
+    },
+    [setList, currentList],
+  );
+  const onRemove = React.useCallback(
+    (u: AppUser) => {
+      const before = currentList();
+      setList(before.filter((m) => m.id !== u.id));
+      toast(`${u.name} removed`, { action: { label: "Undo", onClick: () => setList(before) } });
+    },
+    [setList, currentList],
+  );
   const onResend = React.useCallback((u: AppUser) => toast.success("Invite sent again", { description: u.email }), []);
   const columns = useUserColumns({ onRoleChange, onRemove, onResend });
 
@@ -627,7 +624,7 @@ export function TeamMembersPage({
         role: v.role,
         status: "invited" as const,
       })),
-      ...listRef.current,
+      ...currentList(),
     ]);
     toast.success(v.emails.length === 1 ? "Invite sent" : `${v.emails.length} invites sent`);
   };

@@ -22,7 +22,8 @@
         "packages/react/package.json",
         "packages/tokens/src/**",
         "packages/tailwind/src/**",
-        "registry/**"
+        "registry/**",
+        "templates/**"
       ],
       "outputs": [
         "apps/docs/public/r/**",
@@ -51,7 +52,8 @@
         "$TURBO_ROOT$/packages/react/src/**",
         "$TURBO_ROOT$/packages/tokens/src/**",
         "$TURBO_ROOT$/packages/tailwind/src/**",
-        "$TURBO_ROOT$/registry/**"
+        "$TURBO_ROOT$/registry/**",
+        "$TURBO_ROOT$/templates/**"
       ],
       "outputs": []
     },
@@ -65,11 +67,11 @@
         "$TURBO_ROOT$/packages/react/src/**",
         "$TURBO_ROOT$/packages/tokens/src/**",
         "$TURBO_ROOT$/packages/tailwind/src/**",
-        "$TURBO_ROOT$/registry/**"
+        "$TURBO_ROOT$/registry/**",
+        "$TURBO_ROOT$/templates/**"
       ],
       "outputs": []
     },
-    "lint": {},
     "typecheck": {
       "dependsOn": [
         "^build"

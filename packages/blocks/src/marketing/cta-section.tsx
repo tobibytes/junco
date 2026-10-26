@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { Button, cn } from "@junco/react";
 import { BorderBeam, Reveal } from "@junco/motion";
 import { defaultPrimaryAction, defaultSecondaryAction } from "./content";

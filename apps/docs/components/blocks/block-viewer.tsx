@@ -63,6 +63,7 @@ export function BlockViewer({
   // A new src (variant change, reload) carries the current theme in its URL so it paints right
   // the first time; theme changes after that go by message, without reloading the frame.
   const [src, setSrc] = React.useState<string | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `reloadKey` changes to reload the frame
   React.useEffect(() => {
     if (!isMounted) return;
     setLoading(true);

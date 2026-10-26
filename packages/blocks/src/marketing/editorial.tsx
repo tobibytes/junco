@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { Avatar, Badge, cn } from "@junco/react";
 import { Reveal } from "@junco/motion";
 import type { BlogPost, ChangelogItem } from "./content";

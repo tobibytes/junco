@@ -38,14 +38,26 @@ import { fakeSessions, fakeUsers, userRoles, type AppUser, type Session, type Us
 let inviteSeq = 0;
 
 /** Local state for a list of users, so pages work with fake data or as controlled lists. */
-function useUserList(users: AppUser[] | undefined, onUsersChange?: (users: AppUser[]) => void) {
-  const [inner, setInner] = React.useState<AppUser[]>(() => users ?? fakeUsers());
+/**
+ * A user list that's controlled (`users` + `onUsersChange`) or keeps its own state. `set` and
+ * `current` never change identity but always see the latest props, so memoized row actions
+ * don't call a stale `onUsersChange`.
+ */
+export function useUserList(
+  users: AppUser[] | undefined,
+  onUsersChange?: (users: AppUser[]) => void,
+  fallback: () => AppUser[] = () => fakeUsers(),
+) {
+  const [inner, setInner] = React.useState<AppUser[]>(() => users ?? fallback());
   const list = users ?? inner;
-  const set = (next: AppUser[]) => {
-    if (users === undefined) setInner(next);
-    onUsersChange?.(next);
-  };
-  return [list, set] as const;
+  const latest = React.useRef({ list, users, onUsersChange });
+  latest.current = { list, users, onUsersChange };
+  const set = React.useCallback((next: AppUser[]) => {
+    if (latest.current.users === undefined) setInner(next);
+    latest.current.onUsersChange?.(next);
+  }, []);
+  const current = React.useCallback(() => latest.current.list, []);
+  return [list, set, current] as const;
 }
 
 export interface UserActionsProps {
@@ -116,6 +128,7 @@ export function UserActions({ user, userHref, onRoleChange, onResend, onRemove }
 }
 
 export function useUserColumns(actions: Omit<UserActionsProps, "user">): ColumnDef<AppUser>[] {
+  // biome-ignore lint/correctness/useExhaustiveDependencies: callers pass a fresh actions object each render; the columns only change with the callbacks inside it
   return React.useMemo<ColumnDef<AppUser>[]>(
     () => [
       {
@@ -169,7 +182,6 @@ export function useUserColumns(actions: Omit<UserActionsProps, "user">): ColumnD
         cell: ({ row }) => <UserActions user={row.original} {...actions} />,
       },
     ],
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [actions.userHref, actions.onRoleChange, actions.onRemove, actions.onResend],
   );
 }
@@ -222,19 +234,16 @@ export function UsersPage({
   className,
 }: UsersPageProps) {
   const now = usePageNow(nowProp, users !== undefined);
-  const [list, setList] = useUserList(users, onUsersChange);
+  const [list, setList, currentList] = useUserList(users, onUsersChange);
   const [roleFilter, setRoleFilter] = React.useState<UserRole | "all">("all");
   const [inviteOpen, setInviteOpen] = React.useState(false);
-  const listRef = React.useRef(list);
-  listRef.current = list;
 
   const onRoleChange = React.useCallback(
     (user: AppUser, role: UserRole) => {
-      setList(listRef.current.map((u) => (u.id === user.id ? { ...u, role } : u)));
+      setList(currentList().map((u) => (u.id === user.id ? { ...u, role } : u)));
       toast.success(`${user.name} is now ${role === "Admin" ? "an" : "a"} ${role}`);
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [setList, currentList],
   );
   const onResend = React.useCallback(
     (user: AppUser) => toast.success("Invite sent again", { description: user.email }),
@@ -242,14 +251,13 @@ export function UsersPage({
   );
   const onRemove = React.useCallback(
     (user: AppUser) => {
-      const before = listRef.current;
+      const before = currentList();
       setList(before.filter((u) => u.id !== user.id));
       toast(user.status === "invited" ? "Invite revoked" : `${user.name} removed`, {
         action: { label: "Undo", onClick: () => setList(before) },
       });
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    [setList, currentList],
   );
 
   const columns = useUserColumns({ userHref: userHref ?? undefined, onRoleChange, onResend, onRemove });
@@ -273,7 +281,7 @@ export function UsersPage({
       status: "invited",
       joinedAt,
     }));
-    setList([...added, ...listRef.current]);
+    setList([...added, ...currentList()]);
     toast.success(values.emails.length === 1 ? "Invite sent" : `${values.emails.length} invites sent`, {
       description: values.emails.join(", "),
     });

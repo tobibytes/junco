@@ -14,6 +14,7 @@ export function MobileNav() {
   const pathname = usePathname();
   const close = React.useCallback(() => ref.current?.close(), []);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: close the menu on every page change
   React.useEffect(() => close(), [pathname, close]);
 
   return (
@@ -28,6 +29,7 @@ export function MobileNav() {
       >
         <MenuIcon />
       </Button>
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: clicking the backdrop closes it; Escape does the same from the keyboard */}
       <dialog
         ref={ref}
         aria-label="Menu"

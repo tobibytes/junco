@@ -296,7 +296,7 @@ const renders: Record<string, Render> = {
         providers={defaultAuthProviders}
         footer={
           <>
-            No account? <a href="#" className="font-medium text-foreground underline underline-offset-4">Sign up</a>
+            No account? <a href="#/signup" className="font-medium text-foreground underline underline-offset-4">Sign up</a>
           </>
         }
         className="w-full max-w-sm"

@@ -1,7 +1,7 @@
 // Generates the registry JSON (public/r) and llms.txt before a docs build, once the
 // `registry:build` script exists at the repo root. Until then this is a no-op.
 import { execSync } from "node:child_process";
-import { cpSync, existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
+import { copyFileSync, cpSync, existsSync, readdirSync, readFileSync, rmSync } from "node:fs";
 
 const root = JSON.parse(readFileSync(new URL("../../../package.json", import.meta.url), "utf8"));
 if (root.scripts?.["registry:build"]) {
@@ -29,3 +29,22 @@ for (const dir of readdirSync(examplesDir)) {
   copied++;
 }
 console.log(`docs prebuild: copied ${copied} live demos to public/demos`);
+
+// Template demos: build each app template again under its demo path (/demos/templates/<name>/).
+// The templates use browser routing, so 404.html is a copy of index.html: Cloudflare Pages serves
+// the nearest 404.html for unknown paths, which lets deep links and reloads load the app.
+const templatesDir = new URL("../../../templates/", import.meta.url);
+let built = 0;
+for (const dir of readdirSync(templatesDir)) {
+  const meta = new URL(`${dir}/template.json`, templatesDir);
+  if (!existsSync(meta)) continue;
+  const { name } = JSON.parse(readFileSync(meta, "utf8"));
+  const out = new URL(`templates/${name}/`, demosDir);
+  execSync(`pnpm exec vite build --base=/demos/templates/${name}/ --outDir ${JSON.stringify(out.pathname)} --emptyOutDir --logLevel warn`, {
+    cwd: new URL(`${dir}/`, templatesDir),
+    stdio: "inherit",
+  });
+  copyFileSync(new URL("index.html", out), new URL("404.html", out));
+  built++;
+}
+console.log(`docs prebuild: built ${built} template demos into public/demos/templates`);

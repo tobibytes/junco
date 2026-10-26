@@ -125,6 +125,6 @@ export function JuncoCanvas({
 /** Redraws a paused (on-demand) canvas when any dependency changes, e.g. theme colors. */
 export function useInvalidateOn(deps: React.DependencyList) {
   const invalidate = useThree((s) => s.invalidate);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // biome-ignore lint/correctness/useExhaustiveDependencies: callers pass the dependency list
   React.useEffect(() => invalidate(), deps);
 }

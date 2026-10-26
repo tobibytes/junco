@@ -1,11 +1,12 @@
 import { parseArgs } from "node:util";
-import { add, CliError, diff, eject, init, list, update, type Io } from "./commands";
+import { add, CliError, create, diff, eject, init, list, update, type Io } from "./commands";
 
 export const VERSION = "0.0.0";
 
-const HELP = `junco: copy Junco components into your project and keep them updated.
+const HELP = `junco: start apps from Junco templates, copy Junco components into your project, and keep them updated.
 
 Usage
+  junco create <folder> --template <name>   start a new app (saas, admin; --list shows all)
   junco init [--css package|inline] [--css-file <path>] [--yes] [--force]
   junco add <name...> [--overwrite]
   junco diff [name...]           show upstream changes (no name: list items with updates)
@@ -21,30 +22,36 @@ Options
   -v, --version          show the version
 `;
 
+function parseCli(argv: string[]) {
+  return parseArgs({
+    args: argv,
+    allowPositionals: true,
+    options: {
+      registry: { type: "string" },
+      cwd: { type: "string" },
+      css: { type: "string" },
+      "css-file": { type: "string" },
+      "no-install": { type: "boolean" },
+      yes: { type: "boolean", short: "y" },
+      force: { type: "boolean", short: "f" },
+      overwrite: { type: "boolean", short: "o" },
+      resolved: { type: "boolean" },
+      all: { type: "boolean" },
+      installed: { type: "boolean" },
+      template: { type: "string", short: "t" },
+      list: { type: "boolean" },
+      help: { type: "boolean", short: "h" },
+      version: { type: "boolean", short: "v" },
+    },
+  });
+}
+
 export async function run(argv: string[], io: Partial<Io> = {}): Promise<number> {
   const out = io.out ?? ((line: string) => console.log(line));
   const err = io.err ?? ((line: string) => console.error(line));
-  let parsed;
+  let parsed: ReturnType<typeof parseCli>;
   try {
-    parsed = parseArgs({
-      args: argv,
-      allowPositionals: true,
-      options: {
-        registry: { type: "string" },
-        cwd: { type: "string" },
-        css: { type: "string" },
-        "css-file": { type: "string" },
-        "no-install": { type: "boolean" },
-        yes: { type: "boolean", short: "y" },
-        force: { type: "boolean", short: "f" },
-        overwrite: { type: "boolean", short: "o" },
-        resolved: { type: "boolean" },
-        all: { type: "boolean" },
-        installed: { type: "boolean" },
-        help: { type: "boolean", short: "h" },
-        version: { type: "boolean", short: "v" },
-      },
-    });
+    parsed = parseCli(argv);
   } catch (e) {
     err((e as Error).message);
     err("Run `junco --help` for usage.");
@@ -73,6 +80,9 @@ export async function run(argv: string[], io: Partial<Io> = {}): Promise<number>
 
   try {
     switch (command) {
+      case "create":
+        await create(ctx, names[0], { template: values.template, list: values.list });
+        break;
       case "init": {
         const css = values.css;
         if (css !== undefined && css !== "package" && css !== "inline") throw new CliError("--css must be package or inline");

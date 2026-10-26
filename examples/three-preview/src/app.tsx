@@ -8,7 +8,7 @@ function Segmented<T extends string>({ label, options, value, onChange }: { labe
   return (
     <div role="radiogroup" aria-label={label} className="flex rounded-control border border-border bg-surface p-0.5">
       {options.map((o) => (
-        <button
+        <button type="button"
           key={o}
           role="radio"
           aria-checked={value === o}

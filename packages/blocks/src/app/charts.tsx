@@ -138,7 +138,7 @@ export function AreaChart({
           onPointerMove={onMove}
           onPointerLeave={() => setActive(null)}
         >
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full overflow-visible">
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden className="absolute inset-0 size-full overflow-visible">
             <defs>
               <linearGradient id={`fill-${id}`} x1="0" x2="0" y1="0" y2="1">
                 <stop offset="0%" stopColor="currentColor" stopOpacity={0.22} />

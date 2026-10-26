@@ -143,7 +143,7 @@ describe("Stat", () => {
 
 describe("EmptyState", () => {
   it("renders title, description and actions", () => {
-    render(<EmptyState title="No projects" description="Create one to start." actions={<button>New project</button>} />);
+    render(<EmptyState title="No projects" description="Create one to start." actions={<button type="button">New project</button>} />);
     expect(screen.getByRole("heading", { name: "No projects" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "New project" })).toBeInTheDocument();
   });

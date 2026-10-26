@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@junco/react";
 import { categoryById, usd, type CategoryId } from "./data";
 import { categoryIcon } from "./icons";

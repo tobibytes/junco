@@ -1,5 +1,11 @@
 # junco
 
+## 0.2.2
+
+### Patch Changes
+
+- 297c097: Sparkline is hidden from screen readers by default, since it's decorative. Pass `aria-hidden={false}` with a `role="img"` and `aria-label` to expose it.
+
 ## 0.2.1
 
 ### Patch Changes

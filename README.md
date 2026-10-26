@@ -31,6 +31,11 @@ Every level reads the same CSS variables, so you can mix them in one app and re-
 ```
 
 ```bash
+# Start a whole app (routes, auth, pages, fake data): saas or admin
+npx @junco/cli create my-app --template saas
+```
+
+```bash
 # 3. Copy-in, like shadcn/ui: the source lands in your repo, and stays updatable
 npx @junco/cli add dialog          # or: npx shadcn add https://junco.madebytobi.com/r/dialog.json
 npx @junco/cli diff dialog         # what changed upstream since you copied it

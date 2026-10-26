@@ -13,7 +13,7 @@
     "dev": "turbo run dev --filter=docs...",
     "build": "turbo run build",
     "test": "turbo run test",
-    "lint": "turbo run lint",
+    "lint": "biome lint .",
     "typecheck": "turbo run typecheck",
     "css:example": "tailwindcss -i examples/plain-html/input.css -o examples/plain-html/junco.css",
     "registry:build": "node scripts/build-registry.ts",
@@ -25,6 +25,7 @@
     "swift:tokens": "node scripts/build-swift-tokens.ts"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.15",
     "@changesets/cli": "^2.27.0",
     "@tailwindcss/cli": "4",
     "tailwindcss": "4",

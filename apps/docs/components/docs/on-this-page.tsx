@@ -16,6 +16,7 @@ export function OnThisPage() {
   const [headings, setHeadings] = React.useState<Heading[]>([]);
   const [active, setActive] = React.useState<string>("");
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: read the headings again on every page change
   React.useEffect(() => {
     const root = document.getElementById("content");
     if (!root) return;

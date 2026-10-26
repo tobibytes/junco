@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { Button, Icon } from "../src";
 
 const Search = React.forwardRef<SVGSVGElement, React.SVGProps<SVGSVGElement>>((props, ref) => (
+  // biome-ignore lint/a11y/noSvgWithoutTitle: a stand-in for an icon library; the test checks what Icon adds
   <svg ref={ref} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} {...props}>
     <circle cx="11" cy="11" r="8" />
   </svg>

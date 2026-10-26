@@ -22,7 +22,7 @@ export function useMergedRef<T>(...refs: Array<React.Ref<T> | undefined>): React
         else if (ref) (ref as React.MutableRefObject<T | null>).current = value;
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // biome-ignore lint/correctness/useExhaustiveDependencies: the refs are the dependency list
     refs,
   );
 }

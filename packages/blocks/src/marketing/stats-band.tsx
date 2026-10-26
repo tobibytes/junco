@@ -75,9 +75,9 @@ export function IntegrationBeams({
   const container = React.useRef<HTMLDivElement>(null);
   const hubRef = React.useRef<HTMLDivElement>(null);
   const outRef = React.useRef<HTMLDivElement>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: one ref per integration, so new refs only when the count changes
   const refs = React.useMemo(
     () => integrations.map(() => React.createRef<HTMLDivElement>()),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [integrations.length],
   );
 

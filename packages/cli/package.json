@@ -1,6 +1,6 @@
 {
   "name": "@junco/cli",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Junco CLI: copy components into your project and keep them updated (init, add, diff, update, list)",
   "license": "MIT",
   "author": "Oluwatobi Olajide",

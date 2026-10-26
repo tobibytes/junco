@@ -141,7 +141,7 @@ export function Sparkline({ data, isFilled = true, className, ...props }: Sparkl
   const points = data.map((d, i) => [(i / (data.length - 1)) * 100, 28 - ((d - min) / range) * 26] as const);
   const line = points.map(([x, y], i) => `${i ? "L" : "M"}${x.toFixed(2)} ${y.toFixed(2)}`).join(" ");
   return (
-    <svg viewBox="0 0 100 30" preserveAspectRatio="none" className={cn("size-full overflow-visible", className)} {...props}>
+    <svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden className={cn("size-full overflow-visible", className)} {...props}>
       {isFilled && (
         <>
           <defs>

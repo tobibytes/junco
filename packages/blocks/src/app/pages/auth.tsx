@@ -159,7 +159,8 @@ export type LogInValues = z.infer<typeof logInSchema>;
 export interface LogInPageProps extends AuthPageBase {
   /** Throw an Error to show its message on the form. */
   onSubmit?: (values: LogInValues) => void | Promise<void>;
-  signUpHref?: string;
+  /** Where "Sign up" goes. null hides it, e.g. for invite-only apps. */
+  signUpHref?: string | null;
   forgotPasswordHref?: string;
   defaultEmail?: string;
 }
@@ -196,12 +197,14 @@ export function LogInPage({
           onSelect: p.onSelect ?? (() => toast(`Continuing with ${p.label}…`)),
         }))}
         footer={
-          <>
-            No account?{" "}
-            <a href={signUpHref} className={linkClass}>
-              Sign up
-            </a>
-          </>
+          signUpHref === null ? undefined : (
+            <>
+              No account?{" "}
+              <a href={signUpHref} className={linkClass}>
+                Sign up
+              </a>
+            </>
+          )
         }
       >
         <Form

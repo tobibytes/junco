@@ -20,6 +20,7 @@ The full product plan is in `docs/PLAN.md`. The phase checklists are in `docs/RO
 - Radix primitives for behavior (dialogs, menus, tabs, popovers). Keep behavior behind thin wrappers so a switch to Base UI stays possible (see DECISIONS.md)
 - tsup to build packages, Changesets for versions and publishing
 - Vitest + Testing Library for unit tests, Playwright for visual and accessibility checks (axe)
+- Biome for linting (`biome.jsonc`, lint only, no formatter). Suppress a rule with `// biome-ignore lint/<group>/<rule>: <reason>`, never without a reason
 - Docs site: Next.js (App Router) in `apps/docs`, deployed on Cloudflare
 
 ## Repo layout
@@ -74,7 +75,7 @@ pnpm install
 pnpm dev          # docs site + package watch
 pnpm build        # build every package
 pnpm test         # vitest
-pnpm lint
+pnpm lint         # biome
 pnpm changeset    # record a version bump
 ```
 
@@ -82,19 +83,20 @@ pnpm changeset    # record a version bump
 
 - Live at https://junco.madebytobi.com (Cloudflare Pages, deploys on every push to `main`; PRs get `pr-<n>.junco-docs.pages.dev` previews).
 - All 8 packages are on npm under `@junco/*` (the unscoped `junco` name is blocked by npm). Releases: add a changeset, merge to `main`, then merge the "chore: version packages" PR; the Release workflow publishes with npm Trusted Publishing (no token) and provenance. See `docs/releasing.md`.
-- `pnpm install && pnpm build && pnpm test && pnpm typecheck` pass. Node 24 in CI.
+- `pnpm install && pnpm lint && pnpm build && pnpm test && pnpm typecheck` pass. Node 24 in CI.
 - **Tokens**: `packages/tokens/src/tokens.css` is the source of truth. It also feeds the TS object, W3C JSON, and the Swift files (`pnpm swift:tokens`; CI fails if they drift). `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` (4.5:1 text, 3:1 controls) in both modes. The blue `--primary` is still a placeholder.
 - **Components** (`packages/react`, 30+): primitives, forms (RHF + Zod), overlays, data table, toast, command, Icon. Radix sits behind `lib/primitives.ts`. Every component has a test, a docs page in `apps/docs/content/components/<slug>.tsx` (+ one line in `index.ts`), and is auto-discovered by the registry build. `@junco/react/server` holds the server-safe exports (`pnpm check:dist` guards it).
 - **Blocks and pages**: 40 entries in `apps/docs/content/blocks/catalog.ts`, 21 full pages, all with typed data, fake-data fallbacks, `slots` and `variant`s.
-- **Registry + CLI + MCP**: `pnpm registry:build` writes shadcn-compatible JSON and llms.txt to `apps/docs/public`. `@junco/cli` has init, add, list, diff, update, eject. `@junco/mcp` reads the public registry.
-- **Swift**: SwiftUI code only compiles on Apple platforms; `.github/workflows/swift.yml` builds and tests it on macOS. Previews in `packages/swift/Sources/JuncoUI/Previews.swift`.
+- **Registry + CLI + MCP**: `pnpm registry:build` writes shadcn-compatible JSON and llms.txt to `apps/docs/public`, plus `r/templates/` for app templates. `@junco/cli` has create, init, add, list, diff, update, eject. `@junco/mcp` reads the public registry.
+- **Templates** (`templates/saas`, `templates/admin`): Vite + React Router apps built only from blocks and pages, with fake auth (`src/lib/auth.tsx`) and lazy-loaded routes. Workspace packages, so CI builds and type-checks them; the registry build turns `workspace:*` into published versions for `junco create`. Each needs a `template.json`.
+- **Swift**: SwiftUI code only compiles on Apple platforms; `.github/workflows/swift.yml` builds and tests it on macOS. JuncoUI has button, text field, switch, field, badge, card, sheet, segmented tabs, list rows and a shared focus ring (`.juncoFocusRing`). Previews in `packages/swift/Sources/JuncoUI/Previews.swift`; `GallerySnapshotTests` renders them to PNGs on a simulator (see `packages/swift/README.md`).
 - Commits are authored as `Oluwatobi Olajide <olola73@morgan.edu>`; no AI trailers.
 
 ## Where to start
 
 The open work is in `docs/ROADMAP.md`. In order:
-1. Templates (SaaS, Admin) and `junco create my-app --template saas`.
-2. Phase 4: move one real project onto Junco, fix what gets in the way, tag v1.0.
-3. Phase 3b: `@junco/collab` and `@junco/editor`.
-4. SwiftUI: check the previews on a Mac, then add sheet, tabs and list rows.
+1. Phase 4: move one real project onto Junco, fix what gets in the way, tag v1.0.
+2. Phase 3b: `@junco/collab` and `@junco/editor`.
+3. More templates (CRM, Store, ...) when a real project needs them.
+4. SwiftUI: more components as native apps need them.
 Check the accent and fonts with Tobi before locking them in.

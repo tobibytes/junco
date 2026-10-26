@@ -48,7 +48,7 @@ function Segmented<T extends string>({
   return (
     <div role="radiogroup" aria-label={label} className="flex rounded-control border border-border bg-surface p-0.5">
       {options.map((option) => (
-        <button
+        <button type="button"
           key={option}
           role="radio"
           aria-checked={value === option}
@@ -119,7 +119,7 @@ export function App() {
           <Button variant="ghost">Ghost</Button>
           <Button variant="danger">Delete</Button>
           <Button asChild variant="ghost" size="sm">
-            <a href="https://github.com">A link</a>
+            <a href="https://github.com">GitHub</a>
           </Button>
         </div>
       </Section>
