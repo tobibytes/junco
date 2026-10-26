@@ -1,0 +1,38 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": {
+    "includes": ["**", "!**/dist", "!**/.next", "!**/out", "!apps/docs/public", "!**/*.css", "!**/*.html"]
+  },
+  "formatter": { "enabled": false },
+  "assist": { "enabled": false },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": {
+        "noNonNullAssertion": "off",
+        "useTemplate": "off"
+      },
+      "complexity": {
+        "useArrowFunction": "off",
+        "useLiteralKeys": "off"
+      },
+      "performance": {
+        // Next.js advice; the docs are a static export with unoptimized images.
+        "noImgElement": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off"
+      },
+      "a11y": {
+        // Our role="radio"/"group" patterns are deliberate; axe checks them in the tests.
+        "useSemanticElements": "off",
+        // Scrollable code blocks and tables need tabIndex={0} so keyboards can scroll them (axe requires it).
+        "noNoninteractiveTabindex": "off",
+        // Flags roles set conditionally (role={x ? "status" : undefined}); axe checks real ARIA use.
+        "useAriaPropsSupportedByRole": "off"
+      }
+    }
+  }
+}

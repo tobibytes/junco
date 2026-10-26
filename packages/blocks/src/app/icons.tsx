@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 
 /** Icons used by the app blocks. Paths from Lucide (ISC). Size them with className. */
 export type IconProps = React.SVGProps<SVGSVGElement>;

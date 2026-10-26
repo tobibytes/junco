@@ -35,6 +35,7 @@ export const Typewriter = React.forwardRef<HTMLSpanElement, TypewriterProps>(
 
     // Start from an empty first word once we know motion is on.
     const ready = React.useRef(false);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: `key` stands for the words, so the effect reruns when they change, not on every new array
     React.useEffect(() => {
       if (scale > 0 && !ready.current) {
         ready.current = true;
@@ -44,9 +45,9 @@ export const Typewriter = React.forwardRef<HTMLSpanElement, TypewriterProps>(
         ready.current = false;
         setState({ word: 0, length: list[0]?.length ?? 0, deleting: false });
       }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [scale, key]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: `key` stands for the words, so the effect reruns when they change, not on every new array
     React.useEffect(() => {
       if (scale === 0 || !inView || !ready.current) return;
       const current = list[state.word] ?? "";
@@ -63,7 +64,6 @@ export const Typewriter = React.forwardRef<HTMLSpanElement, TypewriterProps>(
       } else next = { word: (state.word + 1) % list.length, length: 0, deleting: false };
       const t = window.setTimeout(() => setState(next), delay);
       return () => window.clearTimeout(t);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state, scale, inView, speed, pause, shouldLoop, key]);
 
     const text = (list[state.word] ?? "").slice(0, state.length);

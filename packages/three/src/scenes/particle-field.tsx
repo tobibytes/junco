@@ -76,7 +76,10 @@ function Field({ count, size, speed, colors, parallax }: Required<Omit<ParticleF
     const pos = new Float32Array(n * 3);
     const seed = new Float32Array(n);
     let s = 1;
-    const rand = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+    const rand = () => {
+      s = (s * 16807) % 2147483647;
+      return s / 2147483647;
+    };
     for (let i = 0; i < n; i++) {
       pos[i * 3] = (rand() - 0.5) * 16;
       pos[i * 3 + 1] = (rand() - 0.5) * 9;
@@ -90,6 +93,7 @@ function Field({ count, size, speed, colors, parallax }: Required<Omit<ParticleF
   const bg = theme["--background"]!.rgb;
   const isDark = 0.2126 * bg[0] + 0.7152 * bg[1] + 0.0722 * bg[2] < 0.2;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: created once; the values are updated in place every render
   const uniforms = React.useMemo(
     () => ({
       uTime: { value: 0 },
@@ -99,7 +103,6 @@ function Field({ count, size, speed, colors, parallax }: Required<Omit<ParticleF
       uColorB: { value: new Color() },
       uOpacity: { value: 1 },
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
   uniforms.uSize.value = size;

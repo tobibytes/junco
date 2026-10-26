@@ -2,7 +2,7 @@ import { act, fireEvent, render, screen, waitFor, within } from "@testing-librar
 import userEvent from "@testing-library/user-event";
 import axe from "axe-core";
 import { Toaster } from "@junco/react";
-import * as React from "react";
+import type * as React from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   ApiKeysPage,
@@ -23,6 +23,7 @@ import {
   UsersPage,
   type AppUser,
 } from "../src/app";
+import { fakeUsers } from "../src/app/users-data";
 
 // Pages with fake data, one entry per page and variant. Used by the smoke and axe tests.
 const pages: Array<[string, () => React.ReactElement, RegExp]> = [
@@ -286,6 +287,19 @@ describe("UsersPage", () => {
     await waitFor(() => expect(screen.getByText("23 people in this workspace.")).toBeInTheDocument());
     await userEvent.click(await screen.findByRole("button", { name: "Undo" }));
     await waitFor(() => expect(screen.getByText("24 people in this workspace.")).toBeInTheDocument());
+  });
+
+  it("calls the latest onUsersChange, not the one from the first render", async () => {
+    const first = vi.fn();
+    const latest = vi.fn();
+    const users = fakeUsers(3);
+    const { rerender } = render(<UsersPage users={users} onUsersChange={first} />);
+    rerender(<UsersPage users={users} onUsersChange={latest} />);
+    await userEvent.click(screen.getAllByRole("button", { name: /^Actions for / })[1]!);
+    await userEvent.click(await screen.findByRole("menuitem", { name: "Remove from workspace" }));
+    await userEvent.click(within(await screen.findByRole("alertdialog")).getByRole("button", { name: "Remove" }));
+    await waitFor(() => expect(latest).toHaveBeenCalledWith(users.filter((u) => u !== users[1])));
+    expect(first).not.toHaveBeenCalled();
   });
 
   it("filters by role", async () => {

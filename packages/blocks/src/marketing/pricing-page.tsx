@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { renderSlot, type Slots } from "../lib/slots";
 import { defaultComparison, type ComparisonGroup, type FaqItem, type PricingPlan } from "./content";
 import { CtaSection, type CtaSectionProps } from "./cta-section";

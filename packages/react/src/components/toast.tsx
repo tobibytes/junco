@@ -411,9 +411,11 @@ function ToastItem({
 
   // Auto-close, pausing while the stack is hovered or focused, or the tab is hidden.
   const remaining = React.useRef(0);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `t.version` restarts the timer when the same toast is updated
   React.useEffect(() => {
     remaining.current = t.duration ?? duration;
   }, [t.version, t.duration, duration]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `t.version` restarts the timer when the same toast is updated
   React.useEffect(() => {
     if (t.type === "loading" || t.dismissed || paused || documentHidden) return;
     const ms = remaining.current;

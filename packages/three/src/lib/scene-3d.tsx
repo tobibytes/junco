@@ -77,7 +77,6 @@ class SceneErrorBoundary extends React.Component<{ fallback: React.ReactNode; ch
 }
 
 type Loader<P> = () => Promise<{ default: React.ComponentType<P> }>;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyComponent = React.ComponentType<any>;
 const lazyCache = new WeakMap<() => Promise<{ default: AnyComponent }>, React.LazyExoticComponent<AnyComponent>>();
 

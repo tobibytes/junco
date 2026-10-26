@@ -10,6 +10,7 @@ function App() {
   const route = useHashRoute();
   return (
     <>
+      {/* biome-ignore lint/a11y/useValidAnchor: a skip link; onClick only moves focus to the target */}
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-toast focus:rounded-control focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"

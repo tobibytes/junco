@@ -60,6 +60,7 @@ class ModelErrorBoundary extends React.Component<{ onError: () => void; children
 
 function Model({ src, onLoaded }: { src: string; onLoaded: () => void }) {
   const { scene } = useGLTF(src);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new scene means a model finished loading
   React.useEffect(() => onLoaded(), [scene, onLoaded]);
   return <primitive object={scene} />;
 }
@@ -190,6 +191,7 @@ export function ModelViewer({
   const [status, setStatus] = React.useState<"loading" | "ready" | "error">("loading");
   const [openId, setOpenIdState] = React.useState<string | null>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: a new src starts a new load
   React.useEffect(() => setStatus("loading"), [src]);
 
   const setOpenId = React.useCallback(

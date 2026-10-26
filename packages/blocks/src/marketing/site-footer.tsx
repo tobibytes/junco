@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@junco/react";
 import { defaultBrand, defaultFooterColumns, type FooterColumn } from "./content";
 import { BrandMark, Container, type Brand } from "./layout";

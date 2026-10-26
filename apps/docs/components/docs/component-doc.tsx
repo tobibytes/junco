@@ -185,9 +185,9 @@ function ControlInput({
   if (control.type === "select") {
     return (
       <div className="grid gap-1.5">
-        <label id={`${id}-label`} className="font-mono text-xs text-muted-foreground">
+        <span id={`${id}-label`} className="font-mono text-xs text-muted-foreground">
           {label}
-        </label>
+        </span>
         <Select value={String(value)} onValueChange={onChange}>
           <SelectTrigger size="sm" aria-labelledby={`${id}-label`}>
             <SelectValue />

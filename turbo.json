@@ -69,7 +69,6 @@
       ],
       "outputs": []
     },
-    "lint": {},
     "typecheck": {
       "dependsOn": [
         "^build"

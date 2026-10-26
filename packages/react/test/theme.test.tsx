@@ -8,9 +8,9 @@ function Probe() {
   return (
     <div>
       <span data-testid="state">{`${theme}/${resolvedTheme}/${motion}`}</span>
-      <button onClick={() => setTheme("dark")}>dark</button>
-      <button onClick={() => setTheme("light")}>light</button>
-      <button onClick={() => setMotion("off")}>motion off</button>
+      <button type="button" onClick={() => setTheme("dark")}>dark</button>
+      <button type="button" onClick={() => setTheme("light")}>light</button>
+      <button type="button" onClick={() => setMotion("off")}>motion off</button>
     </div>
   );
 }
