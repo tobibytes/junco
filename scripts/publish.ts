@@ -8,8 +8,9 @@
  * package that already exists.
  *
  * Each package is packed with pnpm (which rewrites `workspace:*` ranges to real versions) and the
- * tarball is published with npm, which handles OIDC. Prints "New tag:" lines for changesets/action
- * (it creates and pushes the git tag and GitHub Release for each one).
+ * tarball is published with npm, which handles OIDC. In CI it creates a git tag for each version
+ * and prints a "New tag:" line; changesets/action pushes those tags and makes a GitHub Release for
+ * each (it doesn't create the tags itself when the publish command is custom).
  */
 import { spawnSync, type SpawnSyncOptions } from "node:child_process";
 import { mkdtempSync, readdirSync, readFileSync } from "node:fs";
@@ -30,6 +31,12 @@ function run(cmd: string, args: string[], opts: SpawnSyncOptions = {}) {
 function isPublished(name: string, version: string) {
   const r = spawnSync("npm", ["view", `${name}@${version}`, "version"], { encoding: "utf8" });
   return r.status === 0 && r.stdout.trim() === version;
+}
+
+/** Creates the release tag at HEAD unless it already exists (a rerun after a partial publish). */
+function tag(name: string) {
+  const exists = spawnSync("git", ["rev-parse", "-q", "--verify", `refs/tags/${name}`], { cwd: root }).status === 0;
+  if (!exists) run("git", ["tag", name], { cwd: root });
 }
 
 const packages = readdirSync(join(root, "packages"))
@@ -72,6 +79,7 @@ for (const p of pending) {
       continue;
     }
     if (r.status !== 0) throw new Error(`npm ${args.join(" ")} failed (exit ${r.status})`);
+    if (inCI) tag(`${p.name}@${p.version}`);
     console.log(`New tag: ${p.name}@${p.version}`);
   } catch (error) {
     console.error(`::error title=Publish failed::${p.name}@${p.version}: ${(error as Error).message}`);
