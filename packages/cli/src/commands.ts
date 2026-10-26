@@ -17,7 +17,7 @@ import {
 } from "./config";
 import { unifiedDiff } from "./diff";
 import { readPackageJson, sha, toPosix } from "./fs-utils";
-import { DEFAULT_REGISTRY, Registry, type RegistryItem } from "./registry";
+import { DEFAULT_REGISTRY, Registry, type PageSummary, type RegistryItem } from "./registry";
 import { destination, rewriteImports } from "./transform";
 
 export interface Io {
@@ -159,6 +159,102 @@ export async function add(io: Io, names: string[], options: AddOptions = {}) {
   install(io, deps);
   const asked = names.join(", ");
   io.out(`Added ${asked}${items.length > names.length ? ` (with ${items.length - names.length} dependencies)` : ""}.`);
+}
+
+/* add page ---------------------------------------------------------------------------- */
+
+export interface AddPageOptions {
+  variant?: string;
+  overwrite?: boolean;
+}
+
+const pascal = (name: string) =>
+  name
+    .split("-")
+    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+    .join("");
+
+/** The page index is registry content, so it's checked before any of it lands in code. */
+function assertSafePage(page: PageSummary) {
+  const ok =
+    /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(page.name) &&
+    /^[A-Z][A-Za-z0-9]*$/.test(page.component) &&
+    /^@junco\/blocks(?:\/[a-z]+)?$/.test(page.importFrom) &&
+    page.variants.length > 0 &&
+    page.variants.every((v) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v));
+  if (!ok) throw new CliError(`The registry's entry for page "${page.name}" doesn't look right. Nothing was written.`);
+}
+
+export function pageSource(page: PageSummary, variant: string): string {
+  const prop = page.variants.length > 1 ? ` variant="${variant}"` : "";
+  const variants = page.variants.length > 1 ? ` Variants: ${page.variants.join(", ")}.` : "";
+  return `import { ${page.component} } from "${page.importFrom}";
+
+/**
+ * ${page.title}, from Junco. Pass your data as props; anything you leave out shows realistic fake
+ * data.${variants}${page.docs ? `\n * Props, slots and examples: ${page.docs}` : ""}
+ */
+export function ${pascal(page.name)}() {
+  return <${page.component}${prop} />;
+}
+`;
+}
+
+/**
+ * Tailwind only generates classes it sees, so the stylesheet needs `@source` lines for the
+ * installed packages' built files. Returns the new CSS, or undefined when nothing was missing.
+ */
+export function withSources(css: string, cssFile: string, packages: string[]): string | undefined {
+  const missing = packages.filter((p) => !css.includes(`${p}/dist`));
+  if (!missing.length) return undefined;
+  const lines = missing.map((p) => `@source "${toPosix(relative(dirname(cssFile), join("node_modules", p, "dist")))}";`);
+  const block = `\n/* Tailwind needs to see the classes Junco's components and blocks use. */\n${lines.join("\n")}\n`;
+  const imports = [...css.matchAll(/^@import[^\n]*\n?/gm)];
+  const last = imports.at(-1);
+  if (!last) return `${block.trimStart()}\n${css}`;
+  const at = last.index + last[0].length;
+  return `${css.slice(0, at)}${css.slice(0, at).endsWith("\n") ? "" : "\n"}${block}${css.slice(at)}`;
+}
+
+export async function addPage(io: Io, name: string | undefined, options: AddPageOptions = {}) {
+  const config = requireConfig(io);
+  const { pages, dependencies } = await registryFor(io, config).pages();
+  const names = pages.map((p) => p.name).join(", ");
+  if (!name) throw new CliError(`Name a page: junco add page dashboard\nPages: ${names}`);
+  const page = pages.find((p) => p.name === name || p.slug === name);
+  if (!page) throw new CliError(`Unknown page "${name}".\nPages: ${names}`);
+  assertSafePage(page);
+  const variant = options.variant ?? page.variants[0]!;
+  if (!page.variants.includes(variant)) {
+    throw new CliError(`${page.title} has no "${variant}" variant. Pick one of: ${page.variants.join(", ")}`);
+  }
+  const deps = dependencies.filter((d) => /^@junco\/[a-z0-9-]+(?:@[\^~]?\d+\.\d+\.\d+)?$/.test(d));
+
+  const dest = `${config.paths.components}/pages/${page.name}.tsx`;
+  assertInsideProject(page.name, dest);
+  const content = pageSource(page, variant);
+  const local = readLocal(io, dest);
+  if (local !== undefined && local !== content && !options.overwrite) {
+    throw new CliError(`${dest} already exists. Use --overwrite to replace it.`);
+  }
+  if (local !== content) {
+    writeFile(io, dest, content);
+    io.out(`  + ${dest}`);
+  }
+
+  const cssFile = config.css.file;
+  const css = readLocal(io, cssFile);
+  const pkgNames = deps.map((d) => d.replace(/(.)@.*$/, "$1"));
+  const nextCss = css === undefined ? undefined : withSources(css, cssFile, pkgNames);
+  if (nextCss !== undefined) {
+    writeFile(io, cssFile, nextCss);
+    io.out(`  ~ ${cssFile} (Tailwind now scans ${pkgNames.join(" and ")})`);
+  }
+
+  install(io, deps);
+  const from = config.aliases ? `${config.aliases.components}/pages/${page.name}` : dest.replace(/\.tsx$/, "");
+  const which = page.variants.length > 1 ? ` (${variant} variant)` : "";
+  io.out(`Added ${page.title}${which}. Use it: import { ${pascal(page.name)} } from "${from}"`);
 }
 
 /* init ---------------------------------------------------------------------------------- */
@@ -436,7 +532,8 @@ export async function create(io: Io, dir: string | undefined, options: CreateOpt
 
 export async function list(io: Io, options: { installed?: boolean } = {}) {
   const config = readConfig(io.cwd);
-  const index = await registryFor(io, config).index();
+  const registry = registryFor(io, config);
+  const index = await registry.index();
   const rows = index.items.filter((i) => !THEME_TYPES.has(i.type) && i.name !== CSS_ITEM && (!options.installed || config?.installed[i.name]));
   const width = Math.max(...rows.map((r) => r.name.length), 4);
   for (const item of rows) {
@@ -444,6 +541,13 @@ export async function list(io: Io, options: { installed?: boolean } = {}) {
     const status = record ? (record.hash === item.meta?.hash ? " [installed]" : " [update available]") : "";
     io.out(`${item.name.padEnd(width)}  ${item.type.replace("registry:", "").padEnd(5)}  ${item.description ?? ""}${status}`);
   }
+  if (options.installed) return;
+  // Older registries have no page index; components still list fine.
+  const pages = await registry.pages().then((p) => p.pages, () => []);
+  if (!pages.length) return;
+  io.out("\nPages (junco add page <name> [--variant <v>]):");
+  const pw = Math.max(...pages.map((p) => p.name.length));
+  for (const p of pages) io.out(`${p.name.padEnd(pw)}  ${p.variants.join(", ")}`);
 }
 
 export function eject(io: Io) {

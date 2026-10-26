@@ -166,6 +166,73 @@ describe("junco add", () => {
   });
 });
 
+describe("junco add page", () => {
+  it("adds a page with the variant you pick, and lets Tailwind see the packages", async () => {
+    const app = viteProject();
+    await junco(app, registry, "init", "--yes");
+    const res = await junco(app, registry, "add", "page", "dashboard", "--variant", "focused");
+    expect(res.code, res.err).toBe(0);
+    const page = read(app, "src/components/pages/dashboard.tsx");
+    expect(page).toContain(`import { DashboardPage } from "@junco/blocks/app";`);
+    expect(page).toContain("export function Dashboard() {");
+    expect(page).toContain(`<DashboardPage variant="focused" />`);
+    expect(page).toContain("https://junco.madebytobi.com/blocks/dashboard-page/");
+    expect(read(app, "src/index.css")).toBe(
+      `@import "tailwindcss";\n@import "@junco/tailwind";\n\n/* Tailwind needs to see the classes Junco's components and blocks use. */\n@source "../node_modules/@junco/blocks/dist";\n@source "../node_modules/@junco/react/dist";\n\nbody { margin: 0; }\n`,
+    );
+    expect(res.out).toMatch(/npm install .*@junco\/blocks@\^\d+\.\d+\.\d+ @junco\/react@\^\d+\.\d+\.\d+/);
+    expect(res.out).toContain(`import { Dashboard } from "@/components/pages/dashboard"`);
+
+    // Again with another page: the CSS isn't touched twice.
+    const again = await junco(app, registry, "add", "page", "sign-up-page");
+    expect(again.code, again.err).toBe(0);
+    expect(read(app, "src/index.css").match(/@source/g)).toHaveLength(2);
+    expect(read(app, "src/components/pages/sign-up.tsx")).toContain(`<SignUpPage variant="centered" />`);
+  });
+
+  it("leaves out the variant prop on pages with one layout", async () => {
+    const app = viteProject();
+    await junco(app, registry, "init", "--yes");
+    await junco(app, registry, "add", "page", "user-detail");
+    expect(read(app, "src/components/pages/user-detail.tsx")).toContain("<UserDetailPage />");
+  });
+
+  it("explains bad names, variants and flags, and keeps your edits", async () => {
+    const app = viteProject();
+    await junco(app, registry, "init", "--yes");
+    const unknown = await junco(app, registry, "add", "page", "nope");
+    expect(unknown.code).toBe(1);
+    expect(unknown.err).toMatch(/Unknown page "nope"[\s\S]*dashboard/);
+    const badVariant = await junco(app, registry, "add", "page", "dashboard", "--variant", "wide");
+    expect(badVariant.err).toMatch(/no "wide" variant\. Pick one of: default, focused/);
+    const componentVariant = await junco(app, registry, "add", "button", "--variant", "solid");
+    expect(componentVariant.err).toMatch(/--variant is for pages/);
+    expect(existsSync(join(app, "src/components/pages"))).toBe(false);
+
+    await junco(app, registry, "add", "page", "pricing");
+    writeFileSync(join(app, "src/components/pages/pricing.tsx"), "// mine\n");
+    const kept = await junco(app, registry, "add", "page", "pricing", "--variant", "simple");
+    expect(kept.err).toMatch(/already exists/);
+    expect(read(app, "src/components/pages/pricing.tsx")).toBe("// mine\n");
+    await junco(app, registry, "add", "page", "pricing", "--variant", "simple", "--overwrite");
+    expect(read(app, "src/components/pages/pricing.tsx")).toContain(`variant="simple"`);
+  });
+
+  it("refuses a page entry that would inject code", async () => {
+    const reg = buildTestRegistry();
+    const file = join(reg, "pages/index.json");
+    const index = JSON.parse(readFileSync(file, "utf8"));
+    index.pages.find((p: { name: string }) => p.name === "dashboard").component = "X } from 'evil'; //";
+    writeFileSync(file, JSON.stringify(index));
+    const app = viteProject();
+    await junco(app, reg, "init", "--yes");
+    const res = await junco(app, reg, "add", "page", "dashboard");
+    expect(res.code).toBe(1);
+    expect(res.err).toMatch(/doesn't look right/);
+    expect(existsSync(join(app, "src/components/pages/dashboard.tsx"))).toBe(false);
+  });
+});
+
 /** Simulates an upstream release by editing an item in a private copy of the registry. */
 function forkRegistry(): string {
   const copy = buildTestRegistry();
@@ -244,6 +311,13 @@ describe("junco diff / update", () => {
 });
 
 describe("junco list / help", () => {
+  it("lists pages with their variants", async () => {
+    const app = viteProject();
+    const res = await junco(app, registry, "list");
+    expect(res.out).toMatch(/Pages \(junco add page/);
+    expect(res.out).toMatch(/^dashboard\s+default, focused$/m);
+  });
+
   it("lists components but not theme items", async () => {
     const app = viteProject();
     const res = await junco(app, registry, "list");
