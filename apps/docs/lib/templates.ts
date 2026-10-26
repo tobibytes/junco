@@ -23,6 +23,9 @@ const PUBLIC_DIR = join(process.cwd(), "public");
 /** Featured order first; anything else follows alphabetically. */
 const ORDER = ["saas", "admin"];
 
+/** Template names end up in URLs, so only plain slugs are listed. */
+const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
 export function getTemplates(): Template[] {
   if (!existsSync(TEMPLATES_DIR)) return [];
   const list: Template[] = [];
@@ -30,10 +33,11 @@ export function getTemplates(): Template[] {
     const file = join(TEMPLATES_DIR, dir, "template.json");
     if (!existsSync(file)) continue;
     const meta = JSON.parse(readFileSync(file, "utf8")) as Omit<Template, "source" | "demo">;
+    if (!SLUG.test(meta.name) || !SLUG.test(dir)) continue;
     list.push({
       ...meta,
       source: `${site.github}/tree/main/templates/${dir}`,
-      demo: existsSync(join(PUBLIC_DIR, "demos", "templates", meta.name, "index.html")) ? `/demos/templates/${meta.name}/` : undefined,
+      demo: existsSync(join(PUBLIC_DIR, "demos", "templates", meta.name, "index.html")) ? `/demos/templates/${encodeURIComponent(meta.name)}/` : undefined,
     });
   }
   const rank = (name: string) => (ORDER.includes(name) ? ORDER.indexOf(name) : ORDER.length);
