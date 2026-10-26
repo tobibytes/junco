@@ -99,6 +99,8 @@ export interface OnboardingPageProps {
   defaultValues?: Partial<OnboardingValues>;
   /** Called with everything at the end. Throw to show an error. */
   onComplete?: (values: OnboardingValues) => void | Promise<void>;
+  /** Where "Go to your workspace" goes once every step is done. */
+  doneHref?: string;
   /** "centered": one card with a progress bar. "split": a step list on the left (desktop). */
   variant?: "centered" | "split";
   slots?: Slots<OnboardingSlots>;
@@ -154,6 +156,7 @@ export function OnboardingPage({
   steps = defaultOnboardingSteps,
   defaultValues,
   onComplete,
+  doneHref = "#/dashboard",
   variant = "centered",
   slots,
   className,
@@ -212,7 +215,7 @@ export function OnboardingPage({
         {form.getValues("workspace")} is ready. We added a few starter templates to help you get going.
       </p>
       <Button asChild>
-        <a href="#/dashboard">
+        <a href={doneHref}>
           Go to your workspace
           <ArrowRightIcon className="size-4" />
         </a>

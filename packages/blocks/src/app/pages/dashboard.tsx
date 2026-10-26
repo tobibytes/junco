@@ -48,7 +48,7 @@ export type DashboardSlots = {
   stats: { stats: DashboardStat[] };
   revenue: { data: ChartPoint[]; range: DashboardRange };
   signups: { data: ChartPoint[] };
-  customers: { customers: DashboardCustomer[] };
+  customers: { customers: DashboardCustomer[]; allHref: string | null };
   activity: { items: ActivityItem[] };
 };
 
@@ -59,6 +59,8 @@ export interface DashboardPageProps {
   revenue?: ChartPoint[];
   signups?: ChartPoint[];
   customers?: DashboardCustomer[];
+  /** Where "View all" on the customers card goes. null hides the link. */
+  customersHref?: string | null;
   activity?: ActivityItem[];
   range?: DashboardRange;
   defaultRange?: DashboardRange;
@@ -181,7 +183,7 @@ const customerColumns: ColumnDef<DashboardCustomer>[] = [
   },
 ];
 
-function Customers({ customers }: DashboardSlots["customers"]) {
+function Customers({ customers, allHref }: DashboardSlots["customers"]) {
   // On phones, drop Seats so MRR (the number that matters) fits without scrolling sideways.
   const isPhone = useMediaQuery("(max-width: 639px)");
   return (
@@ -189,11 +191,13 @@ function Customers({ customers }: DashboardSlots["customers"]) {
       <CardHeader>
         <CardTitle as="h2">Top customers</CardTitle>
         <CardDescription>By monthly recurring revenue</CardDescription>
-        <CardAction>
-          <Button asChild variant="ghost" size="sm">
-            <a href="#/users">View all</a>
-          </Button>
-        </CardAction>
+        {allHref !== null && (
+          <CardAction>
+            <Button asChild variant="ghost" size="sm">
+              <a href={allHref}>View all</a>
+            </Button>
+          </CardAction>
+        )}
       </CardHeader>
       <CardContent>
         <DataTable
@@ -233,6 +237,7 @@ export function DashboardPage({
   revenue,
   signups,
   customers,
+  customersHref = "#/users",
   activity,
   range: rangeProp,
   defaultRange = "30d",
@@ -265,7 +270,7 @@ export function DashboardPage({
         <div className={cn("grid gap-6", variant === "default" && "lg:grid-cols-5")}>
           <div className={cn("grid min-w-0 gap-6", variant === "default" && activityNode !== null && "lg:col-span-3")}>
             {renderSlot(slots, "revenue", Revenue, { data: revenueData, range })}
-            {renderSlot(slots, "customers", Customers, { customers: customerData })}
+            {renderSlot(slots, "customers", Customers, { customers: customerData, allHref: customersHref })}
           </div>
           <div
             className={cn(
