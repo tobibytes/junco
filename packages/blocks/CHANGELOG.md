@@ -1,5 +1,15 @@
 # @junco/blocks
 
+## 0.1.4
+
+### Patch Changes
+
+- 7fb892b: Pages take the last few hard-coded links as props, so they work with any router: `DashboardPage customersHref` (null hides "View all"), `OnboardingPage doneHref`, and `LogInPage signUpHref={null}` to hide "Sign up" in invite-only apps.
+- 297c097: UsersPage and TeamMembersPage now call the latest `onUsersChange` / `onMembersChange`. Before, changing a role or removing someone called the callback from the first render.
+- Updated dependencies [297c097]
+  - @junco/react@0.2.2
+  - @junco/motion@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
