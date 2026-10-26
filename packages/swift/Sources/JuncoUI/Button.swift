@@ -70,6 +70,7 @@ private struct JuncoButtonBody: View {
   let fullWidth: Bool
 
   @Environment(\.isEnabled) private var isEnabled
+  @Environment(\.isFocused) private var isFocused
   @Environment(\.juncoMotion) private var motion
   @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -101,6 +102,7 @@ private struct JuncoButtonBody: View {
       .overlay(shape.strokeBorder(colors.border, lineWidth: 1))
       .contentShape(shape)
       .opacity(isEnabled ? 1 : 0.5)
+      .juncoFocusRing(isFocused, cornerRadius: size == .sm ? JuncoTokens.Radius.control : JuncoTokens.Radius.card)
       .scaleEffect(pressed && motion != .off && !reduceMotion ? 0.98 : 1)
       .animation(
         JuncoMotion.animation(duration: JuncoTokens.Duration.fast, level: motion, reduceMotion: reduceMotion),

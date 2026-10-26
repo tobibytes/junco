@@ -87,7 +87,7 @@ pnpm changeset    # record a version bump
 - **Components** (`packages/react`, 30+): primitives, forms (RHF + Zod), overlays, data table, toast, command, Icon. Radix sits behind `lib/primitives.ts`. Every component has a test, a docs page in `apps/docs/content/components/<slug>.tsx` (+ one line in `index.ts`), and is auto-discovered by the registry build. `@junco/react/server` holds the server-safe exports (`pnpm check:dist` guards it).
 - **Blocks and pages**: 40 entries in `apps/docs/content/blocks/catalog.ts`, 21 full pages, all with typed data, fake-data fallbacks, `slots` and `variant`s.
 - **Registry + CLI + MCP**: `pnpm registry:build` writes shadcn-compatible JSON and llms.txt to `apps/docs/public`. `@junco/cli` has init, add, list, diff, update, eject. `@junco/mcp` reads the public registry.
-- **Swift**: SwiftUI code only compiles on Apple platforms; `.github/workflows/swift.yml` builds and tests it on macOS. Previews in `packages/swift/Sources/JuncoUI/Previews.swift`.
+- **Swift**: SwiftUI code only compiles on Apple platforms; `.github/workflows/swift.yml` builds and tests it on macOS. JuncoUI has button, text field, switch, field, badge, card, sheet, segmented tabs, list rows and a shared focus ring (`.juncoFocusRing`). Previews in `packages/swift/Sources/JuncoUI/Previews.swift`; `GallerySnapshotTests` renders them to PNGs on a simulator (see `packages/swift/README.md`).
 - Commits are authored as `Oluwatobi Olajide <olola73@morgan.edu>`; no AI trailers.
 
 ## Where to start
@@ -96,5 +96,5 @@ The open work is in `docs/ROADMAP.md`. In order:
 1. Templates (SaaS, Admin) and `junco create my-app --template saas`.
 2. Phase 4: move one real project onto Junco, fix what gets in the way, tag v1.0.
 3. Phase 3b: `@junco/collab` and `@junco/editor`.
-4. SwiftUI: check the previews on a Mac, then add sheet, tabs and list rows.
+4. SwiftUI: more components as native apps need them.
 Check the accent and fonts with Tobi before locking them in.
