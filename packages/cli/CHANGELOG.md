@@ -1,5 +1,11 @@
 # @junco/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- 7fb892b: `junco create my-app --template saas` (or `admin`) starts a whole app from a Junco template: a Vite + React Router app built from Junco pages, with routes, fake auth and realistic data, then installs it with the package manager you ran. `junco create --list` shows the templates.
+
 ## 0.1.1
 
 ### Patch Changes
