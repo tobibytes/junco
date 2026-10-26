@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CodeBlock } from "@/components/code-block";
 import { Pager } from "@/components/docs/pager";
 import { C, DataTable, DocHeader, Note, P, Section } from "@/components/docs/prose";
@@ -56,7 +57,7 @@ npm run dev`} />
             Writes a complete Vite + React Router app into a new folder, built only from Junco blocks and pages, then installs it
             with the package manager you ran the command with. Every page runs on realistic fake data, and auth is a stub in{" "}
             <C>src/lib/auth.tsx</C> you swap for your provider. Each template&apos;s README lists its routes and where to change
-            things.
+            things. Try each one first on the <Link href="/templates/" className="underline underline-offset-4 hover:text-foreground">templates page</Link>, which has live demos.
           </P>
           <DataTable
             caption="Templates"

@@ -14,6 +14,7 @@ const links = [
   { href: "/docs/", label: "Docs", match: (p: string) => p.startsWith("/docs") && !p.startsWith("/docs/theming") },
   { href: "/components/", label: "Components", match: (p: string) => p.startsWith("/components") },
   { href: "/blocks/", label: "Blocks", match: (p: string) => p.startsWith("/blocks") },
+  { href: "/templates/", label: "Templates", match: (p: string) => p.startsWith("/templates"), wide: true },
   { href: "/examples/", label: "Examples", match: (p: string) => p.startsWith("/examples") },
   { href: "/icons/", label: "Icons", match: (p: string) => p.startsWith("/icons"), wide: true },
   { href: "/motion/", label: "Motion", match: (p: string) => p.startsWith("/motion"), wide: true },

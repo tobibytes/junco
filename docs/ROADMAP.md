@@ -37,7 +37,7 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 - [x] Motion layer: effects library (scroll reveal, counters, text reveal, marquee, beams, spotlight card, magnetic button), View Transitions page transitions
 - [x] `@junco/three` v0: particle field, shader gradient, globe, tilt card, model viewer, all lazy loaded with fallbacks
 - [x] Docs site: blocks and pages gallery, motion and 3D galleries, theme builder (accent picker with contrast checks), icons gallery, examples showcase
-- [ ] Templates gallery (waits on templates)
+- [x] Templates gallery: /templates with live demos of each template
 - [ ] Prototype kit: device frames, fake data helpers, playground canvas, prototype mode
 - [x] MCP server + llms.txt + Markdown docs
 

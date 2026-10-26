@@ -39,6 +39,8 @@
     "@junco/example-ledger": "workspace:*",
     "@junco/example-pulse": "workspace:*",
     "@junco/example-status-page": "workspace:*",
+    "@junco/template-admin": "workspace:*",
+    "@junco/template-saas": "workspace:*",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^22.0.0",
     "@types/react": "^19.0.0",
