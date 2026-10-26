@@ -69,7 +69,86 @@ function regexFor(lang: Lang): RegExp {
   return re;
 }
 
-export function tokenize(code: string, lang: Lang): Token[] {
+/**
+ * The text between JSX tags (`<p>Don't delete this</p>`), as [start, end] ranges. It's prose,
+ * so it shouldn't pick up keyword, type or string colors (the apostrophe in "Don't" would
+ * otherwise open a string). A small scanner, since a regex can't tell `<p>` from `a < b`.
+ */
+export function jsxTextRanges(code: string): [number, number][] {
+  const ranges: [number, number][] = [];
+  // Each frame is code (top level, or a `{...}` inside JSX, counting braces) or a tag's children.
+  const stack: ({ kind: "code"; depth: number } | { kind: "children" })[] = [{ kind: "code", depth: 0 }];
+  const skipQuoted = (i: number) => {
+    const q = code[i];
+    for (i++; i < code.length && code[i] !== q; i++) if (code[i] === "\\") i++;
+    return i + 1;
+  };
+  // From a `<`, past the tag's closing `>`. Returns where the tag ends and whether it opens children.
+  const readTag = (i: number): { end: number; opens: boolean; closes: boolean } => {
+    const closes = code[i + 1] === "/";
+    let depth = 0;
+    for (i++; i < code.length; i++) {
+      const c = code[i];
+      if (c === '"' || c === "'" || c === "`") i = skipQuoted(i) - 1;
+      else if (c === "{") depth++;
+      else if (c === "}") depth--;
+      else if (c === ">" && depth === 0) {
+        const selfClosing = code.slice(0, i).trimEnd().endsWith("/");
+        return { end: i + 1, opens: !closes && !selfClosing, closes };
+      }
+    }
+    return { end: code.length, opens: false, closes };
+  };
+  // A `<` starts JSX when a letter or `>` follows and it isn't a generic (`useState<string>`) or a comparison.
+  const startsJsx = (i: number) => {
+    if (!/[A-Za-z>/]/.test(code[i + 1] ?? "")) return false;
+    const before = code.slice(0, i).trimEnd();
+    return before === "" || /[(,=?:{}[\]!&|>;]$|\breturn$/.test(before);
+  };
+
+  const indexOrEnd = (s: string, from: number) => {
+    const at = code.indexOf(s, from);
+    return at === -1 ? code.length : at;
+  };
+
+  let i = 0;
+  while (i < code.length) {
+    const top = stack[stack.length - 1]!;
+    const c = code[i];
+    if (top.kind === "children") {
+      if (c === "<") {
+        const tag = readTag(i);
+        if (tag.closes) stack.pop();
+        else if (tag.opens) stack.push({ kind: "children" });
+        i = tag.end;
+      } else if (c === "{") {
+        stack.push({ kind: "code", depth: 1 });
+        i++;
+      } else {
+        const start = i;
+        while (i < code.length && code[i] !== "<" && code[i] !== "{") i++;
+        ranges.push([start, i]);
+      }
+      continue;
+    }
+    if (c === '"' || c === "'" || c === "`") i = skipQuoted(i);
+    else if (c === "/" && code[i + 1] === "/") i = indexOrEnd("\n", i);
+    else if (c === "/" && code[i + 1] === "*") i = indexOrEnd("*/", i) + 2;
+    else if (c === "{") (top.depth++, i++);
+    else if (c === "}") {
+      top.depth--;
+      i++;
+      if (top.depth === 0 && stack.length > 1) stack.pop();
+    } else if (c === "<" && startsJsx(i)) {
+      const tag = readTag(i);
+      if (tag.opens) stack.push({ kind: "children" });
+      i = tag.end;
+    } else i++;
+  }
+  return ranges;
+}
+
+function tokenizeCode(code: string, lang: Lang): Token[] {
   const re = regexFor(lang);
   const types = grammars[lang].map(([t]) => t);
   const out: Token[] = [];
@@ -85,5 +164,18 @@ export function tokenize(code: string, lang: Lang): Token[] {
     last = index + m[0].length;
   }
   if (last < code.length) out.push({ type: "plain", text: code.slice(last) });
+  return out;
+}
+
+export function tokenize(code: string, lang: Lang): Token[] {
+  if (lang !== "tsx") return tokenizeCode(code, lang);
+  const out: Token[] = [];
+  let last = 0;
+  for (const [start, end] of jsxTextRanges(code)) {
+    if (start > last) out.push(...tokenizeCode(code.slice(last, start), lang));
+    out.push({ type: "plain", text: code.slice(start, end) });
+    last = end;
+  }
+  if (last < code.length) out.push(...tokenizeCode(code.slice(last), lang));
   return out;
 }
