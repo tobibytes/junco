@@ -9,6 +9,7 @@ export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> 
 /** A form label with an optional required marker. */
 export const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
   ({ className, isRequired, children, ...props }, ref) => (
+    // biome-ignore lint/a11y/noLabelWithoutControl: callers pass htmlFor or wrap the control
     <label
       ref={ref}
       className={cn(

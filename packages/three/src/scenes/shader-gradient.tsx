@@ -111,6 +111,7 @@ function Gradient({
   const { scale } = useSceneMotion();
   const size = useThree((s) => s.size);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: created once; the values are updated in place every render
   const uniforms = React.useMemo(
     () => ({
       uTime: { value: 8 },
@@ -122,12 +123,13 @@ function Gradient({
       uGrain: { value: grain },
       uClear: { value: clearCenter },
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
   uniforms.uRes.value.set(size.width, size.height);
   uniforms.uBase.value.setRGB(...theme[base]!.rgb);
-  colors.slice(0, 4).forEach((name, i) => uniforms.uColors.value[i]!.setRGB(...theme[name]!.rgb));
+  colors.slice(0, 4).forEach((name, i) => {
+    uniforms.uColors.value[i]!.setRGB(...theme[name]!.rgb);
+  });
   uniforms.uCount.value = Math.min(colors.length, 4);
   uniforms.uIntensity.value = intensity;
   uniforms.uGrain.value = grain;

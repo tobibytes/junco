@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@junco/react";
 
 export interface PageShellProps extends React.HTMLAttributes<HTMLDivElement> {

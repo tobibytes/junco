@@ -8,8 +8,9 @@ import "./index.css";
 
 const routes: PreviewRoute[] = [...appRoutes, ...marketingRoutes];
 
+const read = () => window.location.hash.replace(/^#/, "").split("?")[0] || "/";
+
 function useHashPath() {
-  const read = () => window.location.hash.replace(/^#/, "").split("?")[0] || "/";
   const [path, setPath] = useState(read);
   useEffect(() => {
     const on = () => {

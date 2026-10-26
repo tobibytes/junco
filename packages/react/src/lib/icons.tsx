@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 
 /** The few icons components need internally. Paths from Lucide (ISC). */
 type IconProps = React.SVGProps<SVGSVGElement>;

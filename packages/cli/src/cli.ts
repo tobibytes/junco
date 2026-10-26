@@ -22,32 +22,36 @@ Options
   -v, --version          show the version
 `;
 
+function parseCli(argv: string[]) {
+  return parseArgs({
+    args: argv,
+    allowPositionals: true,
+    options: {
+      registry: { type: "string" },
+      cwd: { type: "string" },
+      css: { type: "string" },
+      "css-file": { type: "string" },
+      "no-install": { type: "boolean" },
+      yes: { type: "boolean", short: "y" },
+      force: { type: "boolean", short: "f" },
+      overwrite: { type: "boolean", short: "o" },
+      resolved: { type: "boolean" },
+      all: { type: "boolean" },
+      installed: { type: "boolean" },
+      template: { type: "string", short: "t" },
+      list: { type: "boolean" },
+      help: { type: "boolean", short: "h" },
+      version: { type: "boolean", short: "v" },
+    },
+  });
+}
+
 export async function run(argv: string[], io: Partial<Io> = {}): Promise<number> {
   const out = io.out ?? ((line: string) => console.log(line));
   const err = io.err ?? ((line: string) => console.error(line));
-  let parsed;
+  let parsed: ReturnType<typeof parseCli>;
   try {
-    parsed = parseArgs({
-      args: argv,
-      allowPositionals: true,
-      options: {
-        registry: { type: "string" },
-        cwd: { type: "string" },
-        css: { type: "string" },
-        "css-file": { type: "string" },
-        "no-install": { type: "boolean" },
-        yes: { type: "boolean", short: "y" },
-        force: { type: "boolean", short: "f" },
-        overwrite: { type: "boolean", short: "o" },
-        resolved: { type: "boolean" },
-        all: { type: "boolean" },
-        installed: { type: "boolean" },
-        template: { type: "string", short: "t" },
-        list: { type: "boolean" },
-        help: { type: "boolean", short: "h" },
-        version: { type: "boolean", short: "v" },
-      },
-    });
+    parsed = parseCli(argv);
   } catch (e) {
     err((e as Error).message);
     err("Run `junco --help` for usage.");

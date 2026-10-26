@@ -274,7 +274,10 @@ describe("helpers", () => {
 
   it.skipIf(spawnSync("patch", ["--version"]).status !== 0)("round-trips random edits through GNU patch", () => {
     let seed = 7;
-    const rand = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
+    const rand = () => {
+      seed = (seed * 1103515245 + 12345) % 2147483648;
+      return seed / 2147483648;
+    };
     const dir = mkdtempSync(join(tmpdir(), "junco-diff-"));
     for (let t = 0; t < 150; t++) {
       const a = Array.from({ length: Math.floor(rand() * 30) }, (_, i) => `line ${i} ${Math.floor(rand() * 4)}`);

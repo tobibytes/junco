@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { FAKE_NOW } from "../lib/fake";
 import {
   ChartIcon,

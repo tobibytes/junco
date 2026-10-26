@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { Button, cn, Sheet, SheetClose, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@junco/react";
 import { defaultBrand, defaultNav, defaultPrimaryAction } from "./content";
 import { MenuIcon } from "./icons";

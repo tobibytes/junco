@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@junco/react";
 import { Marquee, Reveal } from "@junco/motion";
 import { createRandom } from "../lib/fake";

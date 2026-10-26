@@ -9,23 +9,23 @@ const levels: { n: string; title: string; lang: Lang; code: string; result: Reac
     n: "01",
     title: "Semantic classes",
     lang: "html",
-    code: `<button class="btn btn-primary">
+    code: `<button type="button" class="btn btn-primary">
   Deploy
 </button>`,
-    result: <button className="btn btn-primary">Deploy</button>,
+    result: <button type="button" className="btn btn-primary">Deploy</button>,
   },
   {
     n: "02",
     title: "Utilities",
     lang: "tsx",
-    code: `<button className="
+    code: `<button type="button" className="
   h-9 rounded-control px-3.5
   bg-primary text-sm
   text-primary-foreground">
   Deploy
 </button>`,
     result: (
-      <button className="h-9 rounded-control bg-primary px-3.5 text-sm font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+      <button type="button" className="h-9 rounded-control bg-primary px-3.5 text-sm font-medium text-primary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
         Deploy
       </button>
     ),

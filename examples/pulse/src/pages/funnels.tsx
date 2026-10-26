@@ -110,7 +110,10 @@ function NewFunnelDialog({ onCreate }: { onCreate: (f: Funnel) => void }) {
       id: `f_${Date.now()}`,
       name: name.trim(),
       description: `${steps.length} steps, last 30 days.`,
-      steps: steps.map((s, i) => ({ name: s, users: i === 0 ? users : (users = Math.round(users * (0.45 + i * 0.1))) })),
+      steps: steps.map((s, i) => {
+        if (i > 0) users = Math.round(users * (0.45 + i * 0.1));
+        return { name: s, users };
+      }),
     });
     toast.success("Funnel created", { description: `“${name.trim()}” is calculating now.` });
     setOpen(false);

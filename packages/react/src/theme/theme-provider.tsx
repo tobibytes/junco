@@ -94,7 +94,6 @@ export function ThemeProvider({
     setSystem(systemTheme());
     setIsMounted(true);
     // Only on mount and when the storage key changes; later default changes don't override a saved choice.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [themeKey, motionKey]);
 
   React.useEffect(() => {

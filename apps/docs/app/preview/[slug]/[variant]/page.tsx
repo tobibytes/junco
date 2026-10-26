@@ -30,6 +30,7 @@ export default async function PreviewPage({ params }: { params: Promise<{ slug: 
   if (!entry || !entry.variants.some((v) => v.value === variant)) notFound();
   return (
     <>
+      {/* biome-ignore lint/security/noDangerouslySetInnerHtml: a constant script from this repo, no user input */}
       <script dangerouslySetInnerHTML={{ __html: FRAME_SCRIPT }} />
       <FrameView slug={slug} variant={variant} />
     </>

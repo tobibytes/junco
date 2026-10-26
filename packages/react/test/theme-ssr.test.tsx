@@ -7,7 +7,7 @@ import { ThemeProvider, useTheme } from "../src";
 function Toggle() {
   const { resolvedTheme, setTheme, isMounted } = useTheme();
   return (
-    <button aria-pressed={resolvedTheme === "dark"} data-mounted={isMounted} onClick={() => setTheme("dark")}>
+    <button type="button" aria-pressed={resolvedTheme === "dark"} data-mounted={isMounted} onClick={() => setTheme("dark")}>
       Dark mode is {resolvedTheme}
     </button>
   );

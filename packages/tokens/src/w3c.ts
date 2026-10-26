@@ -73,7 +73,8 @@ export function toW3C(tokens: ParsedTokens): Group {
   const root: Group = {};
   for (const [name, value] of Object.entries(tokens.light)) {
     const cat = categorize(name, value);
-    const group = (root[cat.group] ??= {}) as Group;
+    root[cat.group] ??= {};
+    const group = root[cat.group] as Group;
     const token: Token = { $type: cat.type, $value: cat.convert(value) };
     const dark = tokens.dark[name];
     if (dark !== undefined && dark !== value) {

@@ -430,8 +430,8 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
     let meta: ReturnType<typeof sourceMeta> | undefined;
     for (const file of group) {
       const t = transform(file, byAbs, primitives);
-      t.npm.forEach((d) => npm.add(d));
-      t.registry.forEach((d) => deps.add(d));
+      for (const d of t.npm) npm.add(d);
+      for (const d of t.registry) deps.add(d);
       files.push({ path: file.registryPath, type: file.type, content: t.content, ...(file.target ? { target: file.target } : {}) });
       const src = readFileSync(file.abs, "utf8");
       if (!meta) {
@@ -510,7 +510,8 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
   writeFileSync(join(outDir, "llms-full.txt"), llmsFullTxt(items));
 
   if (!quiet) {
-    const counts = items.reduce<Record<string, number>>((acc, i) => ((acc[i.type] = (acc[i.type] ?? 0) + 1), acc), {});
+    const counts: Record<string, number> = {};
+    for (const i of items) counts[i.type] = (counts[i.type] ?? 0) + 1;
     console.log(`registry: ${items.length} items (${Object.entries(counts).map(([t, n]) => `${n} ${t.replace("registry:", "")}`).join(", ")}), ${templates.length} templates -> ${relative(process.cwd(), rDir) || rDir}`);
   }
   return { items, outDir };

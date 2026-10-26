@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 
 /** Icons the marketing blocks use. Paths from Lucide (ISC). Swap in any icon library via props. */
 export type IconProps = React.SVGProps<SVGSVGElement>;
