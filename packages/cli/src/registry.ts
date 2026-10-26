@@ -40,6 +40,25 @@ export interface Template extends TemplateSummary {
   meta?: { hash?: string; [key: string]: unknown };
 }
 
+/** A full page in @junco/blocks, from <registry>/pages/index.json, for `junco add page`. */
+export interface PageSummary {
+  name: string;
+  slug: string;
+  title: string;
+  description?: string;
+  component: string;
+  importFrom: string;
+  /** First one is the default. */
+  variants: string[];
+  docs?: string;
+}
+
+export interface PageIndex {
+  /** Packages a page needs, as install specs (`@junco/blocks@^0.1.4`). */
+  dependencies: string[];
+  pages: PageSummary[];
+}
+
 const isUrl = (s: string) => /^https?:\/\//.test(s);
 
 /** A registry is a base URL (https://junco.madebytobi.com/r) or a local folder holding <name>.json files. */
@@ -81,6 +100,13 @@ export class Registry {
 
   async templates(): Promise<TemplateSummary[]> {
     return (await this.readJson<{ templates: TemplateSummary[] }>(this.ref("templates/index"))).templates;
+  }
+
+  pages(): Promise<PageIndex> {
+    return this.readJson<PageIndex>(this.ref("pages/index")).catch((err: Error) => {
+      if (err.message.startsWith("Not found")) throw new Error("This registry has no page index (pages/index.json).");
+      throw err;
+    });
   }
 
   template(name: string): Promise<Template> {

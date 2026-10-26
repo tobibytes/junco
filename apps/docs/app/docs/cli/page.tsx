@@ -30,6 +30,7 @@ export default function CliPage() {
             code={`npx @junco/cli create my-app --template saas   # a whole app: routes, auth, pages, fake data
 npx @junco/cli init                 # detect Next/Vite, wire the theme into your CSS, write junco.json
 npx @junco/cli add button select    # copies select + field, label, icons, utils; installs npm deps
+npx @junco/cli add page sign-up --variant split   # a full page from @junco/blocks
 npx @junco/cli diff                 # which installed components have upstream updates
 npx @junco/cli diff select          # unified diff: your copy vs upstream
 npx @junco/cli update select        # take upstream if you didn't edit it; otherwise write a side file`}
@@ -41,6 +42,7 @@ npx @junco/cli update select        # take upstream if you didn't edit it; other
               [<C key="0">create &lt;folder&gt;</C>, "Starts a new app from a template (saas, admin) and installs its packages."],
               [<C key="1">init</C>, "Detects your framework, CSS file and @/* alias, wires the Junco theme into your CSS, adds cn() and writes junco.json."],
               [<C key="2">add &lt;name...&gt;</C>, "Copies components and everything they depend on, rewrites imports to your aliases, installs missing npm packages."],
+              [<C key="2p">add page &lt;name&gt;</C>, "Adds a full page (dashboard, sign-up, settings-billing, ...) with the layout variant you pick."],
               [<C key="3">diff [name...]</C>, "With names: a unified diff of your copy against upstream. Without: lists components with updates."],
               [<C key="4">update [name...]</C>, "Three-way update. Untouched files are replaced; edited ones get a .junco-upstream copy to merge by hand."],
               [<C key="5">list</C>, "Everything in the registry, marked installed or update available."],
@@ -106,6 +108,23 @@ npx @junco/cli add data-table form       # the junco/data-table and junco/form p
             Dependencies are resolved recursively (Select brings Field, Label and the icons it uses). Each file&apos;s content hash
             is recorded in <C>junco.json</C>, which is what makes <C>diff</C> and <C>update</C> work. Files you already changed are
             kept unless you pass <C>--overwrite</C>.
+          </P>
+        </Section>
+
+        <Section id="add-page" title="add page">
+          <CodeBlock lang="bash" code={`npx @junco/cli add page dashboard --variant focused
+npx @junco/cli add page sign-up --variant split
+npx @junco/cli list                       # every page and its variants, after the components`} />
+          <P>
+            Writes a small file to <C>components/pages/&lt;name&gt;.tsx</C> that renders the page from <C>@junco/blocks</C> with
+            the variant you picked (the first one when you don&apos;t pick). It installs <C>@junco/blocks</C> and{" "}
+            <C>@junco/react</C>, and adds <C>@source</C> lines to your CSS so Tailwind sees the classes they use. Pass your data
+            as props; anything you leave out shows realistic fake data. Switch layouts later by changing the{" "}
+            <C>variant</C> prop. Every page and its props are in the{" "}
+            <Link href="/blocks/" className="underline underline-offset-4 hover:text-foreground">
+              blocks and pages gallery
+            </Link>
+            .
           </P>
         </Section>
 

@@ -13,6 +13,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { basename, dirname, extname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseArgs } from "node:util";
+import { blocks as blockCatalog } from "../apps/docs/content/blocks/catalog.ts";
 import { parseTokens } from "../packages/tokens/src/parse.ts";
 import { parseCss, serializeCss, toCssObject, type CssNode, type CssObject } from "./lib/css.ts";
 import {
@@ -395,6 +396,43 @@ export function buildTemplates(): TemplateItem[] {
     });
 }
 
+/* Pages ------------------------------------------------------------------------------ */
+
+/**
+ * The full pages in @junco/blocks, for `junco add page <name> --variant <v>`. Read from the docs
+ * gallery catalog so the two never drift. Not shadcn items: they live in r/pages/index.json.
+ */
+export interface PageItem {
+  /** Short name for the CLI: the gallery slug without "-page" (dashboard, sign-up). */
+  name: string;
+  slug: string;
+  title: string;
+  description: string;
+  component: string;
+  importFrom: string;
+  /** First one is the default. */
+  variants: string[];
+  docs: string;
+}
+
+export function buildPages(): { dependencies: string[]; pages: PageItem[] } {
+  const versions = workspaceVersions();
+  const dependencies = ["@junco/blocks", "@junco/react"].map((p) => (versions[p] ? `${p}@^${versions[p]}` : p));
+  const pages = blockCatalog
+    .filter((b) => b.category.endsWith("pages"))
+    .map((b) => ({
+      name: b.slug.replace(/-page$/, ""),
+      slug: b.slug,
+      title: b.title,
+      description: b.description,
+      component: b.component,
+      importFrom: b.importFrom,
+      variants: b.variants.map((v) => v.value),
+      docs: `${SITE}/blocks/${b.slug}/`,
+    }));
+  return { dependencies, pages };
+}
+
 /* Build ---------------------------------------------------------------------------- */
 
 export interface BuildOptions {
@@ -501,6 +539,9 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
     const list = templates.map(({ files: _f, ...rest }) => rest);
     writeFileSync(join(tDir, "index.json"), JSON.stringify({ name: "junco-templates", homepage: SITE, templates: list }, null, 2) + "\n");
   }
+  const pages = buildPages();
+  mkdirSync(join(rDir, "pages"), { recursive: true });
+  writeFileSync(join(rDir, "pages", "index.json"), JSON.stringify({ name: "junco-pages", homepage: SITE, ...pages }, null, 2) + "\n");
   const schemaSrc = join(ROOT, "registry/schema/junco.json");
   if (existsSync(schemaSrc)) {
     mkdirSync(join(outDir, "schema"), { recursive: true });
@@ -512,7 +553,7 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
   if (!quiet) {
     const counts: Record<string, number> = {};
     for (const i of items) counts[i.type] = (counts[i.type] ?? 0) + 1;
-    console.log(`registry: ${items.length} items (${Object.entries(counts).map(([t, n]) => `${n} ${t.replace("registry:", "")}`).join(", ")}), ${templates.length} templates -> ${relative(process.cwd(), rDir) || rDir}`);
+    console.log(`registry: ${items.length} items (${Object.entries(counts).map(([t, n]) => `${n} ${t.replace("registry:", "")}`).join(", ")}), ${templates.length} templates, ${pages.pages.length} pages -> ${relative(process.cwd(), rDir) || rDir}`);
   }
   return { items, outDir };
 }

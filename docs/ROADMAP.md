@@ -33,7 +33,7 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 - [x] Page system: typed data props, fake data fallback, `slots`, `variant`
 - [x] First 2 templates: SaaS, Admin panel; `junco create my-app --template saas`
 - [x] CLI: `junco add` (components, blocks and pages), `junco diff`, `junco update`, `junco eject`, `junco list`
-- [ ] CLI: `junco add page <name> --variant <v>`
+- [x] CLI: `junco add page <name> --variant <v>` (pages render from @junco/blocks; `--source` to copy the full source is still to do)
 - [x] Motion layer: effects library (scroll reveal, counters, text reveal, marquee, beams, spotlight card, magnetic button), View Transitions page transitions
 - [x] `@junco/three` v0: particle field, shader gradient, globe, tilt card, model viewer, all lazy loaded with fallbacks
 - [x] Docs site: blocks and pages gallery, motion and 3D galleries, theme builder (accent picker with contrast checks), icons gallery, examples showcase

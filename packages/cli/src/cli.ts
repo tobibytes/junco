@@ -1,5 +1,5 @@
 import { parseArgs } from "node:util";
-import { add, CliError, create, diff, eject, init, list, update, type Io } from "./commands";
+import { add, addPage, CliError, create, diff, eject, init, list, update, type Io } from "./commands";
 
 export const VERSION = "0.0.0";
 
@@ -9,6 +9,7 @@ Usage
   junco create <folder> --template <name>   start a new app (saas, admin; --list shows all)
   junco init [--css package|inline] [--css-file <path>] [--yes] [--force]
   junco add <name...> [--overwrite]
+  junco add page <name> [--variant <v>]   add a full page (dashboard, sign-up, ...) from @junco/blocks
   junco diff [name...]           show upstream changes (no name: list items with updates)
   junco update [name...] [--force] [--resolved] [--all]
   junco list [--installed]
@@ -39,6 +40,7 @@ function parseCli(argv: string[]) {
       all: { type: "boolean" },
       installed: { type: "boolean" },
       template: { type: "string", short: "t" },
+      variant: { type: "string" },
       list: { type: "boolean" },
       help: { type: "boolean", short: "h" },
       version: { type: "boolean", short: "v" },
@@ -90,7 +92,13 @@ export async function run(argv: string[], io: Partial<Io> = {}): Promise<number>
         break;
       }
       case "add":
-        await add(ctx, names, { overwrite: values.overwrite });
+        if (names[0] === "page") {
+          if (names.length > 2) throw new CliError("Add one page at a time: junco add page dashboard");
+          await addPage(ctx, names[1], { variant: values.variant, overwrite: values.overwrite });
+        } else {
+          if (values.variant) throw new CliError("--variant is for pages: junco add page <name> --variant <v>");
+          await add(ctx, names, { overwrite: values.overwrite });
+        }
         break;
       case "diff":
         await diff(ctx, names);
