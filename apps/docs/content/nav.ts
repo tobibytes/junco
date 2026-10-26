@@ -32,6 +32,7 @@ export const explore: NavItem[] = [
   { title: "Motion", href: "/motion/", keywords: "animation reveal marquee ticker typewriter spotlight confetti view transitions @junco/motion" },
   { title: "3D", href: "/3d/", keywords: "three webgl globe particles shader gradient model viewer tilt @junco/three" },
   { title: "Icons", href: "/icons/", keywords: "lucide icon search svg symbols gallery copy" },
+  { title: "Templates", href: "/templates/", keywords: "starter app saas admin panel junco create scaffold boilerplate live demo" },
   { title: "Examples", href: "/examples/", keywords: "showcase demo projects pulse ledger hackharbor hackathon status page saas finance" },
 ];
 

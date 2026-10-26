@@ -38,4 +38,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
-]);
+],
+  // Vite's base path. Leave it at "/" unless you host the app under a subpath (vite build --base /app/).
+  { basename: import.meta.env.BASE_URL },
+);
