@@ -48,11 +48,9 @@ export interface PageSummary {
   description?: string;
   component: string;
   importFrom: string;
-  sourceEntry?: string;
   /** First one is the default. */
   variants: string[];
   docs?: string;
-  sourceFiles?: string[];
 }
 
 export interface PageIndex {
@@ -109,16 +107,6 @@ export class Registry {
       if (err.message.startsWith("Not found")) throw new Error("This registry has no page index (pages/index.json).");
       throw err;
     });
-  }
-
-  pageSource(path: string): Promise<string> {
-    if (!/^(?:[a-z0-9-]+\/)*[a-z0-9-]+\.tsx?$/.test(path)) throw new Error("Invalid page source path in registry.");
-    const ref = isUrl(this.base) ? `${this.base}/pages/source/${path}` : join(this.base, "pages", "source", path);
-    if (isUrl(ref)) return fetch(ref).then(async (res) => {
-      if (!res.ok) throw new Error(`Could not read page source ${path}: ${res.status} ${res.statusText}`);
-      return res.text();
-    });
-    return readFile(ref, "utf8");
   }
 
   template(name: string): Promise<Template> {

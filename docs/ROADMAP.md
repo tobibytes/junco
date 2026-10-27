@@ -50,27 +50,19 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 
 ## Phase 4: Adopt
 
-- [x] Adopt Pulse, the product analytics app, as the first Junco project; `examples/pulse/junco.json` records its Vite setup
-- [x] Set the project accent to Junco Blue and typography to Geist / Geist Mono; both are already the app's active token and font choices
-- [x] Fix the adoption gap: Pulse now has CLI metadata and a managed `cn()` utility; the new `add page --source` option supports copied Junco page implementations
+- [ ] Move one real project onto Junco
+- [ ] Fix whatever got in the way, write down the gaps
 - [ ] Tag v1.0
 
 ## Phase 3b: Collaboration UI
 
-- [x] `@junco/collab`: adapter interfaces (presence, comments, history, sharing) + fake-data adapter
-- [x] Presence: cursors, avatar stack, who's-editing bar
-- [x] Comments: anchored threads, replies, reactions, resolve, sidebar
-- [x] History sidebar + version compare, share dialog with roles, save/offline status (fake adapter)
+- [ ] `@junco/collab`: adapter interfaces (presence, comments, history, sharing) + fake-data adapter
+- [ ] Presence: cursors, avatar stack, who's-editing bar
+- [ ] Comments: anchored threads, mentions, reactions, resolve, sidebar
+- [ ] History sidebar + version compare, share dialog with roles, save/offline status
 - [ ] `@junco/editor`: TipTap rich text block with toolbar and slash commands
 - [ ] Docs editor page + Collaborative docs template
-- [x] First real adapter: Liveblocks presence and comments; app auth endpoints remain app-owned
-- [x] Collaboration room activity timeline and opt-in privacy-safe analytics event callback
-- [x] Liveblocks Storage version history listing, preview and restore
-- [x] Junco docs example with fake mode and opt-in live mode, plus Cloudflare Worker scoped to the public demo room
-- [ ] Extend sharing through app-owned persistence and permission callbacks
-- [ ] The sync engine itself remains a separate project
-
-See [the collaboration build sessions](./COLLABORATION-SESSIONS.md) for the hosted demo and release steps.
+- [ ] First real adapter: Junco's own engine (separate repo, Yjs-based, see DECISIONS.md). No Liveblocks
 
 ## After v1.0
 
