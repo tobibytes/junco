@@ -209,7 +209,7 @@ export function ${pascal(page.name)}() {
  * installed packages' built files. Returns the new CSS, or undefined when nothing was missing.
  */
 export function withSources(css: string, cssFile: string, packages: string[]): string | undefined {
-  const missing = packages.filter((p) => !css.includes(`${p}/dist`));
+  const missing = packages.filter((p) => !css.includes(`${p}/dist`)).sort();
   if (!missing.length) return undefined;
   const lines = missing.map((p) => `@source "${toPosix(relative(dirname(cssFile), join("node_modules", p, "dist")))}";`);
   const block = `\n/* Tailwind needs to see the classes Junco's components and blocks use. */\n${lines.join("\n")}\n`;
