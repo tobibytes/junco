@@ -410,69 +410,26 @@ export interface PageItem {
   description: string;
   component: string;
   importFrom: string;
-  sourceEntry: string;
   /** First one is the default. */
   variants: string[];
   docs: string;
-  sourceFiles: string[];
 }
 
 export function buildPages(): { dependencies: string[]; pages: PageItem[] } {
   const versions = workspaceVersions();
-  const blockPackage = JSON.parse(readFileSync(join(ROOT, "packages/blocks/package.json"), "utf8")) as { dependencies: Record<string, string> };
-  const dependencies = Object.entries({ ...blockPackage.dependencies, "@junco/blocks": "workspace:*" }).map(([name, range]) => {
-    const version = versions[name];
-    if (range.startsWith("workspace:") && version) return `${name}@^${version}`;
-    return `${name}@${range}`;
-  });
-  const sourceRoot = join(ROOT, "packages/blocks/src");
-  const allSourceFiles = (dir: string): string[] => readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const abs = join(dir, entry.name);
-    return entry.isDirectory() ? allSourceFiles(abs) : /\.(tsx?|css)$/.test(entry.name) ? [abs] : [];
-  });
-  const sourcePaths = allSourceFiles(sourceRoot);
-  const sourceEntryFor = (component: string) => {
-    const declaration = new RegExp(`export\\s+(?:function|const|class)\\s+${component}\\b`);
-    const entry = sourcePaths.find((file) => declaration.test(readFileSync(file, "utf8")));
-    if (!entry) throw new Error(`Could not find source for page component ${component}`);
-    return relative(sourceRoot, entry).split("\\").join("/").replace(/\.(tsx?|css)$/, "");
-  };
-  const sourceClosure = (entry: string) => {
-    const included = new Set<string>();
-    const resolveSource = (requested: string) =>
-      [requested, ...[".tsx", ".ts", ".css"].map((ext) => `${requested}${ext}`), ...["index.tsx", "index.ts"].map((name) => join(requested, name))].find((candidate) => sourcePaths.includes(candidate));
-    const visit = (file: string) => {
-      if (included.has(file)) return;
-      included.add(file);
-      const content = readFileSync(file, "utf8");
-      for (const match of content.matchAll(/(?:from\s*|import\s*)["'](\.[^"']+)["']/g)) {
-        const requested = resolve(dirname(file), match[1]!);
-        const next = resolveSource(requested);
-        if (next) visit(next);
-      }
-    };
-    const source = resolveSource(resolve(sourceRoot, entry));
-    if (!source) throw new Error(`Could not resolve source entry ${entry}`);
-    visit(source);
-    return [...included].map((file) => relative(sourceRoot, file).split("\\").join("/")).sort();
-  };
+  const dependencies = ["@junco/blocks", "@junco/react"].map((p) => (versions[p] ? `${p}@^${versions[p]}` : p));
   const pages = blockCatalog
     .filter((b) => b.category.endsWith("pages"))
-    .map((b) => {
-      const sourceEntry = sourceEntryFor(b.component);
-      return {
-        name: b.slug.replace(/-page$/, ""),
-        slug: b.slug,
-        title: b.title,
-        description: b.description,
-        component: b.component,
-        importFrom: b.importFrom,
-        sourceEntry,
-        variants: b.variants.map((v) => v.value),
-        docs: `${SITE}/blocks/${b.slug}/`,
-        sourceFiles: sourceClosure(sourceEntry),
-      };
-    });
+    .map((b) => ({
+      name: b.slug.replace(/-page$/, ""),
+      slug: b.slug,
+      title: b.title,
+      description: b.description,
+      component: b.component,
+      importFrom: b.importFrom,
+      variants: b.variants.map((v) => v.value),
+      docs: `${SITE}/blocks/${b.slug}/`,
+    }));
   return { dependencies, pages };
 }
 
@@ -585,11 +542,6 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
   const pages = buildPages();
   mkdirSync(join(rDir, "pages"), { recursive: true });
   writeFileSync(join(rDir, "pages", "index.json"), JSON.stringify({ name: "junco-pages", homepage: SITE, ...pages }, null, 2) + "\n");
-  for (const file of new Set(pages.pages.flatMap((page) => page.sourceFiles))) {
-    const dest = join(rDir, "pages", "source", file);
-    mkdirSync(dirname(dest), { recursive: true });
-    writeFileSync(dest, readFileSync(join(ROOT, "packages/blocks/src", file)));
-  }
   const schemaSrc = join(ROOT, "registry/schema/junco.json");
   if (existsSync(schemaSrc)) {
     mkdirSync(join(outDir, "schema"), { recursive: true });

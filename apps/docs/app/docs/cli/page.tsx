@@ -114,10 +114,9 @@ npx @junco/cli add data-table form       # the junco/data-table and junco/form p
         <Section id="add-page" title="add page">
           <CodeBlock lang="bash" code={`npx @junco/cli add page dashboard --variant focused
 npx @junco/cli add page sign-up --variant split
-npx @junco/cli add page dashboard --source    # copy the source into your project
 npx @junco/cli list                       # every page and its variants, after the components`} />
           <P>
-            By default, writes a small file to <C>components/pages/&lt;name&gt;.tsx</C> that renders the page from <C>@junco/blocks</C> with
+            Writes a small file to <C>components/pages/&lt;name&gt;.tsx</C> that renders the page from <C>@junco/blocks</C> with
             the variant you picked (the first one when you don&apos;t pick). It installs <C>@junco/blocks</C> and{" "}
             <C>@junco/react</C>, and adds <C>@source</C> lines to your CSS so Tailwind sees the classes they use. Pass your data
             as props; anything you leave out shows realistic fake data. Switch layouts later by changing the{" "}
@@ -126,11 +125,6 @@ npx @junco/cli list                       # every page and its variants, after t
               blocks and pages gallery
             </Link>
             .
-          </P>
-          <P>
-            Add <C>--source</C> to copy the page implementation and shared Junco block source into <C>components/junco/blocks</C>.
-            You can edit the copied page and blocks directly; the mode still uses Junco React primitives and motion as package
-            dependencies. The stylesheet is updated so Tailwind scans the copied source.
           </P>
         </Section>
 

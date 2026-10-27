@@ -5,7 +5,7 @@
  * Names follow shadcn/ui so shadcn components and themes work unchanged.
  * Light lives on :root (and .light / [data-theme="light"], to force light inside a dark area).
  * Dark lives on .dark and [data-theme="dark"].
- * The default --primary is Junco Blue; the docs theme builder can preview other accessible accents.
+ * The default --primary (blue) is a PLACEHOLDER until the accent is decided.
  */
 
 :root,
