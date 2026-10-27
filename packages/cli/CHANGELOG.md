@@ -1,5 +1,12 @@
 # @junco/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- ce0f00f: `junco add page <name> [--variant <v>]` adds a full page from `@junco/blocks` (dashboard, sign-up, settings-billing and the rest) with the layout variant you pick. It installs `@junco/blocks` and `@junco/react` and adds the `@source` lines Tailwind needs. `junco list` now shows pages and their variants.
+- 58cd26f: Add `junco add page --source` to copy Junco page and block source into a project.
+
 ## 0.2.0
 
 ### Minor Changes
