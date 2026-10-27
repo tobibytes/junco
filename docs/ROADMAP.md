@@ -62,7 +62,7 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 - [ ] History sidebar + version compare, share dialog with roles, save/offline status
 - [ ] `@junco/editor`: TipTap rich text block with toolbar and slash commands
 - [ ] Docs editor page + Collaborative docs template
-- [ ] First real adapter (Yjs or Liveblocks); the sync engine itself is a separate project
+- [ ] First real adapter: Junco's own engine (separate repo, Yjs-based, see DECISIONS.md). No Liveblocks
 
 ## After v1.0
 
