@@ -8,7 +8,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Examples",
-  description: "Real projects built entirely with Junco: an analytics SaaS, a finance tracker, a hackathon site and a plain-HTML status page. Open the live demos or read the source.",
+  description: "Real projects built entirely with Junco: a collaborative workspace, analytics SaaS, finance tracker, hackathon site and status page. Open the live demos or read the source.",
 };
 
 export default function ExamplesPage() {

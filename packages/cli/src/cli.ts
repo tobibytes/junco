@@ -9,7 +9,7 @@ Usage
   junco create <folder> --template <name>   start a new app (saas, admin; --list shows all)
   junco init [--css package|inline] [--css-file <path>] [--yes] [--force]
   junco add <name...> [--overwrite]
-  junco add page <name> [--variant <v>]   add a full page (dashboard, sign-up, ...) from @junco/blocks
+  junco add page <name> [--variant <v>] [--source]   add a full page (copy source with --source)
   junco diff [name...]           show upstream changes (no name: list items with updates)
   junco update [name...] [--force] [--resolved] [--all]
   junco list [--installed]
@@ -41,6 +41,7 @@ function parseCli(argv: string[]) {
       installed: { type: "boolean" },
       template: { type: "string", short: "t" },
       variant: { type: "string" },
+      source: { type: "boolean" },
       list: { type: "boolean" },
       help: { type: "boolean", short: "h" },
       version: { type: "boolean", short: "v" },
@@ -94,7 +95,7 @@ export async function run(argv: string[], io: Partial<Io> = {}): Promise<number>
       case "add":
         if (names[0] === "page") {
           if (names.length > 2) throw new CliError("Add one page at a time: junco add page dashboard");
-          await addPage(ctx, names[1], { variant: values.variant, overwrite: values.overwrite });
+          await addPage(ctx, names[1], { variant: values.variant, overwrite: values.overwrite, source: values.source });
         } else {
           if (values.variant) throw new CliError("--variant is for pages: junco add page <name> --variant <v>");
           await add(ctx, names, { overwrite: values.overwrite });

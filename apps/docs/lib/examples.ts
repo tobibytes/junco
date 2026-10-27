@@ -25,7 +25,7 @@ const EXAMPLES_DIR = join(process.cwd(), "..", "..", "examples");
 const PUBLIC_DIR = join(process.cwd(), "public");
 
 /** Featured order first; anything else follows alphabetically. */
-const ORDER = ["pulse", "hackathon", "ledger", "status-page"];
+const ORDER = ["collaboration", "pulse", "hackathon", "ledger", "status-page"];
 
 function shot(name: string) {
   return existsSync(join(PUBLIC_DIR, "showcase", name)) ? `/showcase/${name}` : undefined;

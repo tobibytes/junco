@@ -166,6 +166,7 @@ export async function add(io: Io, names: string[], options: AddOptions = {}) {
 export interface AddPageOptions {
   variant?: string;
   overwrite?: boolean;
+  source?: boolean;
 }
 
 const pascal = (name: string) =>
@@ -181,14 +182,17 @@ function assertSafePage(page: PageSummary) {
     /^[A-Z][A-Za-z0-9]*$/.test(page.component) &&
     /^@junco\/blocks(?:\/[a-z]+)?$/.test(page.importFrom) &&
     page.variants.length > 0 &&
-    page.variants.every((v) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v));
+    page.variants.every((v) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(v)) &&
+    (page.sourceEntry === undefined || /^(?:[a-z0-9-]+\/)*[a-z0-9-]+$/.test(page.sourceEntry)) &&
+    (page.sourceFiles === undefined || page.sourceFiles.every((file) => /^(?:[a-z0-9-]+\/)*[a-z0-9-]+\.tsx?$/.test(file)));
   if (!ok) throw new CliError(`The registry's entry for page "${page.name}" doesn't look right. Nothing was written.`);
 }
 
-export function pageSource(page: PageSummary, variant: string): string {
+export function pageSource(page: PageSummary, variant: string, source = false): string {
   const prop = page.variants.length > 1 ? ` variant="${variant}"` : "";
   const variants = page.variants.length > 1 ? ` Variants: ${page.variants.join(", ")}.` : "";
-  return `import { ${page.component} } from "${page.importFrom}";
+  const from = source ? `../junco/blocks/${page.sourceEntry}` : page.importFrom;
+  return `import { ${page.component} } from "${from}";
 
 /**
  * ${page.title}, from Junco. Pass your data as props; anything you leave out shows realistic fake
@@ -205,7 +209,7 @@ export function ${pascal(page.name)}() {
  * installed packages' built files. Returns the new CSS, or undefined when nothing was missing.
  */
 export function withSources(css: string, cssFile: string, packages: string[]): string | undefined {
-  const missing = packages.filter((p) => !css.includes(`${p}/dist`));
+  const missing = packages.filter((p) => !css.includes(`${p}/dist`)).sort();
   if (!missing.length) return undefined;
   const lines = missing.map((p) => `@source "${toPosix(relative(dirname(cssFile), join("node_modules", p, "dist")))}";`);
   const block = `\n/* Tailwind needs to see the classes Junco's components and blocks use. */\n${lines.join("\n")}\n`;
@@ -228,33 +232,59 @@ export async function addPage(io: Io, name: string | undefined, options: AddPage
   if (!page.variants.includes(variant)) {
     throw new CliError(`${page.title} has no "${variant}" variant. Pick one of: ${page.variants.join(", ")}`);
   }
-  const deps = dependencies.filter((d) => /^@junco\/[a-z0-9-]+(?:@[\^~]?\d+\.\d+\.\d+)?$/.test(d));
+  const selectedDependencies = options.source
+    ? dependencies
+    : dependencies.filter((d) => d.startsWith("@junco/blocks@") || d.startsWith("@junco/react@"));
+  const deps = selectedDependencies.filter((d) => /^[a-z0-9@/.-]+(?:@[\^~]?\d+\.\d+\.\d+)?$/.test(d)).sort();
 
   const dest = `${config.paths.components}/pages/${page.name}.tsx`;
   assertInsideProject(page.name, dest);
-  const content = pageSource(page, variant);
-  const local = readLocal(io, dest);
-  if (local !== undefined && local !== content && !options.overwrite) {
-    throw new CliError(`${dest} already exists. Use --overwrite to replace it.`);
+  const content = pageSource(page, variant, options.source);
+  const planned: PlannedFile[] = [{ dest, content }];
+  if (options.source) {
+    if (!page.sourceEntry || !page.sourceFiles?.length) throw new CliError("This registry does not include page source files. Update the registry and try again.");
+    const sourceRoot = `${config.paths.components}/junco/blocks`;
+    const registry = registryFor(io, config);
+    for (const file of page.sourceFiles) {
+      if (!/^(?:[a-z0-9-]+\/)*[a-z0-9-]+\.tsx?$/.test(file)) throw new CliError("The registry's source file list doesn't look right. Nothing was written.");
+      const fileDest = `${sourceRoot}/${file}`;
+      assertInsideProject(page.name, fileDest);
+      planned.push({ dest: fileDest, content: await registry.pageSource(file) });
+    }
   }
-  if (local !== content) {
-    writeFile(io, dest, content);
-    io.out(`  + ${dest}`);
+
+  for (const file of planned) {
+    const local = readLocal(io, file.dest);
+    if (local !== undefined && local !== file.content && !options.overwrite) {
+      throw new CliError(`${file.dest} already exists. Use --overwrite to replace it.`);
+    }
+  }
+  for (const file of planned) {
+    if (readLocal(io, file.dest) !== file.content) {
+      writeFile(io, file.dest, file.content);
+      io.out(`  + ${file.dest}`);
+    }
   }
 
   const cssFile = config.css.file;
   const css = readLocal(io, cssFile);
-  const pkgNames = deps.map((d) => d.replace(/(.)@.*$/, "$1"));
-  const nextCss = css === undefined ? undefined : withSources(css, cssFile, pkgNames);
+  const pkgNames = options.source ? ["@junco/react", "@junco/motion"] : deps.map((d) => d.replace(/(.)@.*$/, "$1"));
+  let nextCss = css === undefined ? undefined : withSources(css, cssFile, pkgNames);
+  if (options.source && css !== undefined) {
+    const sourcePath = toPosix(relative(dirname(cssFile), join(config.paths.components, "junco/blocks")));
+    if (!(nextCss ?? css).includes(`@source "${sourcePath}";`)) {
+      nextCss = `${(nextCss ?? css).trimEnd()}\n@source "${sourcePath}";\n`;
+    }
+  }
   if (nextCss !== undefined) {
     writeFile(io, cssFile, nextCss);
-    io.out(`  ~ ${cssFile} (Tailwind now scans ${pkgNames.join(" and ")})`);
+    io.out(`  ~ ${cssFile} (Tailwind now scans ${pkgNames.join(" and ")}${options.source ? " and the copied source" : ""})`);
   }
 
   install(io, deps);
   const from = config.aliases ? `${config.aliases.components}/pages/${page.name}` : dest.replace(/\.tsx$/, "");
   const which = page.variants.length > 1 ? ` (${variant} variant)` : "";
-  io.out(`Added ${page.title}${which}. Use it: import { ${pascal(page.name)} } from "${from}"`);
+  io.out(`Added ${page.title}${options.source ? " with source" : ""}${which}. Use it: import { ${pascal(page.name)} } from "${from}"`);
 }
 
 /* init ---------------------------------------------------------------------------------- */

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://junco.madebytobi.com/schema/junco.json",
+  "framework": "vite",
+  "css": {
+    "file": "src/index.css",
+    "mode": "package"
+  },
+  "aliases": null,
+  "paths": {
+    "components": "src/components",
+    "ui": "src/components/ui",
+    "lib": "src/lib"
+  },
+  "installed": {
+    "utils": {
+      "hash": "c6617129abda79d7",
+      "files": {
+        "src/lib/utils.ts": "ca124a5275be8f68"
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["VITE_JUNCO_COLLAB_AUTH_ENDPOINT"],
   "tasks": {
     "build": {
       "dependsOn": [

@@ -15,6 +15,8 @@ Build it with `pnpm --filter @junco/example-pulse build`. The build uses `base: 
 
 ## What it uses
 
+Pulse is the first Junco adoption project. It uses the Junco Blue accent, Geist for UI text and Geist Mono for data; those choices match Junco's token defaults. `junco.json` records the project setup, while the app's routes and analytics interactions remain app-specific.
+
 | Junco piece | Where |
 | --- | --- |
 | `AppShell`, `PageHeader`, `PageContainer`, `StatRow`, `AreaChart`, `BarChart`, `SettingsSection`, `SettingsRow` from `@junco/blocks/app` | Layout, stats, charts, settings |
