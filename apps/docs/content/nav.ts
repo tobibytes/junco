@@ -20,6 +20,7 @@ export const guides: NavItem[] = [
   { title: "Theming", href: "/docs/theming/", keywords: "tokens colors accent primary contrast css variables" },
   { title: "Dark mode and motion", href: "/docs/dark-mode/", keywords: "theme provider reduced motion data-motion themeScript" },
   { title: "CLI", href: "/docs/cli/", keywords: "junco init add diff update list eject registry shadcn" },
+  { title: "Collaboration", href: "/docs/collaboration/", keywords: "presence comments history sharing liveblocks rooms multiplayer activity analytics tracking @junco/collab" },
   { title: "SwiftUI", href: "/docs/swiftui/", keywords: "swift ios macos iphone ipad visionos apple native xcode swiftpm" },
   { title: "MCP and AI", href: "/docs/mcp/", keywords: "llms.txt model context protocol claude cursor agents" },
   { title: "Accessibility", href: "/docs/accessibility/", keywords: "a11y keyboard screen reader axe wcag" },
@@ -33,7 +34,7 @@ export const explore: NavItem[] = [
   { title: "3D", href: "/3d/", keywords: "three webgl globe particles shader gradient model viewer tilt @junco/three" },
   { title: "Icons", href: "/icons/", keywords: "lucide icon search svg symbols gallery copy" },
   { title: "Templates", href: "/templates/", keywords: "starter app saas admin panel junco create scaffold boilerplate live demo" },
-  { title: "Examples", href: "/examples/", keywords: "showcase demo projects pulse ledger hackharbor hackathon status page saas finance" },
+  { title: "Examples", href: "/examples/", keywords: "showcase demo projects collaboration liveblocks pulse ledger hackharbor hackathon status page saas finance" },
 ];
 
 export const nav: NavSection[] = [

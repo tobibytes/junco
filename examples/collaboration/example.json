@@ -1,0 +1,15 @@
+{
+  "slug": "collaboration",
+  "title": "Collaboration workspace",
+  "tagline": "Presence, comments, room activity and analytics tracking with Junco",
+  "description": "A hands-on Junco collaboration demo. Explore the complete fake-data UI or connect to the hosted disposable Liveblocks room when the service is configured.",
+  "tags": ["Collaboration", "Liveblocks", "React"],
+  "packages": ["@junco/collab", "@liveblocks/react", "@liveblocks/react-ui"],
+  "features": [
+    "Fake mode includes presence, comment threads, replies, reactions, history, sharing and room activity",
+    "Optional real room connects to the Junco-hosted Liveblocks demo auth endpoint",
+    "Privacy-safe typed analytics events are shown in a local event log",
+    "Private application rooms still use the application's own sign-in and access checks"
+  ],
+  "source": "https://github.com/tobibytes/junco/tree/main/examples/collaboration"
+}

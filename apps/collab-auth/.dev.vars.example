@@ -1,0 +1,2 @@
+LIVEBLOCKS_SECRET_KEY=sk_dev_replace_me
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:5173,https://junco.madebytobi.com
