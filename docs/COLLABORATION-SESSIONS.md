@@ -16,7 +16,8 @@ The collaboration feature stays in this monorepo. `@junco/collab` owns reusable 
 - [x] Add the Worker deployment workflow and configure the intended Cloudflare custom domain
 - [x] Configure the website example to check the stable endpoint health and enable the Live mode only when it is available
 - [ ] Add the Liveblocks project secret to GitHub Actions, deploy the Worker so Cloudflare provisions the custom domain, and verify `GET /health`, `POST /auth`, and two-client presence/comments
-- [ ] Verify the production example at `https://junco.madebytobi.com/examples/collaboration/`
+- [x] Verify the production fake mode renders and emits room activity plus local analytics events at `https://junco.madebytobi.com/demos/collaboration/`
+- [ ] Verify the production example with the real Liveblocks room after the Worker is deployed
 
 The GitHub Actions secrets include the Cloudflare token and account ID, but `LIVEBLOCKS_SECRET_KEY` is not configured yet. The deployment workflow safely skips the Worker until that secret is added. The configured custom domain does not resolve until the Worker is deployed. The Liveblocks demo is deliberately public and disposable, and its endpoint can issue access only to `junco:collaboration-demo`. This is not an authentication service for customer apps.
 
