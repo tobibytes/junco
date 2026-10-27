@@ -235,7 +235,7 @@ export async function addPage(io: Io, name: string | undefined, options: AddPage
   const selectedDependencies = options.source
     ? dependencies
     : dependencies.filter((d) => d.startsWith("@junco/blocks@") || d.startsWith("@junco/react@"));
-  const deps = selectedDependencies.filter((d) => /^[a-z0-9@/.-]+(?:@[\^~]?\d+\.\d+\.\d+)?$/.test(d));
+  const deps = selectedDependencies.filter((d) => /^[a-z0-9@/.-]+(?:@[\^~]?\d+\.\d+\.\d+)?$/.test(d)).sort();
 
   const dest = `${config.paths.components}/pages/${page.name}.tsx`;
   assertInsideProject(page.name, dest);
