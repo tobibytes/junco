@@ -23,6 +23,14 @@ describe("tokens", () => {
     expect(missing).toEqual([]);
   });
 
+  it("stacks layers so menus open above dialogs and sheets, and toasts above everything", () => {
+    const z = (name: string) => Number(light[`z-${name}`]);
+    expect(z("dropdown")).toBeLessThan(z("sticky"));
+    expect(z("sticky")).toBeLessThan(z("overlay"));
+    expect(z("overlay")).toBeLessThan(z("popover"));
+    expect(z("popover")).toBeLessThan(z("toast"));
+  });
+
   for (const [mode, values] of Object.entries(modes)) {
     describe(`${mode} mode`, () => {
       it.each(textPairs.map(([fg, bg]) => [fg, bg]))(`%s on %s hits ${MIN_TEXT_CONTRAST}:1`, (fg, bg) => {

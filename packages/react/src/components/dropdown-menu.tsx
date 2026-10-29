@@ -25,7 +25,7 @@ export const DropdownMenuSub = DropdownMenuPrimitive.Sub;
 export const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup;
 
 const surface = [
-  "z-dropdown min-w-44 max-w-[calc(100vw-1rem)] overflow-hidden rounded-card border border-border bg-popover p-1 text-popover-foreground shadow-float",
+  "z-popover min-w-44 max-w-[calc(100vw-1rem)] overflow-hidden rounded-card border border-border bg-popover p-1 text-popover-foreground shadow-float",
   "data-[state=open]:animate-pop-in data-[state=closed]:animate-pop-out",
 ];
 

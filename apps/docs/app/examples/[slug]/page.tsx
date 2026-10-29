@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { CodeBlock } from "@/components/code-block";
 import { ArrowRightIcon, GithubIcon } from "@/components/icons";
 import { BrowserShot, PhoneShot } from "@/components/examples/shot";
-import { getExample, getExamples } from "@/lib/examples";
+import { demoHost, getExample, getExamples } from "@/lib/examples";
 import { site } from "@/lib/site";
 
 export const dynamicParams = false;
@@ -47,6 +47,15 @@ export default async function ExamplePage({ params }: { params: Promise<{ slug: 
             <div className="grid gap-3">
               <h1 className="text-4xl font-semibold tracking-tighter text-balance sm:text-5xl">{ex.title}</h1>
               <p className="max-w-2xl text-lg text-pretty text-muted-foreground">{ex.description}</p>
+              {ex.external?.poweredBy && (
+                <p className="text-sm text-muted-foreground">
+                  Built with Junco +{" "}
+                  <a href={ex.external.poweredBy.href} className="font-medium text-foreground underline underline-offset-4 hover:decoration-primary">
+                    {ex.external.poweredBy.name}
+                  </a>
+                  . See <Link href="/docs/collaboration/" className="underline underline-offset-4 hover:text-foreground">Realtime collaboration</Link>.
+                </p>
+              )}
               <ul className="flex flex-wrap gap-1.5" aria-label="Tags">
                 {ex.tags.map((t) => (
                   <li key={t}>
@@ -73,7 +82,7 @@ export default async function ExamplePage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
           <div className="grid items-end gap-6 lg:grid-cols-[1fr_220px]">
-            <BrowserShot light={ex.shots.light} dark={ex.shots.dark} alt={`${ex.title}, desktop`} url={ex.demo ? `${new URL(site.url).host}${ex.demo}` : undefined} priority />
+            <BrowserShot light={ex.shots.light} dark={ex.shots.dark} alt={`${ex.title}, desktop`} url={ex.demo ? demoHost(ex.demo, site.url) : undefined} priority />
             {ex.shots.phone && <PhoneShot src={ex.shots.phone} alt={`${ex.title} on a phone`} className="mx-auto hidden w-[220px] lg:block" />}
           </div>
         </div>
@@ -104,7 +113,7 @@ export default async function ExamplePage({ params }: { params: Promise<{ slug: 
             <h3 className="mt-2 text-sm font-medium">Run it locally</h3>
             <CodeBlock
               lang="bash"
-              code={`git clone ${site.github}.git && cd junco\npnpm install\npnpm --filter ${pkgName}... build\npnpm --filter ${pkgName} dev`}
+              code={ex.external?.run ?? `git clone ${site.github}.git && cd junco\npnpm install\npnpm --filter ${pkgName}... build\npnpm --filter ${pkgName} dev`}
             />
           </div>
         </section>
@@ -124,7 +133,8 @@ export default async function ExamplePage({ params }: { params: Promise<{ slug: 
           </section>
         )}
 
-        {ex.demo && (
+        {/* External demos open in their own tab: their sign-in cookies don't work inside an iframe here. */}
+        {ex.demo && !ex.external && (
           <section aria-labelledby="try-it" className="grid gap-4">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 id="try-it" className="text-2xl font-semibold tracking-tight">Try it here</h2>

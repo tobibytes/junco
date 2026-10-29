@@ -70,7 +70,7 @@ export const SelectContent = React.forwardRef<
       position={position}
       sideOffset={sideOffset}
       className={cn(
-        "relative z-dropdown max-h-(--radix-select-content-available-height) min-w-32 overflow-hidden",
+        "relative z-popover max-h-(--radix-select-content-available-height) min-w-32 overflow-hidden",
         "rounded-card border border-border bg-popover text-popover-foreground shadow-float",
         "origin-(--radix-select-content-transform-origin) data-[state=open]:animate-pop-in data-[state=closed]:animate-pop-out",
         position === "popper" && "w-(--radix-select-trigger-width)",

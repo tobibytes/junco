@@ -26,7 +26,7 @@ export const PopoverContent = React.forwardRef<
       sideOffset={sideOffset}
       collisionPadding={collisionPadding}
       className={cn(
-        "z-dropdown w-72 max-w-[calc(100vw-1rem)] rounded-card border border-border bg-popover p-4 text-sm text-popover-foreground shadow-float",
+        "z-popover w-72 max-w-[calc(100vw-1rem)] rounded-card border border-border bg-popover p-4 text-sm text-popover-foreground shadow-float",
         "origin-(--radix-popover-content-transform-origin) focus-visible:outline-none",
         "data-[state=open]:animate-pop-in data-[state=closed]:animate-pop-out",
         className,

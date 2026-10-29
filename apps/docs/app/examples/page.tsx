@@ -3,12 +3,12 @@ import { Badge, Button } from "@junco/react";
 import Link from "next/link";
 import { ArrowRightIcon, GithubIcon } from "@/components/icons";
 import { BrowserShot } from "@/components/examples/shot";
-import { getExamples } from "@/lib/examples";
+import { demoHost, getExamples } from "@/lib/examples";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Examples",
-  description: "Real projects built entirely with Junco: an analytics SaaS, a finance tracker, a hackathon site and a plain-HTML status page. Open the live demos or read the source.",
+  description: "Real projects built entirely with Junco: an analytics SaaS, a realtime team board, a finance tracker, a hackathon site and a plain-HTML status page. Open the live demos or read the source.",
 };
 
 export default function ExamplesPage() {
@@ -39,7 +39,7 @@ export default function ExamplesPage() {
                 aria-hidden
                 tabIndex={-1}
               >
-                <BrowserShot light={ex.shots.light} dark={ex.shots.dark} alt={`${ex.title} screenshot`} url={ex.demo ? `${new URL(site.url).host}${ex.demo}` : undefined} priority={i < 2} className="transition-shadow duration-base group-hover:shadow-float" />
+                <BrowserShot light={ex.shots.light} dark={ex.shots.dark} alt={`${ex.title} screenshot`} url={ex.demo ? demoHost(ex.demo, site.url) : undefined} priority={i < 2} className="transition-shadow duration-base group-hover:shadow-float" />
               </Link>
               <div className="grid gap-2">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -57,6 +57,11 @@ export default function ExamplesPage() {
                   </ul>
                 </div>
                 <p className="text-sm text-pretty text-muted-foreground">{ex.tagline}</p>
+                {ex.external?.poweredBy && (
+                  <p className="text-xs text-muted-foreground">
+                    Built with Junco + {ex.external.poweredBy.name}
+                  </p>
+                )}
               </div>
               <div className="flex flex-wrap gap-2">
                 {ex.demo && (
