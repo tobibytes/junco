@@ -1,0 +1,70 @@
+{
+  "name": "@junco/collab",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Junco collaboration UI: avatar stack, live cursors, who's-editing bar, connection status, comment threads, history and inbox. Plain data and callbacks, fake data by default, adapters for real backends (Towhee).",
+  "license": "MIT",
+  "author": "Oluwatobi Olajide",
+  "homepage": "https://junco.madebytobi.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tobibytes/junco.git",
+    "directory": "packages/collab"
+  },
+  "bugs": {
+    "url": "https://github.com/tobibytes/junco/issues"
+  },
+  "keywords": [
+    "collaboration",
+    "multiplayer",
+    "presence",
+    "cursors",
+    "comments",
+    "react",
+    "towhee",
+    "tailwindcss"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@junco/react": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.3.0 || ^19.0.0",
+    "react-dom": "^18.3.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "jsdom": "^30.1.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

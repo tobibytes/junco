@@ -15,7 +15,9 @@
   "dependencies": {
     "@hookform/resolvers": "^6.0.0",
     "@junco/blocks": "workspace:*",
+    "@junco/collab": "workspace:*",
     "@junco/motion": "workspace:*",
+    "@junco/react": "workspace:*",
     "@junco/tailwind": "workspace:*",
     "@junco/three": "workspace:*",
     "@junco/tokens": "workspace:*",
@@ -24,7 +26,6 @@
     "@tanstack/react-table": "^8.21.3",
     "clsx": "^2.1.1",
     "geist": "^1.8.0",
-    "@junco/react": "workspace:*",
     "lucide-react": "^0.577.0",
     "next": "^16.0.0",
     "react": "^19.0.0",
