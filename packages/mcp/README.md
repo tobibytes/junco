@@ -1,6 +1,8 @@
 # @junco/mcp
 
-An MCP server that lets AI agents (Claude Code, Claude Desktop, Cursor, ...) find, read and install Junco components, blocks and tokens. It reads the public registry at `https://junco.madebytobi.com/r`, or a local folder.
+An MCP server that lets AI agents (Claude, Claude Code, Cursor, VS Code, ...) find, read and install Junco components, blocks and tokens. It reads the public registry at `https://junco.madebytobi.com/r`, or a local folder.
+
+Use the hosted server (nothing to install) or run it locally with `npx`. Both have the same tools.
 
 ## Tools
 
@@ -13,7 +15,39 @@ An MCP server that lets AI agents (Claude Code, Claude Desktop, Cursor, ...) fin
 | `get_tokens` | design tokens as a summary, `tokens.css`, or W3C JSON (`format`, `filter`) |
 | `get_install_instructions` | setup steps for `next`, `vite`, `remix`, `astro` or `html` |
 
-## Setup
+## Hosted (recommended)
+
+`https://mcp.junco.madebytobi.com/mcp` (Streamable HTTP, public, no sign-in).
+
+**Claude** (web, desktop, mobile): Settings → Connectors → Add custom connector, and paste the URL above.
+
+**Claude Code**
+
+```bash
+claude mcp add --transport http junco https://mcp.junco.madebytobi.com/mcp
+```
+
+**Cursor** (`.cursor/mcp.json`)
+
+```json
+{
+  "mcpServers": {
+    "junco": { "url": "https://mcp.junco.madebytobi.com/mcp" }
+  }
+}
+```
+
+**VS Code** (`.vscode/mcp.json`)
+
+```json
+{
+  "servers": {
+    "junco": { "type": "http", "url": "https://mcp.junco.madebytobi.com/mcp" }
+  }
+}
+```
+
+## Local or offline (stdio)
 
 **Claude Code**
 
@@ -49,3 +83,12 @@ Use a local registry (for working on Junco itself) with `--registry ./apps/docs/
 import { createServer } from "@junco/mcp";
 const server = createServer("https://junco.madebytobi.com/r"); // McpServer, connect any transport
 ```
+
+For runtimes without Node APIs (Cloudflare Workers, Deno, browsers), `@junco/mcp/remote` builds the same server over a registry URL, with the token files bundled in:
+
+```ts
+import { createRemoteServer } from "@junco/mcp/remote";
+const server = createRemoteServer(); // e.g. with the MCP SDK's WebStandardStreamableHTTPServerTransport
+```
+
+The hosted server is `apps/mcp-worker` in the Junco repo.

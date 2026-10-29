@@ -6,10 +6,11 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "MCP and AI",
-  description: "Use Junco with Claude, Cursor, VS Code and other AI agents: the @junco/mcp server, llms.txt and the registry JSON.",
+  description: "Use Junco with Claude, Cursor, VS Code and other AI agents: the hosted MCP server, @junco/mcp, llms.txt and the registry JSON.",
 };
 
 const link = "font-medium text-foreground underline underline-offset-4 hover:decoration-primary";
+const MCP_URL = "https://mcp.junco.madebytobi.com/mcp";
 
 export default function McpPage() {
   return (
@@ -22,9 +23,37 @@ export default function McpPage() {
       <div className="mt-10 grid gap-12">
         <Section id="mcp" title="MCP server">
           <P>
-            <C>@junco/mcp</C> is a stdio MCP server. It lets an agent search Junco, read any component&apos;s usage at all four
-            levels with its props and source, read the tokens, and get install steps for your framework. It reads the public
-            registry at <C>{`${site.url}/r`}</C>.
+            The Junco MCP server lets an agent search Junco, read any component&apos;s usage at all four levels with its props and
+            source, read the tokens, and get install steps for your framework. It reads the public registry at{" "}
+            <C>{`${site.url}/r`}</C>. Use the hosted server, with nothing to install, or run it locally.
+          </P>
+          <P>
+            <strong className="font-medium text-foreground">Hosted:</strong> <C>{MCP_URL}</C> (Streamable HTTP, public, no sign-in).
+          </P>
+          <CodeBlock
+            title="Claude (web, desktop, mobile)"
+            code={`Settings → Connectors → Add custom connector\nURL: ${MCP_URL}`}
+          />
+          <CodeBlock lang="bash" title="Claude Code" code={`claude mcp add --transport http junco ${MCP_URL}`} />
+          <CodeBlock
+            title="Cursor (.cursor/mcp.json)"
+            code={`{
+  "mcpServers": {
+    "junco": { "url": "${MCP_URL}" }
+  }
+}`}
+          />
+          <CodeBlock
+            title="VS Code (.vscode/mcp.json)"
+            code={`{
+  "servers": {
+    "junco": { "type": "http", "url": "${MCP_URL}" }
+  }
+}`}
+          />
+          <P>
+            <strong className="font-medium text-foreground">Local or offline:</strong> <C>@junco/mcp</C> runs the same server over
+            stdio.
           </P>
           <CodeBlock lang="bash" title="Claude Code" code="claude mcp add junco -- npx -y @junco/mcp" />
           <CodeBlock
