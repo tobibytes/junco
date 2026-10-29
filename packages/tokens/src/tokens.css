@@ -105,6 +105,8 @@
   --z-dropdown: 50;
   --z-sticky: 60;
   --z-overlay: 100;
+  /* menus, selects and popovers: above overlays so they work inside dialogs and sheets */
+  --z-popover: 150;
   --z-toast: 200;
 
   /* motion */
