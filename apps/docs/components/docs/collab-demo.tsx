@@ -12,6 +12,7 @@ import {
   type FakeAdapter,
   HistoryPanel,
   InboxButton,
+  ShareDialog,
   useCollabState,
 } from "@junco/collab";
 import { Button, cn, Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@junco/react";
@@ -95,6 +96,7 @@ export function CollabPlayground() {
             <ConnectionStatus />
             <AvatarStack />
             <InboxButton />
+            <ShareDialog trigger={<Button size="sm">Share</Button>} title="Share “Launch doc”" link="https://junco.madebytobi.com/docs/collaboration/" />
             <Sheet>
               <SheetTrigger asChild>
                 <Button size="sm" variant="outline">

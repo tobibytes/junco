@@ -120,7 +120,9 @@ export default function CollaborationPage() {
               [<C key="c">EditingBar</C>, "“Ada and Bo are editing the introduction”, or nothing when nobody is"],
               [<C key="d">ConnectionStatus</C>, "Live, connecting, reconnecting or offline, in words with a dot, never color alone"],
               [<C key="e">CommentsPanel</C>, "Threads (optionally for one anchor) and a box to start one; CommentThread and CommentComposer on their own"],
-              [<C key="f">HistoryPanel</C>, "Save a named version, restore any version for everyone, undo the restore"],
+              [<C key="f">HistoryPanel</C>, "Save a named version, compare any version with now, restore it for everyone, undo the restore"],
+              [<C key="h">VersionCompare</C>, "Two texts merged with additions underlined and removals struck through, announced in words"],
+              [<C key="i">ShareDialog</C>, "Invite by email with a role, change or remove people, link access, copy link. Your app owns the data"],
               [<C key="g">InboxButton</C>, "A bell with the unread count; mentions and replies; mark read"],
             ]}
           />
@@ -237,7 +239,7 @@ export default function CollaborationPage() {
           <a className={link} href="https://github.com/tobibytes/junco/tree/main/packages/collab">
             repo
           </a>
-          . The share dialog, version compare and the TipTap editor block come next.
+          .
         </Note>
       </div>
       <Pager href="/docs/collaboration/" />

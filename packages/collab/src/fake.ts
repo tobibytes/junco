@@ -53,6 +53,15 @@ export const sampleVersions: CollabVersion[] = [
   { id: "v-1", kind: "manual", name: "First draft", createdAt: t0 - 26 * 60 * minute, author: ada },
 ];
 
+/** The sample document at each sample version, for version compare. */
+export const sampleVersionTexts: Record<string, string> = {
+  "v-1": "Launch plan\nWe ship the new editor in November. Beta users move over first.\n\nPricing\nTeams pay $10 a seat.",
+  "v-2": "Launch plan\nWe ship the new editor on November 12. Beta users move over a week earlier.\n\nPricing\nTeams stay at $8 a seat.",
+  "v-3": "Launch plan\nWe ship the new editor on November 12. Beta users move over a week earlier, and the changelog goes out the same morning.\n\nPricing\nTeams stay at $8 a seat. Editors with more than 50 seats get the annual discount automatically.",
+  current:
+    "Launch plan\nWe ship the new editor on November 12. Beta users move over a week earlier, and the changelog goes out the same morning.\n\nPricing\nTeams stay at $8 a seat. Editors with more than 50 seats get the annual discount automatically.\n\nRisks\nSearch indexing is the slow part.",
+};
+
 export const sampleNotifications = [
   { id: "n-1", kind: "mention" as const, actor: ada, excerpt: "@You can you check the numbers in the pricing section?", createdAt: t0 - 8 * minute, read: false, threadId: "t-2" },
   { id: "n-2", kind: "reply" as const, actor: bo, excerpt: "Yes. I'll move the date to the first line.", createdAt: t0 - 31 * minute, read: true, threadId: "t-1" },
@@ -68,6 +77,8 @@ export const sampleState: CollabState = {
 };
 
 export interface FakeAdapterOptions extends Partial<CollabState> {
+  /** Text of each version (and `current`) for version compare. Default: sample texts. */
+  versionTexts?: Record<string, string>;
   /** Moves the other people's cursors around, for demos. Off by default. */
   simulate?: boolean;
   /** Clock for new comments and versions. Default `Date.now`. */
@@ -92,7 +103,8 @@ export function commentText(input: CommentInput): string {
  * the page. For docs, tests, prototypes and building a UI before the server exists.
  */
 export function createFakeAdapter(options: FakeAdapterOptions = {}): FakeAdapter {
-  const { simulate = false, now = Date.now, ...initial } = options;
+  const { simulate = false, now = Date.now, versionTexts = sampleVersionTexts, ...initial } = options;
+  const texts = { ...versionTexts };
   let state: CollabState = { ...sampleState, ...initial };
   const listeners = new Set<() => void>();
   let ids = 0;
@@ -160,13 +172,21 @@ export function createFakeAdapter(options: FakeAdapterOptions = {}): FakeAdapter
     },
     async saveVersion(name) {
       const version: CollabVersion = { id: id("v"), kind: "manual", name: name?.trim() || undefined, createdAt: now(), author: me() };
+      texts[version.id] = texts.current ?? "";
       set({ versions: [version, ...state.versions] });
     },
     async restoreVersion(versionId) {
       const from = state.versions.find((v) => v.id === versionId);
       if (!from) throw new Error("No such version");
       const version: CollabVersion = { id: id("v"), kind: "restore", name: from.name ? `Restored “${from.name}”` : "Restored", createdAt: now(), author: me() };
+      texts.current = texts[versionId] ?? texts.current ?? "";
+      texts[version.id] = texts.current;
       set({ versions: [version, ...state.versions] });
+    },
+    async versionText(versionId) {
+      const text = texts[versionId];
+      if (text === undefined) throw new Error("This version has no saved text");
+      return text;
     },
     async markRead(ids) {
       const pick = ids ? new Set(ids) : null;

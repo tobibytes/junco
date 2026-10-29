@@ -75,7 +75,11 @@ export interface TowheeRoomLike {
     react(threadId: string, commentId: string, reaction: string, add?: boolean): Promise<void>;
     resolve(threadId: string, resolved?: boolean): Promise<void>;
   };
+  /** The live Y.Doc; only read when `textOf` is set. */
+  doc?: unknown;
   history: {
+    /** A read-only copy of the document at a version; only used when `textOf` is set. */
+    preview?(versionId: string): Promise<unknown>;
     list(): TowheeVersion[];
     subscribe(listener: () => void): () => void;
     save(name?: string): Promise<unknown>;
@@ -101,6 +105,12 @@ export interface TowheeAdapterOptions {
    * See Towhee's history docs.
    */
   restoreOptions?: unknown;
+  /**
+   * Turns a Y.Doc into plain text, to compare versions, like `(doc) => doc.getText("body").toString()`
+   * or, for TipTap, the editor's text from `doc.getXmlFragment("default")`. Without it there's no compare.
+   */
+  // biome-ignore lint/suspicious/noExplicitAny: a Y.Doc, typed loosely so Junco doesn't depend on Yjs
+  textOf?: (doc: any) => string;
 }
 
 const user = (u: TowheeUser): CollabUser => ({ id: u.id, name: u.name ?? u.id, color: u.color, avatar: u.avatar });
@@ -148,7 +158,7 @@ function comment(c: TowheeComment): CollabComment {
  * Maps a Towhee room (and inbox) onto the collaboration components. Presence fields `cursor` and
  * `editing` are the ones the components read and write.
  */
-export function towheeAdapter({ room, inbox, restoreOptions }: TowheeAdapterOptions): CollabAdapter & { dispose(): void } {
+export function towheeAdapter({ room, inbox, restoreOptions, textOf }: TowheeAdapterOptions): CollabAdapter & { dispose(): void } {
   let state: CollabState | null = null;
   const listeners = new Set<() => void>();
   const changed = () => {
@@ -233,5 +243,19 @@ export function towheeAdapter({ room, inbox, restoreOptions }: TowheeAdapterOpti
       if (!inbox) return;
       await (ids ? inbox.markRead(ids) : inbox.markAllRead());
     },
+    ...(textOf && room.history.preview
+      ? {
+          versionText: async (versionId: string) => {
+            if (versionId === "current") return textOf(room.doc);
+            const preview = room.history.preview!;
+            const doc = await preview.call(room.history, versionId);
+            try {
+              return textOf(doc);
+            } finally {
+              (doc as { destroy?: () => void }).destroy?.();
+            }
+          },
+        }
+      : {}),
   };
 }

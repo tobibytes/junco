@@ -1,7 +1,8 @@
 import { Badge, Button, cn, EmptyState, Input } from "@junco/react";
 import * as React from "react";
 import { When } from "./comments";
-import { sampleVersions } from "./fake";
+import { VersionCompare } from "./compare";
+import { sampleVersions, sampleVersionTexts } from "./fake";
 import { HistoryIcon, RotateCcwIcon } from "./icons";
 import { useCollabAdapter, useCollabState } from "./provider";
 import type { CollabVersion } from "./types";
@@ -17,6 +18,11 @@ export interface HistoryPanelProps {
   onUndo?: () => void;
   /** Whether undo is possible right now. Default: after a restore from this panel. */
   canUndo?: boolean;
+  /**
+   * A version's text, or the live document's for `"current"`, to compare a version with now.
+   * Default: the adapter's `versionText`, or sample texts. Without one there's no Compare button.
+   */
+  getText?: (versionId: string | "current") => Promise<string>;
   className?: string;
   classNames?: { root?: string; list?: string; item?: string };
 }
@@ -47,6 +53,47 @@ export function HistoryPanel(props: HistoryPanelProps) {
       setBusy(null);
     }
   };
+  const getText =
+    props.getText ??
+    (adapter?.versionText ? (id: string) => adapter.versionText!(id) : !adapter && !props.versions ? async (id: string) => sampleVersionTexts[id] ?? "" : undefined);
+  const [comparing, setComparing] = React.useState<{ version: CollabVersion; before: string; after: string } | null>(null);
+
+  const compare = async (v: CollabVersion) => {
+    if (!getText) return;
+    const ok = await run(`compare-${v.id}`, async () => {
+      const [before, after] = await Promise.all([getText(v.id), getText("current")]);
+      setComparing({ version: v, before, after });
+    });
+    if (!ok) setComparing(null);
+  };
+
+  if (comparing) {
+    const label = comparing.version.name ?? KIND[comparing.version.kind];
+    return (
+      <div className={cn("grid content-start gap-4", props.className, props.classNames?.root)}>
+        <Button variant="ghost" size="sm" className="w-fit" onClick={() => setComparing(null)}>
+          ← All versions
+        </Button>
+        <VersionCompare before={comparing.before} after={comparing.after} beforeLabel={label} afterLabel="Now" />
+        {onRestore && (
+          <Button
+            variant="outline"
+            className="w-fit"
+            isLoading={busy === comparing.version.id}
+            onClick={async () => {
+              if (await run(comparing.version.id, () => onRestore(comparing.version.id))) {
+                setRestored(true);
+                setComparing(null);
+              }
+            }}
+          >
+            Restore {label}
+          </Button>
+        )}
+      </div>
+    );
+  }
+
 
   return (
     <div className={cn("grid content-start gap-4", props.className, props.classNames?.root)}>
@@ -94,6 +141,11 @@ export function HistoryPanel(props: HistoryPanelProps) {
                 </span>
               </div>
               <Badge variant="outline">{KIND[v.kind]}</Badge>
+              {getText && (
+                <Button size="sm" variant="ghost" isLoading={busy === `compare-${v.id}`} aria-label={`Compare ${v.name ?? KIND[v.kind].toLowerCase()} with now`} onClick={() => compare(v)}>
+                  Compare
+                </Button>
+              )}
               {onRestore && (
                 <Button
                   size="sm"

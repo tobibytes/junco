@@ -1,8 +1,7 @@
 {
   "name": "@junco/collab",
   "version": "0.0.0",
-  "private": true,
-  "description": "Junco collaboration UI: avatar stack, live cursors, who's-editing bar, connection status, comment threads, history and inbox. Plain data and callbacks, fake data by default, adapters for real backends (Towhee).",
+  "description": "Junco collaboration UI: avatar stack, live cursors, who's-editing bar, connection status, comments with mentions, version history with compare, share dialog and inbox. Plain data, fake data by default, a Towhee adapter.",
   "license": "MIT",
   "author": "Oluwatobi Olajide",
   "homepage": "https://junco.madebytobi.com",

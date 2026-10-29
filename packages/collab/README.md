@@ -25,11 +25,15 @@ const adapter = towheeAdapter({ room: client.enter("doc:42"), inbox: client.inbo
 | `EditingBar` | "Ada and Bo are editing the introduction" |
 | `ConnectionStatus` | Live, connecting, reconnecting, offline |
 | `CommentsPanel`, `CommentThread`, `CommentComposer` | Threads, replies, @mentions, reactions, resolve |
-| `HistoryPanel` | Save, restore, undo restore |
+| `HistoryPanel` | Save, compare with now, restore, undo restore |
+| `VersionCompare` | A word diff of two texts, changes announced in words |
+| `ShareDialog` | Invite by email with a role, change or remove people, link access, copy link |
 | `InboxButton` | Unread count, mentions and replies, mark read |
 
 Adapters: `towheeAdapter({ room, inbox, restoreOptions })`, `createFakeAdapter(options)`, or implement `CollabAdapter` for another backend.
 
-The package doesn't depend on Towhee: the adapter is typed by shape, so any `@towhee/client` room fits.
+The package doesn't depend on Towhee: the adapter is typed by shape, so any `@towhee/client` room fits. Pass `textOf` (a Y.Doc to plain text) to turn on version compare.
+
+Install: `npm i @junco/collab @junco/react @junco/tailwind`.
 
 Docs: [junco.madebytobi.com/docs/collaboration](https://junco.madebytobi.com/docs/collaboration/).
