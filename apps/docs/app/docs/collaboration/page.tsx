@@ -178,8 +178,9 @@ export default function CollaborationPage() {
 
         <Section id="how" title="How to use it">
           <P>
-            <strong className="font-medium text-foreground">1. Run a server.</strong> Deploy Towhee to Cloudflare or start the Docker
-            image. Both guides are on the Towhee site:{" "}
+            <strong className="font-medium text-foreground">1. Run a server.</strong> Start the Docker image (
+            <C>docker run -p 8080:8080 -e TOWHEE_SECRET -v towhee-data:/data ghcr.io/tobibytes/towhee:0.1.0</C>) or deploy to
+            Cloudflare, then <C>npm i @towhee/client @towhee/auth</C> in your app. Both guides are on the Towhee site:{" "}
             <a className={link} href={`${TOWHEE}/docs/cloudflare`}>
               Cloudflare
             </a>
@@ -227,16 +228,16 @@ export default function CollaborationPage() {
         </Section>
 
         <Note title="Status">
-          Towhee works end to end today (its site and the live board run on it), but its packages publish to npm with v0.1, and{" "}
-          <C>@junco/collab</C> publishes with its first release too. Until then, use both from their repos (
-          <a className={link} href="https://github.com/tobibytes/towhee">
-            Towhee
-          </a>
-          ,{" "}
+          Towhee 0.1 is out: <C>@towhee/*</C> on{" "}
+          <a className={link} href="https://www.npmjs.com/org/towhee">
+            npm
+          </a>{" "}
+          and the server image at <C>ghcr.io/tobibytes/towhee</C>. <C>@junco/collab</C> isn&apos;t on npm yet; until its first
+          release, use it from the{" "}
           <a className={link} href="https://github.com/tobibytes/junco/tree/main/packages/collab">
-            @junco/collab
+            repo
           </a>
-          ). The share dialog, version compare and the TipTap editor block come next.
+          . The share dialog, version compare and the TipTap editor block come next.
         </Note>
       </div>
       <Pager href="/docs/collaboration/" />
