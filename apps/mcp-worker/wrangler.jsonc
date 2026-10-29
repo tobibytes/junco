@@ -1,0 +1,12 @@
+// The remote Junco MCP server: https://mcp.junco.madebytobi.com/mcp
+// Deployed by .github/workflows/deploy-mcp.yml; by hand: pnpm --filter mcp-worker deploy
+{
+  "name": "junco-mcp",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-01",
+  // Cloudflare creates the DNS record and certificate for the custom domain.
+  "routes": [{ "pattern": "mcp.junco.madebytobi.com", "custom_domain": true }],
+  "workers_dev": false,
+  "ratelimits": [{ "name": "RATE_LIMITER", "namespace_id": "4101", "simple": { "limit": 60, "period": 60 } }],
+  "observability": { "enabled": true }
+}

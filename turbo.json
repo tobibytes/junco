@@ -99,6 +99,21 @@
         "!.next/cache/**",
         "out/**"
       ]
+    },
+    "mcp-worker#test": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/scripts/**",
+        "$TURBO_ROOT$/packages/react/src/**",
+        "$TURBO_ROOT$/packages/tokens/src/**",
+        "$TURBO_ROOT$/packages/tailwind/src/**",
+        "$TURBO_ROOT$/registry/**",
+        "$TURBO_ROOT$/templates/**"
+      ],
+      "outputs": []
     }
   }
 }

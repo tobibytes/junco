@@ -28,5 +28,11 @@
         }
       ]
     }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.junco.madebytobi.com/mcp"
+    }
   ]
 }
