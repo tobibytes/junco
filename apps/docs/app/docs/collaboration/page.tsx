@@ -112,6 +112,7 @@ export default function CollaborationPage() {
             fake data: Ada and Bo&apos;s cursors move, comments and versions really save, and the toolbar switches the connection.
           </P>
           <CollabPlayground />
+          <CodeBlock lang="bash" code={"npm i @junco/collab\n# or copy the source into components/collab:\nnpx @junco/cli add collab"} />
           <P>
             For documents, pair it with <Link className={link} href="/docs/editor/">@junco/editor</Link>. The{" "}
             <Link className={link} href="/editor/">collaborative docs editor</Link> puts them together on a live Towhee server.
