@@ -26,6 +26,7 @@ export function SiteFooter() {
           <Link className="hover:text-foreground" href="/docs/changelog/">Changelog</Link>
           <a className="hover:text-foreground" href="/llms.txt">llms.txt</a>
           <a className="hover:text-foreground" href={site.github} rel="noreferrer">GitHub</a>
+          <a className="hover:text-foreground" href="https://towhee.madebytobi.com">Towhee</a>
         </nav>
       </div>
     </footer>
