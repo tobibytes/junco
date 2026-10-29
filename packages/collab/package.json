@@ -1,6 +1,6 @@
 {
   "name": "@junco/collab",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Junco collaboration UI: avatar stack, live cursors, who's-editing bar, connection status, comments with mentions, version history with compare, share dialog and inbox. Plain data, fake data by default, a Towhee adapter.",
   "license": "MIT",
   "author": "Oluwatobi Olajide",
