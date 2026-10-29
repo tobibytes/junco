@@ -11,7 +11,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = new URL("..", import.meta.url).pathname;
-const clientPackages = ["packages/react", "packages/blocks", "packages/three", "packages/motion", "packages/collab"];
+const clientPackages = ["packages/react", "packages/blocks", "packages/three", "packages/motion", "packages/collab", "packages/editor"];
 // Server-safe entries: must NOT be client modules, and must not pull in client chunks.
 const serverEntries = ["packages/react/dist/server.js"];
 const lazyRoots: Record<string, RegExp> = {
