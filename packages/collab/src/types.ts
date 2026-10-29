@@ -105,4 +105,6 @@ export interface CollabAdapter {
   restoreVersion(versionId: string): Promise<void>;
   /** Marks these notifications read, or all of them when `ids` is left out. */
   markRead(ids?: string[]): Promise<void>;
+  /** A version's content as plain text, or the live document's for `"current"`. Enables version compare. */
+  versionText?(versionId: string | "current"): Promise<string>;
 }

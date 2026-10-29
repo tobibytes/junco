@@ -1,4 +1,5 @@
 export { CommentComposer, type CommentComposerProps, CommentThread, type CommentThreadProps, CommentsPanel, type CommentsPanelProps } from "./comments";
+export { type DiffPart, diffText, VersionCompare, type VersionCompareProps } from "./compare";
 export {
   commentText,
   createFakeAdapter,
@@ -11,6 +12,7 @@ export {
   sampleThreads,
   sampleUsers,
   sampleVersions,
+  sampleVersionTexts,
 } from "./fake";
 export { HistoryPanel, type HistoryPanelProps } from "./history";
 export { InboxButton, type InboxButtonProps } from "./inbox";
@@ -27,6 +29,7 @@ export {
   type LiveCursorsProps,
 } from "./presence";
 export { CollabProvider, useCollabAdapter, useCollabState } from "./provider";
+export { type LinkAccess, ShareDialog, type ShareDialogProps, type ShareMember, type ShareRole } from "./share";
 export { fromTowheeBody, type TowheeAdapterOptions, type TowheeInboxLike, type TowheeRoomLike, toTowheeBody, towheeAdapter } from "./towhee";
 export type {
   CollabAdapter,
