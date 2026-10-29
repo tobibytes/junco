@@ -80,8 +80,9 @@ describe("HistoryPanel compare", () => {
 });
 
 describe("ShareDialog", () => {
-  it("invites by email with a role, rejects bad or duplicate emails, changes and removes people", async () => {
-    const user = userEvent.setup();
+  // Many keystrokes and two menus: slow on CI machines, so no typing delay and a longer timeout.
+  it("invites by email with a role, rejects bad or duplicate emails, changes and removes people", { timeout: 20_000 }, async () => {
+    const user = userEvent.setup({ delay: null });
     render(<ShareDialog />);
     await user.click(screen.getByRole("button", { name: "Share" }));
     const dialog = await screen.findByRole("dialog");
