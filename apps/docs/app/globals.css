@@ -5,6 +5,7 @@
 @source "../node_modules/@junco/react/dist";
 @source "../node_modules/@junco/blocks/dist";
 @source "../node_modules/@junco/collab/dist";
+@source "../node_modules/@junco/editor/dist";
 @source "../node_modules/@junco/motion/dist";
 @source "../node_modules/@junco/three/dist";
 

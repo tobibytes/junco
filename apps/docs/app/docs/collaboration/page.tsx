@@ -112,6 +112,10 @@ export default function CollaborationPage() {
             fake data: Ada and Bo&apos;s cursors move, comments and versions really save, and the toolbar switches the connection.
           </P>
           <CollabPlayground />
+          <P>
+            For documents, pair it with <Link className={link} href="/docs/editor/">@junco/editor</Link>. The{" "}
+            <Link className={link} href="/editor/">collaborative docs editor</Link> puts them together on a live Towhee server.
+          </P>
           <DataTable
             head={["Component", "What it shows"]}
             rows={[

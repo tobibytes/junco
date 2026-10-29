@@ -22,6 +22,7 @@ export const guides: NavItem[] = [
   { title: "CLI", href: "/docs/cli/", keywords: "junco init add diff update list eject registry shadcn" },
   { title: "SwiftUI", href: "/docs/swiftui/", keywords: "swift ios macos iphone ipad visionos apple native xcode swiftpm" },
   { title: "MCP and AI", href: "/docs/mcp/", keywords: "llms.txt model context protocol claude cursor agents" },
+  { title: "Rich text editor", href: "/docs/editor/", keywords: "tiptap prosemirror rich text wysiwyg slash commands markdown toolbar @junco/editor" },
   { title: "Realtime collaboration", href: "/docs/collaboration/", keywords: "towhee multiplayer cursors presence comments history inbox yjs liveblocks realtime" },
   { title: "Accessibility", href: "/docs/accessibility/", keywords: "a11y keyboard screen reader axe wcag" },
   { title: "Changelog", href: "/docs/changelog/", keywords: "releases versions" },
@@ -34,6 +35,7 @@ export const explore: NavItem[] = [
   { title: "3D", href: "/3d/", keywords: "three webgl globe particles shader gradient model viewer tilt @junco/three" },
   { title: "Icons", href: "/icons/", keywords: "lucide icon search svg symbols gallery copy" },
   { title: "Templates", href: "/templates/", keywords: "starter app saas admin panel junco create scaffold boilerplate live demo" },
+  { title: "Docs editor (live)", href: "/editor/", keywords: "collaborative editor google docs tiptap towhee live demo multiplayer" },
   { title: "Examples", href: "/examples/", keywords: "showcase demo projects pulse ledger hackharbor hackathon status page saas finance towhee board realtime" },
 ];
 
