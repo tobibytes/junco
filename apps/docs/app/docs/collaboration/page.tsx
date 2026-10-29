@@ -4,13 +4,14 @@ import Link from "next/link";
 import { CodeBlock } from "@/components/code-block";
 import { Pager } from "@/components/docs/pager";
 import { C, DataTable, DocHeader, Note, P, Section } from "@/components/docs/prose";
+import { CollabPiece, CollabPlayground } from "@/components/docs/collab-demo";
 import { BrowserShot } from "@/components/examples/shot";
 import { ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Realtime collaboration",
   description:
-    "Add live cursors, shared documents, comments, version history and notifications to a Junco app with Towhee, an open source collaboration server you host yourself.",
+    "@junco/collab: avatar stack, live cursors, comments, history, inbox and connection status for Junco apps, with adapters for Towhee (a self-hosted collaboration server) and fake data.",
 };
 
 const link = "font-medium text-foreground underline underline-offset-4 hover:decoration-primary";
@@ -38,21 +39,42 @@ const token = await createRoomToken(
 );
 return Response.json({ token });`;
 
-const avatarSample = `import { Avatar, Tooltip } from "@junco/react";
+const wireSample = `import { createClient } from "@towhee/client";
+import { AvatarStack, CollabProvider, CommentsPanel, ConnectionStatus, CursorSurface, InboxButton, towheeAdapter } from "@junco/collab";
 
-function People({ room }) {
-  const [others, setOthers] = React.useState(room.others());
-  React.useEffect(() => room.on("others", () => setOthers(room.others())), [room]);
+const client = createClient({ url: "wss://towhee.example.com", authEndpoint: "/api/towhee-token" });
+
+export function Doc({ id }: { id: string }) {
+  const [adapter] = React.useState(() => towheeAdapter({ room: client.enter(id), inbox: client.inbox }));
+  React.useEffect(() => () => adapter.dispose(), [adapter]);
   return (
-    <div className="flex -space-x-2">
-      {others.map((o) => (
-        <Tooltip key={o.clientId} content={o.user.name}>
-          <Avatar name={o.user.name} size="sm" />
-        </Tooltip>
-      ))}
-    </div>
+    <CollabProvider adapter={adapter}>
+      <header className="flex items-center gap-2">
+        <ConnectionStatus /> <AvatarStack /> <InboxButton />
+      </header>
+      <CursorSurface>{/* your document */}</CursorSurface>
+      <CommentsPanel />
+    </CollabProvider>
   );
 }`;
+
+const fakeSample = `import { CollabProvider, CommentsPanel, createFakeAdapter } from "@junco/collab";
+
+// Every action works and updates the UI; nothing leaves the page.
+const adapter = createFakeAdapter({ threads: [] });
+
+<CollabProvider adapter={adapter}>
+  <CommentsPanel anchor="card-1" />
+</CollabProvider>`;
+
+const plainSample = `// Or skip the provider and pass data and callbacks yourself:
+<CommentsPanel
+  threads={threads}
+  people={teammates}
+  selfId={me.id}
+  onCreate={({ text, mentions, anchor }) => api.createThread(...)}
+  onReply={(threadId, input) => api.reply(threadId, input)}
+/>`;
 
 export default function CollaborationPage() {
   return (
@@ -60,7 +82,7 @@ export default function CollaborationPage() {
       <DocHeader
         eyebrow="Getting started"
         title="Realtime collaboration"
-        description="Junco draws the interface; Towhee keeps everyone in sync. Together they give your app live cursors, shared documents, comments, history and an inbox."
+        description="@junco/collab draws the interface; Towhee keeps everyone in sync. Together they give your app live cursors, shared documents, comments, history and an inbox."
       >
         <div className="flex flex-wrap gap-2">
           <Button asChild size="sm">
@@ -84,6 +106,44 @@ export default function CollaborationPage() {
           priority
         />
 
+        <Section id="components" title="The components">
+          <P>
+            <C>@junco/collab</C> is the interface: presence, cursors, comments, history, inbox and connection status. Try it below on
+            fake data: Ada and Bo&apos;s cursors move, comments and versions really save, and the toolbar switches the connection.
+          </P>
+          <CollabPlayground />
+          <DataTable
+            head={["Component", "What it shows"]}
+            rows={[
+              [<C key="a">AvatarStack</C>, "Who's here, ringed in their color, +N past a limit, one avatar per person across tabs"],
+              [<C key="b">CursorSurface</C>, "An area that shares your pointer and draws everyone else's (LiveCursors on its own takes plain data)"],
+              [<C key="c">EditingBar</C>, "“Ada and Bo are editing the introduction”, or nothing when nobody is"],
+              [<C key="d">ConnectionStatus</C>, "Live, connecting, reconnecting or offline, in words with a dot, never color alone"],
+              [<C key="e">CommentsPanel</C>, "Threads (optionally for one anchor) and a box to start one; CommentThread and CommentComposer on their own"],
+              [<C key="f">HistoryPanel</C>, "Save a named version, restore any version for everyone, undo the restore"],
+              [<C key="g">InboxButton</C>, "A bell with the unread count; mentions and replies; mark read"],
+            ]}
+          />
+          <div className="grid gap-4 lg:grid-cols-2">
+            <CollabPiece piece="comments" />
+            <CollabPiece piece="history" />
+          </div>
+        </Section>
+
+        <Section id="adapters" title="Adapters">
+          <P>
+            The components never talk to a server. Under a <C>CollabProvider</C> they read and write through an adapter; without one
+            they show sample data, or whatever data and callbacks you pass.
+          </P>
+          <CodeBlock lang="tsx" title="Towhee" code={wireSample} />
+          <CodeBlock lang="tsx" title="Fake data, for prototypes and tests" code={fakeSample} />
+          <CodeBlock lang="tsx" title="Your own backend" code={plainSample} />
+          <P>
+            Writing an adapter for another backend means implementing <C>CollabAdapter</C>: <C>getState</C>, <C>subscribe</C>{" "}
+            and the actions (create, reply, react, resolve, save, restore, mark read, update presence).
+          </P>
+        </Section>
+
         <Section id="what" title="What Towhee is">
           <P>
             <a className={link} href={TOWHEE}>
@@ -103,11 +163,11 @@ export default function CollaborationPage() {
           <DataTable
             head={["Feature", "Towhee gives you", "Junco pieces that fit"]}
             rows={[
-              ["Presence", "Who's here, their cursor and what they're editing", <C key="p">Avatar</C>],
-              ["Shared state", "A Yjs document that syncs live and works offline", <C key="s">Input, Textarea, any Yjs editor</C>],
-              ["Comments", "Threads anchored to text or anything in your app, with replies, mentions, reactions, resolve", <C key="c">Sheet, Textarea, DropdownMenu</C>],
-              ["History", "Named and automatic versions, preview, restore for everyone", <C key="h">Sheet, toast</C>],
-              ["Notifications", "A per-user inbox for mentions and replies, plus a signed webhook", <C key="n">Popover, Badge, EmptyState</C>],
+              ["Presence", "Who's here, their cursor and what they're editing", <C key="p">AvatarStack, CursorSurface, EditingBar</C>],
+              ["Shared state", "A Yjs document that syncs live and works offline", <C key="s">Any Yjs editor, ConnectionStatus</C>],
+              ["Comments", "Threads anchored to text or anything in your app, with replies, mentions, reactions, resolve", <C key="c">CommentsPanel</C>],
+              ["History", "Named and automatic versions, preview, restore for everyone", <C key="h">HistoryPanel</C>],
+              ["Notifications", "A per-user inbox for mentions and replies, plus a signed webhook", <C key="n">InboxButton</C>],
             ]}
           />
           <P>
@@ -139,12 +199,16 @@ export default function CollaborationPage() {
           </P>
           <CodeBlock lang="tsx" title="app.ts" code={clientSample} />
           <P>
-            <strong className="font-medium text-foreground">4. Draw it with Junco.</strong> Room data goes straight into Junco
-            components. For example, an avatar stack of who&apos;s here:
+            <strong className="font-medium text-foreground">4. Draw it with Junco.</strong> Hand the room to{" "}
+            <C>towheeAdapter</C> and put the components under a <C>CollabProvider</C>, as in{" "}
+            <a className={link} href="#adapters">
+              Adapters
+            </a>{" "}
+            above. React apps that want the raw data can use Towhee&apos;s own hooks, <C>@towhee/react</C>.
           </P>
-          <CodeBlock lang="tsx" title="people.tsx" code={avatarSample} />
           <P>
-            The Towhee Board source shows the rest: cursors, comment sheets with mentions, the inbox popover and the history sheet.{" "}
+            The Towhee Board source shows a full app built by hand from Junco pieces: cursors, comment sheets with mentions, the inbox
+            popover and the history sheet.{" "}
             <a className={link} href="https://github.com/tobibytes/towhee/tree/main/apps/site/src/demo">
               Read it on GitHub
             </a>
@@ -163,13 +227,16 @@ export default function CollaborationPage() {
         </Section>
 
         <Note title="Status">
-          Towhee works end to end today (its site and the live board run on it), but its packages publish to npm with v0.1. Until
-          then, install from the{" "}
+          Towhee works end to end today (its site and the live board run on it), but its packages publish to npm with v0.1, and{" "}
+          <C>@junco/collab</C> publishes with its first release too. Until then, use both from their repos (
           <a className={link} href="https://github.com/tobibytes/towhee">
-            repo
+            Towhee
           </a>
-          . Ready-made Junco collaboration components (<C>@junco/collab</C>: avatar stack, cursors, comment threads, history and
-          inbox) are planned, built on the same pieces the board uses.
+          ,{" "}
+          <a className={link} href="https://github.com/tobibytes/junco/tree/main/packages/collab">
+            @junco/collab
+          </a>
+          ). The share dialog, version compare and the TipTap editor block come next.
         </Note>
       </div>
       <Pager href="/docs/collaboration/" />

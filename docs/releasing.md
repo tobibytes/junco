@@ -28,6 +28,17 @@ Junco publishes eight packages to npm: `@junco/react`, `@junco/tokens`, `@junco/
 4. **Let Actions open PRs:** GitHub → Settings → Actions → General → *Allow GitHub Actions to create and approve pull requests*. Without it the version PR can't be opened.
 5. **Default branch:** Settings → General → set to `main`.
 
+## Adding a new package
+
+A package that has never been on npm can't publish through Trusted Publishing yet. Keep it `"private": true` (the Release workflow skips private packages) until its first publish:
+
+1. Remove `"private": true`, add a changeset, and set the version you want to ship.
+2. From a clone, logged in with `npm login`: `pnpm install && pnpm build && cd packages/<name> && npm publish --access public`.
+3. On npmjs.com add the trusted publisher for it (as in step 3 above) and disallow tokens.
+4. Merge the change; later versions publish from CI.
+
+Waiting for this: `@junco/collab`.
+
 ## Versioning
 
 Pre-1.0, a minor bump may include breaking changes; call them out in the changeset. 1.0 ships when one real project runs on Junco (see the [roadmap](ROADMAP.md)).

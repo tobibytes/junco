@@ -56,13 +56,13 @@ Each phase ends with something usable. Junco reaches v1.0 when one real project 
 
 ## Phase 3b: Collaboration UI
 
-- [ ] `@junco/collab`: adapter interfaces (presence, comments, history, sharing) + fake-data adapter
-- [ ] Presence: cursors, avatar stack, who's-editing bar
-- [ ] Comments: anchored threads, mentions, reactions, resolve, sidebar
-- [ ] History sidebar + version compare, share dialog with roles, save/offline status
+- [x] `@junco/collab`: adapter interface (presence, comments, history, inbox) + fake-data adapter. Sharing comes with the share dialog
+- [x] Presence: cursors, avatar stack, who's-editing bar
+- [x] Comments: anchored threads, mentions, reactions, resolve, sidebar
+- [ ] History sidebar (done) + version compare, share dialog with roles, save/offline status (connection status done)
 - [ ] `@junco/editor`: TipTap rich text block with toolbar and slash commands
 - [ ] Docs editor page + Collaborative docs template
-- [ ] First real adapter: Junco's own engine (separate repo, Yjs-based, see DECISIONS.md). No Liveblocks
+- [x] First real adapter: Towhee (`towheeAdapter`, typed by shape so Junco doesn't depend on it). No Liveblocks
 
 ## After v1.0
 

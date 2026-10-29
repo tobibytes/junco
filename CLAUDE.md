@@ -36,7 +36,7 @@ The full product plan is in `docs/PLAN.md`. The phase checklists are in `docs/RO
 | `packages/motion` | `@junco/motion` | motion effects (reveal, ticker, marquee, beams, view transitions) |
 | `packages/mcp` | `@junco/mcp` | MCP server for AI agents, reads the public registry |
 | `packages/swift` + root `Package.swift` | SwiftPM `JuncoTokens`, `JuncoUI` | generated Swift tokens + SwiftUI styles (preview) |
-| `packages/collab` (later) | `@junco/collab` | collaboration UI (cursors, presence, comments, history, sharing) + adapter interfaces. No sync engine in this repo |
+| `packages/collab` | `@junco/collab` | collaboration UI (cursors, presence, comments, history, inbox, status) + adapter interface, fake and Towhee adapters. No sync engine in this repo. `private` until its first hand publish |
 | `packages/editor` (later) | `@junco/editor` | TipTap rich text editor block |
 | `registry` | served by the docs site | component, block and page source files for copy-in, shadcn registry JSON compatible |
 | `apps/docs` | private | website: docs, galleries, theme builder, icons, examples (junco.madebytobi.com) |
