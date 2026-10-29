@@ -57,6 +57,10 @@ export default function EditorDocsPage() {
 
         <Section id="use" title="Use it">
           <CodeBlock lang="bash" code="npm i @junco/editor @junco/react @junco/tailwind yjs" />
+          <P>
+            Or copy the source into your project and change it freely: <C>npx @junco/cli add editor</C> puts it in{" "}
+            <C>components/editor</C>, and <C>junco diff editor</C> shows what changed upstream later.
+          </P>
           <CodeBlock lang="tsx" title="On its own" code={basic} />
           <P>
             Markdown shortcuts work as you type: <C>#</C> for headings, <C>-</C> or <C>1.</C> for lists, <C>&gt;</C> for quotes,{" "}

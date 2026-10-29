@@ -209,8 +209,15 @@ function hashItem(item: Pick<RegistryItem, "files" | "cssVars" | "css" | "depend
 }
 
 function npmVersions(): Record<string, string> {
-  const pkg = JSON.parse(readFileSync(join(ROOT, "packages/react/package.json"), "utf8"));
-  return { ...pkg.peerDependencies, ...pkg.devDependencies, ...pkg.dependencies };
+  const read = (dir: string) => JSON.parse(readFileSync(join(ROOT, dir, "package.json"), "utf8"));
+  const pkg = read("packages/react");
+  const copied = PACKAGE_ITEMS.map((p) => read(p.dir));
+  const versions: Record<string, string> = { ...pkg.peerDependencies, ...pkg.devDependencies, ...pkg.dependencies };
+  for (const c of copied) Object.assign(versions, c.peerDependencies, c.dependencies);
+  // Copied packages use the published @junco/react, not the workspace copy.
+  versions["@junco/react"] = `^${pkg.version}`;
+  for (const [name, range] of Object.entries(versions)) if (range.startsWith("workspace:")) delete versions[name];
+  return versions;
 }
 
 function sourceMeta(src: string, item: string) {
@@ -303,6 +310,24 @@ function buildCssItem(): RegistryItem {
 
 /* Blocks and pages ----------------------------------------------------------- */
 
+/**
+ * Packages also offered as copy-in source: `junco add collab` puts packages/collab/src in
+ * components/collab/. They keep importing the installed @junco/react.
+ */
+const PACKAGE_ITEMS = [
+  {
+    name: "collab",
+    dir: "packages/collab",
+    description:
+      "Collaboration UI as source: avatar stack, live cursors, who's-editing bar, connection status, comments with mentions, version history with compare, share dialog and inbox, with fake and Towhee adapters.",
+  },
+  {
+    name: "editor",
+    dir: "packages/editor",
+    description: "Rich text editor as source: TipTap with a toolbar, a / command menu and markdown shortcuts; collaborative with a Y.Doc.",
+  },
+];
+
 function discoverCollections(byAbs: Map<string, SourceFile>): SourceFile[][] {
   const groups: SourceFile[][] = [];
   for (const [folder, type] of [
@@ -323,6 +348,18 @@ function discoverCollections(byAbs: Map<string, SourceFile>): SourceFile[][] {
       for (const f of files) byAbs.set(f.abs, f);
       if (files.length) groups.push(files);
     }
+  }
+  for (const p of PACKAGE_ITEMS) {
+    const files = listFiles(join(ROOT, p.dir, "src")).map((abs) => ({
+      abs,
+      item: p.name,
+      type: "registry:block" as const,
+      alias: `@/components/${p.name}/${basename(abs, extname(abs))}`,
+      registryPath: `registry/junco/${p.name}/${basename(abs)}`,
+      target: `components/${p.name}/${basename(abs)}`,
+    }));
+    for (const f of files) byAbs.set(f.abs, f);
+    groups.push(files);
   }
   return groups;
 }
@@ -485,7 +522,7 @@ export function buildRegistry({ outDir = join(ROOT, "apps/docs/public"), baseUrl
       name: first.item,
       type: first.type,
       title: title(first.item),
-      description: description || title(first.item),
+      description: PACKAGE_ITEMS.find((p) => p.name === first.item)?.description ?? (description || title(first.item)),
       dependencies: [...npm].sort().map((p) => (versions[p] ? `${p}@${versions[p]}` : p)),
       registryDependencies: [...deps].sort().map(url),
       files,
