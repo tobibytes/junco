@@ -37,7 +37,7 @@ A package that has never been on npm can't publish through Trusted Publishing ye
 3. On npmjs.com add the trusted publisher for it (as in step 3 above) and disallow tokens.
 4. Merge the change; later versions publish from CI.
 
-Waiting for this: `@junco/collab`.
+Published this way: `@junco/collab` (0.1.0), `@junco/editor`.
 
 ## Versioning
 
