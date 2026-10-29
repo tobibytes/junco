@@ -1,5 +1,16 @@
 # @junco/mcp
 
+## 0.2.0
+
+### Minor Changes
+
+- bec1adf: Add `@junco/mcp/remote`: `createRemoteServer()` builds the same MCP server for runtimes without Node APIs (Cloudflare Workers, Deno), reading the registry over HTTP with the token files bundled in. It powers the hosted server at https://mcp.junco.madebytobi.com/mcp. The stdio server and `createServer` are unchanged; `RemoteRegistry` is also exported, and `Registry` now extends it.
+
+### Patch Changes
+
+- Updated dependencies [e131255]
+  - @junco/tokens@0.3.0
+
 ## 0.1.2
 
 ### Patch Changes
