@@ -1,6 +1,6 @@
 {
   "name": "@junco/tailwind",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Junco for Tailwind v4: theme mapping, semantic classes and motion utilities",
   "license": "MIT",
   "author": "Oluwatobi Olajide",
