@@ -1,5 +1,11 @@
 # @junco/blocks
 
+## 0.1.6
+
+### Patch Changes
+
+- 26f39b2: Demo data: a fictional co-founder and surname replace a real name.
+
 ## 0.1.5
 
 ### Patch Changes
