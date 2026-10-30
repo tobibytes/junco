@@ -12,8 +12,8 @@ export function SiteFooter() {
             Junco™ is designed and built by{" "}
             <a href={site.author.url} rel="noreferrer" className="font-medium text-foreground underline-offset-4 hover:underline">
               {site.author.brand}
-            </a>{" "}
-            ({site.author.name}). © {new Date().getFullYear()}. Free and open source under the{" "}
+            </a>
+            . © {new Date().getFullYear()}. Free and open source under the{" "}
             <a href={`${site.github}/blob/main/LICENSE`} rel="noreferrer" className="underline underline-offset-4 hover:text-foreground">
               MIT license
             </a>

@@ -331,7 +331,7 @@ export const defaultPosts: BlogPost[] = [
     excerpt: "Most tools compete for your attention. We think the best ones earn it by asking for less.",
     date: day(2),
     readingTime: "6 min read",
-    author: { name: "Tobi Olajide", title: "Co-founder" },
+    author: { name: "Jordan Reyes", title: "Co-founder" },
     tags: ["Design"],
   },
   {

@@ -167,7 +167,7 @@ export function App() {
           activeWorkspaceId: "docs",
           onWorkspaceChange: (ws) => toast(`Switched to ${ws.name}`, { description: "Demo data stays the same." }),
           onCreateWorkspace: () => toast.info("New projects are disabled in the demo"),
-          user: { name: "Tobi Olajide", email: "tobi@northwind.dev" },
+          user: { name: "Jordan Reyes", email: "jordan@northwind.dev" },
           onSignOut: () => toast("Signed out", { description: "Just kidding, this is a demo." }),
           footer: (
             <div className="rounded-card border border-border bg-card p-3 text-xs">
