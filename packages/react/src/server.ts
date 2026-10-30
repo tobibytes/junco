@@ -16,4 +16,5 @@ export { buttonVariants } from "./components/button";
 export { cardVariants } from "./components/card";
 export { emptyStateVariants } from "./components/empty-state";
 export { iconVariants } from "./components/icon";
+export { progressVariants } from "./components/progress";
 export { spinnerVariants } from "./components/spinner";
