@@ -13,8 +13,8 @@ const fmt = (l: number, c: number, h: number) => `oklch(${l.toFixed(2)} ${c.toFi
 export interface Accent {
   hue: number;
   chroma: number;
-  light: { primary: string; foreground: string };
-  dark: { primary: string; foreground: string };
+  light: { primary: string; foreground: string; ring?: string };
+  dark: { primary: string; foreground: string; ring?: string };
   checks: { label: string; mode: "light" | "dark"; ratio: number }[];
 }
 
@@ -46,7 +46,22 @@ export function makeAccent(hue: number, chroma: number): Accent {
 
   const light = { primary: fmt(lightL, chroma, hue), foreground: lightFg };
   const dark = { primary: fmt(darkL, chroma * 0.9, hue), foreground: darkFg };
+  return withChecks(hue, chroma, light, dark);
+}
 
+/** Junco's default: ink, straight from the tokens (near-black in light, near-white in dark). */
+export const inkAccent: Accent = withChecks(
+  260,
+  0,
+  { primary: tokens.light.primary!, foreground: tokens.light["primary-foreground"]!, ring: tokens.light.ring! },
+  { primary: tokens.dark.primary!, foreground: tokens.dark["primary-foreground"]!, ring: tokens.dark.ring! },
+);
+
+function withChecks(hue: number, chroma: number, light: Accent["light"], dark: Accent["dark"]): Accent {
+  const lightBg = tokens.light.background!;
+  const lightSurface = tokens.light.surface!;
+  const darkBg = tokens.dark.background!;
+  const darkSurface = tokens.dark.surface!;
   return {
     hue,
     chroma,
@@ -67,14 +82,14 @@ export function accentCss(a: Accent): string {
   return `:root {
   --primary: ${a.light.primary};
   --primary-foreground: ${a.light.foreground};
-  --ring: ${a.light.primary};
+  --ring: ${a.light.ring ?? a.light.primary};
 }
 
 .dark,
 [data-theme="dark"] {
   --primary: ${a.dark.primary};
   --primary-foreground: ${a.dark.foreground};
-  --ring: ${a.dark.primary};
+  --ring: ${a.dark.ring ?? a.dark.primary};
 }`;
 }
 
@@ -95,7 +110,9 @@ export function applyAccent(a: Accent | null) {
   el.textContent = accentCss(a).replace(/\n/g, "");
 }
 
+/** `isDefault` is the token default (ink); picking it removes the preview instead of generating a color. */
 export const presets = [
+  { name: "Ink", hue: 260, chroma: 0, isDefault: true },
   { name: "Blue", hue: 260, chroma: 0.2 },
   { name: "Indigo", hue: 275, chroma: 0.19 },
   { name: "Violet", hue: 300, chroma: 0.2 },
@@ -104,7 +121,7 @@ export const presets = [
   { name: "Green", hue: 150, chroma: 0.15 },
   { name: "Teal", hue: 185, chroma: 0.12 },
   { name: "Graphite", hue: 260, chroma: 0.0 },
-] as const;
+] as const satisfies ReadonlyArray<{ name: string; hue: number; chroma: number; isDefault?: boolean }>;
 
 /** The accent the visitor is previewing, shared by every picker on the page. */
 export interface SiteAccent {
@@ -113,6 +130,7 @@ export interface SiteAccent {
   touched: boolean;
 }
 
+// Untouched, the site shows the token default (ink); the sliders start from blue so dragging gives a color.
 const DEFAULT_ACCENT: SiteAccent = { hue: 260, chroma: 0.2, touched: false };
 let siteAccent = DEFAULT_ACCENT;
 const listeners = new Set<() => void>();

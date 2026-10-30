@@ -3,7 +3,7 @@
 import { Badge, Button } from "@junco/react";
 import { cn } from "@/lib/cn";
 import * as React from "react";
-import { accentCss, makeAccent, presets, setSiteAccent, useSiteAccent } from "@/lib/accent";
+import { accentCss, inkAccent, makeAccent, presets, setSiteAccent, useSiteAccent } from "@/lib/accent";
 import { CheckIcon, RefreshIcon } from "./icons";
 import { CodeBlock, CopyButton } from "./code-block";
 
@@ -13,7 +13,8 @@ export function AccentSwatches({ className, size = "md" }: { className?: string;
   return (
     <div role="radiogroup" aria-label="Accent color" className={cn("flex flex-wrap gap-2", className)}>
       {presets.map((p) => {
-        const checked = touched ? p.hue === hue && p.chroma === chroma : p.name === "Blue";
+        const isDefault = "isDefault" in p;
+        const checked = touched ? !isDefault && p.hue === hue && p.chroma === chroma : isDefault;
         return (
           <button
             key={p.name}
@@ -22,14 +23,14 @@ export function AccentSwatches({ className, size = "md" }: { className?: string;
             aria-checked={checked}
             aria-label={p.name}
             title={p.name}
-            onClick={() => setSiteAccent({ hue: p.hue, chroma: p.chroma })}
+            onClick={() => setSiteAccent(isDefault ? null : { hue: p.hue, chroma: p.chroma })}
             className={cn(
               "grid place-items-center rounded-pill border border-border transition-transform duration-fast ease-standard hover:scale-105",
               size === "sm" ? "size-7" : "size-8",
               "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
               "aria-checked:ring-2 aria-checked:ring-foreground aria-checked:ring-offset-2 aria-checked:ring-offset-background",
             )}
-            style={{ background: makeAccent(p.hue, p.chroma).light.primary }}
+            style={{ background: (isDefault ? inkAccent : makeAccent(p.hue, p.chroma)).light.primary }}
           >
             {checked && <CheckIcon width={14} height={14} className="text-white" strokeWidth={2.5} />}
           </button>
@@ -42,7 +43,7 @@ export function AccentSwatches({ className, size = "md" }: { className?: string;
 /** Pick a hue, see the whole site re-theme, and get the CSS. */
 export function AccentPicker({ compact = false }: { compact?: boolean }) {
   const { hue, chroma, touched } = useSiteAccent();
-  const accent = React.useMemo(() => makeAccent(hue, chroma), [hue, chroma]);
+  const accent = React.useMemo(() => (touched ? makeAccent(hue, chroma) : inkAccent), [hue, chroma, touched]);
   const pick = (h: number, c: number) => setSiteAccent({ hue: h, chroma: c });
   const reset = () => setSiteAccent(null);
 

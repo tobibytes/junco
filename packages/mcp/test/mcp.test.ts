@@ -71,7 +71,7 @@ describe("tools", () => {
 
   it("get_tokens returns summaries, filters, CSS and W3C JSON", async () => {
     const summary = await getTokens("summary", "primary");
-    expect(summary).toMatch(/--primary: oklch\(0\.55 0\.2 260\)\s+\(dark: oklch\(0\.68 0\.17 260\)\)/);
+    expect(summary).toMatch(/--primary: oklch\(0\.21 0\.006 260\)\s+\(dark: oklch\(0\.95 0\.004 260\)\)/);
     expect(summary).not.toContain("--background:");
     expect(summary).toContain("--primary-foreground:");
     const ring = await getTokens("summary", "ring");
