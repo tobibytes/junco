@@ -49,7 +49,7 @@ export default function ThemingPage() {
           </P>
           <CodeBlock
             code={`import { tokens } from "@junco/tokens";
-tokens.light.primary; // "oklch(0.55 0.2 260)"
+tokens.light.primary; // "oklch(0.21 0.006 260)"
 
 // W3C (DTCG) JSON: @junco/tokens/tokens.json`}
           />

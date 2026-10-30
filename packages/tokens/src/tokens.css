@@ -5,7 +5,7 @@
  * Names follow shadcn/ui so shadcn components and themes work unchanged.
  * Light lives on :root (and .light / [data-theme="light"], to force light inside a dark area).
  * Dark lives on .dark and [data-theme="dark"].
- * The default --primary (blue) is a PLACEHOLDER until the accent is decided.
+ * The default --primary is ink (near-black, near-white in dark): neutral, so one override brands an app.
  */
 
 :root,
@@ -33,9 +33,9 @@
   --overlay: oklch(0.18 0 0 / 0.4); /* scrim behind dialogs and sheets */
 
   /* brand */
-  --primary: oklch(0.55 0.2 260);
+  --primary: oklch(0.21 0.006 260);
   --primary-foreground: oklch(0.99 0 0);
-  --ring: oklch(0.55 0.2 260);
+  --ring: oklch(0.55 0.01 260); /* lighter than --primary so focus shows around primary buttons */
 
   /* status: solid fills use the -foreground pair, text on the page uses the -text token */
   --success: oklch(0.52 0.14 150);
@@ -142,9 +142,9 @@
   --border-strong: oklch(0.52 0 0);
   --overlay: oklch(0 0 0 / 0.6);
 
-  --primary: oklch(0.68 0.17 260);
-  --primary-foreground: oklch(0.15 0.02 260);
-  --ring: oklch(0.68 0.17 260);
+  --primary: oklch(0.95 0.004 260);
+  --primary-foreground: oklch(0.18 0.006 260);
+  --ring: oklch(0.7 0.01 260);
 
   --success: oklch(0.7 0.15 150);
   --success-foreground: oklch(0.15 0.03 150);

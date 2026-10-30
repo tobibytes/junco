@@ -22,8 +22,8 @@
 
 ## Still open (ask Tobi before locking these in)
 
-- [ ] Default accent color. `tokens.css` uses a placeholder blue for now
-- [ ] Fonts: Geist (current default), Inter, or something with more character
-- [ ] Which project adopts Junco first (Talvra v2 currently uses Arc UI)
+- [x] Default accent color: **ink** (near-black `--primary`, near-white in dark), like Linear and Vercel. Neutral, so an app brands itself with one override. Charts keep their colors. Decided 2026-10-30
+- [x] Fonts: **Geist and Geist Mono**. Decided 2026-10-30
+- [x] First project on Junco: **Talvra v2** (moving off Arc UI). Decided 2026-10-30
 - [ ] Behavior layer: Radix, or Base UI (shadcn's default since July 2026). **Building on Radix for now** (per the stack in CLAUDE.md). Every Radix import goes through `packages/react/src/lib/primitives.ts`, so a switch is contained
 - [x] CLI package name: `@junco/cli` (bin `junco`, run with `npx @junco/cli`). npm blocks the unscoped `junco` name, so the React package is `@junco/react`.

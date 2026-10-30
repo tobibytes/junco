@@ -84,7 +84,7 @@ pnpm changeset    # record a version bump
 - Live at https://junco.madebytobi.com (Cloudflare Pages, deploys on every push to `main`; PRs get `pr-<n>.junco-docs.pages.dev` previews).
 - All 8 packages are on npm under `@junco/*` (the unscoped `junco` name is blocked by npm). Releases: add a changeset, merge to `main`, then merge the "chore: version packages" PR; the Release workflow publishes with npm Trusted Publishing (no token) and provenance. See `docs/releasing.md`.
 - `pnpm install && pnpm lint && pnpm build && pnpm test && pnpm typecheck` pass. Node 24 in CI.
-- **Tokens**: `packages/tokens/src/tokens.css` is the source of truth. It also feeds the TS object, W3C JSON, and the Swift files (`pnpm swift:tokens`; CI fails if they drift). `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` (4.5:1 text, 3:1 controls) in both modes. The blue `--primary` is still a placeholder.
+- **Tokens**: `packages/tokens/src/tokens.css` is the source of truth. It also feeds the TS object, W3C JSON, and the Swift files (`pnpm swift:tokens`; CI fails if they drift). `packages/tokens/test/contrast.test.ts` checks every pair in `src/pairs.ts` (4.5:1 text, 3:1 controls) in both modes. The default `--primary` is ink (near-black, near-white in dark); fonts are Geist and Geist Mono.
 - **Components** (`packages/react`, 30+): primitives, forms (RHF + Zod), overlays, data table, toast, command, Icon. Radix sits behind `lib/primitives.ts`. Every component has a test, a docs page in `apps/docs/content/components/<slug>.tsx` (+ one line in `index.ts`), and is auto-discovered by the registry build. `@junco/react/server` holds the server-safe exports (`pnpm check:dist` guards it).
 - **Blocks and pages**: 40 entries in `apps/docs/content/blocks/catalog.ts`, 21 full pages, all with typed data, fake-data fallbacks, `slots` and `variant`s.
 - **Registry + CLI + MCP**: `pnpm registry:build` writes shadcn-compatible JSON and llms.txt to `apps/docs/public`, plus `r/templates/` for app templates. `@junco/cli` has create, init, add, list, diff, update, eject. `@junco/mcp` reads the public registry.
@@ -99,4 +99,4 @@ The open work is in `docs/ROADMAP.md`. In order:
 2. Phase 3b: `@junco/collab` and `@junco/editor`.
 3. More templates (CRM, Store, ...) when a real project needs them.
 4. SwiftUI: more components as native apps need them.
-Check the accent and fonts with Tobi before locking them in.
+Accent (ink) and fonts (Geist) are decided; Talvra v2 is the first project moving onto Junco.

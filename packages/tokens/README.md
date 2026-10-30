@@ -13,8 +13,8 @@ npm i @junco/tokens
 ```ts
 import { tokens, contrastRatio } from "@junco/tokens";
 
-tokens.light.primary;   // "oklch(0.55 0.2 260)"
-tokens.dark.primary;    // "oklch(0.68 0.17 260)"
+tokens.light.primary;   // "oklch(0.21 0.006 260)"
+tokens.dark.primary;    // "oklch(0.95 0.004 260)"
 contrastRatio(tokens.light["primary-foreground"], tokens.light.primary); // 4.87
 ```
 
