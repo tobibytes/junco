@@ -112,12 +112,12 @@ describe("custom data", () => {
 
   it("UsersPage lists the users it is given", () => {
     const users: AppUser[] = [
-      { id: "u1", name: "Tobi Olajide", email: "tobi@junco.dev", role: "Owner", status: "active" },
+      { id: "u1", name: "Jordan Reyes", email: "jordan@junco.dev", role: "Owner", status: "active" },
       { id: "u2", name: "Grace Hopper", email: "grace@junco.dev", role: "Editor", status: "invited" },
     ];
     render(<UsersPage users={users} />);
     expect(screen.getByText("2 people in this workspace.")).toBeInTheDocument();
-    expect(screen.getByText("Tobi Olajide")).toBeInTheDocument();
+    expect(screen.getByText("Jordan Reyes")).toBeInTheDocument();
     expect(screen.getByText("Invited")).toBeInTheDocument();
   });
 
@@ -433,7 +433,7 @@ describe("AppShell", () => {
 
   it("names buttons by their visible text (WCAG 2.5.3), labelling only when there's no text", () => {
     const { rerender } = render(
-      <AppShell onSearch={() => {}} sidebar={{ user: { name: "Tobi Olajide", email: "tobi@example.com" } }}>
+      <AppShell onSearch={() => {}} sidebar={{ user: { name: "Jordan Reyes", email: "jordan@example.com" } }}>
         <p>Body</p>
       </AppShell>,
     );
@@ -442,16 +442,16 @@ describe("AppShell", () => {
     expect(search).not.toHaveAttribute("aria-label");
     expect(search).toHaveAttribute("aria-keyshortcuts", "Meta+K Control+K");
     // Account menu: expanded, the visible name and email are the label (no duplicate avatar name).
-    const account = screen.getAllByRole("button", { name: /tobi@example\.com/ })[0]!;
+    const account = screen.getAllByRole("button", { name: /jordan@example\.com/ })[0]!;
     expect(account).not.toHaveAttribute("aria-label");
-    expect(account).toHaveAccessibleName("Tobi Olajide tobi@example.com");
+    expect(account).toHaveAccessibleName("Jordan Reyes jordan@example.com");
     // Collapsed: no visible text, so it gets a label.
     rerender(
-      <AppShell isCollapsed onSearch={() => {}} sidebar={{ user: { name: "Tobi Olajide", email: "tobi@example.com" } }}>
+      <AppShell isCollapsed onSearch={() => {}} sidebar={{ user: { name: "Jordan Reyes", email: "jordan@example.com" } }}>
         <p>Body</p>
       </AppShell>,
     );
-    expect(screen.getAllByRole("button", { name: "Account menu for Tobi Olajide" }).length).toBeGreaterThan(0);
+    expect(screen.getAllByRole("button", { name: "Account menu for Jordan Reyes" }).length).toBeGreaterThan(0);
   });
 
   it("collapses with the button and with Ctrl+B", async () => {

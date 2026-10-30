@@ -19,7 +19,7 @@ export function createRandom(seed = 1) {
 }
 
 const FIRST = ["Ada", "Grace", "Alan", "Tobi", "Maya", "Leo", "Zara", "Kenji", "Amara", "Noah", "Ines", "Ravi", "Chloe", "Diego", "Fatima", "Jonah", "Priya", "Sam", "Yuki", "Elena"];
-const LAST = ["Lovelace", "Hopper", "Turing", "Olajide", "Chen", "Okafor", "Silva", "Novak", "Haddad", "Kim", "Garcia", "Patel", "Müller", "Rossi", "Nakamura", "Adeyemi", "Larsen", "Costa", "Ibrahim", "Walsh"];
+const LAST = ["Lovelace", "Hopper", "Turing", "Adeyemi", "Chen", "Okafor", "Silva", "Novak", "Haddad", "Kim", "Garcia", "Patel", "Müller", "Rossi", "Nakamura", "Adeyemi", "Larsen", "Costa", "Ibrahim", "Walsh"];
 const COMPANIES = ["Northwind", "Acme Co", "Globex", "Initech", "Umbrella", "Hooli", "Stark Labs", "Wayne Tech", "Pied Piper", "Vandelay", "Soylent", "Cyberdyne", "Tyrell", "Wonka", "Monarch"];
 const ROLES = ["Owner", "Admin", "Editor", "Member", "Viewer"] as const;
 const PLANS = ["Starter", "Pro", "Business", "Enterprise"] as const;

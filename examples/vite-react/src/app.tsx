@@ -275,7 +275,7 @@ export function App() {
           </Skeleton>
           <div className="grid flex-1 gap-2">
             <Skeleton isLoaded={loaded} className="h-4 w-1/3">
-              <p className="text-sm font-medium">Tobi Olajide</p>
+              <p className="text-sm font-medium">Jordan Reyes</p>
             </Skeleton>
             <Skeleton isLoaded={loaded} className="h-3 w-2/3">
               <p className="text-xs text-muted-foreground">Loaded after 1.5 seconds</p>
