@@ -39,6 +39,20 @@ A package that has never been on npm can't publish through Trusted Publishing ye
 
 Published this way: `@junco/collab` (0.1.0), `@junco/editor`.
 
+## Swift
+
+The Swift package (`JuncoTokens`, `JuncoUI`) isn't on npm. SwiftPM reads plain semver git tags, so a Swift release is a tag on `main`:
+
+```bash
+git checkout main && git pull
+swift build && swift test
+git tag -a 0.1.1 -m "Junco for Swift 0.1.1" && git push origin 0.1.1
+```
+
+Then add a GitHub release for the tag with the changes. The npm tags (`@junco/react@0.4.0`) don't clash: SwiftPM ignores anything that isn't plain semver. Bump the patch for fixes and the minor for new or breaking API; apps pin with `.upToNextMinor(from:)`.
+
+Released: `0.1.0`.
+
 ## Versioning
 
 Pre-1.0, a minor bump may include breaking changes; call them out in the changeset. 1.0 ships when one real project runs on Junco (see the [roadmap](ROADMAP.md)).

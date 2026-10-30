@@ -1,6 +1,7 @@
 // swift-tools-version: 5.9
 // Junco for Swift. Lives at the repo root so apps can add it straight from GitHub:
-//   .package(url: "https://github.com/tobibytes/junco", from: "0.1.0")
+//   .package(url: "https://github.com/tobibytes/junco", .upToNextMinor(from: "0.1.0"))
+// Versions are plain git tags (0.1.0, 0.1.1, ...); see docs/releasing.md.
 // Sources are in packages/swift/. JuncoTokens is generated from packages/tokens/src/tokens.css.
 import PackageDescription
 

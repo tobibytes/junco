@@ -21,11 +21,12 @@ export default function SwiftUIPage() {
         <Section id="install" title="Install">
           <P>
             Add the package in Xcode (File, Add Package Dependencies) with the repo URL, or in <C>Package.swift</C>. It needs iOS
-            17, macOS 14, visionOS 1, tvOS 17 or watchOS 10.
+            17, macOS 14, visionOS 1, tvOS 17 or watchOS 10. Versions are git tags; before 1.0 a minor bump can break, so pin to the
+            minor version.
           </P>
           <CodeBlock
             title="Package.swift"
-            code={`.package(url: "${site.github}", branch: "main")
+            code={`.package(url: "${site.github}", .upToNextMinor(from: "0.1.0"))
 
 // in your target:
 .product(name: "JuncoUI", package: "junco")`}
