@@ -3,7 +3,7 @@
 Junco's design tokens and SwiftUI styles for iOS 17+, macOS 14+, visionOS, tvOS and watchOS. Same tokens as the web, so native apps match the site. Early preview.
 
 ```swift
-.package(url: "https://github.com/tobibytes/junco", branch: "main")
+.package(url: "https://github.com/tobibytes/junco", .upToNextMinor(from: "0.1.0"))
 // target dependency:
 .product(name: "JuncoUI", package: "junco")
 ```
@@ -25,6 +25,10 @@ Text("Hi").foregroundStyle(Color.junco.mutedForeground)
 | --- | --- |
 | `JuncoTokens` | Plain Swift values (colors light + dark, spacing, radius, type, motion). No UI framework, builds on Linux. |
 | `JuncoUI` | SwiftUI `Color.junco.*`, `Font.junco(...)`, motion helpers, button / text field / toggle styles, `JuncoField`, `JuncoBadge`, `JuncoCard`, `.juncoSheet` / `JuncoSheetPanel`, `JuncoTabs`, `JuncoListRow`, `JuncoDivider`, `.juncoFocusRing`. |
+
+## Versions
+
+Releases are plain git tags (`0.1.0`, `0.1.1`, ...), separate from the npm versions. Before 1.0 a minor bump can break, so pin with `.upToNextMinor(from:)`. To release, see [docs/releasing.md](../../docs/releasing.md#swift).
 
 ## Working on it
 
