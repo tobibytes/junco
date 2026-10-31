@@ -1,6 +1,6 @@
 {
   "name": "@junco/editor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Junco rich text editor on TipTap: toolbar, slash commands, markdown shortcuts, and real-time collaboration with shared cursors on any Yjs document (Towhee or others).",
   "license": "MIT",
   "author": "Oluwatobi Olajide",
