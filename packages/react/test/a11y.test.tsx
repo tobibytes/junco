@@ -2,6 +2,9 @@ import { act, render } from "@testing-library/react";
 import axe from "axe-core";
 import { describe, expect, it } from "vitest";
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Avatar,
   Badge,
   Button,
@@ -17,8 +20,10 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Progress,
   Separator,
   Skeleton,
+  Slider,
   Spinner,
   Switch,
   Tabs,
@@ -122,6 +127,17 @@ describe("accessibility (axe)", () => {
         <Badge hasDot color="success">Paid</Badge>
         <Kbd>K</Kbd>
         <Spinner />
+        <Progress value={40} aria-label="Upload" />
+        <Progress aria-label="Syncing" />
+        <Slider defaultValue={[30]} aria-label="Volume" />
+        <Slider defaultValue={[10, 40]} thumbLabels={["Minimum", "Maximum"]} />
+        <Field label="Daily goal">
+          <Slider defaultValue={[20]} />
+        </Field>
+        <Alert color="danger" icon={<svg />}>
+          <AlertTitle>Couldn't read this file</AlertTitle>
+          <AlertDescription>Try uploading it again.</AlertDescription>
+        </Alert>
         <Skeleton className="h-4 w-20" />
         <Separator />
         <Avatar name="Ada Lovelace" />

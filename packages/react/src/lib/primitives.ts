@@ -11,6 +11,7 @@ export * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 export * as PopoverPrimitive from "@radix-ui/react-popover";
 export * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 export * as SelectPrimitive from "@radix-ui/react-select";
+export * as SliderPrimitive from "@radix-ui/react-slider";
 export * as SwitchPrimitive from "@radix-ui/react-switch";
 export * as TabsPrimitive from "@radix-ui/react-tabs";
 export * as TooltipPrimitive from "@radix-ui/react-tooltip";

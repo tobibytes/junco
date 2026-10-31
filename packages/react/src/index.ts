@@ -1,5 +1,6 @@
 export { cn } from "./lib/cn";
 
+export { Alert, AlertDescription, AlertTitle, alertVariants, type AlertProps } from "./components/alert";
 export { Avatar, avatarVariants, initials, type AvatarProps } from "./components/avatar";
 export { Badge, badgeVariants, type BadgeProps } from "./components/badge";
 export { Button, buttonVariants, type ButtonProps } from "./components/button";
@@ -23,6 +24,8 @@ export {
   type SelectTriggerProps,
 } from "./components/select";
 export { Separator, type SeparatorProps } from "./components/separator";
+export { Slider, sliderVariants, type SliderProps } from "./components/slider";
+export { Progress, progressVariants, type ProgressProps } from "./components/progress";
 export { Skeleton, type SkeletonProps } from "./components/skeleton";
 export { Spinner, spinnerVariants, type SpinnerProps } from "./components/spinner";
 export { Switch, switchVariants, type SwitchProps } from "./components/switch";
