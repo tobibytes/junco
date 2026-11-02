@@ -25,7 +25,7 @@
     "swift:tokens": "node scripts/build-swift-tokens.ts"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.5.15",
+    "@biomejs/biome": "2.6.4",
     "@changesets/cli": "^2.27.0",
     "@tailwindcss/cli": "4",
     "tailwindcss": "4",
