@@ -92,7 +92,7 @@
     }
   },
   "devDependencies": {
-    "@hookform/resolvers": "^6.0.0",
+    "@hookform/resolvers": "^6.0.2",
     "@tanstack/react-table": "^8.21.3",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
