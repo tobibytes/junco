@@ -14,8 +14,8 @@ export const textareaVariants = tv({
   ],
   variants: {
     size: {
-      sm: "min-h-16 rounded-control px-2.5 py-1.5 text-[13px]",
-      md: "min-h-20 px-3 py-2 text-sm",
+      sm: "min-h-16 rounded-control px-2.5 py-1.5 text-base sm:text-[13px]",
+      md: "min-h-20 px-3 py-2 text-base sm:text-sm",
       lg: "min-h-24 px-3.5 py-2.5 text-base",
     },
     /** Grow with the content (CSS field-sizing; browsers without it keep a fixed height). */

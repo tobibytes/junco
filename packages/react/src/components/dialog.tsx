@@ -44,7 +44,7 @@ DialogOverlay.displayName = "DialogOverlay";
 export const dialogVariants = tv({
   slots: {
     content: [
-      "fixed top-1/2 left-1/2 z-overlay grid max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto",
+      "fixed top-1/2 left-1/2 z-overlay grid max-h-[calc(100dvh-2rem)] w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 overflow-y-auto overscroll-contain",
       "rounded-card border border-border bg-popover p-6 text-popover-foreground shadow-overlay",
       "focus-visible:outline-none",
       "data-[state=open]:animate-pop-in data-[state=closed]:animate-pop-out",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Badge, Button } from "@junco/react";
 import Link from "next/link";
 import { CodeBlock } from "@/components/code-block";
-import { ArrowRightIcon, GithubIcon } from "@/components/icons";
+import { GithubIcon } from "@/components/icons";
 import { createCommand, getTemplates } from "@/lib/templates";
 import { site } from "@/lib/site";
 
@@ -16,16 +16,13 @@ export default function TemplatesPage() {
   const host = new URL(site.url).host;
   return (
     <div className="overflow-x-clip">
-      <section className="hero-glow relative border-b border-border">
-        <div className="mx-auto grid max-w-3xl justify-items-center gap-4 px-4 pt-16 pb-12 text-center sm:pt-24 sm:pb-16">
-          <Badge variant="outline" hasDot color="success" className="animate-rise">
-            {templates.length} templates, free and MIT
-          </Badge>
-          <h1 className="animate-rise text-4xl font-semibold tracking-tighter text-balance sm:text-5xl">Start from a whole app</h1>
-          <p className="animate-rise max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Every page wired up with routing, a sign-in and realistic data. Built only from Junco blocks and pages, so you change it the same way you'd build it.
+      <section className="relative border-b border-border">
+        <div className="animate-rise mx-auto grid max-w-screen-xl justify-items-start gap-4 px-4 pt-16 pb-12 md:px-6 sm:pt-24 sm:pb-16">
+          <h1 className="text-4xl font-semibold tracking-tighter sm:text-5xl">Start from a whole app</h1>
+          <p className="max-w-xl text-base text-muted-foreground sm:text-lg">
+            {templates.length} free templates with every page wired up: routing, a sign-in and realistic data. Built only from Junco blocks and pages, so you change it the same way you'd build it.
           </p>
-          <div className="animate-rise w-full max-w-md text-left">
+          <div className="w-full max-w-md">
             <CodeBlock lang="bash" code={createCommand(templates[0]?.name ?? "saas")} />
           </div>
         </div>
@@ -56,7 +53,7 @@ export default function TemplatesPage() {
                 {t.demo && (
                   <Button asChild size="sm">
                     <a href={t.demo} target="_blank" rel="noreferrer">
-                      Open live demo <ArrowRightIcon className="size-3.5" />
+                      Open live demo
                       <span className="sr-only">(opens in a new tab)</span>
                     </a>
                   </Button>

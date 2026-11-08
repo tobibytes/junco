@@ -2,7 +2,6 @@ import type * as React from "react";
 import { Button, cn } from "@junco/react";
 import { BorderBeam, MagneticButton, Reveal, TextReveal, Typewriter } from "@junco/motion";
 import { defaultPrimaryAction, defaultSecondaryAction } from "./content";
-import { ArrowRightIcon } from "./icons";
 import { Container, type Action } from "./layout";
 import { MarketingLink } from "./link";
 import { ProductMock } from "./product-mock";
@@ -53,7 +52,6 @@ function Announcement({ label, href, tag = "New" }: { label: string; href: strin
     >
       <span className="rounded-pill bg-primary px-2 py-0.5 text-xs font-medium text-primary-foreground">{tag}</span>
       {label}
-      <ArrowRightIcon className="size-3.5 transition-transform duration-fast ease-standard group-hover:translate-x-0.5" />
     </MarketingLink>
   );
 }
@@ -85,14 +83,12 @@ export function Hero({
           <MagneticButton asChild size="lg" className="rounded-pill px-6">
             <MarketingLink href={primaryAction.href}>
               {primaryAction.label}
-              <ArrowRightIcon className="size-4" />
             </MarketingLink>
           </MagneticButton>
         ) : (
           <Button asChild size="lg">
             <MarketingLink href={primaryAction.href}>
               {primaryAction.label}
-              <ArrowRightIcon className="size-4" />
             </MarketingLink>
           </Button>
         ))}

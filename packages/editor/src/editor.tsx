@@ -123,7 +123,7 @@ export function Editor({
   }, [editor, editable]);
 
   return (
-    <div className={cn("grid overflow-hidden rounded-card border border-border bg-surface", className, classNames?.root)}>
+    <div className={cn("grid overflow-hidden rounded-card border border-border bg-surface", toolbar && editable && "grid-rows-[auto_1fr]", className, classNames?.root)}>
       {toolbar && editor && editable && <Toolbar editor={editor} className={classNames?.toolbar} />}
       <EditorContent editor={editor} className={cn(proseClasses, classNames?.content)} />
       {editor && editable && <SlashMenu editor={editor} commands={slashCommands} />}

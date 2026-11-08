@@ -5,7 +5,6 @@ import Link from "next/link";
 import * as React from "react";
 import { cn } from "@/lib/cn";
 import { blockCategories, blocks, type BlockCategory } from "@/content/blocks/catalog";
-import { ArrowRightIcon } from "../icons";
 import { BlockThumb } from "./block-thumb";
 
 type Filter = "all" | BlockCategory;
@@ -69,7 +68,6 @@ export function BlockGallery() {
                       </span>
                       <span className="line-clamp-2 text-sm text-muted-foreground">{b.description}</span>
                     </div>
-                    <ArrowRightIcon className="mt-0.5 shrink-0 text-muted-foreground transition-transform duration-fast ease-standard group-hover:translate-x-0.5 group-hover:text-foreground" />
                   </div>
                 </Link>
               </li>

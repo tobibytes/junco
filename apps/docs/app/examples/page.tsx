@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Badge, Button } from "@junco/react";
 import Link from "next/link";
-import { ArrowRightIcon, GithubIcon } from "@/components/icons";
+import { GithubIcon } from "@/components/icons";
 import { BrowserShot } from "@/components/examples/shot";
 import { demoHost, getExamples } from "@/lib/examples";
 import { site } from "@/lib/site";
@@ -15,16 +15,13 @@ export default function ExamplesPage() {
   const examples = getExamples();
   return (
     <div className="overflow-x-clip">
-      <section className="hero-glow relative border-b border-border">
-        <div className="mx-auto grid max-w-3xl justify-items-center gap-4 px-4 pt-16 pb-12 text-center sm:pt-24 sm:pb-16">
-          <Badge variant="outline" hasDot color="success" className="animate-rise">
-            {examples.length} projects, all open source
-          </Badge>
-          <h1 className="animate-rise text-4xl font-semibold tracking-tighter text-balance sm:text-5xl">
+      <section className="relative border-b border-border">
+        <div className="animate-rise mx-auto grid max-w-screen-xl justify-items-start gap-4 px-4 pt-16 pb-12 md:px-6 sm:pt-24 sm:pb-16">
+          <h1 className="text-4xl font-semibold tracking-tighter sm:text-5xl">
             Built with Junco
           </h1>
-          <p className="animate-rise max-w-xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Complete projects made only from Junco. Open a demo, then see how it's built.
+          <p className="max-w-xl text-base text-muted-foreground sm:text-lg">
+            {examples.length} complete projects made only from Junco, all open source. Open a demo, then see how it's built.
           </p>
         </div>
       </section>
@@ -67,7 +64,7 @@ export default function ExamplesPage() {
                 {ex.demo && (
                   <Button asChild size="sm">
                     <a href={ex.demo} target="_blank" rel="noreferrer">
-                      Live demo <ArrowRightIcon className="size-3.5" />
+                      Live demo
                       <span className="sr-only">(opens in a new tab)</span>
                     </a>
                   </Button>
