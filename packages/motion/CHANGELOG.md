@@ -1,5 +1,12 @@
 # @junco/motion
 
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies [d9cb0bb]
+  - @junco/react@0.3.1
+
 ## 0.1.6
 
 ### Patch Changes
