@@ -66,8 +66,8 @@ importers:
         specifier: ^8.21.3
         version: 8.21.3(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@towhee/client':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -3031,11 +3031,11 @@ packages:
       y-protocols: ^1.0.1
       yjs: ^13.6.13
 
-  '@towhee/client@0.1.1':
-    resolution: {integrity: sha512-7BMMUV9irF6TECK72uAxYg/JW94ovh4+7+PB9tsj1ahc1g2W2bO+3ogx18GC2e9LOsU7kCxTkO1H6U2ckTXI1A==}
+  '@towhee/client@0.1.2':
+    resolution: {integrity: sha512-WSFRe/3amF9VQyCrQR3CGFFrejeVRWU66JURuz7CPAZ2AwL41i8CEsUGtlMRR7ArEf0uxloPVKSxIqjmPcVjqg==}
 
-  '@towhee/protocol@0.1.1':
-    resolution: {integrity: sha512-lNpAkcyn9Eq9aeW5SNO1/ME5Y+5d88L8YXNBOR12Lx/DOOLRTDo6peKqQGxOaEwTzIJ2fWWyudi35tWmOrgjWA==}
+  '@towhee/protocol@0.2.0':
+    resolution: {integrity: sha512-zpWTVwG0x76BdEeTUGhI4szwCzsKiHVntSsy5oBnPgWQaYt4hIspBwk95TugSkRNaZTZATsi0njDaxD/BP8agA==}
 
   '@turbo/darwin-64@2.11.10':
     resolution: {integrity: sha512-By4idRap5+nLnMuRzLB4qkOPRlvNdyY1ne4VJYDyUoUB11H94k7uif9mbe3JT8JSNXs1D68uMcBj6hJ/jMQRvA==}
@@ -6743,14 +6743,14 @@ snapshots:
       y-protocols: 1.0.7(yjs@13.6.33)
       yjs: 13.6.33
 
-  '@towhee/client@0.1.1':
+  '@towhee/client@0.1.2':
     dependencies:
-      '@towhee/protocol': 0.1.1
+      '@towhee/protocol': 0.2.0
       lib0: 0.2.119
       y-protocols: 1.0.7(yjs@13.6.33)
       yjs: 13.6.33
 
-  '@towhee/protocol@0.1.1': {}
+  '@towhee/protocol@0.2.0': {}
 
   '@turbo/darwin-64@2.11.10':
     optional: true
