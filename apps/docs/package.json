@@ -13,7 +13,7 @@
     "deploy": "wrangler pages deploy out --project-name junco-docs"
   },
   "dependencies": {
-    "@hookform/resolvers": "^6.0.0",
+    "@hookform/resolvers": "^6.0.2",
     "@junco/blocks": "workspace:*",
     "@junco/collab": "workspace:*",
     "@junco/editor": "workspace:*",
