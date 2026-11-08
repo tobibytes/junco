@@ -1,53 +1,37 @@
 import { Button } from "@junco/react";
 import Link from "next/link";
 import { Beyond } from "@/components/home/beyond";
-import { HeroAccent } from "@/components/home/hero-accent";
 import { InstallCommand } from "@/components/home/install-command";
 import { Levels } from "@/components/home/levels";
 import { Showcase } from "@/components/home/showcase";
-import {
-  ArrowRightIcon,
-  BotIcon,
-  HalfCircleIcon,
-  HeartIcon,
-  PhoneIcon,
-  RefreshIcon,
-  ShieldIcon,
-} from "@/components/icons";
 import { components } from "@/content/components";
 import { BrowserShot } from "@/components/examples/shot";
 import { getExamples } from "@/lib/examples";
 import { site } from "@/lib/site";
 
-const features: { icon: (p: React.SVGProps<SVGSVGElement>) => React.ReactNode; title: string; body: string; href?: string }[] = [
+const features: { title: string; body: string; href?: string }[] = [
   {
-    icon: ShieldIcon,
     title: "Accessible by default",
     body: "WAI-ARIA keyboard patterns, axe in CI, 4.5:1 contrast tested on every token pair.",
   },
   {
-    icon: RefreshIcon,
     title: "Copied code that updates",
     body: "Own the source, then pull fixes with junco update. Your edits survive.",
   },
   {
-    icon: HalfCircleIcon,
     title: "One variable themes it",
     body: "Change --primary and everything follows, light and dark.",
   },
   {
-    icon: PhoneIcon,
     title: "Native SwiftUI",
     body: "The same tokens in Swift, with SwiftUI styles. iOS and Mac apps match the web.",
     href: "/docs/swiftui/",
   },
   {
-    icon: BotIcon,
     title: "Built for agents",
     body: "MCP server, llms.txt and a shadcn-compatible registry.",
   },
   {
-    icon: HeartIcon,
     title: "Free. All of it.",
     body: "MIT. No pro tier, no license keys.",
   },
@@ -56,43 +40,34 @@ const features: { icon: (p: React.SVGProps<SVGSVGElement>) => React.ReactNode; t
 export default function Home() {
   return (
     <div className="overflow-x-clip">
-      {/* Hero */}
-      <section className="hero-glow relative border-b border-border">
-        <div className="mx-auto grid max-w-5xl justify-items-center gap-6 px-4 pt-20 pb-16 text-center sm:pt-28 sm:pb-20">
-          <a
-            href={site.github}
-            rel="noreferrer"
-            className="animate-rise inline-flex items-center gap-2 rounded-pill border border-border bg-surface py-1 pr-2.5 pl-3 text-xs text-muted-foreground transition-colors duration-fast hover:text-foreground"
-          >
-            <span className="size-1.5 rounded-pill bg-success" aria-hidden />
-            Free and open source, MIT
-            <ArrowRightIcon width={12} height={12} />
-          </a>
-          <h1 className="animate-rise text-4xl font-semibold tracking-tighter text-balance sm:text-6xl sm:leading-[1.05]">
-            One design system.
-            <br />
-            <span className="text-muted-foreground">Four ways to use it.</span>
-          </h1>
-          <p className="animate-rise max-w-2xl text-base text-pretty text-muted-foreground sm:text-lg">
-            Tokens, components and pages for React, Tailwind v4 and SwiftUI. CSS classes, utilities, copy-in or npm, all on
-            the same tokens.
-          </p>
-          <div className="animate-rise flex flex-wrap justify-center gap-3">
-            <Button asChild size="lg">
-              <Link href="/docs/installation/">
-                Get started <ArrowRightIcon />
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/examples/">See examples</Link>
-            </Button>
+      {/* Hero: the product itself is the picture */}
+      <section className="border-b border-border">
+        <div className="animate-rise mx-auto grid max-w-screen-xl items-center gap-12 px-4 pt-16 pb-20 md:px-6 lg:grid-cols-[1fr_1.15fr] lg:gap-16 lg:pt-24 lg:pb-28">
+          <div className="grid justify-items-start gap-6">
+            <h1 className="text-4xl font-semibold tracking-tighter sm:text-5xl lg:text-6xl lg:leading-[1.05]">
+              One design system, four ways to use it.
+            </h1>
+            <p className="max-w-xl text-base text-muted-foreground sm:text-lg">
+              Tokens, components and whole pages for React, Tailwind v4 and SwiftUI. Use CSS classes, utilities, copied
+              source or npm, and they all read the same tokens. Free and{" "}
+              <a href={site.github} rel="noreferrer" className="text-foreground underline underline-offset-4 hover:no-underline">
+                open source
+              </a>
+              .
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button asChild size="lg">
+                <Link href="/docs/installation/">Get started</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link href="/components/">Browse components</Link>
+              </Button>
+            </div>
+            <div className="max-w-full overflow-x-auto">
+              <InstallCommand command="npm i @junco/react @junco/tailwind" />
+            </div>
           </div>
-          <div className="animate-rise max-w-full overflow-x-auto">
-            <InstallCommand command="npm i @junco/react @junco/tailwind" />
-          </div>
-          <div className="animate-rise pt-2">
-            <HeroAccent />
-          </div>
+          <Levels />
         </div>
       </section>
 
@@ -103,19 +78,18 @@ export default function Home() {
             <h2 id="built-with" className="text-2xl font-semibold tracking-tight sm:text-3xl">
               Built with Junco.
             </h2>
-            <p className="text-muted-foreground">
-              Four complete projects, live.
-            </p>
+            <p className="text-muted-foreground">Complete projects, all live, all open source.</p>
           </div>
           <Button asChild variant="outline">
             <Link href="/examples/">
-              All examples <ArrowRightIcon />
+              All examples
             </Link>
           </Button>
         </div>
-        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {getExamples().map((ex) => (
-            <li key={ex.slug}>
+        <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
+          {getExamples().map((ex, i, all) => (
+            // Two wide, then three: no lone card on the last row (falls back to equal columns for other counts).
+            <li key={ex.slug} className={all.length === 5 ? (i < 2 ? "lg:col-span-3" : "lg:col-span-2") : "lg:col-span-2"}>
               <Link
                 href={`/examples/${ex.slug}/`}
                 className="group grid gap-3 rounded-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
@@ -127,19 +101,6 @@ export default function Home() {
             </li>
           ))}
         </ul>
-      </section>
-
-      {/* Four levels */}
-      <section aria-labelledby="levels" className="mx-auto grid max-w-screen-xl gap-8 px-4 py-20 md:px-6">
-        <div className="grid max-w-2xl gap-3">
-          <h2 id="levels" className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Start simple. Go deeper when you need to.
-          </h2>
-          <p className="text-muted-foreground">
-            The same button, four ways. Same tokens, so they always match.
-          </p>
-        </div>
-        <Levels />
       </section>
 
       {/* Showcase */}
@@ -154,8 +115,8 @@ export default function Home() {
                 All live. Try the form, then pick an accent and watch the site follow.
               </p>
             </div>
-            <Link href="/components/" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline underline-offset-4">
-              All {components.length} components <ArrowRightIcon width={14} height={14} />
+            <Link href="/components/" className="text-sm font-medium underline underline-offset-4 hover:no-underline">
+              All {components.length} components
             </Link>
           </div>
           <Showcase />
@@ -181,12 +142,9 @@ export default function Home() {
           The parts other libraries leave out.
         </h2>
         <div className="grid gap-px overflow-hidden rounded-card border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {features.map(({ icon: Icon, title, body, href }) => (
-            <div key={title} className="relative grid content-start gap-3 bg-card p-6">
-              <span className="grid size-9 place-items-center rounded-control border border-border bg-surface text-foreground">
-                <Icon />
-              </span>
-              <h3 className="text-sm font-medium">
+          {features.map(({ title, body, href }) => (
+            <div key={title} className="relative grid content-start gap-2 bg-card p-6">
+              <h3 className="font-medium">
                 {href ? (
                   <Link href={href} className="rounded-xs after:absolute after:inset-0 hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
                     {title}

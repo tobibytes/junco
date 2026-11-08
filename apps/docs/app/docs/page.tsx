@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Pager } from "@/components/docs/pager";
 import { C, DocHeader, Note, P, Section } from "@/components/docs/prose";
-import { ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Introduction",
@@ -34,7 +33,6 @@ export default function IntroPage() {
             >
               <span className="flex items-center justify-between text-sm font-medium">
                 {card.title}
-                <ArrowRightIcon className="text-muted-foreground transition-transform duration-fast group-hover:translate-x-0.5" />
               </span>
               <span className="text-sm text-muted-foreground">{card.body}</span>
             </Link>

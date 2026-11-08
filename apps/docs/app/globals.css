@@ -62,12 +62,6 @@
   background-size: 16px 16px;
 }
 
-/* Hero glow: a soft wash of the accent, so it re-tints when the accent changes. */
-.hero-glow {
-  background:
-    radial-gradient(60% 50% at 50% 0%, color-mix(in oklch, var(--primary) 16%, transparent), transparent 70%);
-}
-
 dialog::backdrop {
   background: oklch(0 0 0 / 0.4);
   backdrop-filter: blur(2px);

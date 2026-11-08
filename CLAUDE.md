@@ -59,6 +59,16 @@ The full product plan is in `docs/PLAN.md`. The phase checklists are in `docs/RO
 - Motion uses the motion tokens, and the global `data-motion="off|subtle|full"` attribute plus `prefers-reduced-motion` turn it down or off.
 - Every component gets a test, a docs page and a semantic-class version where that makes sense (pure CSS can't do dialogs or menus, and that's fine).
 
+**Interface details** (from Vercel's Web Interface Guidelines and Anthropic's frontend-design skill)
+- Fields are 16px on phones (`text-base sm:text-sm`) so iOS doesn't zoom. Never disable zoom or paste.
+- Transition named properties (`transition-colors`, `transition-[opacity,transform]`), never `transition-all`. Animate transform and opacity, not size or position.
+- Hit targets are at least 24px (44px for primary touch controls). Scroll inside overlays uses `overscroll-contain`.
+- Loading keeps the label ("Saving…" or spinner + original text). Use "…", not "...". Numbers that get compared use `tabular-nums`.
+- Links navigate (`<a>`/`Link`), buttons act. Every icon-only control has an aria-label. Toasts and inline errors are polite live regions.
+- Destructive actions confirm or offer Undo. Every empty or error state says what to do next.
+- Avoid template tells: arrows on every button, pill "eyebrow" badges, tracked all-caps labels, an icon tile on every card, fade-up on every section. Spend the boldness in one place.
+- Copy is sentence case, active voice, from the user's side; the button verb matches the toast ("Publish" → "Published").
+
 **Pages and templates**
 - Pages are built only from Junco blocks and components.
 - Every page takes typed data props and falls back to realistic fake data.

@@ -177,6 +177,11 @@
     -webkit-font-smoothing: antialiased;
   }
   :focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+  /* Taps act at once (no double-tap zoom wait) and skip the grey flash; the hover and active styles show the press. */
+  html { -webkit-tap-highlight-color: transparent; }
+  :where(a, button, input, select, textarea, label, summary, [role="button"]) { touch-action: manipulation; }
+  :where(h1, h2, h3, h4) { text-wrap: balance; }
+  :where(p, li, dd, figcaption) { text-wrap: pretty; }
 }
 
 

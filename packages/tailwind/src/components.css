@@ -195,6 +195,11 @@
   .select:disabled { opacity: 0.5; cursor: not-allowed; }
   .select[aria-invalid="true"] { border-color: var(--destructive); }
 
+  /* iOS Safari zooms into fields under 16px: phones get 16px, wider screens keep the design size. */
+  @media (max-width: 39.99rem) {
+    .input, .input-sm, .textarea, .select { font-size: var(--text-base); }
+  }
+
   /* Checkbox and radio (native inputs) ------------------------------------ */
   .checkbox, .radio {
     appearance: none; display: inline-grid; place-content: center; flex-shrink: 0; margin: 0;

@@ -2,7 +2,6 @@ import type * as React from "react";
 import { Button, cn } from "@junco/react";
 import { BorderBeam, Reveal } from "@junco/motion";
 import { defaultPrimaryAction, defaultSecondaryAction } from "./content";
-import { ArrowRightIcon } from "./icons";
 import { Container, Section, type Action } from "./layout";
 import { MarketingLink } from "./link";
 
@@ -37,7 +36,6 @@ export function CtaSection({
         <Button asChild size="lg">
           <MarketingLink href={primaryAction.href}>
             {primaryAction.label}
-            <ArrowRightIcon className="size-4" />
           </MarketingLink>
         </Button>
       )}

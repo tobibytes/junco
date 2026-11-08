@@ -3,7 +3,7 @@ import { Badge, Button } from "@junco/react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CodeBlock } from "@/components/code-block";
-import { ArrowRightIcon, GithubIcon } from "@/components/icons";
+import { GithubIcon } from "@/components/icons";
 import { BrowserShot, PhoneShot } from "@/components/examples/shot";
 import { demoHost, getExample, getExamples } from "@/lib/examples";
 import { site } from "@/lib/site";
@@ -34,7 +34,7 @@ export default async function ExamplePage({ params }: { params: Promise<{ slug: 
 
   return (
     <div className="overflow-x-clip">
-      <section className="hero-glow relative border-b border-border">
+      <section className="relative border-b border-border">
         <div className="mx-auto grid max-w-screen-xl gap-10 px-4 pt-10 pb-12 md:px-6 sm:pt-14">
           <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
             <Link href="/examples/" className="rounded-xs hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
@@ -68,7 +68,7 @@ export default async function ExamplePage({ params }: { params: Promise<{ slug: 
               {ex.demo && (
                 <Button asChild>
                   <a href={ex.demo} target="_blank" rel="noreferrer">
-                    Open live demo <ArrowRightIcon className="size-4" />
+                    Open live demo
                     <span className="sr-only">(opens in a new tab)</span>
                   </a>
                 </Button>

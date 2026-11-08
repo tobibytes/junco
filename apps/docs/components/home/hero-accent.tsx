@@ -7,9 +7,9 @@ import { AccentSwatches } from "../accent-picker";
 export function HeroAccent() {
   const { touched } = useSiteAccent();
   return (
-    <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
       <span className="text-sm text-muted-foreground">Try a color</span>
-      <AccentSwatches size="sm" className="justify-center" />
+      <AccentSwatches size="sm" />
       <button
         type="button"
         onClick={() => setSiteAccent(null)}

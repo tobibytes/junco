@@ -4,18 +4,15 @@ import { Marquee, NumberTicker } from "@junco/motion";
 import { StaticGradient, TiltCard } from "@junco/three";
 import Link from "next/link";
 import { BlockThumb } from "../blocks/block-thumb";
-import { ArrowRightIcon, CubeIcon, LayoutIcon, SparklesIcon } from "../icons";
 
 function Card({
   href,
-  icon,
   eyebrow,
   title,
   body,
   children,
 }: {
   href: string;
-  icon: React.ReactNode;
   eyebrow: string;
   title: string;
   body: string;
@@ -28,14 +25,8 @@ function Card({
     >
       <div className="relative border-b border-border">{children}</div>
       <div className="grid gap-1.5 p-5">
-        <span className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-          {icon}
-          {eyebrow}
-        </span>
-        <span className="flex items-center justify-between gap-2 text-base font-semibold tracking-tight">
-          {title}
-          <ArrowRightIcon className="shrink-0 text-muted-foreground transition-transform duration-fast ease-standard group-hover:translate-x-0.5 group-hover:text-foreground" />
-        </span>
+        <span className="font-mono text-xs text-muted-foreground">{eyebrow}</span>
+        <span className="text-base font-semibold tracking-tight group-hover:underline group-hover:underline-offset-4">{title}</span>
         <span className="text-sm text-muted-foreground">{body}</span>
       </div>
     </Link>
@@ -48,7 +39,6 @@ export function Beyond() {
     <div className="grid gap-5 lg:grid-cols-3">
       <Card
         href="/blocks/"
-        icon={<LayoutIcon width={14} height={14} />}
         eyebrow="@junco/blocks"
         title="Blocks and pages"
         body="Landing, pricing, dashboards, settings and auth. Typed props, fake data, variants and slots."
@@ -57,7 +47,6 @@ export function Beyond() {
       </Card>
       <Card
         href="/motion/"
-        icon={<SparklesIcon width={14} height={14} />}
         eyebrow="@junco/motion"
         title="Motion"
         body="Reveal, tickers, marquees, spotlights and beams, all on one motion switch."
@@ -86,7 +75,6 @@ export function Beyond() {
       </Card>
       <Card
         href="/3d/"
-        icon={<CubeIcon width={14} height={14} />}
         eyebrow="@junco/three"
         title="3D"
         body="Shader gradients, particles, a globe and a model viewer. Lazy, theme aware, with fallbacks."

@@ -48,7 +48,7 @@ export const SheetClose = DialogPrimitive.Close;
 export const sheetVariants = tv({
   slots: {
     content: [
-      "fixed z-overlay flex flex-col gap-4 overflow-y-auto border-border bg-popover p-6 text-popover-foreground shadow-overlay",
+      "fixed z-overlay flex flex-col gap-4 overflow-y-auto overscroll-contain border-border bg-popover p-6 text-popover-foreground shadow-overlay",
       "focus-visible:outline-none",
       "data-[state=open]:animate-slide-in data-[state=closed]:animate-slide-out",
     ],

@@ -11,6 +11,7 @@
 :root,
 .light,
 [data-theme="light"] {
+  color-scheme: light;
   /* surfaces */
   --background: oklch(0.985 0 0);
   --foreground: oklch(0.18 0 0);
@@ -123,6 +124,7 @@
 
 .dark,
 [data-theme="dark"] {
+  color-scheme: dark;
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.96 0 0);
   --surface: oklch(0.18 0 0);

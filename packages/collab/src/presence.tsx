@@ -10,8 +10,14 @@ function uniqueUsers(users: CollabUser[]): CollabUser[] {
   return users.filter((u) => !seen.has(u.id) && seen.add(u.id));
 }
 
-/** A ring in the person's color, drawn around their avatar. */
-const ring = (color?: string): React.CSSProperties => ({ boxShadow: `0 0 0 2px var(--background), 0 0 0 4px ${color ?? "var(--border)"}` });
+/**
+ * A ring in the person's color. It's drawn inside the avatar (on top, so photos don't hide it) with a thin cut-out
+ * outside, so overlapping neighbours never cover each other's initials.
+ */
+const ring = (color?: string): React.CSSProperties =>
+  ({ "--presence": color ?? "var(--border)", boxShadow: "0 0 0 2px var(--background)" }) as React.CSSProperties;
+const ringClass =
+  "relative rounded-pill after:pointer-events-none after:absolute after:inset-0 after:rounded-pill after:shadow-[inset_0_0_0_2px_var(--presence)]";
 
 export interface AvatarStackProps {
   /** Who to show. Default: you and everyone in the room (from `CollabProvider`), or sample people. */
@@ -34,11 +40,11 @@ export function AvatarStack({ users, selfId, max = 4, size = "sm", className }: 
   const rest = list.length - shown.length;
   return (
     <div className={cn("flex items-center", className)}>
-      <ul className="flex items-center -space-x-1.5" aria-label={list.length === 1 ? "1 person here" : `${list.length} people here`}>
+      <ul className={cn("flex items-center", size === "xs" ? "-space-x-0.5" : "-space-x-1")} aria-label={list.length === 1 ? "1 person here" : `${list.length} people here`}>
         {shown.map((u) => {
           const label = u.id === me ? `${u.name} (you)` : u.name;
           return (
-            <li key={u.id} className="animate-pop-in rounded-pill" style={ring(u.color)}>
+            <li key={u.id} className={cn("animate-pop-in", ringClass)} style={ring(u.color)}>
               <Tooltip content={label}>
                 <span className="block rounded-pill" tabIndex={0} aria-label={label}>
                   <Avatar name={u.name} src={u.avatar} size={size} />

@@ -15,8 +15,8 @@ export const inputVariants = tv({
   ],
   variants: {
     size: {
-      sm: "h-8 rounded-control px-2.5 text-[13px]",
-      md: "h-9 rounded-card px-3 text-sm",
+      sm: "h-8 rounded-control px-2.5 text-base sm:text-[13px]",
+      md: "h-9 rounded-card px-3 text-base sm:text-sm",
       lg: "h-11 rounded-card px-3.5 text-base",
     },
   },

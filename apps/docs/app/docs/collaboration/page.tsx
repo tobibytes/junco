@@ -6,7 +6,6 @@ import { Pager } from "@/components/docs/pager";
 import { C, DataTable, DocHeader, Note, P, Section } from "@/components/docs/prose";
 import { CollabPiece, CollabPlayground } from "@/components/docs/collab-demo";
 import { BrowserShot } from "@/components/examples/shot";
-import { ArrowRightIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Realtime collaboration",
@@ -87,7 +86,7 @@ export default function CollaborationPage() {
         <div className="flex flex-wrap gap-2">
           <Button asChild size="sm">
             <a href={`${TOWHEE}/demo`} target="_blank" rel="noreferrer">
-              Try the live board <ArrowRightIcon className="size-3.5" />
+              Try the live board
               <span className="sr-only">(opens in a new tab)</span>
             </a>
           </Button>
