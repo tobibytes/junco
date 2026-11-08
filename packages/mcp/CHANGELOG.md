@@ -1,5 +1,12 @@
 # @junco/mcp
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [d9cb0bb]
+  - @junco/tokens@0.4.1
+
 ## 0.2.1
 
 ### Patch Changes
