@@ -12,8 +12,8 @@
     "@junco/tailwind": "workspace:*"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.0.0",
-    "tailwindcss": "^4.0.0",
+    "@tailwindcss/vite": "^4.3.4",
+    "tailwindcss": "^4.3.4",
     "vite": "^7.0.0"
   }
 }
